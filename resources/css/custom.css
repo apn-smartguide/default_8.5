@@ -1,0 +1,123 @@
+/* Place your Bootstrap and SmartGuide overwrites here as well as any custom classes */
+/* General properties */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+body {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.846;
+    color: #666666;
+    background-color: #ffffff;
+}
+/* Tooltip and popover */
+.tooltip, .popover {
+	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* Navigation bar */
+.navbar-inverse {
+	background-color: #2196f3;
+}
+.navbar-inverse .navbar-nav>.active>a, 
+.navbar-inverse .navbar-nav>.active>a:hover, 
+.navbar-inverse .navbar-nav>.active>a:focus {
+    color: #ffffff;
+    background-color: #0c7cd5;
+}
+/* First set of links in top navigation bar */
+.navbar-collapse > ul:first-of-type a {
+	text-transform: uppercase;
+}
+/* Spacing above logo section */
+.page-header {
+	margin: 86px 0 12px;
+	padding-bottom: 0;
+}
+@media (min-width: 768px) {
+	.page-header {
+		margin: 96px 0 23px;
+		padding-bottom: 10px;
+	}
+}
+/* Logo */
+@media (max-width: 768px) {
+	img.logo {
+		max-width: 60%;
+	}
+}
+/* "Online services" text below navigation bar */
+.page-header .pull-right {
+	font-size: 18px;
+}
+/* Smartlet title */
+.page-header h1 {
+	color: #0c7cd5;
+	font-size: 20px;
+	text-align: center;
+	border: 1px solid #ccc; 
+	border-width: 1px 0;
+	margin: 20px 0;
+	padding: 7px;
+}
+@media (min-width: 768px) {
+	.page-header h1 {
+		font-size: 24px;
+		margin: 40px 0;
+	}
+}
+/* Page sections breadcrumb trail */
+.section li p.current {
+	color: white;
+}
+.section li p.current, 
+.section li p.current:after,
+.section li p.before-current:after {
+	background-color: #0c7cd5;
+}
+/* Page title */
+.page-title h2 {
+  color: #0c7cd5;
+  font-size: 20px;
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+	.page-title h2 {
+		font-size: 24px;
+	}
+}
+/* Readonly */
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+	color: #bbb;
+}
+/* Next page button */
+.btn-primary.next {
+  background-color: #0c7cd5;
+}
+.btn-primary.next:hover, 
+.btn-primary.next:active:hover {
+	background-color: #0d87e9;
+}
+
+div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
+    display:none!important;
+}
+
+div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
+    padding-left:15px!important;
+}
+
+div.repeat:not(.grid-view) table {
+border-collapse: collapse!important;
+}
+
+.modal-body {
+    
+/* 100% = dialog height, 120px = header + footer */
+    
+max-height: calc(100vh - 120px);
+    
+overflow-y: auto;
+
+}
+
+.plain-group .panel-body {
+    padding:0px!important;
+}

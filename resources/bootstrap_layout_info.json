@@ -1,0 +1,84 @@
+{
+	"name": "bootstrap",
+	"description":{"en":"Layouts for the Bootstrap framework V3", "fr":"Positionnements pour le cadriciel Bootstrap V3"},
+	"numberofcols": "12",
+	"devices":[
+		{
+			"size":"xs",
+			"label":{"en":"X-small devices (e.g. smartphones)","fr":"Appareils tr&egrave;s petits (ex: smartphones)"}
+		},
+		{
+			"size":"sm",
+			"label":{"en":"Small devices (e.g. tablets)","fr":"Appareils petits (ex: tablettes)"}
+		},
+		{
+			"size":"md",
+			"label":{"en":"Medium devices (e.g. screens &ge; 992px)","fr":"Appareils de taille moyenne (ex: &eacute;crans &ge; 992px)"}
+		},
+		{
+			"size":"lg",
+			"label":{"en":"Large devices (e.g. screens &ge; 1200px)","fr":"Grands appareils (e.g. &eacute;crans &ge; 1200px)"}
+		}
+	],
+	"attributes":[
+		{
+			"attribute":"hidden",
+			"label":"Hide",
+			"tooltip":{"en":"Whether to hide or not this element for the specified size","fr":"Cacher l'&eacute;l&eacute;ment ou non pour la grandeur sp&eacute;cifi&eacute;e"},
+			"values":"visibility",
+			"default":"false",
+			"type":"checkbox",
+			"output": "${value.equals(\"true\")? \"hidden-\" + device : \"\" }$"
+		},
+		{
+			"attribute":"col",
+			"internalattr":"grid_width",
+			"label":"Cols",
+			"tooltip":{"en":"Number of columns taken by this element","fr":"Nombre de colonnes prises par cet &eacute;l&eacute;ment"},
+			"values":"size",
+			"default":"",
+			"type":"dropdown",
+			"output": "col-${device}$-${value}$"
+		},
+		{
+			"attribute":"offset",
+			"label":"Offset",
+			"tooltip":{"en":"Number of columns to leave empty on the left of this element","fr":"Nombre de colonnes &agrave; laisser vide &agrave; la gauche de cet &eacute;l&eacute;ment"},
+			"values":"size",
+			"default":"",
+			"type":"dropdown",
+			"output": "col-${device}$-offset-${value}$"
+		},
+		{
+			"attribute":"push",
+			"label":"Push",
+			"tooltip":{"en":"Number of columns to move this element to the left","fr":"Nombre de colonnes &agrave; d&eacute;placer cet &eacute;l&eacute;ment vers la gauche"},
+			"values":"size",
+			"default":"",
+			"type":"dropdown",
+			"output": "col-${device}$-push-${value}$"
+		},
+		{
+			"attribute":"pull",
+			"label":"Pull",
+			"tooltip":{"en":"Number of columns to move this element to the right","fr":"Nombre de colonnes &agrave; d&eacute;placer cet &eacute;l&eacute;ment vers la droite"},
+			"values":"size",
+			"default":"",
+			"type":"dropdown",
+			"output": "col-${device}$-pull-${value}$"
+		}
+	],
+	"attributesvalues":[
+		{
+			"size":[
+				"","0","1","2","3","4","5","6","7","8","9","10","11","12"
+			]
+		},
+		{
+			"visibility":[
+				"true",
+				"false"
+			]
+		}
+	]
+}

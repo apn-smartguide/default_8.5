@@ -1,0 +1,1 @@
+<% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live="polite"<% } %>

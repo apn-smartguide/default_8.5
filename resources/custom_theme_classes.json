@@ -1,0 +1,19 @@
+{ 
+  "Custom formatting options": {
+    "Label": {
+      "en": "Formatting options for my site", 
+      "fr": "Options de formatage pour mon site"
+    },
+    "Description": {
+      "en": "Apply one or more of the following text formatting options", 
+      "fr": "Appliquer une ou plusieurs des options de formatage de texte suivantes"
+    },
+    "List" : [
+      {
+        "class": "classname",
+        "en": "English description",
+        "fr": "Description française"
+      }
+	]
+  }
+}
