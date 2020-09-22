@@ -1,0 +1,463 @@
+<!-- TODO: Refactor to not dependent of WET Nomenclature -->
+<%@ Page Language="C#" %>
+<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
+<%@ Import Namespace="com.alphinat.sg5.widget.group" %>
+<%@ Import Namespace="Newtonsoft.Json" %>
+<%@ Import Namespace="Newtonsoft.Json.Linq" %>
+<apn:api5 id="sg5" runat="server"/>
+<!-- #include file="../../helpers.aspx" -->
+<apn:control runat="server" id="control">
+<% if (control.Current.getAttribute("visible").Equals("false")) { %>
+<!-- #include file="../hidden.inc" -->
+<% } else { %>
+<script runat="server">
+	// note: datatable implementation uses the WET systax.
+	// https://datatables.net/manual/index
+	//
+	// Make sure to include the smartguide.wet-dataTables.js file in body_footer_core.aspx
+	// Make sure to call it init() and bindEvents() in you custom.js implementation.
+	//
+	// Configuration options available via data-attributes in the designer
+	// Control -> Control -> datatable : using the custom control attribute, will render this repeat using the datatables.aspx, i.e. this file
+	// Datatable -> data-page-length -> [-1, 10 (default), 25, 50, 100] : configures the default page length to use on this datatable.
+	// Datatable -> id -> (value) : inform the datatable of the field to use as the unique id for the entries
+	// Datatable -> data-wb-tables -> settings :
+	// 	static override of the initialization of the datatable options and settings, must be valid JSON, does not support variables.
+	// 	by default, datatables.aspx will generate the initialization setting dynamically, but it is possible to deactivate this and use a static override, note using this mode is not recommended.
+	// 	to implement, add a hidden field on the page, named as the repeat name with the suffix "-data-wb-tables"
+	// Datatable -> data-aopts -> settings :
+	// 	allows to add addiontionnal options supported by WET-datatables
+	// 	to implement, add a hidden field on the page, named as the repeat name with the suffix "-data-aopts"
+	// Configuration of selection options; checkbox (for multi) or radio (for single) is done via the designer
+	// Additional options configurable bia data-attributes below.
+
+	public ISmartletLogger logger() {return sg5.Context.getLogger("datatables.aspx");}
+ 	
+	// Helper method to get a MetaDataValue for this DataTable, will return empty string or value, but not null.
+	public string getMetaDataValue(string meta) {
+		return (control.Current.getMetaDataValue(meta).Equals("")) ? "" : control.Current.getMetaDataValue(meta);
+	}
+
+	// ** Start Styling Bloc **//
+	// Get the Select All CSS Class to apply from data-attribute: Datatable -> select-all-class -> [value]
+	public string getSelectAllCSSClass() { return getMetaDataValue("select-all-class"); }
+
+	// Get the Select All CSS Style to apply from data-attribute: Datatable -> select-all-style -> [value]
+	public string getSelectAllCSSStyle() { return getMetaDataValue("select-all-style"); }
+	 
+	// Get the Select CSS Class to apply from data-attribute: Datatable -> select-class -> [value]
+	public string getSelectCSSClass() { return getMetaDataValue("select-class"); }
+
+	// Get the Select CSS Style to apply from data-attribute: Datatable -> select-style -> [value]
+	public string getSelectCSSStyle() { return getMetaDataValue("select-style"); }
+	// ** End Styling Bloc **//
+
+	public bool isSelectable() {
+		return control.Current.getAttribute("isselectable").Equals("true");
+	}
+
+	public bool serverSide() { return getMetaDataValue("render-mode").Equals("true"); }
+
+	// Obtain the configure RenderMode from data-attribute: Datatable -> RenderMode [Server Side|Client Side]
+	// Note; for server-side paging, you must configure the service that provides the data with the following:
+	// Input [filter] this is a fulltext filtering on all columns displayed that are not flag nonsearcheable
+	// Input [limit] this is the maximum items per page to return.
+	// Example beanshell for this input, adjust [datatable] to whatever your datatable is names ex.: "employees_list"
+	// ${
+	// limit = requestParameter("iDisplayLength");
+	// if (limit == null || limit.equals("")) {
+	//     // fallback on meta if specified
+	//     limit = field([datatable]).meta("data-page-length");
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // otherwise the field specified value if defined
+	//     limit = field([datatable]).getLimit();
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // use default of 10
+	//     limit = 10;
+	// }
+	//return limit;}$
+	//
+	// Input [page] this is the page to load.
+	// Example beanshell for this input, adjust [datatable] to whatever your datatable is names ex.: "employees_list"
+	// ${
+	// limit = requestParameter("iDisplayLength");
+	// if (limit == null || limit.equals("")) {
+	//     // fallback on meta if specified
+	//     limit = field([datatable]).meta("data-page-length");
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // otherwise the field specified value if defined
+	//     limit = field([datatable]).getLimit();
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // use default of 10
+	//     limit = 10;
+	// }
+
+	// start = requestParameter("iDisplayStart");
+	// if (start == null || start.equals("")) {
+	//     // fallback on current page number
+	// 	// which we must multiply by the limit since SG considers a page number instead of item index
+	//     start = NUM(field([datatable]).getCurrentPage()) * NUM(limit);
+	// }
+	// if (start == null || start.equals("")) {
+	//     // default to page 1, so "0" as the starting index
+	//     start = 0;
+	// }
+
+	// page = NUM(start)/NUM(limit) + 1;
+	// return page;}$
+	//	
+	// Output [total] this is the total entries matching the filter (all if no filter).
+	// Actual names of the Inputs may vary depending on you service implementation.
+	private JObject getRenderMode(JObject jOptions) {
+		// check render mode
+		string renderMode = getMetaDataValue("render-mode");
+		if (renderMode != null && renderMode.Equals("true")) {
+			jOptions.Add("serverSide", true);
+			// if server side, must add the ajaxSource
+			// Get the theme/template configured basePath
+			string basePath = (!Context.Items["basePath"].Equals("")) ? basePath = (string)Context.Items["basePath"] : "";
+			// If empty, build one dynamically based on running theme.
+			if (basePath.Equals("")) basePath = HttpContext.Current.Request.ApplicationPath + "/aspx/"+sg5.Smartlet.getWorkspace()+ "/" + sg5.Smartlet.getTheme();;
+			jOptions.Add("ajaxSource",  basePath + "/controls/repeats/datatables-json.aspx?appID=" + sg5.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
+		}
+		return jOptions;
+	}
+
+	// Get any additional parameters defined in data-attributes: Datatable -> Init -> [json]
+	// These are injected as-is into the dynamically build data-wb-tables
+	// Therefore duplicates may occurs, validate by inspecting the data-wb-tables in the browser console.
+	private JObject getInitParameters(JObject jOptions) {
+		// check init parameters
+		string initParams = getMetaDataValue("init");
+		if (!String.IsNullOrEmpty(initParams)) {
+			JObject jInit = JObject.Parse(initParams);
+			// loop entries and append to main options
+			foreach(var pair in jInit) {
+				jOptions.Add(pair.Key, pair.Value);
+			}
+		}
+		return jOptions;
+	}
+
+	// If the "Allow selecting instance with" option is enabled, will add a Column at position 0.
+	// Can support multiple selection using the type "Checkbox" of single selection using the type "Radio".
+	// When in multiple selection mode, an additional Checkbox is presented on top of the column to support the select all mode.
+	// Note: the Select All option only applies to the visible entries on the current page.
+	// It is possible to configure the styling of the Select All and Select option via additional data-attributes. 
+	// Options for these are described above.
+	private JArray getSelectableColumnDef(JArray columns, Dictionary<string, int> fieldNameToId) {
+
+		if(isSelectable()){
+			JArray target = new JArray(0);
+			JObject col = new JObject();
+			col.Add("data","selected");
+			col.Add("targets", target);
+
+			string selectAllCSSClass = getSelectAllCSSClass();
+
+			if(!selectAllCSSClass.Equals("")) {
+				if (selectAllCSSClass.Contains("hide-sort")) {
+					col.Add("orderable", false);
+				}
+				if (selectAllCSSClass.Contains("nonsearchable")) {
+					col.Add("searchable", false);
+				}
+				if (selectAllCSSClass.Contains("hide-from-list-view")) {
+					col.Add("visible", false);
+				}
+				col.Add("className", selectAllCSSClass.Replace("hide-sort","").Replace("nonsearchable","").Replace("hide-from-list-view",""));
+			}
+
+			columns.Add(col);
+			fieldNameToId.Add("selected", 0);
+		}
+
+		return columns;
+	}
+
+	// Will build column definitions out of the fields that are placed in the designer surface.
+	// Assigning the class "hide-sort" to the field, will convert the column to "orderable:false"
+	// Assigning the class "nonsearchable" to the field will remove the column from dataTables search function.
+	// Assigning the class "hide-from-list-view" will mark the column as hidden this supporting search.
+	// Any additionnal CSS Classes defined will be passed to the className attribute.
+	// Note: a field make as never display in the appearance tab will not be rendered.
+	private JObject getColumnDefs(ISmartletGroup defaultGroup, JObject jOptions, Dictionary<string, int> fieldNameToId) {
+		// add array of columns
+		JArray columns = new JArray();
+
+		// counter for columns id
+		int counter = 0;
+		columns = getSelectableColumnDef(columns, fieldNameToId);
+		if(columns.Count > 0) counter++;
+
+		ISmartletField[] fields = defaultGroup.getFields(); 
+
+		for(int i=0;i<fields.Length;i++) {
+			
+			JObject col = new JObject();
+			JArray target = new JArray(counter);
+
+			string cssClass = fields[i].getCSSClass();
+			col.Add("targets", target);
+			col.Add("data",fields[i].getName());
+			if (cssClass.Contains("hide-sort")) {
+				col.Add("orderable", false);
+			}
+			if (cssClass.Contains("nonsearchable")) {
+				col.Add("searchable", false);
+			}
+
+			if (!fields[i].isAvailable() || fields[i].getTypeConst() == 80000 || cssClass.Contains("hide-from-list-view")) {
+				col.Add("visible", false);
+			}
+			
+			col.Add("autoWidth", true);
+
+			string colClass = "";
+			if(cssClass.Contains("hidden-xs")) {
+				colClass = "hidden-xs ";
+			}
+			if(cssClass.Contains("hidden-sm")) {
+				colClass += "hidden-sm ";
+			} 
+			if(cssClass.Contains("hidden-md")) {
+				colClass += "hidden-md ";
+			}
+			if(cssClass.Contains("hidden-lg")) {
+				colClass += "hidden-lg";
+			}
+			if(!colClass.Equals("")) {
+				col.Add("className", colClass);
+			}
+
+			columns.Add(col);
+
+			fieldNameToId.Add(fields[i].getName(), counter);
+
+			counter++;
+		}
+		
+		jOptions.Add("columnDefs", columns);
+
+		return jOptions;
+	}
+
+	// Sort options via the data-attribute: Datatable -> sorts -> [value]
+	// e.g. "order": ["name", "asc"], or "order": [["name", "asc"], ["product_url", "asc"]]
+	// It is possible to set multiple sort by default.
+	// Special consideration, setting a sort on the "select" column will force the display of the sorting widgets.
+	// Use the field name as identifier with a desired direction [asc|desc]
+	private JObject getSorts(ISmartletGroup defaultGroup, JObject jOptions, Dictionary<string, int> fieldNameToId) {
+		logger().debug("Preparing sort options");
+		string sortMeta = getMetaDataValue("sorts");
+		if (!String.IsNullOrEmpty(sortMeta)) {
+			logger().debug("sortMeta: " + sortMeta);
+			JObject jSortMeta = JObject.Parse(sortMeta);
+			// parse and replace field names by their internal id
+			JArray sortCols = (JArray)jSortMeta["order"];
+			JArray finalSortCols = new JArray();
+			foreach(Object sortCol in sortCols) {
+				if (sortCol is JArray) {
+					// means double structure with several columns specified
+					JArray col = (JArray)sortCol;
+					string key = ((JValue)col[0]).Value.ToString();
+					if (fieldNameToId.ContainsKey(key))
+						col[0] = fieldNameToId[key];
+				}
+				if (sortCol is JValue) {
+					string key = ((JValue)sortCol).Value.ToString();
+					if (fieldNameToId.ContainsKey(key))
+						sortCols[0] = fieldNameToId[key];
+					break;
+				}
+			}
+			jOptions.Add("order", sortCols);
+		} else {
+			// fall back on repeat sort field properties, if defined
+			string sort = control.Current.getAttribute("sort");
+			logger().debug("sort attribute: " + sort);
+			if (!String.IsNullOrEmpty(sort)) {
+				// split on "," and iterate
+				string[] sortFields = sort.Split(',');
+				bool bMulti = false;
+				if (sortFields.Length > 1)
+					bMulti = true;
+					
+				JArray sortCols = new JArray();
+
+				foreach(string sortField in sortFields) {
+					string dir = "asc";
+					if (sortField.Trim().StartsWith("-")) {
+						dir = "desc";
+					}
+					string sortFieldId = sortField.Trim().Substring(1);
+					string name = defaultGroup.findFieldById(sortFieldId).getName();
+					
+					if (bMulti) {
+						JArray col = new JArray();
+						if (fieldNameToId.ContainsKey(name)) {
+							col.Add(fieldNameToId[name]);
+							col.Add(dir);
+
+							sortCols.Add(col);
+						}
+					} else {
+						if (fieldNameToId.ContainsKey(name)) {
+							sortCols.Add(fieldNameToId[name]);
+							sortCols.Add(dir);
+						}
+					}
+				}
+				
+				jOptions.Add("order", sortCols);
+			}
+		}
+		return jOptions;
+	}
+
+	// The recommended approach to configuration is to let this script generate the Init options via the designers configurations.
+	// Alternatively, it is possible to provide a static data-wb-tables json configuration via data-attribute: Datatable -> data-wb-tables -> settings
+	// For this you'll need to place a field (hidden), on the designer prefixed with the name of the [dataTableName]-data-wb-tables 
+	// This field must contain valid JSON content.
+	// If such a settings is provided, none of the other configuration options will be enabled.
+	public string getDatatablesInitOptions() {
+
+		// check if data-wb-tables meta exists
+		string datatablesInitOptions = getMetaDataValue("data-wb-tables");
+
+		if (datatablesInitOptions == null || datatablesInitOptions.Length == 0) {
+			JObject jOptions = new JObject();
+			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
+			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg5.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
+
+			jOptions.Add("responsive", true);
+			jOptions.Add("deferRender", true);
+			jOptions = getRenderMode(jOptions);
+			jOptions = getInitParameters(jOptions);
+			jOptions = getColumnDefs(defaultGroup, jOptions, fieldNameToId);
+			jOptions = getSorts(defaultGroup, jOptions, fieldNameToId);
+
+			datatablesInitOptions = jOptions.ToString();
+		}
+
+		return datatablesInitOptions;
+	}
+
+</script>
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %> <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live="polite"<% } %> >
+	<apn:control runat="server" type="repeat-index" id="repeatIndex">
+		<input name="<apn:name runat="server"/>" type="hidden" value="" />
+		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
+	</apn:control>
+	<span><div class="pull-right"><% Server.Execute(resolvePath("/controls/help.aspx")); %></div><apn:label runat="server"/><apn:ifcontrolattribute runat="server" attr='title'><span title="" data-toggle="tooltip" class="<apn:localize runat="server" key="theme.icon.question"/>" data-original-title="<apn:controlattribute runat="server" tohtml='true' attr='title'/>"></span></apn:ifcontrolattribute></span>
+	<table id='<%=control.Current.getCode()%>' class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
+		<apn:control runat="server" type="default-instance" id="headerGroup">
+		<thead>
+			<tr>
+			<% if (isSelectable()) { %>
+				<th>
+					<% if(control.Current.getCSSClass().Contains("select-all") && control.Current.getAttribute("selectiontype").Equals("checkbox")) { %>
+					<input name='select_all' id='<%=control.Current.getCode()%>-select-all' onclick='event.stopPropagation()' value="1" type='checkbox' class='<%=getSelectAllCSSClass()%>'  style='<%=getSelectAllCSSStyle()%>' />
+					<% } %>
+				</th>
+			<% } %>
+			<apn:forEach runat="server" id="thRow">
+				<apn:forEach runat="server" id="thCol">
+					<apn:forEach runat="server" id="thField"> <%-- might be a row or a fied --%>
+					<apn:ChooseControl runat="server">
+						<apn:WhenControl type="ROW" runat="server">
+							<%-- special case where SG generated a row inside a col, and not a field --%>
+							<%-- this needs to be refactored to be more generic --%>
+							<apn:forEach runat="server" id="thRowField">
+								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
+									<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
+										<apn:label runat="server"/>
+									<% } %>
+								</th>
+							</apn:forEach>
+						</apn:WhenControl>
+						<apn:WhenControl type="GROUP" runat="server">
+							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
+						</apn:WhenControl>
+						<apn:Otherwise runat="server">
+							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
+							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
+								<apn:label runat="server"/>
+							<% } %>
+							</th>
+						</apn:Otherwise>
+					</apn:ChooseControl>
+					</apn:forEach>
+				</apn:forEach>
+			</apn:forEach>
+			</tr>
+		</thead>
+		</apn:control>
+		<% if(!serverSide()) { %>
+		<tbody>
+			<apn:forEach runat="server" id="trGroup">
+			<apn:forEach runat="server" id="trRow">
+				<tr>
+					<% if (isSelectable()) { %>
+						<td>
+							<apn:control runat="server" type="select_instance" id="sel">
+								<input type="hidden" name='<apn:name runat="server"/>' value="" />
+								<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+							</apn:control>
+						</td>
+					<% } %>
+					<apn:forEach runat="server" id="trCol">
+						<apn:forEach runat="server" id="trField"> <%-- might be a row or a fied --%>
+							<apn:ChooseControl runat="server">
+								<apn:WhenControl type="ROW" runat="server">
+									<%-- this needs to be refactored to be more generic --%>
+									<apn:forEach runat="server" id="trFieldRow">
+										<apn:ChooseControl runat="server">
+											<apn:WhenControl type="GROUP" runat="server">
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/no-col.aspx"); %></td>
+											</apn:WhenControl>
+											<apn:WhenControl type="TRIGGER" runat="server">
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/button.aspx"); %></td>
+											</apn:WhenControl>
+											<apn:Otherwise runat="server">
+												<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
+													<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/control.aspx"); %></td>
+												<% } else { %>	
+													<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+												<% } %>
+											</apn:Otherwise>
+										</apn:ChooseControl>
+									</apn:forEach>
+								</apn:WhenControl>
+								<apn:WhenControl type="GROUP" runat="server">
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../custom/no-col.aspx"); %></td>
+								</apn:WhenControl>
+								<apn:WhenControl type="TRIGGER" runat="server">
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/button.aspx"); %></td>
+								</apn:WhenControl>
+								<apn:Otherwise runat="server">	
+									<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
+										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/control.aspx"); %></td>
+									<% } else { %>
+										<%-- if you need to output html formatted content, add the render-html class --%>
+										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+									<% } %>
+								</apn:Otherwise>
+							</apn:ChooseControl>	
+						</apn:forEach>
+					</apn:forEach>
+				</tr>
+			</apn:forEach>
+			</apn:forEach>
+		</tbody>
+		<% } %>
+	</table>
+</div>
+<% } %>
+</apn:control>

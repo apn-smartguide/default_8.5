@@ -1,0 +1,1 @@
+<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> ></div>

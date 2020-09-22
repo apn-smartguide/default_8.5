@@ -1,5 +1,7 @@
 <%@ Page Language="C#" %>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+<apn:api5 id="sg5" runat="server"/>
+<!-- #include file="../helpers.aspx" -->
 <apn:control id="control" runat="server">
 <% if(control.Current.getAttribute("value").Trim().Length > 0) { %>
 <tr>

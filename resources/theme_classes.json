@@ -166,7 +166,7 @@
       {
         "class": "btn-modal",
         "en": "Changes the behavior of a button to run the server side actions before the client side JS actions (often used in modals)",
-        "fr": "Change le comportement d'un bouton pour rouler les actions côté serveur avant les actions JS client (souvent utilisé dans les modals)"
+        "fr": "Change le comportement d'un bouton pour rouler les actions cÃ´tÃ© serveur avant les actions JS client (souvent utilisÃ© dans les modals)"
       },
       {
         "class": "always-enabled",
@@ -249,16 +249,12 @@
         "class": "center-block",
         "en": "Center content a block",
         "fr": "Aligne un bloc de contenu au centre"
-      },{
+      },
+      {
 		"class": "smartmodal",
 		"en": "Transforms a group into a modal dialog",
 		"fr": "Transforme un groupe en dialogue modal"
 	  },
-      {
-        "class": "jumbotron",
-        "en": "A lightweight, flexible component to showcase key content",
-        "fr": "Un composant léger et flexible pour mettre en valeur du contenu important"
-      },
       {
         "class": "pre-scrollable",
         "en": "Sets a max-height of 350px and provides a y-axis scrollbar",
@@ -283,6 +279,21 @@
         "class": "plain-group",
         "en": "Removes header and border of group",
         "fr": "Retire l'entête et le cadre d'un groupe"
+      },
+      {
+        "class": "panel-borderless",
+        "en": "Removes border of group",
+        "fr": "Retire le cadre d'un groupe"
+      },
+      {
+        "class": "large-checkbox",
+        "en": "Display the checkbox control in larger format",
+        "fr": "Affiche le checkbox en plus grand format "
+      },
+      {
+        "class": "large-radio",
+        "en": "Display the radio button control in larger format",
+        "fr": "Affiche le control radio en plus grand format "
       }
     ]
   },
@@ -389,6 +400,16 @@
 	},
 	"List" : [
 	  {
+    "class": "datatables-view",
+    "en": "Forces the display of the group as a datatable that can be edited online, additional configurations to be applied via the data attributes.",
+    "fr": "Force l'affichage du groupe sous forme d'un datatable éditable en ligne, configurations additionnelles appliqués via les attributs data."
+    }
+    ,{
+    "class": "grid-view",
+    "en": "Displays the group as a table where each column represents a field and each row represents a record.",
+    "fr": "Affiche le groupe sous forme de tableau où chaque colonne correspond à un champ et chaque rangée correspond à une instance."
+    }
+    ,{
 		"class": "table-render",
 		"en": "Forces the display of the group as a table that can be edited online.",
 		"fr": "Force l'affichage du groupe sous forme de tableau éditable en ligne."
@@ -438,17 +459,9 @@
 		"en": "Hides the element in the Edit entry interface",
 		"fr": "Cache l’élément dans l’interface d’édition d’instance"
 	  },{
-		"class": "grid-view",
-		"en": "Displays the group as a table where each column represents a field and each row represents a record.",
-		"fr": "Affiche le groupe sous forme de tableau où chaque colonne correspond à un champ et chaque rangée correspond à une instance."
-	  },{
 		"class": "hide-sort",
 		"en": "Disables the sort on all columns",
 		"fr": "Désactive le tri sur toutes les colonnes"
-	  },{
-		"class": "show-moveupdown-btn",
-		"en": "Show the up and down arrows to move rows up or down",
-		"fr": "Affiche les flèches pour déplacer les rangées vers le haut ou le bas"
 	  }
 	]
   },
@@ -466,7 +479,8 @@
 		"class": "autocomplete",
 		"en": "Transforms a dropdown into an autocomplete control",
 		"fr": "Transforme une liste déroulante en contrôle avec auto-complétion"
-	  },{
+	  },
+      {
 		"class": "smartmodal",
 		"en": "Transforms a group into a modal dialog",
 		"fr": "Transforme un groupe en dialogue modal"

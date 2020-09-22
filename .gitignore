@@ -1,0 +1,36 @@
+# Run the following to clean you untracked files if they were commited prior
+# git rm -r --cached .
+# git add -A
+# git commit -am 'Removing ignored files'
+
+# apn_common exclusions
+Smartlets/**/apn_common/themes
+Smartlets/**/apn_common/resources
+Smartlets/**/apn_common/groups/_themes.xml
+Smartlets/**/apn_common/groups/_themes-category.xml
+Smartlets/**/apn_common/groups/themes-category.xml
+
+# smartlets generated files we do not need to track.
+Smartlets/**/runtime.xml
+Smartlets/**/timestamp.txt
+Smartlets/**/source/*.properties
+Smartlets/**/themes-category.xml
+Smartlets/**/stats/smartlet-stats.xml
+#Smartlets/**/source/smartlet.xls
+
+# product provided themes files should not be tracked.
+Themes/default
+Themes/dotnet/default
+Themes/java/default
+Themes/materializecss
+Themes/dotnet/materializecss
+Themes/java/materializecss
+backup files
+files
+Installation package - 2020-05-11
+log
+SmartProfile configs
+SmartProfile tomcat
+wage-smartlets/main
+Installation package - 2020-05-11.zip
+uploads

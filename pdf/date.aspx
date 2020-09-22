@@ -1,5 +1,7 @@
 <%@ Page Language="C#" %>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+<apn:api5 id="sg5" runat="server"/>
+<!-- #include file="../helpers.aspx" -->
 <apn:control runat="server">
 <tr><td colspan="12">
 <table width="100%">
