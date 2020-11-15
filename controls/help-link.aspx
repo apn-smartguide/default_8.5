@@ -31,12 +31,7 @@
 			</details>
 		<% } else { %>
 			<a href='#'' class='link-help' title='<apn:localize runat="server" key="theme.text.helptitle"/>' data-toggle='modal' data-target='#div_<apn:helpid runat="server"/>' onclick='return false;'>
-				<apn:ifnotcontrolvalid runat="server">
-					<span class='has-error glyphicon glyphicon-question-sign'></span>
-				</apn:ifnotcontrolvalid>
-				<apn:ifcontrolvalid runat="server">
-					<span class='glyphicon glyphicon-question-sign'></span>
-				</apn:ifcontrolvalid>
+				<span class='<apn:localize runat="server" key="theme.icon.help"/>' aria-hidden='true'></span> <apn:localize runat="server" key="theme.text.helplink"/>
 			</a>
 			<!-- Modal -->
 			<div class='modal fade' id='div_<apn:helpid runat="server"/>' tabindex='-1' role='dialog' aria-labelledby='helpModalLabel_<apn:helpid runat="server"/>' aria-hidden='true'>

@@ -40,7 +40,6 @@
 			<apn:value runat="server" />
 		</a>
 		<% } %>
-		<%-- Server.Execute(resolvePath("/controls/help.aspx")); --%>
 	</div>
 	<% } %>
 </apn:control>

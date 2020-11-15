@@ -55,7 +55,6 @@
 					<apn:label runat="server" />
 				</apn:whencontrol>
 			</apn:choosecontrol>
-			<% Server.Execute(resolvePath("/controls/help.aspx")); %>
 	</div>
 	<% } %>
 </apn:control>

@@ -66,7 +66,7 @@ if(btnAdd != null) {
 			<% } %>
 		</apn:forEach></apn:forEach></apn:forEach>
 		<h2 class="panel-title">
-			<apn:label runat="server"/> <apn:ifcontrolattribute runat="server" attr="title"><span data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span></apn:ifcontrolattribute><div class='pull-right'><% Server.Execute(resolvePath("/controls/help.aspx")); %></div>
+			<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 		</h2>
 	</div>
 	</apn:control>

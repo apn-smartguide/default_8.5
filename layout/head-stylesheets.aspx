@@ -13,7 +13,7 @@
 <link href='<%= resolvePath("/resources/img/favicon.ico")%>' rel="shortcut icon" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" rel="stylesheet">
 <!-- Bootstrap CSS -->
 <link href='<%=cacheBreak("/resources/css/bootstrap.min.css")%>' rel="stylesheet">
 <!-- dataTables.net -->
@@ -24,6 +24,8 @@
 <link href='<%=cacheBreak("/resources/css/bootstrap-datepicker.min.css")%>' rel="stylesheet">
 <!-- Autocomplete support -->
 <link href='<%=cacheBreak("/resources/css/autocomplete.min.css")%>' rel="stylesheet">
+<!-- JQuery UI CSS -->
+<link href='<%= cacheBreak("/resources/css/smartguide/jquery-ui.css") %>' rel="stylesheet">
 <!-- SmartGuide CSS -->
 <link href='<%=cacheBreak("/resources/css/smartguide/smartguide.css")%>' rel="stylesheet">
 <link href='<%=cacheBreak("/resources/css/smartguide/custom.css")%>' rel="stylesheet">

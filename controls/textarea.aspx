@@ -21,11 +21,10 @@
 	<div id='div_<apn:name runat="server"/>' class='form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
 		<% Server.Execute(resolvePath("/controls/label.aspx")); %>
 		<apn:controlattribute runat="server" attr="prefix"/>
-		<textarea name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' rows='<%= Context.Items["rows"] %>' cols='<%= Context.Items["cols"] %>' style='<apn:controlattribute runat="server" attr="style"/><apn:cssstyle runat="server"/>' class='form-control <apn:cssclass runat="server"/>' title='<apn:controlattribute runat="server" attr="title" tohtml="true"/>'<apn:metadata runat="server"/><%= Context.Items["readonly"] %><!-- #include file="aria-attributes.inc" -->>
+		<textarea name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' rows='<%= Context.Items["rows"] %>' cols='<%= Context.Items["cols"] %>' style='<apn:controlattribute runat="server" attr="style"/><apn:cssstyle runat="server"/>' class='form-control <apn:cssclass runat="server"/>' title='<apn:controlattribute runat="server" attr="title" tohtml="true"/>'<apn:metadata runat="server"/><%= Context.Items["readonly"] %> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" --> >
 			<apn:value runat="server" tohtml="true"/>
 		</textarea>
 		<apn:controlattribute runat="server" attr="suffix"/>
-		<% Server.Execute(resolvePath("/controls/help.aspx")); %>
 	</div>
 <% } %>
 </apn:control>

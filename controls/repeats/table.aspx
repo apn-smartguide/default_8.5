@@ -28,11 +28,7 @@
 		<% } %>
 		<div class='panel-heading'>
 			<h2 class='panel-title'>
-				<div class='pull-right'><% Server.Execute(resolvePath("/controls/help.aspx")); %></div>
-				<apn:label runat="server" />
-				<apn:ifcontrolattribute runat="server" attr="title">
-					<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-				</apn:ifcontrolattribute>
+				<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 			</h2>
 		</div>
 		<div class='panel-body bootpag'>
@@ -96,14 +92,7 @@
 									<apn:forEach runat="server" id="field">
 										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getCSSClass().Contains("hide-from-list-view")) { // Don't show if it's a hidden field %>
 										<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-											<apn:ifcontrolvalid runat="server">
-												<span>
-													<apn:label runat="server" /></span>
-											</apn:ifcontrolvalid>
-											<apn:ifnotcontrolvalid runat="server">
-												<span class="error">
-													<apn:label runat="server" /></span>
-											</apn:ifnotcontrolvalid>
+											<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 											<% if ("true".Equals(field.Current.getAttribute("isSortable"))) { %>
 											&nbsp;&nbsp;
 											<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
@@ -115,12 +104,6 @@
 												class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style="color:LightGrey"
 												<% } %>></span>
 											<% } %>
-											<apn:ifcontrolrequired runat="server">
-												<span class="required">*</span>
-											</apn:ifcontrolrequired>
-											<apn:ifcontrolattribute attr="title" runat="server">
-												<span data-toggle='tooltip' data-placement='right' class='<apn:localize runat="server" key="theme.icon.question"/>' title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-											</apn:ifcontrolattribute>
 										</th>
 										<% } %>
 									</apn:forEach>

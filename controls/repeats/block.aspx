@@ -28,9 +28,8 @@
 			</apn:control>
 			<div class='panel-heading'>
 				<div>
-					<apn:label runat='server' />
+					<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 				</div>
-				<% Server.Execute(resolvePath("/controls/help.aspx")); %>
 				<% if (!(bool)Context.Items["hideAddButton"]) { %>
 				<div class='pull-right'>
 					<apn:control runat="server" type="insert" id="button">

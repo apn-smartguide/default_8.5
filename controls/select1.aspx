@@ -25,11 +25,7 @@
 					<apn:choosecontrol runat="server">
 					<apn:whencontrol runat="server" type="optgroup">
 						<label class='optgroup'>
-							<apn:label runat="server"/><% Server.Execute(resolvePath("/controls/tts.aspx")); %>
-							<apn:ifcontrolattribute runat="server" attr="title">
-								<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" attr="title"/>'></span>
-							</apn:ifcontrolattribute>
-							<% Server.Execute(resolvePath("/controls/help.aspx")); %>
+							<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 						</label>
 						<apn:forEach runat="server" id="control6">
 							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
@@ -39,11 +35,7 @@
 									<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='radio-inline' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
 							<% } %>
 									<input type='radio' name='<%= control6.Current.getName() %>' id='<%=control6.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='<%=control.Current.getCSSClass()%> deselect-off' value='<%= control6.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control6.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>'/>
-									<span><%= control6.Current.getLabel() %><% Server.Execute(resolvePath("/controls/tts.aspx")); %></span>
-									<apn:ifcontrolattribute runat="server" attr="title">
-										<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-									</apn:ifcontrolattribute>
-									<% Server.Execute(resolvePath("/controls/help.aspx")); %>
+									<span><% Server.Execute(resolvePath("/controls/tooltip.aspx")); %></span>
 									</label>
 							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 								</div>
@@ -58,18 +50,7 @@
 								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='radio-inline' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
 						<% } %>
 								<input type='radio' name='<%= control5.Current.getName() %>' id='<%=control5.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='<%=control.Current.getCSSClass()%> deselect-off' value='<%= control5.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control5.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>'/>
-								<span data-index='<%=Context.Items["counter"]%>'>
-									<% Context.Items["tts-option"] = true ; %>
-									<%= control5.Current.getLabel() %>
-									<% if (control.Current.getCSSClass().IndexOf("tts") > -1) { %>
-									<% Server.Execute(resolvePath("/controls/tts.aspx")); %>
-									<% } %>
-									<% Context.Items["tts-option"] = false ; %>
-								</span>
-								<apn:ifcontrolattribute runat="server"  attr="title">
-								<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-								</apn:ifcontrolattribute>
-								<% Server.Execute(resolvePath("/controls/help.aspx")); %>
+								<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 								</label>
 						<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 							</div>
@@ -78,7 +59,6 @@
 					</apn:choosecontrol>
 					<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
 				</apn:forEach>
-				<p><% Server.Execute(resolvePath("/controls/help.aspx")); %></p>
 			</fieldset>
   		</apn:whencontrol>
   		<apn:whencontrol runat="server" type="drop" >
@@ -125,8 +105,7 @@
 						</apn:choosecontrol>
 					</apn:forEach>
                 </select>
-				<% } %>				
-                <% Server.Execute(resolvePath("/controls/help.aspx")); %>
+				<% } %>
 			</div>
   		</apn:whencontrol>
   	</apn:choosecontrol>

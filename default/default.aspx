@@ -4,8 +4,6 @@
 <!-- #include file="../helpers.aspx" -->
 <% 
 	Context.Items["optionIndex"] = ""; 
-	//string requestUri = Request.Url.PathAndQuery;
-	//requestUri = requestUri.Substring(requestUri.LastIndexOf("/")+1);
 	Context.Items["requestUri"] = Request.Url.AbsolutePath;
 %>
 <apn:locale runat="server" id="loc">

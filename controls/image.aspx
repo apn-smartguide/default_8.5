@@ -14,7 +14,6 @@
 		<div class='caption'>
 			<% Server.Execute(resolvePath("/controls/label.aspx")); %>
 		</div>
-		<% Server.Execute(resolvePath("/controls/help.aspx")); %>
 	</div>
 	<% } %>
 </apn:control>

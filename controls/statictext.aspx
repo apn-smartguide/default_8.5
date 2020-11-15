@@ -12,22 +12,11 @@
 	<% if (control.Current.getLabel().Trim().Length == 0) bareControl = true; %>
 	<% if (!bareControl){ %>
 	<label>
-		<span>
-			<apn:label runat="server" />
-			<% Server.Execute(resolvePath("/controls/tts.aspx")); %>
-		</span>
-		<!-- tooltip comes here -->
-		<apn:ifcontrolattribute runat="server" attr='title'>
-			<span title="" data-toggle="tooltip" class="<apn:localize runat="server" key="theme.icon.question"/>" data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title" />'></span>
-		</apn:ifcontrolattribute>
+		<span><% Server.Execute(resolvePath("/controls/tooltip.aspx")); %></span>
 	</label>
 	<% } %>
 	<% if (control.Current.getValue().Trim().Length > 0) { %>
-	<span>
-		<apn:value runat="server" />
-		<% Server.Execute(resolvePath("/controls/tts.aspx")); %>
-		<% Server.Execute(resolvePath("/controls/help.aspx")); %>
-	</span>
+	<span><% Server.Execute(resolvePath("/controls/tooltip.aspx")); %></span>
 	<% } %>
 	</div>
 	<% } %>

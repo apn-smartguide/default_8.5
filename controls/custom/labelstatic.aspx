@@ -9,10 +9,6 @@
 	<apn:ifnotcontrolvalid runat="server">
 		<label class='static-text error'>
 	</apn:ifnotcontrolvalid>
-	<apn:label runat="server"/>
-		<%-- tooltip comes here --%>
-		<apn:ifcontrolattribute runat="server" attr='title'>
-			<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" attr="title"/>'></span>
-		</apn:ifcontrolattribute>
+	<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 	</label>
 </apn:control>

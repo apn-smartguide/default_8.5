@@ -355,7 +355,9 @@
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
-	<span><div class="pull-right"><% Server.Execute(resolvePath("/controls/help.aspx")); %></div><apn:label runat="server"/><apn:ifcontrolattribute runat="server" attr='title'><span title="" data-toggle="tooltip" class="<apn:localize runat="server" key="theme.icon.question"/>" data-original-title="<apn:controlattribute runat="server" tohtml='true' attr='title'/>"></span></apn:ifcontrolattribute></span>
+	<span>
+		<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+	</span>
 	<table id='<%=control.Current.getCode()%>' class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
 		<apn:control runat="server" type="default-instance" id="headerGroup">
 		<thead>

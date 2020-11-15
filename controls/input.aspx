@@ -39,7 +39,7 @@
 					<span class='input-group-addon'><apn:controlattribute runat="server" attr="prefix" /></span>
 				</apn:ifcontrolattribute>
 				<% string placeholder = control.Current.getPlaceholder(); %>
-				<input type='<%=Context.Items["html5type"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:value runat="server" tohtml="true"/>' placeholder='<%=placeholder%>' size='<apn:controlattribute runat="server" attr="size"/>' <apn:metadata runat="server" /> style='<apn:controlattribute runat="server" attr="style" /> <apn:cssstyle runat="server" />' class='form-control' <%= Context.Items["readonly"] %> <%= (Context.Items["maxlength"].Equals("") ? "" : "maxlength='" + Context.Items["maxlength"] + "'") %> <!-- #include file="aria-attributes.inc" -->/>
+				<input type='<%=Context.Items["html5type"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:value runat="server" tohtml="true"/>' placeholder='<%=placeholder%>' size='<apn:controlattribute runat="server" attr="size"/>' <apn:metadata runat="server" /> style='<apn:controlattribute runat="server" attr="style" /> <apn:cssstyle runat="server" />' class='form-control' <%= Context.Items["readonly"] %> <%= (Context.Items["maxlength"].Equals("") ? "" : "maxlength='" + Context.Items["maxlength"] + "'") %> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired><!-- #include file="aria-attributes.inc" --> />
 				<apn:ifcontrolattribute runat="server" attr="suffix">
 					<span class='input-group-addon'><apn:controlattribute runat="server" attr="suffix" /></span>
 				</apn:ifcontrolattribute>
@@ -47,8 +47,8 @@
 				</div>
 				</apn:ifcontrolattribute>
 			<% } %>
-			<% Server.Execute(resolvePath("/controls/help.aspx")); %>
 		</div>
 	<% } %>
 <% } %>
 </apn:control>
+

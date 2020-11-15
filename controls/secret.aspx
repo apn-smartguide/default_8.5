@@ -23,7 +23,7 @@
 			<span class="input-group-addon">
 				<apn:controlattribute runat="server" attr="prefix" /></span>
 		</apn:ifcontrolattribute>
-		<input type='password' name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' value='<%= control.Current.getHTMLValue() %>' class='<%= control.Current.getCSSClass() %> form-control' style='<%= (control.Current.getAttribute("style")+" "+control.Current.getCSSStyle()) %>' title='<apn:controlattribute attr="title" tohtml="true" runat="server"/>' maxlength='<%= control.Current.getAttribute("maxlength") %>' size='<%= control.Current.getAttribute("size") %>' <apn:metadata runat="server" /> <%= Context.Items["readonly"] %> <!-- #include file="aria-attributes.inc" --> />
+		<input type='password' name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' value='<%= control.Current.getHTMLValue() %>' class='<%= control.Current.getCSSClass() %> form-control' style='<%= (control.Current.getAttribute("style")+" "+control.Current.getCSSStyle()) %>' title='<apn:controlattribute attr="title" tohtml="true" runat="server"/>' maxlength='<%= control.Current.getAttribute("maxlength") %>' size='<%= control.Current.getAttribute("size") %>' <apn:metadata runat="server" /> <%= Context.Items["readonly"] %> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" --> />
 		<apn:ifcontrolattribute runat="server" attr="suffix">
 			<span class="input-group-addon">
 				<apn:controlattribute runat="server" attr="suffix" /></span>
@@ -31,7 +31,6 @@
 		<apn:ifcontrolattribute runat="server" attr="prefix or suffix">
 			</div>
 		</apn:ifcontrolattribute>
-		<% Server.Execute(resolvePath("/controls/help.aspx")); %>
 	</div>
 	<% } %>
 </apn:control>

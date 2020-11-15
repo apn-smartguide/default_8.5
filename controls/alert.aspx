@@ -8,13 +8,8 @@
 </div>
 <% } else { %>
 <div id='div_<apn:name runat="server"/>' class='<apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> role='alert'>
-	<p>
-		<apn:label runat="server" /><% Server.Execute(resolvePath("/controls/tts.aspx")); %>
-		<apn:ifcontrolattribute runat="server" attr="title">
-			<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-		</apn:ifcontrolattribute>
-	</p>
-		<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
+	<p><% Server.Execute(resolvePath("/controls/tooltip.aspx")); %></p>
+	<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
 </div>
 <% } %>
 </apn:control>

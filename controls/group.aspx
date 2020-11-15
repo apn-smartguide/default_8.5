@@ -24,11 +24,7 @@
 						<% } %>
 					</apn:forEach></apn:forEach></apn:forEach>
 					<h2 class='panel-title'>
-						<span class='pull-right'><% Server.Execute(resolvePath("/controls/help.aspx")); %></span>
-						<apn:label runat="server" /><% Server.Execute(resolvePath("/controls/tts.aspx")); %>
-						<apn:ifcontrolattribute runat="server" attr="title">
-							<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-						</apn:ifcontrolattribute>
+						<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 					</h2>
 				</div>
 				<% } %>

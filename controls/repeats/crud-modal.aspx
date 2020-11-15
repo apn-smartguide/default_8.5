@@ -8,10 +8,7 @@
 			<div class='modal-content'>
 				<header class='modal-header'>
 					<h5 class='modal-title'>
-						<apn:label runat="server" />
-						<apn:ifcontrolattribute runat="server" attr="title">
-							<span title='' data-toggle='tooltip' class='<apn:localize runat="server" key="theme.icon.question"/>' data-original-title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-						</apn:ifcontrolattribute>
+						<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 					</h5>
 				</header>
 				<% string repeatName = "repeat-name-" + Context.Items["repeat-level"]; %>

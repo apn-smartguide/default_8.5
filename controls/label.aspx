@@ -7,16 +7,10 @@
 <apn:control runat="server" id="control">
 	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
-	<label for='<apn:name runat="server"/>' class='<apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired>'>
-		<apn:ifnotcontrolattribute attr="tooltip" runat="server">
-		<span class="field-name"><apn:label runat="server" /></span>
-		</apn:ifnotcontrolattribute>
-		<apn:ifcontrolattribute attr="tooltip" runat="server">
-		<span class="field-name" data-toggle='tooltip' title='<apn:controlattribute runat="server" tohtml="true" attr="tooltip"/>'><apn:label runat="server" /> <span class='glyphicon glyphicon-question-sign'></span></span>
-		</apn:ifcontrolattribute>
-		<% Server.Execute(resolvePath("/controls/tts.aspx")); %>
+	<label for='<apn:name runat="server"/>' <apn:ifcontrolrequired runat="server">class='required'</apn:ifcontrolrequired>>
+		<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
 		<apn:ifnotcontrolvalid runat="server">
-			<apn:ifcontrolrequired runat="server"><strong class='required'><%=sg5.Context.getSmartlet().getLocalizedResource("theme.text.required")%></strong></apn:ifcontrolrequired>
+			<apn:ifcontrolrequired runat="server"><strong class='has-error'><%=sg5.Context.getSmartlet().getLocalizedResource("theme.text.required-suffix")%></strong></apn:ifcontrolrequired>
 			<strong id='<apn:name runat="server"/>-error' class='error'>
 				<span class="label label-danger">
 					<span class="prefix"><%=sg5.Context.getSmartlet().getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %>
