@@ -71,10 +71,10 @@ string selectionType = repeat.getSelectionType();
 				string value = "";
 				
 				if (!fields[j].isAvailable()) {
-					value = "<span id='div_d_"+fieldid+"["+id+"]' class='form-group'></span>";
+					value = "<span id='div_d_"+fieldid+"["+id+"]'></span>";
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<span id='div_d_"+fieldid+"["+id+"]' class='form-group'><button class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]' style=' '>"+label+"</button></span>	";
+					value = "<span id='div_d_"+fieldid+"["+id+"]'><button class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]' style=' '>"+label+"</button></span>	";
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
 					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";

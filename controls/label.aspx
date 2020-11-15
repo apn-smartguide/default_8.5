@@ -5,11 +5,14 @@
 <apn:api5 id="sg5" runat="server"/>
 <!-- #include file="../helpers.aspx" -->
 <apn:control runat="server" id="control">
+	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
 	<label for='<apn:name runat="server"/>' class='<apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired>'>
+		<apn:ifnotcontrolattribute attr="tooltip" runat="server">
 		<span class="field-name"><apn:label runat="server" /></span>
-		<apn:ifcontrolattribute attr="title" runat="server"><%-- tooltip --%>
-		<span data-toggle='tooltip' data-placement='right' class='<apn:localize runat="server" key="theme.icon.question"/>' title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
+		</apn:ifnotcontrolattribute>
+		<apn:ifcontrolattribute attr="tooltip" runat="server">
+		<span class="field-name" data-toggle='tooltip' title='<apn:controlattribute runat="server" tohtml="true" attr="tooltip"/>'><apn:label runat="server" /> <span class='glyphicon glyphicon-question-sign'></span></span>
 		</apn:ifcontrolattribute>
 		<% Server.Execute(resolvePath("/controls/tts.aspx")); %>
 		<apn:ifnotcontrolvalid runat="server">
@@ -21,5 +24,7 @@
 			</strong>
 		</apn:ifnotcontrolvalid>
 	</label>
+	<% } %>
 </apn:control>
 <% } %>
+

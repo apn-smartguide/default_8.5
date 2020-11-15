@@ -375,22 +375,30 @@
 							<%-- special case where SG generated a row inside a col, and not a field --%>
 							<%-- this needs to be refactored to be more generic --%>
 							<apn:forEach runat="server" id="thRowField">
+								<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") 
+								&& !thRowField.Current.getAttribute("visible").Equals("false") 
+								&& !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 									<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<apn:label runat="server"/>
 									<% } %>
 								</th>
+								<% } else { %><th></th><% } %>
 							</apn:forEach>
 						</apn:WhenControl>
 						<apn:WhenControl type="GROUP" runat="server">
 							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
 						</apn:WhenControl>
 						<apn:Otherwise runat="server">
+							<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") 
+							&& !thField.Current.getAttribute("visible").Equals("false") 
+							&& !thField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 								<apn:label runat="server"/>
 							<% } %>
 							</th>
+							<% } else { %><th></th><% } %>
 						</apn:Otherwise>
 					</apn:ChooseControl>
 					</apn:forEach>
@@ -420,33 +428,45 @@
 									<apn:forEach runat="server" id="trFieldRow">
 										<apn:ChooseControl runat="server">
 											<apn:WhenControl type="GROUP" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/no-col.aspx"); %></td>
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/no-col.aspx")); %></td>
 											</apn:WhenControl>
 											<apn:WhenControl type="TRIGGER" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/button.aspx"); %></td>
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
 											</apn:WhenControl>
 											<apn:Otherwise runat="server">
-												<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
-													<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/control.aspx"); %></td>
-												<% } else { %>	
-													<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+												<% if(!trFieldRow.Current.getAttribute("style").Equals("visibility:hidden;");
+												&& !trFieldRow.Current.getAttribute("visible").Equals("false") 
+												&& !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+													<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
+														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
+													<% } else { %>	
+														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+													<% } %>
+												<% } else { %>
+													<td><!-- #include file="render_hidden_div.inc" --></td>
 												<% } %>
 											</apn:Otherwise>
 										</apn:ChooseControl>
 									</apn:forEach>
 								</apn:WhenControl>
 								<apn:WhenControl type="GROUP" runat="server">
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../custom/no-col.aspx"); %></td>
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/custom/no-col.aspx")); %></td>
 								</apn:WhenControl>
 								<apn:WhenControl type="TRIGGER" runat="server">
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/button.aspx"); %></td>
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
 								</apn:WhenControl>
-								<apn:Otherwise runat="server">	
-									<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
-										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(Page.TemplateSourceDirectory + "/../../controls/control.aspx"); %></td>
+								<apn:Otherwise runat="server">
+									<% if(!trField.Current.getAttribute("style").Equals("visibility:hidden;") 
+									&& !trField.Current.getAttribute("visible").Equals("false") 
+									&& !trField.Current.getCSSClass().Contains("hide-from-list-view"))  { %>
+										<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
+											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
+										<% } else { %>
+											<%-- if you need to output html formatted content, add the render-html class --%>
+											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+										<% } %>
 									<% } else { %>
-										<%-- if you need to output html formatted content, add the render-html class --%>
-										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+										<td><!-- #include file="render_hidden_div.inc" --></td>
 									<% } %>
 								</apn:Otherwise>
 							</apn:ChooseControl>	

@@ -36,7 +36,7 @@ var ttsController = {
 						if (prefix.length > 0) prefix = "." + prefix;
 						suffix = prefix + suffix;
 					}
-					$player.unbind("click").bind("click", function () {
+					$player.off("click").on("click", function () {
 						var audio = new Audio();
 						var source = "./resources/do.aspx?file=" + smartletName + "/" + currentLocale + "/" + fieldId + suffix + ".wav";
 						audio.src = source;
@@ -54,8 +54,8 @@ var ttsController = {
 		// Audio binding for Text To Speech Input AddOn, for live processing of typed text.
 		$(".tts-addon").each(function () {
 			$(this)
-				.unbind("click")
-				.bind("click", function () {
+				.off("click")
+				.on("click", function () {
 					var input = $(this).parent().siblings("input")[0];
 					var text = $(input).val();
 					if (text == "") return;
@@ -74,8 +74,8 @@ var ttsController = {
 		$(".stt-addon").each(function () {
 			//
 			$(this)
-				.unbind("click")
-				.bind("click", function () {
+				.off("click")
+				.on("click", function () {
 					$this = $(this);
 					if (state) {
 						$this.animate({

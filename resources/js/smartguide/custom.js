@@ -125,7 +125,7 @@ function showSignature() {
 	} catch (err) {
 		console.log(err);
 	}
-	sigdiv.bind("change", function (e) {
+	sigdiv.on("change", function (e) {
 		//var datapair = sigdiv.jSignature("getData", "image");
 		var datapair = sigdiv.jSignature("getData", "base30"); //use base30 to detect empty image
 		$("textarea", sigdiv).val("data:" + datapair[0] + "," + datapair[1]);
@@ -136,7 +136,7 @@ function showSignature() {
 		'<input type="button" value="Clear" class="clear_signature pull-right"/>'
 	);
 	clearButton.insertAfter($("canvas", sigdiv));
-	clearButton.bind("click", function () {
+	clearButton.on("click", function () {
 		sigdiv.jSignature("reset");
 		$("textarea", sigdiv).val("");
 	});

@@ -2,16 +2,17 @@
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <% bool bareControl = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
 <% if (!bareControl){ %>
-<apn:api5 id="sg5" runat="server"/>
+<apn:api5 id="sg5" runat="server" />
 <!-- #include file="../helpers.aspx" -->
 <apn:control runat="server" id="control">
 	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
 	<legend class='<apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <%= ( "".Equals(control.Current.getLabel()) ? "emptyLegend":"") %>'>
-		<span class="field-name"><apn:label runat="server" /></span>
-		<apn:ifcontrolattribute attr="title" runat="server"><%-- tooltip --%>
-		<span data-toggle='tooltip' data-placement='right' class='<apn:localize runat="server" key="theme.icon.question"/>' title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'></span>
-        </apn:ifcontrolattribute>
+		<span class="field-name" <apn:ifcontrolattribute attr="title" runat="server">data-toggle='tooltip' data-placement='right' title='<apn:controlattribute runat="server" tohtml="true" attr="title"/>'</apn:ifcontrolattribute>><apn:label runat="server" />
+		<apn:ifcontrolattribute attr="title" runat="server">
+		<span  class='glyphicon glyphicon-question-sign'></span>
+		</apn:ifcontrolattribute>
+		</span>
         <% Server.Execute(resolvePath("/controls/tts.aspx")); %>
 		<apn:ifnotcontrolvalid runat="server">
 			<apn:ifcontrolrequired runat="server"><strong class='required'><%=sg5.Context.getSmartlet().getLocalizedResource("theme.text.required")%></strong></apn:ifcontrolrequired>

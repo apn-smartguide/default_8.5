@@ -24,7 +24,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				});
 			
 				// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
-				$('button, input[type="button"], input[type="submit"], input[type="image"]', r.fm).unbind('click').bind('click', r._baseDoubleClickHandler);
+				$('button, input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
 
 				//Smartlet events
 				r._bindOrTriggerSmartletAndPageEvent();
@@ -111,12 +111,12 @@ $("form[id^='smartguide_']" ).each(function() {
 						var jqEvent = event.toLowerCase();
 						var handler = r._createEventHandler(events[event].client);
 						if (jqEvent.indexOf("event_on_init_smartlet") == 0) {
-							$body.bind('smartlet:init', handler);
+							$body.on('smartlet:init', handler);
 						} else if (jqEvent.indexOf("event_on_enter_page") == 0) {
-							$body.bind('smartlet:page_enter', handler);
+							$body.on('smartlet:page_enter', handler);
 						} else if (jqEvent.indexOf("event_on_exit_page") == 0) {
-							$body.bind('smartlet:page_exit', handler);
-							$(window).unbind('beforeunload').bind('beforeunload', function(e){
+							$body.on('smartlet:page_exit', handler);
+							$(window).off('beforeunload').on('beforeunload', function(e){
 								$body.triggerHandler('smartlet:page_exit');
 							});
 						}
@@ -138,9 +138,9 @@ $("form[id^='smartguide_']" ).each(function() {
 							var jqEvent = event.toLowerCase();
 							var handler = r._createEventHandler(events[event].client);
 							if (jqEvent.indexOf("onpageinit") == 0) {
-								$body.bind('page:init', handler);
+								$body.on('page:init', handler);
 							} else if (jqEvent.indexOf("onpagerender") == 0) {
-								$body.bind('page:render', handler);
+								$body.on('page:render', handler);
 							}
 						}
 					}
@@ -168,16 +168,16 @@ $("form[id^='smartguide_']" ).each(function() {
 
 			// basic bindings for field event with dependencies to other fields
 			// textboxes, textarea and password
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').unbind('keyup paste',r.bindThis).bind('keyup paste', r.bindThis);
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').unbind('blur',r.bindThisAllowSelfRefresh).bind('blur', r.bindThisAllowSelfRefresh);
+			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste',r.bindThis).on('keyup paste', r.bindThis);
+			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
 			// checkboxes and radio buttons
-			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').unbind('change',r.bindThisAllowSelfRefresh).bind('change', r.bindThisAllowSelfRefresh);
+			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 
 			// listbox and dropdown
-			$('input[type=image][data-eventtarget]').unbind('click',r.bindThis).bind('click', r.bindThis);
-			$('select:has(option[data-eventtarget])').unbind('change',r.bindThisOption).bind('change', r.bindThisOption);
-			$('.modal-close').unbind('click').bind('click', function(e){
+			$('input[type=image][data-eventtarget]').off('click',r.bindThis).on('click', r.bindThis);
+			$('select:has(option[data-eventtarget])').off('change',r.bindThisOption).on('change', r.bindThisOption);
+			$('.modal-close').off('click').on('click', function(e){
 				var modal = $(this).parent().parent().parent().parent();  
 				r.ajaxProcess(modal,null,true, function () {
 					r.removeScrollLock();
@@ -239,7 +239,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								var repeatDiv = $('div#div_' + key, r.fm);
 								var smartlet = r._createSmartletContext(field, fieldType, key);
 								var handler = r._createEventHandler(events[event].client);
-								repeatDiv.data('_smartlet', smartlet).bind('repeat:' + jqEvent.substring(2), handler);
+								repeatDiv.data('_smartlet', smartlet).on('repeat:' + jqEvent.substring(2), handler);
 								continue;
 							}
 						}	
@@ -426,8 +426,8 @@ $("form[id^='smartguide_']" ).each(function() {
 			
 			// bind server event first
 			if (isServer) {
-				$field.unbind(jqEvent);
-				$field.bind(jqEvent, function(e) {
+				$field.off(jqEvent);
+				$field.on(jqEvent, function(e) {
 					var r = SMARTGUIDES[smartletCode];
 					
 					$(this).after($('<input/>', {
@@ -446,14 +446,14 @@ $("form[id^='smartguide_']" ).each(function() {
 							setTimeout(function() {
 								var updated = [];
 								
-								$field.unbind(jqEvent);
+								$field.off(jqEvent);
 								
 								var errorMessages = $('.alert-danger', $form).text().trim();
 								if(errorMessages == '') {								
 									//prepare client event context
 									var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
 									var handler = r._createEventHandler(clientEvent);
-									$field.data('_smartlet', smartlet).bind(jqEvent, handler);
+									$field.data('_smartlet', smartlet).on(jqEvent, handler);
 																					
 									$field.triggerHandler(jqEvent);
 								}
@@ -494,10 +494,10 @@ $("form[id^='smartguide_']" ).each(function() {
 			//first bind client event
 			if (typeof clientEvent !== 'undefined') {
 				//prepare client event context
-				$field.unbind(jqEvent);
+				$field.off(jqEvent);
 				var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
 				var handler = r._createEventHandler(clientEvent);
-				$field.data('_smartlet', smartlet).bind(jqEvent, handler);
+				$field.data('_smartlet', smartlet).on(jqEvent, handler);
 				
 				//for init and render, directly trigger
 				if ((jqEvent == 'fieldinit' || jqEvent == 'fieldrender') && $field.is(":visible")) {
@@ -508,9 +508,9 @@ $("form[id^='smartguide_']" ).each(function() {
 			if (isServer) {
 				if (typeof clientEvent == 'undefined') {
 					// must unbind first
-					$field.unbind(jqEvent);
+					$field.off(jqEvent);
 				}
-				$field.bind(jqEvent, function(e) {
+				$field.on(jqEvent, function(e) {
 					var r = SMARTGUIDES[smartletCode];
 					
 					$(this).after($('<input/>', {
@@ -603,7 +603,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			var r = SMARTGUIDES[smartletCode];
 			// radio buttons in the context of select control instance on repeat
 			/*$('input[type=radio][data-group]').each(function() {
-				$(this).unbind('change').bind('change', function() {
+				$(this).off('change').on('change', function() {
 					// When any radio button in the data-group is selected,
 					// then deselect all other radio buttons.
 					var dataGroup = $(this).attr('data-group');

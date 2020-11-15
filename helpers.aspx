@@ -37,6 +37,7 @@
 			log.debug("path not found for " + asset);
 		}
 		if(pathParams.Length > 0) filePath = filePath + "?" + pathParams;
+		log.trace(filePath);
 		return filePath;
 	}
 
@@ -44,9 +45,14 @@
 		return System.IO.File.Exists(Server.MapPath(path));
 	}
 	public string cacheBreak(string url) {
+		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
 		string filePath = resolvePath(url);
 		if(!filePath.Equals("")) {
-			return filePath + "?cache=" + Utils.hashFile(Server.MapPath(filePath), "SHA-256");
+			try { 
+				return filePath + "?cache=" + Utils.hashFile(Server.MapPath(filePath), "SHA-256");
+			} catch (Exception e) {
+				log.error("File not found: " + filePath + ", " + e.ToString());
+			}
 		}
 		return "";
 	}

@@ -26,7 +26,7 @@
 				<% Server.Execute(resolvePath("/layout/main.aspx")); %>
 				<div class="row">
 					<div class="col-md-3">
-						<% Server.Execute(resolvePath("/layout/sidenav.aspx")); %>
+						<% Server.Execute(resolvePath("/layout/secondary-navigation.aspx")); %>
 					</div>
 					<div class="col-md-9">
 						<%-- MAIN LOOP OVER PAGE CONTROLS --%>
@@ -41,8 +41,6 @@
 					<% Server.Execute(resolvePath("/controls/navigation.aspx")); %>
 				</div>
 				<% Server.Execute(resolvePath("/layout/footer.aspx")); %>
-				<% Server.Execute(resolvePath("/layout/scripts.aspx")); %>
-				<div id="loader" style="display: none;"> </div>
 			</div>
 		</form>
 	</body>

@@ -30,8 +30,6 @@
 				</div>
 			</div>
 			<% Server.Execute(resolvePath("/layout/footer.aspx")); %>
-			<% Server.Execute(resolvePath("/layout/scripts.aspx")); %>
-			<div id="loader" style="display: none;"> </div>
 		</form>
 	</body>
 </html>

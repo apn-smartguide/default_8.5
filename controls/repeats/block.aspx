@@ -20,7 +20,7 @@
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class'panel panel-default repeatgroup repeatblock <%=control.Current.getCSSClass()%>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default repeatgroup repeatblock <%=control.Current.getCSSClass()%>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<apn:control runat="server" type="default-instance" id="defaultGroup">
 			<apn:control runat="server" type="repeat-index" id="repeatIndex">
 				<input name='<apn:name runat="server"/>' type='hidden' value='' />
@@ -35,7 +35,7 @@
 				<div class='pull-right'>
 					<apn:control runat="server" type="insert" id="button">
 					<%--
-					<button type="button" class="btn btn-sm btn-primary repeat_block_append_btn" data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' title='<apn:localize runat="server" key="theme.modal.add" />' name='<apn:name runat="server" />' id='<apn:name runat="server" />'>
+					<button type='button' class='btn btn-sm btn-primary repeat_block_append_btn' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' title='<apn:localize runat="server" key="theme.modal.add" />' name='<apn:name runat="server" />' id='<apn:name runat="server" />'>
 						<apn:localize runat="server" key="theme.modal.add" />
 					</button>
 					--%>
@@ -54,12 +54,8 @@
 			<% if ((bool)Context.Items["hasPagination"]) { %>
 			<div class='container form-inline' style='padding:10px'>
 				<div class='row'>
-					<div class='col-md-4'>
-						<b>Page
-							<span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%>
-								/
-								<%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;
-						<apn:localize runat="server" key="theme.text.datatable.fetch" />
+					<div class='col-md-6'>
+						<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;<apn:localize runat="server" key="theme.text.datatable.fetch" />
 						<apn:control runat='server' type="repeat-page-limit" id="pageSize">
 							<% if (" 10 20 50 75 ".Contains(" " + pageSize.Current.getValue() + " ")) { %>
 							<select name='<apn:name runat="server" />' class='form-control input-sm pageSize'>
@@ -74,7 +70,7 @@
 						</apn:control>
 						<apn:localize runat="server" key="theme.text.datatable.entry" />
 					</div>
-					<div class='col-md-3 col-md-offset-5'>
+					<div class='col-md-6'>
 						<% if(!(bool)Context.Items["hideSearch"]) {%>
 						<apn:localize runat="server" key="theme.text.datatable.filter" />:
 						<apn:control type="repeat-filter" runat='server'>
@@ -88,9 +84,7 @@
 				</div>
 			</div>
 			<% } %>
-			<table
-				class='responsive col-md-12 <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>'
-				<%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
+			<table class='responsive col-md-12 <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<% if ((bool)Context.Items["hasPagination"]) { %>
 				<apn:control type="repeat-current-page" runat="server">
 					<input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' />
@@ -112,12 +106,12 @@
 											<% if ((bool)Context.Items["isSelectable"]) { %>
 											<apn:control runat="server" type="select_instance" id="sel">
 												<input type='hidden' name='<apn:name runat="server"/>' value='' />
-												<input type='<%=Context.Items["selectionType"]%>' data-group='<%=control.Current.getName()%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked=\"checked\"" : "" %> />
+												<input type='<%=Context.Items["selectionType"]%>' data-group='<%=control.Current.getName()%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='true' <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 											</apn:control>
 											<% } %>
 											<%= status.getCount()%>.
 										</div>
-										<div class="pull-right">
+										<div class='pull-right'>
 											<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
 											<apn:control runat="server" type="delete">
 												<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='div_<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span>
@@ -127,7 +121,7 @@
 											<apn:control type="moveup" runat="server">
 												<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='div_<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' class='<apn:localize runat="server" key="theme.icon.up"/> repeat_block_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span>
 											</apn:control>
-											<apn:control type="movedown" runat='server'>
+											<apn:control type="movedown" runat="server">
 												<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='div_<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' class='<apn:localize runat="server" key="theme.icon.down"/> repeat_block_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span>
 											</apn:control>
 											<% } %>

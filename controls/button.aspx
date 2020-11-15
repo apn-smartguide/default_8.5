@@ -8,13 +8,13 @@
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
 	</div>
 	<% } else if (Context.Items["btn-group"] != null && Context.Items["btn-group"].Equals("true")) { %>
-	<span id='div_<apn:name runat="server" />' class='form-group' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
+	<span id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
 		<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <apn:metadata runat="server" /> aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> >
 			<apn:value runat="server" />
 		</button>
 	</span>
 	<% } else { %>
-	<div id='div_<apn:name runat="server" />' class='form-group' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
+	<div id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
 		<% if (control.Current.getAttribute("class").Equals("button")) {%>
 		<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <apn:metadata runat="server" /> aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> >
 			<apn:value runat="server" />

@@ -58,7 +58,7 @@ var dataTablesController = {
 			sgRef.bindEvents([$(this)]);
 		});
 
-		$('[name=select_all]', '.wb-tables thead tr th').first().unbind('click').bind('click', function(){
+		$('[name=select_all]', '.wb-tables thead tr th').first().off('click').on('click', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			var rows = dataTable.rows({ 'page': 'current' }).nodes();
 			// Check/uncheck checkboxes for all rows in the table
@@ -75,7 +75,7 @@ var dataTablesController = {
 		});
 
 		// Handle click on checkbox to set state of "Select all" control
-		$('input[type="checkbox"]', '.wb-tables tbody').unbind('change').bind('change', function(){
+		$('input[type="checkbox"]', '.wb-tables tbody').off('change').on('change', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			
 			// If checkbox is not checked
@@ -112,7 +112,7 @@ var dataTablesController = {
 		});
 		
 		// support for selection radios for server side repeats
-		$('[type=radio][name^=d_s]').unbind('click').bind('click', function() { 
+		$('[type=radio][name^=d_s]').off('click').on('click', function() { 
 			var dataTable = $(this).closest('table').DataTable();
 
 			// unselect all, then just re-selects our instance (e.g. d_s1590340615680[5])

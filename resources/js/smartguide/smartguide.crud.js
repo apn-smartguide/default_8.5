@@ -11,7 +11,7 @@ var crudController = {
 		// Note: bootstrap modal should be refactored to
 		// https://wet-boew.github.io/v4.0-ci/demos/overlay/overlay-en.html
 
-		$('button.repeat_prepare_add_btn', $form).unbind('click').bind('click', function () {
+		$('button.repeat_prepare_add_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -48,7 +48,7 @@ var crudController = {
 			);
 		});
 		// repeat save added instance
-		$('button.repeat_save_add_btn', $form).unbind('click').bind('click', function (e) {
+		$('button.repeat_save_add_btn', $form).off('click').on('click', function (e) {
 			//onAddInstance
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -85,7 +85,7 @@ var crudController = {
 			);
 		});
 		//cancel add
-		$('button.repeat_cancel_add_btn', $form).unbind('click').bind('click', function () {
+		$('button.repeat_cancel_add_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -107,12 +107,15 @@ var crudController = {
 			} );
 		});
 		//repeat prepare edit instance
-		$('.repeat_prepare_edit_btn', $form).unbind('click').bind('click', function () {
+		$('.repeat_prepare_edit_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
-			$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
+			var $modal = $('.crud-modal' + level, $form);
+			if($modal.length > 0) {
+				$modal.modal('hide').data('modal', null).remove();
+			}
 			var rpt = $this.attr('data-repeat-index-name');
 			var count = $this.attr('data-instance-pos');
 			$('input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']').val(count);
@@ -120,18 +123,19 @@ var crudController = {
 			$('#' + this.id.replace("[", "\\[").replace("]", "\\]")).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
 			r.ajaxProcess(this, 'input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']', true,
 				function () {
-					var modal = $('.crud-modal' + level, $form);
+					$modal = $('.crud-modal' + level, $form);
 					// Clear any validation errors that might have appeared
-					$('.alert', modal).html('').hide();
-					modal.data('data', $('input,textarea,select', modal).serialize());
-					$('.crud-modal' + level, $form).modal({ backdrop: 'static', keyboard: false });
-					//$('[data-toggle="tooltip"]', modal).tooltip();
-					$('.crud-modal' + level, $form).on('hide.bs.modal', function (e) {
-						var cancelBtn = $('button.btn.repeat_cancel_edit_btn', this);
-						var newinput = '<input type="hidden" name="' + cancelBtn[0].id + '" id="' + cancelBtn[0].id + '" value="' + cancelBtn[0].id + '" />';
-						$(cancelBtn[0]).after(newinput);
-						r.ajaxProcess(cancelBtn[0], null, true);
-					});
+					if($modal.length > 0) {
+						$('.alert', $modal).html('').hide();
+						$modal.data('data', $('input,textarea,select', $modal).serialize());
+						$modal.modal({ backdrop: 'static', keyboard: false });
+						$modal.on('hide.bs.modal', function (e) {
+							var cancelBtn = $('button.btn.repeat_cancel_edit_btn', this);
+							var newinput = '<input type="hidden" name="' + cancelBtn[0].id + '" id="' + cancelBtn[0].id + '" value="' + cancelBtn[0].id + '" />';
+							$(cancelBtn[0]).after(newinput);
+							r.ajaxProcess(cancelBtn[0], null, true);
+						});
+					}
 					// $('.crud-modal' + level + ' .modal-content', $form).draggable({
 					// 	handle: ".modal-header"
 					// });
@@ -142,7 +146,7 @@ var crudController = {
 			);
 		});
 		//Cancel edit repeat
-		$('button.repeat_cancel_edit_btn', $form).unbind('click').bind('click', function () {
+		$('button.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
@@ -164,7 +168,7 @@ var crudController = {
 			});
 		});
 		//Save edit instance
-		$('button.repeat_save_edit_btn', $form).unbind('click').bind('click', function (e) {
+		$('button.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
 			//onUpdateInstance
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -207,7 +211,7 @@ var crudController = {
 		});
 
 		//Delete instance
-		$('.repeat_del_btn').unbind('click').bind('click', function (e) {
+		$('.repeat_del_btn').off('click').on('click', function (e) {
 			if (!confirm(crudModalsTranslations.deleteRow)) return false;
 			//onDeleteInstance
 			var $this = $(this);
@@ -231,7 +235,7 @@ var crudController = {
 
 		/**** Non CRUD table/group mode ****/
 		//Insert
-		$('.repeat_table_add_btn, .repeat_block_add_btn').unbind('click').bind('click', function (e) {
+		$('.repeat_table_add_btn, .repeat_block_add_btn').off('click').on('click', function (e) {
 			//onAddInstance
 			var $this = $(this);
 			var isRepeatTable = $this.hasClass('repeat_table_add_btn');
@@ -250,7 +254,7 @@ var crudController = {
 		});
 
 		//delete
-		$('.repeat_table_del_btn, .repeat_block_del_btn').unbind('click').bind('click', function (e) {
+		$('.repeat_table_del_btn, .repeat_block_del_btn').off('click').on('click', function (e) {
 			//onDeleteInstance
 			var $this = $(this);
 			var isRepeatTable = $this.hasClass('repeat_table_del_btn');
@@ -275,7 +279,7 @@ var crudController = {
 		});
 
 		//Move up
-		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn').unbind('click').bind('click', function (e) {
+		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn').off('click').on('click', function (e) {
 			//onMoveUpInstance
 			var $this = $(this);
 			var isRepeatTable = $this.hasClass('repeat_table_moveup_btn');
@@ -296,7 +300,7 @@ var crudController = {
 		});
 
 		//Move down
-		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn').unbind('click').bind('click', function (e) {
+		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn').off('click').on('click', function (e) {
 			//onMoveDownInstance
 			var $this = $(this);
 			var isRepeatTable = $this.hasClass('repeat_table_movedown_btn');

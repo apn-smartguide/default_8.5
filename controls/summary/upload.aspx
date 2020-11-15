@@ -17,7 +17,7 @@
 		</div>
 		<div class='col-sm-6 sgValue'>
 			<% if(control.Current.getAttribute("value").Trim().Length > 0) { %>
-			<apn:value runat="server" tohtml="true" />
+				<a target= '_blank' href='upload/do.aspx/<apn:value runat="server"/>?id=<apn:name runat="server"/>&interviewID=<apn:control runat="server" type="interview-code"><apn:value runat="server"/></apn:control>'> <apn:value runat="server"/></a> 
 			<% } %>
 		</div>
 	</div>
