@@ -4,29 +4,24 @@
 <apn:api5 id="sg5" runat="server" />
 <!-- #include file="../helpers.aspx" -->
 <!-- Boostrap -->
-<script src='<%= cacheBreak("/resources/js/bootstrap.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/js/bootstrap.js") %>'></script>
+
 <!-- Modernizr -->
 <script src='<%= cacheBreak("/resources/js/modernizr-custom.js") %>'></script>
-<!-- JQuery UI -->
-<script src='<%= cacheBreak("/resources/js/ui/jquery-ui-1.10.4.custom.min.js") %>'></script>
+
+<!-- JQuery -->
+<script src='<%= cacheBreak("/resources/js/ui/jquery-ui.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/jquery.form.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/js/inputmask/jquery.inputmask.js") %>'></script>
+
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src='<%= cacheBreak("/resources/js/html5shiv.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/respond.min.js") %>'></script>
 <![endif]-->
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src='<%= cacheBreak("/resources/js/ie10-viewport-bug-workaround.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/getUserMedia-polyfill.js") %>'></script>
-
-<!-- repeat pagination -->
-<script src='<%= cacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
-
-<!-- Autocomplete support -->
-<script src='<%= cacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
-
-<!-- Inputmask support -->
-<script src='<%= cacheBreak("/resources/js/inputmask/jquery.inputmask.js") %>'></script>
 
 <!-- Date widget support -->
 <script src='<%= cacheBreak("/resources/js/moment/moment.min.js") %>'></script>
@@ -36,7 +31,9 @@
 <script src='<%= cacheBreak("/resources/js/js-cookie.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/jSignature.min.js") %>'></script>
 
-<script src='<%= cacheBreak("/resources/js/bootstrap-datepicker.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/plugins/boostrap-datepicker/js/bootstrap-datepicker.js") %>'></script>
+<script src='<%= cacheBreak("/resources/plugins/boostrap-datepicker/js/bootstrap-datepicker-en-CA.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/plugins/boostrap-datepicker/js/bootstrap-datepicker.fr.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
