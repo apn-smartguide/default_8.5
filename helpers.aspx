@@ -56,4 +56,38 @@
 		}
 		return "";
 	}
+
+	public string getSmartletCode() {
+		return sg5.Context.getSmartlet().getCode();
+	}
+
+	public string getCurrentLocale() {
+		return sg5.Context.getSmartlet().getCurrentLocale();
+	}
+
+	public string getWorkspace() {
+		return sg5.Context.getSmartlet().getWorkspace();
+	}
+
+	public string getURLForSmartlet(string smartletName) {
+		return "do.aspx?interviewID=" + smartletName + "&workspace=" + getWorkspace() + "&lang=" + getCurrentLocale();
+	}
+
+	public string getRequestURI() {
+		return Request.Url.AbsolutePath;
+	}
+
+	public bool isUnderRepeat(ISmartletField f) { 
+		bool result = false;
+		
+		while(f.getParent() != null) {
+			int type = f.getParent().getTypeConst();
+			if(type == DotnetConstants.ElementType.REPEAT) {
+				result = true;
+				break;
+			}
+			f = f.getParent();
+		}   
+		return result;
+	}
 </script>

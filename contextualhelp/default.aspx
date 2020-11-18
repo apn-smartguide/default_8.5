@@ -4,11 +4,8 @@
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server"/>
 <!-- #include file="../helpers.aspx" -->
-<apn:locale runat="server" id="loc">
-	<% Context.Items["currentLocale"] = loc.Current.getValue(); %>
-</apn:locale>
 <!DOCTYPE html>
-<html lang="<%=Context.Items["currentLocale"]%>">
+<html lang="<%=getCurrentLocale()%>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
 	<body role="document">
 		<div class="container" role="main">

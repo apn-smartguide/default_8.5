@@ -7,7 +7,7 @@
 <%
 	ISmartletPage currentPage = sg5.Context.getSmartlet().getCurrentPage();
 	ISmartletField field = currentPage.findFieldById(control.Current.getFieldId());
-	string customControl = field.getNonLocalizedMetaData("Control");
+	string customControl = field.getNonLocalizedMetaData("Controls");
 	string customControlsPath = "/controls/custom/" + customControl + ".aspx";
 	string controlsPath = "/controls/" + customControl + ".aspx";
 	if (!customControl.Equals("") && !resolvePath(customControlsPath).Equals("")) {

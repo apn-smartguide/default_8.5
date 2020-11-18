@@ -30,7 +30,7 @@
 		<fo:table-column column-width="50%"/>
 		<fo:table-column column-width="50%"/>
 			<fo:table-body font-family="sans-serif" font-weight="normal" font-size="10pt">
-				<% Server.Execute(Page.TemplateSourceDirectory + "/fields.aspx"); %>
+				<% Server.Execute(resolvePath("/pdf-fo/fields.aspx")); %>
 			</fo:table-body>
 		</fo:table>
 	</fo:flow>

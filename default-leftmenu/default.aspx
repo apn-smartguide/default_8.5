@@ -4,14 +4,9 @@
 <!-- #include file="../helpers.aspx" -->
 <% 
 	Context.Items["optionIndex"] = ""; 
-	Context.Items["requestUri"] = Request.Url.AbsolutePath;
 %>
-<apn:locale runat="server" id="loc">
-	<% Context.Items["currentLocale"] = loc.Current.getValue(); %>
-</apn:locale>
-
 <!DOCTYPE html>
-<html lang="<%=Context.Items["currentLocale"]%>">
+<html lang="<%= getCurrentLocale() %>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
 	<body role="document" class='<apn:control runat="server" type="step"><apn:cssclass runat="server"/></apn:control>' style='<apn:control runat="server" type="step"><apn:cssstyle runat="server"/></apn:control>' >
 		<%-- SMARTGUIDE MAIN FORM --%>

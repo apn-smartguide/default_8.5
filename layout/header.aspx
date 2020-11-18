@@ -15,8 +15,16 @@
 	  </div>
 	  <div class="navbar-collapse collapse" id="navbar-main">
 		<ul class="nav navbar-nav">
-		  <li class="active">
+		  <!-- <li>
 			<a href="#"><apn:localize runat="server" key="theme.text.services"/></a>
+		  </li> -->
+		  <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples <span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href='<%=getURLForSmartlet("sg-8-5-controls-examples")%>'>Theme</a></li>
+				<li><a href='<%=getURLForSmartlet("sg-8-5-repeats-table-examples")%>'>Repeat Table</a></li>
+				<li><a href='<%=getURLForSmartlet("sg-8-5-repeats-modals-examples")%>'>Repeat & Modals</a></li>
+			</ul>
 		  </li>
 		  <apn:ifsmartletmultilingual runat="server">
 		  <li class="dropdown">
@@ -25,7 +33,7 @@
 			  </apn:locale>
 			  <ul class="dropdown-menu" aria-labelledby="langselect">
 				  <apn:forEach runat="server" id="locale" items="languages">
-				  <li><a href="<%=Context.Items["requestUri"]%>?lang=<%=locale.Current.getValue()%>"><%=locale.Current.getLabel()%></a></li>
+				  <li><a href='<%= getRequestURI() %>?lang=<%=locale.Current.getValue()%>'><%=locale.Current.getLabel()%></a></li>
 				  </apn:forEach>
 			  </ul>
 		  </li>

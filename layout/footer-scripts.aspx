@@ -47,8 +47,8 @@
 <script src='<%= cacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script>
 	var basePath = '<%= getBasePath() %>';
-	var currentLocale = '<%=Context.Items["currentLocale"]%>';
-	var currentLang = '<%=Context.Items["currentLocale"]%>';
+	var currentLocale = '<%= getCurrentLocale() %>';
+	var currentLang = currentLocale;
 	var supportedLocales = [];
 	<apn:ifsmartletmultilingual runat="server">
 		<apn:forEach runat="server" id="locale" items="languages">

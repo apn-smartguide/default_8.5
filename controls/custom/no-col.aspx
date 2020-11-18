@@ -4,7 +4,7 @@
 <!-- #include file="../../helpers.aspx" -->
 <apn:control runat="server" id="control">
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
-<!-- #include file="hidden.inc" -->
+<!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["no-col"] = true; %>
 <span class='no-col <%=control.Current.getCSSClass()%>' style='<%=control.Current.getCSSStyle()%>'>

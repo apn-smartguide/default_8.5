@@ -8,8 +8,8 @@
 		<div class='row'>
 			<div class='col-md-12 lang-picker btn-block'>
 				<apn:forEach runat="server" id="locale" items="languages">
-					<%  String active = (locale.Current.getValue().Equals(Context.Items["currentLocale"])) ? " btn-primary" : ""; %>
-					<a id='btn-lang-<%=locale.Current.getValue()%>' class='btn btn-default btn-xlarge <%=active%>' data-lang='<%=locale.Current.getValue()%>' href='<%=Context.Items["requestUri"]%>?lang=<%=locale.Current.getValue()%>'></a>
+					<%  String active = (locale.Current.getValue().Equals(getCurrentLocale())) ? " btn-primary" : ""; %>
+					<a id='btn-lang-<%=locale.Current.getValue()%>' class='btn btn-default btn-xlarge <%=active%>' data-lang='<%=locale.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=locale.Current.getValue()%>'></a>
 				</apn:forEach>
 				<% if ((bool)Context.Items["show-langdetect"]) { %>
 				<a data-target='#detectLanguageModal' data-toggle='modal' class='btn btn-default btn-xlarge detectLang'>

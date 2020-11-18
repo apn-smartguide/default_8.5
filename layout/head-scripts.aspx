@@ -5,9 +5,9 @@
 <%-- Scripts needed earlier --%>
 <script src='<%= cacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>
-	var currentLocale = '<%= Context.Items["currentLocale"] %>';
+	var currentLocale = '<%= getCurrentLocale() %>';
 	var supportedLocales = [];
-	var smartletName = '<%=Context.Items["interviewID"]%>'; 
+	var smartletName = '<%= getSmartletCode() %>'; 
 	<apn:ifsmartletmultilingual runat="server">
 		<apn:forEach runat="server" id="locale" items="languages">
 		supportedLocales.push('<%=locale.Current.getValue()%>'); 

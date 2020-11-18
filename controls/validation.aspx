@@ -70,19 +70,3 @@
 	</section>
 	<% } %>
 </div>
-
-<script runat="server">
-	public bool isUnderRepeat(ISmartletField f) { 
-		bool result = false;
-		
-		while(f.getParent() != null) {
-			int type = f.getParent().getTypeConst();
-			if(type == DotnetConstants.ElementType.REPEAT) {
-				result = true;
-				break;
-			}
-			f = f.getParent();
-		}   
-		return result;
-	}
-</script>
