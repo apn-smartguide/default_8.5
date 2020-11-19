@@ -3,7 +3,6 @@
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server"/>
 <!-- #include file="../helpers.aspx" -->
-<!-- Check to see if there are required fields and if any validation errors occurred -->
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>

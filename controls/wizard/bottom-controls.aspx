@@ -3,7 +3,7 @@
 <%@ Import Namespace="com.alphinat.sg5" %>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
+<!-- #include file="../../helpers.aspx" -->
 <div class="row">
     <div class="col-md-12">
         <div class="pull-left">

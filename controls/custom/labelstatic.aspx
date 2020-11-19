@@ -9,6 +9,6 @@
 	<apn:ifnotcontrolvalid runat="server">
 		<label class='static-text error'>
 	</apn:ifnotcontrolvalid>
-	<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+	<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 	</label>
 </apn:control>

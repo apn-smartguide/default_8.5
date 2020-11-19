@@ -23,7 +23,7 @@
 <![endif]-->
 <script src='<%= cacheBreak("/resources/js/getUserMedia-polyfill.js") %>'></script>
 
-<!-- Date widget support -->
+<!-- Additional -->
 <script src='<%= cacheBreak("/resources/js/moment/moment.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/moment/fr.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/moment/en-ca.js") %>'></script>
@@ -31,10 +31,11 @@
 <script src='<%= cacheBreak("/resources/js/js-cookie.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/jSignature.min.js") %>'></script>
 
-<script src='<%= cacheBreak("/resources/plugins/boostrap-datepicker/js/bootstrap-datepicker.js") %>'></script>
-<script src='<%= cacheBreak("/resources/plugins/boostrap-datepicker/js/bootstrap-datepicker-en-CA.min.js") %>'></script>
-<script src='<%= cacheBreak("/resources/plugins/boostrap-datepicker/js/bootstrap-datepicker.fr.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js") %>'></script>
+<script src='<%= cacheBreak("/resources/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.en-CA.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.fr.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
+<script src='<%= cacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
 <!-- SmartGuide JS -->

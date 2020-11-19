@@ -407,6 +407,9 @@ $("form[id^='smartguide_']" ).each(function() {
 				$field = $('div#div_'+fieldHtmlName, r.fm);
 			} else {
 				$field = $('[name="'+fieldHtmlName+'"]', r.fm);
+				if($field.length == 0) {
+					$field = $('#'+fieldHtmlName+'', r.fm);
+				}
 			}
 			return $field;
 		}
@@ -640,13 +643,13 @@ $("form[id^='smartguide_']" ).each(function() {
 				success:  function(data){
 					try {
 						response = data;
-
 						// get array of response elements
-						var responseDiv = $("div#sgControls", response);
-						var currentDiv = $("div#sgControls");
+						var responseDiv = $("#sgControls", response);
+						var currentDiv = $("#sgControls");
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
 						var currentID=$(elmt).attr('id');
+
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr!= null) {
 							for(var i=0;i<targetArr.length;i++) {
@@ -658,13 +661,15 @@ $("form[id^='smartguide_']" ).each(function() {
 								}
 								// Prevent self refresh
 								if (allowSelfRefresh||targetArr[i]!=currentID) {
-									var targetDiv = "div_"+targetArr[i];
+									var targetDiv = targetArr[i];
 									targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					
-									var responseTarget = $('#'+targetDiv, responseDiv);
+									var responseTarget = $('#div_'+targetDiv, responseDiv);
+									if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
 
 									responseTarget = responseTarget.clone();
 									if (responseTarget.length > 0) {
-										var currentTarget = $('#'+targetDiv, currentDiv);
+										var currentTarget = $('#div_'+targetDiv, currentDiv);
+										if(currentTarget.length == 0) currentTarget = $('#'+targetDiv, currentDiv);
 										//Check to see if we're using a crud-modal, is so, need to hide it.
 										//Display happens at the event handler level (ie. save_...)
 										if($('.crud-modal', responseTarget).length > 0) {
@@ -675,9 +680,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									}
 								}
 							}
-						}						
-					
-						
+						}
 
 						//replace the alert modal div if necessary	
 						var modalAlertId = $('#repeat-errors-validation').attr('id');

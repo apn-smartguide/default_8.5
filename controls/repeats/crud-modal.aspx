@@ -8,7 +8,7 @@
 			<div class='modal-content'>
 				<header class='modal-header'>
 					<h5 class='modal-title'>
-						<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+						<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 					</h5>
 				</header>
 				<% string repeatName = "repeat-name-" + Context.Items["repeat-level"]; %>

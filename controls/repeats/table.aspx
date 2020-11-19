@@ -28,7 +28,7 @@
 		<% } %>
 		<div class='panel-heading'>
 			<h2 class='panel-title'>
-				<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+				<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 			</h2>
 		</div>
 		<div class='panel-body bootpag'>
@@ -92,7 +92,7 @@
 									<apn:forEach runat="server" id="field">
 										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getCSSClass().Contains("hide-from-list-view")) { // Don't show if it's a hidden field %>
 										<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-											<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+											<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 											<% if ("true".Equals(field.Current.getAttribute("isSortable"))) { %>
 											&nbsp;&nbsp;
 											<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"

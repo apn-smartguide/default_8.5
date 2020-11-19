@@ -3,7 +3,7 @@
 <%@ Import Namespace="com.alphinat.sg5" %>
 <apn:api5 id="sg5" runat="server"/>
 <!-- #include file="../helpers.aspx" -->
-<nav class="sidenav">
+<nav id="sidebar" class="sidenav affix">
 	<ul class="list-unstyled components">
 <%
 ISmartletPage cpage = sg5.getSmartlet().getSessionSmartlet().getCurrentPage();
