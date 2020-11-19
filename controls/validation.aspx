@@ -3,11 +3,13 @@
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server"/>
 <!-- #include file="../helpers.aspx" -->
-<!-- Check to see if there are required fields and if any validation errors occurred -->
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
 <% Context.Items["counter"] = 1; %>
+<apn:IfRequiredControlExists runat="server">																		
+	<% Context.Items["required"] = true; %>
+</apn:IfRequiredControlExists>
 <%
   ISmartletPage pg = sg5.Context.getSmartlet().getCurrentPage();
   ISmartletField f = null;
@@ -32,6 +34,7 @@
 <apn:forEach id="alerts" items="alert-controls" runat="server">
 	<% Context.Items["alerts-count"] = alerts.getCount(); %>
 </apn:forEach>
+<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) {%>
 <div id='alerts'><%-- do not change the div id as it is referenced in smartguide.js --%>
     <apn:IfRequiredControlExists runat="server">
         <div class='alert alert-info' role='alert'>
@@ -70,3 +73,4 @@
 	</section>
 	<% } %>
 </div>
+<% } %>

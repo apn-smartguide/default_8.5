@@ -28,7 +28,7 @@
 				<apn:choosecontrol runat="server">
 					<apn:whencontrol runat="server" type="optgroup">
 						<label class='optgroup'>
-							<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+							<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 						</label>
 						<apn:forEach id="control3" runat="server">
 							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
@@ -38,7 +38,7 @@
 								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='checkbox-inline' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
 								<% } %>
 									<input type='checkbox' name='<%= control3.Current.getName() %>' id='<%= control3.Current.getAttribute("id")%><%= Context.Items["optionIndex"]%>' class='<apn:cssclass runat="server"/>' value='<%= control3.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' <%= control.Current.containsValue(control3.Current.getValue()) ? " checked='checked'" : "" %> <%= Context.Items["layout"] %> />
-									<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+									<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 								</label>
 							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 							</div>
@@ -53,7 +53,7 @@
 							<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='checkbox-inline' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
 							<% } %>
 								<input type='checkbox' name='<%= control2.Current.getName() %>' id='<%= control2.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='<apn:cssclass runat="server"/>' aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%= Context.Items["optionIndex"]%>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> value='<%= control2.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control2.Current.getValue()) ? " checked='checked'" : "" %> <%= Context.Items["layout"] %> />
-								<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+								<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 							</label>
 						<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 						</div>

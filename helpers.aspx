@@ -57,6 +57,9 @@
 		return "";
 	}
 
+	public bool showWizard() {
+		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
+	}
 	public string getSmartletCode() {
 		return sg5.Context.getSmartlet().getCode();
 	}

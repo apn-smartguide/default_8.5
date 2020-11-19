@@ -23,6 +23,20 @@ var customJS = {
 				}
 			}
 		});
+
+		var navHeight = $('.navbar').outerHeight(true) + 10;
+
+		$('#sidebar').affix({
+			offset: {
+				top: 20,
+				bottom: navHeight
+			}
+		});
+
+		$("body").scrollspy({
+			target: '#leftCol',
+			offset: navHeight
+		});
 		
 		tinymceController.init(sgRef, currentLocale);
 		tablesController.init(sgRef);

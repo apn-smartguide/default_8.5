@@ -24,7 +24,7 @@
 						<% } %>
 					</apn:forEach></apn:forEach></apn:forEach>
 					<h2 class='panel-title'>
-						<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+						<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 					</h2>
 				</div>
 				<% } %>

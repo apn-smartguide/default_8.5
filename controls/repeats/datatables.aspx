@@ -356,7 +356,7 @@
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<span>
-		<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+		<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 	</span>
 	<table id='<%=control.Current.getCode()%>' class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
 		<apn:control runat="server" type="default-instance" id="headerGroup">

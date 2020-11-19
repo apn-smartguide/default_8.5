@@ -28,7 +28,7 @@
 			</apn:control>
 			<div class='panel-heading'>
 				<div>
-					<% Server.Execute(resolvePath("/controls/tooltip.aspx")); %>
+					<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 				</div>
 				<% if (!(bool)Context.Items["hideAddButton"]) { %>
 				<div class='pull-right'>

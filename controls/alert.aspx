@@ -8,7 +8,7 @@
 </div>
 <% } else { %>
 <div id='div_<apn:name runat="server"/>' class='<apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> role='alert'>
-	<p><% Server.Execute(resolvePath("/controls/tooltip.aspx")); %></p>
+	<p><% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %></p>
 	<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
 </div>
 <% } %>
