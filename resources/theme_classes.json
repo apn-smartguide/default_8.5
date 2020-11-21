@@ -1,14 +1,14 @@
-{ 
+{
   "Text formatting options": {
     "Label": {
-      "en": "Text formatting options", 
+      "en": "Text formatting options",
       "fr": "Options de formatage de texte"
     },
     "Description": {
-      "en": "Apply one or more of the following text formatting options", 
+      "en": "Apply one or more of the following text formatting options",
       "fr": "Appliquer une ou plusieurs des options de formatage de texte suivantes"
     },
-    "List" : [
+    "List": [
       {
         "class": "lead",
         "en": "Makes a paragraph stand out",
@@ -32,11 +32,11 @@
       {
         "class": "text-justify",
         "en": "Justifies text",
-        "fr": "Justifie le texte"	
+        "fr": "Justifie le texte"
       },
       {
         "class": "text-nowrap",
-        "en": "Displays text on one line", 
+        "en": "Displays text on one line",
         "fr": "Affiche le texte sur une ligne"
       },
       {
@@ -88,14 +88,14 @@
   },
   "Image formatting options": {
     "Label": {
-      "en": "Image formatting options", 
+      "en": "Image formatting options",
       "fr": "Options de formatage d'image"
     },
     "Description": {
-      "en": "Use these classes to add special effects to static images", 
+      "en": "Use these classes to add special effects to static images",
       "fr": "Utiliser ces classes pour ajouter des effets spéciaux aux images statiques"
     },
-    "List" : [
+    "List": [
       {
         "class": "img-responsive",
         "en": "Makes the image scale nicely to the parent element",
@@ -120,14 +120,14 @@
   },
   "Button formatting options": {
     "Label": {
-      "en": "Button formatting options", 
+      "en": "Button formatting options",
       "fr": "Options de formatage de bouton"
     },
     "Description": {
-      "en": "Apply these classes to buttons to modify their appearance or to convey special meaning", 
+      "en": "Apply these classes to buttons to modify their appearance or to convey special meaning",
       "fr": "Appliquer ces classes aux boutons pour modifier leur apparence ou leur donner une signification particulière"
     },
-    "List" : [
+    "List": [
       {
         "class": "btn-default",
         "en": "Standard button",
@@ -197,14 +197,14 @@
   },
   "Block formatting options": {
     "Label": {
-      "en": "Block formatting options", 
+      "en": "Block formatting options",
       "fr": "Options de formatage de bloc"
     },
     "Description": {
-      "en": "Use to stylize or float elements, specify a background color and other properties", 
+      "en": "Use to stylize or float elements, specify a background color and other properties",
       "fr": "Utiliser pour styliser ou flotter des éléments, spécifier une couleur de fond ou d'autres propriétés"
     },
-    "List" : [
+    "List": [
       {
         "class": "bg-primary",
         "en": "Applies a dark blue background",
@@ -251,10 +251,10 @@
         "fr": "Aligne un bloc de contenu au centre"
       },
       {
-		"class": "smartmodal",
-		"en": "Transforms a group into a modal dialog",
-		"fr": "Transforme un groupe en dialogue modal"
-	  },
+        "class": "smartmodal",
+        "en": "Transforms a group into a modal dialog",
+        "fr": "Transforme un groupe en dialogue modal"
+      },
       {
         "class": "pre-scrollable",
         "en": "Sets a max-height of 350px and provides a y-axis scrollbar",
@@ -299,14 +299,14 @@
   },
   "Print utility classes": {
     "Label": {
-      "en": "Visibility utility classes", 
+      "en": "Visibility utility classes",
       "fr": "Classes utilitaires de visibilité"
     },
     "Description": {
-      "en": "Apply these classes to determine the element appearance during printing or device resizing", 
+      "en": "Apply these classes to determine the element appearance during printing or device resizing",
       "fr": "Appliquer ces classes pour déterminer l'apparence de l'élément lors de l'impression ou du redimensionnement de l'écran"
     },
-    "List" : [
+    "List": [
       {
         "class": "visible-print-block",
         "en": "Visible as a block element when printing",
@@ -390,133 +390,139 @@
     ]
   },
   "Grid options": {
-	"Label": {
-	  "en": "Grid options", 
-	  "fr": "Options de formatage de table"
-	},
-	"Description": {
-	  "en": "Use these classes to apply certain behaviors to a repeat group and/or its fields.", 
-	  "fr": "Utiliser ces classes pour appliquer certains comportements à un groupe répétable et/ou ces champs."
-	},
-	"List" : [
-	  {
-    "class": "datatables-view",
-    "en": "Forces the display of the group as a datatable that can be edited online, additional configurations to be applied via the data attributes.",
-    "fr": "Force l'affichage du groupe sous forme d'un datatable éditable en ligne, configurations additionnelles appliqués via les attributs data."
-    }
-    ,{
-    "class": "grid-view",
-    "en": "Displays the group as a table where each column represents a field and each row represents a record.",
-    "fr": "Affiche le groupe sous forme de tableau où chaque colonne correspond à un champ et chaque rangée correspond à une instance."
-    }
-    ,{
-		"class": "table-render",
-		"en": "Forces the display of the group as a table that can be edited online.",
-		"fr": "Force l'affichage du groupe sous forme de tableau éditable en ligne."
-	  }
-	  ,{
-		"class": "block-render",
-		"en": "Forces the display of the group as sections of fields, preserving the original layout, that can be edited online.",
-		"fr": "Force l'affichage du groupe sous forme de sections de champ, présevant le layout original, et qui peut-être édité en ligne."
-	  }
-	  ,{
-		"class": "hide-search",
-		"en": "Removes the searchbox from the grid",
-		"fr": "Retire la boîte de recherche du tableau"
-	  }
-	  ,{
-		"class": "hide-pagination",
-		"en": "Removes the pagination option from the grid",
-		"fr": "Désactive la pagination des résultats"
-	  }
-	  ,{
-		"class": "hide-edit-btn",
-		"en": "Removes the edit icon from each row",
-		"fr": "Retire l’icône d’édition de chaque rangée"
-	  }
-	  ,{
-		"class": "hide-delete-btn",
-		"en": "Removes the delete icon from each row",
-		"fr": "Retire l’icône de suppression de chaque rangée"
-	  }
-	  ,{
-		"class": "hide-add-btn",
-		"en": "Removes the add button from each row",
-		"fr": "Retire le bouton d’ajout d’instance du tableau"
-	  }
-	  ,{
-		"class": "hide-from-list-view",
-		"en": "Hides the element when displaying the list view",
-		"fr": "Cache l’élément lors de l’affichage de la liste"
-	  }
-	  ,{
-		"class": "hide-from-add-view",
-		"en": "Hides the element in the Add entry interface",
-		"fr": "Cache l’élément dans l’interface d’ajout d’instance"
-	  }
-	  ,{
-		"class": "hide-from-edit-view",
-		"en": "Hides the element in the Edit entry interface",
-		"fr": "Cache l’élément dans l’interface d’édition d’instance"
-	  },{
-		"class": "hide-sort",
-		"en": "Disables the sort on all columns",
-		"fr": "Désactive le tri sur toutes les colonnes"
-	  }
-	]
+    "Label": {
+      "en": "Grid options",
+      "fr": "Options de formatage de table"
+    },
+    "Description": {
+      "en": "Use these classes to apply certain behaviors to a repeat group and/or its fields.",
+      "fr": "Utiliser ces classes pour appliquer certains comportements à un groupe répétable et/ou ces champs."
+    },
+    "List": [
+      {
+        "class": "datatables-view",
+        "en": "Forces the display of the group as a datatable that can be edited online, additional configurations to be applied via the data attributes.",
+        "fr": "Force l'affichage du groupe sous forme d'un datatable éditable en ligne, configurations additionnelles appliqués via les attributs data."
+      },
+      {
+        "class": "grid-view",
+        "en": "Displays the group as a table where each column represents a field and each row represents a record.",
+        "fr": "Affiche le groupe sous forme de tableau où chaque colonne correspond à un champ et chaque rangée correspond à une instance."
+      },
+      {
+        "class": "table-render",
+        "en": "Forces the display of the group as a table that can be edited online.",
+        "fr": "Force l'affichage du groupe sous forme de tableau éditable en ligne."
+      },
+      {
+        "class": "block-render",
+        "en": "Forces the display of the group as sections of fields, preserving the original layout, that can be edited online.",
+        "fr": "Force l'affichage du groupe sous forme de sections de champ, présevant le layout original, et qui peut-être édité en ligne."
+      },
+      {
+        "class": "hide-search",
+        "en": "Removes the searchbox from the grid",
+        "fr": "Retire la boîte de recherche du tableau"
+      },
+      {
+        "class": "hide-pagination",
+        "en": "Removes the pagination option from the grid",
+        "fr": "Désactive la pagination des résultats"
+      },
+      {
+        "class": "hide-edit-btn",
+        "en": "Removes the edit icon from each row",
+        "fr": "Retire l’icône d’édition de chaque rangée"
+      },
+      {
+        "class": "hide-delete-btn",
+        "en": "Removes the delete icon from each row",
+        "fr": "Retire l’icône de suppression de chaque rangée"
+      },
+      {
+        "class": "hide-add-btn",
+        "en": "Removes the add button from each row",
+        "fr": "Retire le bouton d’ajout d’instance du tableau"
+      },
+      {
+        "class": "hide-from-list-view",
+        "en": "Hides the element when displaying the list view",
+        "fr": "Cache l’élément lors de l’affichage de la liste"
+      },
+      {
+        "class": "hide-from-add-view",
+        "en": "Hides the element in the Add entry interface",
+        "fr": "Cache l’élément dans l’interface d’ajout d’instance"
+      },
+      {
+        "class": "hide-from-edit-view",
+        "en": "Hides the element in the Edit entry interface",
+        "fr": "Cache l’élément dans l’interface d’édition d’instance"
+      },
+      {
+        "class": "hide-sort",
+        "en": "Disables the sort on all columns",
+        "fr": "Désactive le tri sur toutes les colonnes"
+      }
+    ]
   },
   "Specific options": {
-	"Label": {
-	  "en": "Specific behavior classes", 
-	  "fr": "Classes à comportement spécifique"
-	},
-	"Description": {
-	  "en": "Use these classes to apply specific behaviors to fields.", 
-	  "fr": "Utiliser ces classes pour appliquer certains comportements spécifiques à des champs."
-	},
-	"List" : [
-	  {
-		"class": "autocomplete",
-		"en": "Transforms a dropdown into an autocomplete control",
-		"fr": "Transforme une liste déroulante en contrôle avec auto-complétion"
-	  },
+    "Label": {
+      "en": "Specific behavior classes",
+      "fr": "Classes à comportement spécifique"
+    },
+    "Description": {
+      "en": "Use these classes to apply specific behaviors to fields.",
+      "fr": "Utiliser ces classes pour appliquer certains comportements spécifiques à des champs."
+    },
+    "List": [
       {
-		"class": "smartmodal",
-		"en": "Transforms a group into a modal dialog",
-		"fr": "Transforme un groupe en dialogue modal"
-	  }
-	]
+        "class": "autocomplete",
+        "en": "Transforms a dropdown into an autocomplete control",
+        "fr": "Transforme une liste déroulante en contrôle avec auto-complétion"
+      },
+      {
+        "class": "smartmodal",
+        "en": "Transforms a group into a modal dialog",
+        "fr": "Transforme un groupe en dialogue modal"
+      },
+      {
+        "class": "show-wizard",
+        "en": "Display the wizard previous/next navigation buttons, display the section steps and the progress bar",
+        "fr": "Affiche les boutons de navigation precédent/suivant, la barre d'étape de sections ainsi que la barre de progression"
+      }
+    ]
   },
   "Page formatting options": {
-  "Label": {
-    "en": "Page formatting classes", 
-    "fr": "Classes de formatage de page"
-  },
-  "Description": {
-    "en": "Use these classes to apply specific behaviors to pages.", 
-    "fr": "Utiliser ces classes pour appliquer certains comportements spécifiques à des pages."
-  },
-  "List" : [
-    {
-    "class": "hide-header",
-    "en": "Apply this class to a page to hide the page header.",
-    "fr": "Ajouter cette classe à une page pour cacher l'entête."
+    "Label": {
+      "en": "Page formatting classes",
+      "fr": "Classes de formatage de page"
     },
-    {
-    "class": "hide-progress-bar",
-    "en": "Apply this class to a page to hide the progress bar.",
-    "fr": "Ajouter cette classe à une page pour cacher la barre de progression."
+    "Description": {
+      "en": "Use these classes to apply specific behaviors to pages.",
+      "fr": "Utiliser ces classes pour appliquer certains comportements spécifiques à des pages."
     },
-    {
-    "class": "hide-breadcrumb",
-    "en": "Apply this class to a page to hide the section breadcrumb.",
-    "fr": "Ajouter cette classe à une page pour cacher le fil d'ariane."
-    },
-    {
-    "class": "hide-footer",
-    "en": "Apply this class to a page to hide the footer section.",
-    "fr": "Ajouter cette classe à une page pour cacher le pied de page."
-    }
-  ]
+    "List": [
+      {
+        "class": "hide-header",
+        "en": "Apply this class to a page to hide the page header.",
+        "fr": "Ajouter cette classe à une page pour cacher l'entête."
+      },
+      {
+        "class": "hide-progress-bar",
+        "en": "Apply this class to a page to hide the progress bar.",
+        "fr": "Ajouter cette classe à une page pour cacher la barre de progression."
+      },
+      {
+        "class": "hide-breadcrumb",
+        "en": "Apply this class to a page to hide the section breadcrumb.",
+        "fr": "Ajouter cette classe à une page pour cacher le fil d'ariane."
+      },
+      {
+        "class": "hide-footer",
+        "en": "Apply this class to a page to hide the footer section.",
+        "fr": "Ajouter cette classe à une page pour cacher le pied de page."
+      }
+    ]
   }
 }

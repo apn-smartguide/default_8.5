@@ -1,10 +1,11 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="default.aspx.cs" Inherits="_Default" Trace="false"%>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server"/>
 <!-- #include file="../helpers.aspx" -->
 <% 
 	Context.Items["optionIndex"] = ""; 
 %>
+<% setThemeLocations(new string[]{"/..",sg5.Smartlet.getTheme()}); %>
 <!DOCTYPE html>
 <html lang="<%= getCurrentLocale() %>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>

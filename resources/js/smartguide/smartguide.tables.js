@@ -103,7 +103,7 @@ var tablesController = {
 			} else {
 				//no pagination, use datatable for client pagination
 				try {
-					if (!$.fn.dataTable.isDataTable('#' + $(elmt).attr('id') )) {
+					if (!$.fn.dataTable.isDataTable('#' + $(elmt).closest('div.repeat').attr('id') )) {
 						var gridOption = {};
 						var repeatDiv = $(this).parent().parent();
 						if (repeatDiv.hasClass('hide-search')) gridOption['hide-search'] = true;

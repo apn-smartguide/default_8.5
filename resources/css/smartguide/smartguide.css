@@ -49,11 +49,13 @@
 .section li:first-child,
 .section li:first-child p {
   border-top-left-radius: 5px;
+  border-borrom-left-radius: 5px;
   padding-left: 0; 
 }
 .section li:last-child,
 .section li:last-child p {
   border-top-right-radius: 5px; 
+  border-bottom-right-radius: 5px; 
 }
 .section li:last-child p:after {
   content: ""; 
@@ -183,6 +185,9 @@
 /* Progress bar */
 .progress {
   height: auto;
+  margin-top: 5px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 .hide-progress-bar .progress {
   display: none;

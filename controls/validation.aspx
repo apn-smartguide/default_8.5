@@ -7,6 +7,7 @@
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
 <% Context.Items["counter"] = 1; %>
+<% Context.Items["errorIndex"] = 0; %>
 <%
   ISmartletPage pg = sg5.Context.getSmartlet().getCurrentPage();
   ISmartletField f = null;
