@@ -10,6 +10,7 @@
 <apn:IfRequiredControlExists runat="server">																		
 	<% Context.Items["required"] = true; %>
 </apn:IfRequiredControlExists>
+<% Context.Items["errorIndex"] = 0; %>
 <%
   ISmartletPage pg = sg5.Context.getSmartlet().getCurrentPage();
   ISmartletField f = null;

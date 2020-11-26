@@ -288,6 +288,8 @@ $("form[id^='smartguide_']" ).each(function() {
 						} else {
 							$field = $('[name="'+htmlName+'"]', r.fm);
 						}
+						if($field.length == 0) $field = $('#'+htmlName, r.fm);
+
 						return {
 							name: fieldNode.name,
 							id:  htmlName.substring(2).replace(/\\/g,""),

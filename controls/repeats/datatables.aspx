@@ -120,11 +120,7 @@
 		if (renderMode != null && renderMode.Equals("true")) {
 			jOptions.Add("serverSide", true);
 			// if server side, must add the ajaxSource
-			// Get the theme/template configured basePath
-			string basePath = (!Context.Items["basePath"].Equals("")) ? basePath = (string)Context.Items["basePath"] : "";
-			// If empty, build one dynamically based on running theme.
-			if (basePath.Equals("")) basePath = HttpContext.Current.Request.ApplicationPath + "/aspx/"+sg5.Smartlet.getWorkspace()+ "/" + sg5.Smartlet.getTheme();;
-			jOptions.Add("ajaxSource",  basePath + "/controls/repeats/datatables-json.aspx?appID=" + sg5.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
+			jOptions.Add("ajaxSource",  resolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg5.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
 		}
 		return jOptions;
 	}
@@ -430,7 +426,7 @@
 									<apn:forEach runat="server" id="trFieldRow">
 										<apn:ChooseControl runat="server">
 											<apn:WhenControl type="GROUP" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/no-col.aspx")); %></td>
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
 											</apn:WhenControl>
 											<apn:WhenControl type="TRIGGER" runat="server">
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
@@ -452,7 +448,7 @@
 									</apn:forEach>
 								</apn:WhenControl>
 								<apn:WhenControl type="GROUP" runat="server">
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/custom/no-col.aspx")); %></td>
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/controls.aspx")); %></td>
 								</apn:WhenControl>
 								<apn:WhenControl type="TRIGGER" runat="server">
 									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>

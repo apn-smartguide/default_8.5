@@ -1,10 +1,11 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="_Default" Trace="false"%>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server" />
 <!-- #include file="../helpers.aspx" -->
 <% 
 	Context.Items["optionIndex"] = ""; 
 %>
+<% setThemeLocations(new string[]{"/..",sg5.Smartlet.getTheme()}); %>
 <!DOCTYPE html>
 <html lang="<%= getCurrentLocale() %>">
 <% Server.Execute(resolvePath("/layout/head.aspx")); %>
@@ -26,6 +27,9 @@
 						<% Server.Execute(resolvePath("/layout/secondary-navigation.aspx")); %>
 					</div>
 					<div class="col-md-9">
+						<% if (showWizard()) { %>
+							<% Server.Execute(resolvePath("/controls/wizard/sections.aspx")); %>
+						<% } %>
 						<div class="row page-title">
 							<div class="col-md-12">
 								<h2>
