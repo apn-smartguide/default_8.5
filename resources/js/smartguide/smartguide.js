@@ -408,10 +408,10 @@ $("form[id^='smartguide_']" ).each(function() {
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
 				$field = $('div#div_'+fieldHtmlName, r.fm);
 			} else {
-				$field = $('[name="'+fieldHtmlName+'"]', r.fm)
-			}
-			if($field.length == 0) {
-				$field = $('#'+fieldHtmlName+'', r.fm);
+				$field = $('[name="'+fieldHtmlName+'"]', r.fm);
+				if($field.length == 0) {
+					$field = $('#'+fieldHtmlName+'', r.fm);
+				}
 			}
 			return $field;
 		}
