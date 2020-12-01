@@ -79,8 +79,20 @@
 		return sg5.Context.getSmartlet().getWorkspace();
 	}
 
+	public string getURLForSmartlet(string smartletName, string urlParams) {
+		string smartletUrl = "do.aspx?interviewID=" + smartletName + "&workspace=" + getWorkspace() + "&lang=" + getCurrentLocale();
+		if (!urlParams.Equals("")) {
+			smartletUrl = smartletUrl + "&" + urlParams;
+		}
+		return smartletUrl;
+	}
+	
 	public string getURLForSmartlet(string smartletName) {
-		return "do.aspx?interviewID=" + smartletName + "&workspace=" + getWorkspace() + "&lang=" + getCurrentLocale();
+		return getURLForSmartlet(smartletName, "");
+	}
+
+	public string getURLForSmartletReset(string smartletName) {
+		return getURLForSmartlet(smartletName, "reset=true");
 	}
 
 	public string getRequestURI() {
