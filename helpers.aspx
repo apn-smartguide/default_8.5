@@ -1,5 +1,4 @@
-<%@ Import Namespace="com.alphinat.sg5" %>
-<script runat="server">
+<script runat="server" language="c#">
 	public string getBasePath() {
 		return HttpContext.Current.Request.ApplicationPath + "/aspx/" + sg5.Smartlet.getWorkspace() + "/";
 	}
@@ -112,4 +111,17 @@
 		}   
 		return result;
 	}
+
+	public bool isLogged() {
+		return (!getUsername().Equals(""));
+	}
+	
+	public string getUsername() {
+		return (Session["username"] != null) ? (string)Session["username"] : "";
+	}
+
+	public string getUserId() {
+		return (Session["userid"] != null) ? (string)Session["userid"] : "";
+	}
+
 </script>
