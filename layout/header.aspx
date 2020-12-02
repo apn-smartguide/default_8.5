@@ -22,6 +22,8 @@
 						<li><a href='<%=getURLForSmartlet("sg-8-5-repeats-table")%>'>Repeat Table</a></li>
 						<li><a href='<%=getURLForSmartlet("sg-8-5-repeats-modals")%>'>Repeat & Modals</a></li>
 						<li><a href='<%=getURLForSmartlet("sg-8-5-navigation")%>'>Navigation</a></li>
+						<li><a href='<%=getURLForSmartlet("sg-8-5-datatable-server-fruits-serverside")%>'>Datatables.Net</a></li>
+
 					</ul>
 				</li>
 				<apn:ifsmartletmultilingual runat="server">
