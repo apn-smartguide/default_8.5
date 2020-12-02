@@ -71,7 +71,7 @@ string selectionType = repeat.getSelectionType();
 				string value = "";
 				
 				if (!fields[j].isAvailable()) {
-					value = "<span id='d_"+fieldid+"["+id+"]'></span>";
+					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
 					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]' style=' '>"+label+"</button>";
@@ -89,7 +89,7 @@ string selectionType = repeat.getSelectionType();
 					grpValue += "</span></div>";
 					value = grpValue;
 				} else {
-					value = value = "<span id='d_"+fieldid+"["+id+"]' class='form-group'>" + fields[j].getString() + "</span>";
+					value = value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
 				}
 				// escape sensitive chars
 				value = HttpUtility.JavaScriptStringEncode(value);
