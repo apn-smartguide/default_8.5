@@ -29,4 +29,5 @@
 <link href='<%= cacheBreak("/resources/css/jquery-ui.css") %>' rel="stylesheet">
 <!-- SmartGuide CSS -->
 <link href='<%=cacheBreak("/resources/css/smartguide/smartguide.css")%>' rel="stylesheet">
+<link href='<%=cacheBreak("/resources/css/smartguide/base.css")%>' rel="stylesheet">
 <link href='<%=cacheBreak("/resources/css/smartguide/custom.css")%>' rel="stylesheet">

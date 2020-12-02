@@ -289,7 +289,7 @@ div.repeat .selectBoxControl {
 }
 
 div.repeatinstance {
-	margin-right:10px !important;
+	/* margin-right:10px !important; */
 }
 /* Block-mode help div */
 .groupHelp {
