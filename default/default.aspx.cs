@@ -52,8 +52,6 @@ public partial class _Default : System.Web.UI.Page
 		// so we need to log the details of the InnerException.
 		ex = ex.InnerException ?? ex;
 		log.debug(ExceptionInfo(ex));
-
-		Server.ClearError();
 	}
     public int GetLineNumber(Exception ex)
     {
