@@ -143,4 +143,8 @@
 		return result;
 	}
 
+	public ISmartletField getFieldFromControlInfo(ControlInfo ctrl) {
+		return sg5.Context.getSmartlet().getCurrentPage().findFieldById(ctrl.getFieldId());
+	}
+
 </script>
