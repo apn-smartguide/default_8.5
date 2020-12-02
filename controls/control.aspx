@@ -8,11 +8,8 @@
 	ISmartletPage currentPage = sg5.Context.getSmartlet().getCurrentPage();
 	ISmartletField field = currentPage.findFieldById(control.Current.getFieldId());
 	string customControl = field.getNonLocalizedMetaData("Controls");
-	string customControlsPath = "/controls/custom/" + customControl + ".aspx";
 	string controlsPath = "/controls/" + customControl + ".aspx";
-	if (!customControl.Equals("") && !resolvePath(customControlsPath).Equals("")) {
-		Server.Execute(resolvePath(customControlsPath));
-	} else if (!customControl.Equals("") && !resolvePath(controlsPath).Equals("")) {
+	if (!customControl.Equals("") && !resolvePath(controlsPath).Equals("")) {
 		Server.Execute(resolvePath(controlsPath));
 	} else if(control.Current.getCSSClass().Contains("proxy")) { 
 		//It's a proxy we do nothing.
