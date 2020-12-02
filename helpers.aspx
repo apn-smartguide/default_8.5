@@ -1,13 +1,21 @@
 <script runat="server" language="c#">
+
+	//Initialize the hierarchy of themes for asset reference priorities.
+	//Provide an array of "theme" names from the Lowest -> Highest.
+	//Last theme to have a positive asset hit will be the executed asset.
+	//Asset can be any server side processed reference. (*.aspx, *.css, *.js, *.*)
+	public void setThemeLocations(string[] locations) {
+		Context.Items["theme-locations"] = locations;
+	}
+	
+	//// Filepaths Helpers ////
+	
+	//Will provide the runniing basePath based on the current Workspace name.
 	public string getBasePath() {
 		return HttpContext.Current.Request.ApplicationPath + "/aspx/" + sg5.Smartlet.getWorkspace() + "/";
 	}
 
-	public void setThemeLocations(string[] locations) {
-		Context.Items["theme-locations"] = locations;
- 	}
-
-	//Will return an empty string if the Assest is not found at this Theme Location
+	//Will return an empty string if the searched "asset" is not found at this Theme Location
 	public string getThemePathForAsset(string themeLocation, string asset) {
 		string path = getBasePath() + themeLocation + asset;
 		//log.debug("checking for core path at: " + path);
@@ -17,6 +25,7 @@
 		return "";
 	}
 
+	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
 	public string resolvePath(string asset) {
 		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
 		//log.debug("start resolvePath for: " + asset);
@@ -43,9 +52,8 @@
 		return filePath;
 	}
 
-	public Boolean fileExists(string path) {
-		return System.IO.File.Exists(Server.MapPath(path));
-	}
+	//This help will build a path to the asset and append a cachebreak computed with a SHA-256 of the file content.
+	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string cacheBreak(string url) {
 		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
 		string filePath = resolvePath(url);
@@ -59,25 +67,12 @@
 		return "";
 	}
 
-	public bool showWizard() {
-		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
-	}
-	public string getSmartletCode() {
-		return sg5.Context.getSmartlet().getCode();
+	//Check if file actually exists on disk.
+	public Boolean fileExists(string path) {
+		return System.IO.File.Exists(Server.MapPath(path));
 	}
 
-	public string getCurrentLocale() {
-		return sg5.Context.getSmartlet().getCurrentLocale();
-	}
-
-	public string getTheme() {
-		return sg5.Smartlet.getTheme();
-	}
-
-	public string getWorkspace() {
-		return sg5.Context.getSmartlet().getWorkspace();
-	}
-
+	//// Referencing other smartlets helpers ////
 	public string getURLForSmartlet(string smartletName, string urlParams) {
 		string smartletUrl = "do.aspx?interviewID=" + smartletName + "&workspace=" + getWorkspace() + "&lang=" + getCurrentLocale();
 		if (!urlParams.Equals("")) {
@@ -98,6 +93,42 @@
 		return Request.Url.AbsolutePath;
 	}
 
+	//// Smartlet infos Helpers ////
+	public string getSmartletCode() {
+		return sg5.Context.getSmartlet().getCode();
+	}
+
+	public string getCurrentLocale() {
+		return sg5.Context.getSmartlet().getCurrentLocale();
+	}
+
+	public string getTheme() {
+		return sg5.Smartlet.getTheme();
+	}
+
+	public string getWorkspace() {
+		return sg5.Context.getSmartlet().getWorkspace();
+	}
+
+	//// Authentication Helpers ////
+	public bool isLogged() {
+		return (!getUsername().Equals(""));
+	}
+	
+	public string getUsername() {
+		return (Session["username"] != null) ? (string)Session["username"] : "";
+	}
+
+	public string getUserId() {
+		return (Session["userid"] != null) ? (string)Session["userid"] : "";
+	}
+
+	//// Smartlet Features Helpers ////
+	public bool showWizard() {
+		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
+	}
+
+	//// Field Helpers ////
 	public bool isUnderRepeat(ISmartletField f) { 
 		bool result = false;
 		
@@ -110,18 +141,6 @@
 			f = f.getParent();
 		}   
 		return result;
-	}
-
-	public bool isLogged() {
-		return (!getUsername().Equals(""));
-	}
-	
-	public string getUsername() {
-		return (Session["username"] != null) ? (string)Session["username"] : "";
-	}
-
-	public string getUserId() {
-		return (Session["userid"] != null) ? (string)Session["userid"] : "";
 	}
 
 </script>
