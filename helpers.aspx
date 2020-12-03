@@ -1,3 +1,4 @@
+<%@ Import Namespace="com.alphinat.xmlengine.interview.tag" %>
 <script runat="server" language="c#">
 
 	//Initialize the hierarchy of themes for asset reference priorities.
@@ -94,6 +95,10 @@
 	}
 
 	//// Smartlet infos Helpers ////
+	public string getSmartletName() {
+		return sg5.Context.getSmartlet().getName();
+	}
+
 	public string getSmartletCode() {
 		return sg5.Context.getSmartlet().getCode();
 	}

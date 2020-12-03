@@ -378,8 +378,7 @@
 							<%-- special case where SG generated a row inside a col, and not a field --%>
 							<%-- this needs to be refactored to be more generic --%>
 							<apn:forEach runat="server" id="thRowField">
-								<!-- <apn:label runat="server"/> ROW-FIELD v:<%= thRowField.Current.getAttribute("visible") %><br/> -->
-								<% if(getFieldFromControlInfo(thRowField.Current).isAvailable() && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+								<% if(!thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 									<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<apn:label runat="server"/>
