@@ -377,7 +377,6 @@ input[type="radio"].large-radio:checked::before {
     color: #666666;
 }
 
-/* test 123 */
 #jquery-idle-hands-dialog-title {
     color: #ffffff !important;
     text-align: center !important;
