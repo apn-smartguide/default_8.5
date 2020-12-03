@@ -86,7 +86,8 @@
 			logoutNowButtonText: '<apn:localize runat="server" key="theme.text.idle-timeout-logout"/>',
 			stayLoggedInButtonText: '<apn:localize runat="server" key="theme.text.idle-timeout-stay"/>',
             applicationId: '<%=getSmartletName()%>',
-            heartRate: 1*60,
+			heartRate: 1*60,
+			heartbeatUrl: window.location.href,
             inactivityDialogDuration: 5*60,
             inactivityLogoutUrl: '<%=getLogoutURL()%>',
             maxInactivitySeconds: 20*60
