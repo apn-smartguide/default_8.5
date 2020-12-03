@@ -355,3 +355,71 @@ input[type="radio"].large-radio:checked::before {
     margin-left: -30px;
 }
 /* Large-Radio - End */
+
+/* JQuery-Idle-Hands */
+#jquery-idle-hands {
+    display: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #666666;
+}
+
+#jquery-idle-hands-overlay {
+    background-color: rgba(0,0,0,0.25) !important;
+}
+
+#jquery-idle-hands-dialog {
+    background-color: #ffffff !important;
+    border-radius: 4px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    min-width: 300px !important;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    border: 1px solid #eea236;
+    color: #666666;
+}
+
+#jquery-idle-hands-dialog-title {
+    color: #ffffff !important;
+    text-align: center !important;
+    background-color: #f0ad4e !important;
+    border-radius: 4px !important;
+    padding: 4px !important;
+    margin: 0px !important;
+    text-align: center !important;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-size: 16px;
+}
+
+#jquery-idle-hands-message-container p {
+    padding: 0 !important;
+    margin: 14px !important;
+    text-align: left !important;
+    color: #666666;
+    font-size: 14px;
+}
+
+#jquery-idle-hands hr {
+    padding: 0 !important;
+    margin: 0 0 4px 0 !important;
+    border: 1px solid silver !important;
+    border-bottom: none !important;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    color: #666666;
+
+    height: 1px !important;
+}
+
+#jquery-idle-hands-button-container {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    color: #666666;
+}
+
+#jquery-idle-hands-button-container button {
+    font-size: 14px;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    color: #666666;
+}
+/* JQuery Idle Hands */

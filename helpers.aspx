@@ -1,3 +1,4 @@
+<%@ Import Namespace="com.alphinat.xmlengine.interview.tag" %>
 <script runat="server" language="c#">
 
 	//Initialize the hierarchy of themes for asset reference priorities.
@@ -94,6 +95,10 @@
 	}
 
 	//// Smartlet infos Helpers ////
+	public string getSmartletName() {
+		return sg5.Context.getSmartlet().getName();
+	}
+
 	public string getSmartletCode() {
 		return sg5.Context.getSmartlet().getCode();
 	}
@@ -123,6 +128,14 @@
 		return (Session["userid"] != null) ? (string)Session["userid"] : "";
 	}
 
+	public void setLogoutURL(string logoutURL) {
+		Context.Items["logout-url"] = logoutURL; 
+	}
+
+	public string getLogoutURL() {
+		return (string) Context.Items["logout-url"];
+	}
+
 	//// Smartlet Features Helpers ////
 	public bool showWizard() {
 		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
@@ -141,6 +154,10 @@
 			f = f.getParent();
 		}   
 		return result;
+	}
+
+	public ISmartletField getFieldFromControlInfo(ControlInfo ctrl) {
+		return sg5.Context.getSmartlet().getCurrentPage().findFieldById(ctrl.getFieldId());
 	}
 
 </script>

@@ -71,17 +71,17 @@ string selectionType = repeat.getSelectionType();
 				string value = "";
 				
 				if (!fields[j].isAvailable()) {
-					value = "<span id='d_"+fieldid+"["+id+"]'></span>";
+					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]' style=' '>"+label+"</button>";
+					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
 					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
 					ISmartletField[] grpFields = ((ISmartletGroup)fields[j]).getFields();
 					for(int k=0; k<grpFields.Length;k++){
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' name='d_"+grpFields[k].getId()+"["+id+"]' style=' '>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
@@ -89,7 +89,7 @@ string selectionType = repeat.getSelectionType();
 					grpValue += "</span></div>";
 					value = grpValue;
 				} else {
-					value = value = "<span id='d_"+fieldid+"["+id+"]' class='form-group'>" + fields[j].getString() + "</span>";
+					value = value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
 				}
 				// escape sensitive chars
 				value = HttpUtility.JavaScriptStringEncode(value);

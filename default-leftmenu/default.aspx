@@ -2,10 +2,9 @@
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server" />
 <!-- #include file="../helpers.aspx" -->
-<% 
-	Context.Items["optionIndex"] = ""; 
-%>
+<% Context.Items["optionIndex"] = ""; %>
 <% setThemeLocations(new string[]{"/..",sg5.Smartlet.getTheme()}); %>
+<% setLogoutURL(getURLForSmartlet(getSmartletName())); //Replace with actual logout url %> 
 <!DOCTYPE html>
 <html lang="<%= getCurrentLocale() %>">
 <% Server.Execute(resolvePath("/layout/head.aspx")); %>

@@ -200,6 +200,7 @@
 			JArray target = new JArray(counter);
 
 			string cssClass = fields[i].getCSSClass();
+			string cssStyle = fields[i].getCSSStyle();
 			col.Add("targets", target);
 			col.Add("data",fields[i].getName());
 			if (cssClass.Contains("hide-sort")) {
@@ -209,34 +210,37 @@
 				col.Add("searchable", false);
 			}
 
-			if (!fields[i].isAvailable() || fields[i].getTypeConst() == 80000 || cssClass.Contains("hide-from-list-view")) {
-				col.Add("visible", false);
-			}
-			
-			col.Add("autoWidth", true);
+			//Cannot add a non available field to the collection, it will not exist in the header's collection of fields.
+			if(fields[i].isAvailable()) {
+				if (fields[i].getTypeConst() == 80000 || cssStyle.Contains("visibility:hidden;") || cssStyle.Contains("display:none;") || cssClass.Contains("hide-from-list-view")) {
+					col.Add("visible", false);
+				} else {
+					col.Add("autoWidth", true);
+				}
 
-			string colClass = "";
-			if(cssClass.Contains("hidden-xs")) {
-				colClass = "hidden-xs ";
-			}
-			if(cssClass.Contains("hidden-sm")) {
-				colClass += "hidden-sm ";
-			} 
-			if(cssClass.Contains("hidden-md")) {
-				colClass += "hidden-md ";
-			}
-			if(cssClass.Contains("hidden-lg")) {
-				colClass += "hidden-lg";
-			}
-			if(!colClass.Equals("")) {
-				col.Add("className", colClass);
-			}
+				string colClass = "";
+				if(cssClass.Contains("hidden-xs")) {
+					colClass = "hidden-xs ";
+				}
+				if(cssClass.Contains("hidden-sm")) {
+					colClass += "hidden-sm ";
+				} 
+				if(cssClass.Contains("hidden-md")) {
+					colClass += "hidden-md ";
+				}
+				if(cssClass.Contains("hidden-lg")) {
+					colClass += "hidden-lg";
+				}
+				if(!colClass.Equals("")) {
+					col.Add("className", colClass);
+				}
 
-			columns.Add(col);
+				columns.Add(col);
 
-			fieldNameToId.Add(fields[i].getName(), counter);
+				fieldNameToId.Add(fields[i].getName(), counter);
 
-			counter++;
+				counter++;
+			}
 		}
 		
 		jOptions.Add("columnDefs", columns);
@@ -346,6 +350,7 @@
 	}
 
 </script>
+
 <div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %> <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
@@ -373,30 +378,34 @@
 							<%-- special case where SG generated a row inside a col, and not a field --%>
 							<%-- this needs to be refactored to be more generic --%>
 							<apn:forEach runat="server" id="thRowField">
-								<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") 
-								&& !thRowField.Current.getAttribute("visible").Equals("false") 
-								&& !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+								<% if(!thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 									<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<apn:label runat="server"/>
 									<% } %>
 								</th>
-								<% } else { %><th></th><% } %>
+								<% } else { %>
+								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
+								<% } %>
 							</apn:forEach>
 						</apn:WhenControl>
 						<apn:WhenControl type="GROUP" runat="server">
-							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
-						</apn:WhenControl>
-						<apn:Otherwise runat="server">
-							<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") 
-							&& !thField.Current.getAttribute("visible").Equals("false") 
-							&& !thField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 								<apn:label runat="server"/>
 							<% } %>
 							</th>
-							<% } else { %><th></th><% } %>
+						</apn:WhenControl>
+						<apn:Otherwise runat="server">
+							<% if(!thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
+							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
+								<apn:label runat="server"/>
+							<% } %>
+							</th>
+							<% } else { %>
+							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
+							<% } %>
 						</apn:Otherwise>
 					</apn:ChooseControl>
 					</apn:forEach>
@@ -432,16 +441,14 @@
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
 											</apn:WhenControl>
 											<apn:Otherwise runat="server">
-												<% if(!trFieldRow.Current.getAttribute("style").Equals("visibility:hidden;");
-												&& !trFieldRow.Current.getAttribute("visible").Equals("false") 
-												&& !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+												<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 													<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
 													<% } else { %>	
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
 													<% } %>
 												<% } else { %>
-													<td><!-- #include file="render_hidden_div.inc" --></td>
+													<td><!-- #include file="../hidden.inc" --></td>
 												<% } %>
 											</apn:Otherwise>
 										</apn:ChooseControl>
@@ -454,9 +461,7 @@
 									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
 								</apn:WhenControl>
 								<apn:Otherwise runat="server">
-									<% if(!trField.Current.getAttribute("style").Equals("visibility:hidden;") 
-									&& !trField.Current.getAttribute("visible").Equals("false") 
-									&& !trField.Current.getCSSClass().Contains("hide-from-list-view"))  { %>
+									<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view"))  { %>
 										<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
 											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
 										<% } else { %>
@@ -464,7 +469,7 @@
 											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
 										<% } %>
 									<% } else { %>
-										<td><!-- #include file="render_hidden_div.inc" --></td>
+										<td><!-- #include file="../hidden.inc" --></td>
 									<% } %>
 								</apn:Otherwise>
 							</apn:ChooseControl>	
