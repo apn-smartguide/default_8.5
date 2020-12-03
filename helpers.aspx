@@ -128,6 +128,14 @@
 		return (Session["userid"] != null) ? (string)Session["userid"] : "";
 	}
 
+	public void setLogoutURL(string logoutURL) {
+		Context.Items["logout-url"] = logoutURL; 
+	}
+
+	public string getLogoutURL() {
+		return (string) Context.Items["logout-url"];
+	}
+
 	//// Smartlet Features Helpers ////
 	public bool showWizard() {
 		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
