@@ -136,8 +136,8 @@
 		return (string) Context.Items["logout-url"];
 	}
 
-	public string getLogoutURL(string params) {
-		return (string) Context.Items["logout-url"] + "&" + params;
+	public string getLogoutURL(string urlParams) {
+		return (string) Context.Items["logout-url"] + "&" + urlParams;
 	}
 
 	//// Smartlet Features Helpers ////
