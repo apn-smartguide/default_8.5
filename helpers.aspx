@@ -136,6 +136,10 @@
 		return (string) Context.Items["logout-url"];
 	}
 
+	public string getLogoutURL(string params) {
+		return (string) Context.Items["logout-url"] + "&" + params;
+	}
+
 	//// Smartlet Features Helpers ////
 	public bool showWizard() {
 		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
