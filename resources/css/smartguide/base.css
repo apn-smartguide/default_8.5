@@ -131,6 +131,10 @@ overflow-y: auto;
     padding: 0px !important;
 }
 
+.plain-group {
+    border       : 0px !important;
+}
+
 .panel-borderless {
     border       : 0;
     box-shadow   : none;
