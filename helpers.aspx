@@ -7,6 +7,7 @@
 	//Asset can be any server side processed reference. (*.aspx, *.css, *.js, *.*)
 	public void setThemeLocations(string[] locations) {
 		Context.Items["theme-locations"] = locations;
+		Context.Items["paths-dictionary"] = new Dictionary<string,string>();
 	}
 	
 	//// Filepaths Helpers ////
@@ -30,26 +31,32 @@
 	public string resolvePath(string asset) {
 		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
 		//log.debug("start resolvePath for: " + asset);
+		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>)Context.Items["paths-dictionary"];
+		
 		string filePath = "";
 		string pathParams = "";
 
-		if(asset.Contains("?")) {
-			pathParams = asset.Split('?')[1];
-			asset = asset.Split('?')[0];
-		}
-
-		foreach(string themeLocation in (string[])Context.Items["theme-locations"]) {
-			string path = getThemePathForAsset(themeLocation, asset);
-			if(path != "") {
-				filePath = path;
+		if (!pathsDictionary.ContainsKey(asset)) {
+			if(asset.Contains("?")) {
+				pathParams = asset.Split('?')[1];
+				asset = asset.Split('?')[0];
 			}
-		}
+			foreach(string themeLocation in (string[])Context.Items["theme-locations"]) {
+				string path = getThemePathForAsset(themeLocation, asset);
+				if(path != "") {
+					filePath = path;
+				}
+			}
+			pathsDictionary.Add(asset,filePath);
 
-		if(filePath.Equals("")) {
-			log.debug(getTheme() + ": path not found for " + asset);
+			if(filePath.Equals("")) {
+				log.debug(getTheme() + ": path not found for " + asset);
+			}
+			if(pathParams.Length > 0) filePath = filePath + "?" + pathParams;
+			log.trace(getTheme() + ": " + filePath);
+		} else {
+			pathsDictionary.TryGetValue(asset, out filePath);
 		}
-		if(pathParams.Length > 0) filePath = filePath + "?" + pathParams;
-		log.trace(getTheme() + ": " + filePath);
 		return filePath;
 	}
 
@@ -57,15 +64,25 @@
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string cacheBreak(string url) {
 		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
-		string filePath = resolvePath(url);
-		if(!filePath.Equals("")) {
-			try { 
-				return filePath + "?cache=" + Utils.hashFile(Server.MapPath(filePath), "SHA-256");
-			} catch (Exception e) {
-				log.error("File not found: " + filePath + ", " + e.ToString());
-			}
+		if(Context.Items["cachebreak-dictionary"] == null) {
+            Context.Items["cachebreak-dictionary"] = new Dictionary<string,string>();
 		}
-		return "";
+		string filePath = "";
+        Dictionary<string, string> cacheBreakDictionary = (Dictionary<string, string>) Context.Items["cachebreak-dictionary"];
+		if(!cacheBreakDictionary.ContainsKey(url)){
+			filePath = resolvePath(url);
+			if(!filePath.Equals("")) {
+				try { 
+					return filePath + "?cache=" + Utils.hashFile(Server.MapPath(filePath), "SHA-256");
+				} catch (Exception e) {
+					log.error("File not found: " + filePath + ", " + e.ToString());
+				}
+			}
+			cacheBreakDictionary.Add(url, filePath);
+		} else {
+			cacheBreakDictionary.TryGetValue(url, out filePath);
+		}
+		return filePath;
 	}
 
 	//Check if file actually exists on disk.
@@ -145,6 +162,8 @@
 		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
 	}
 
+	
+
 	//// Field Helpers ////
 	public bool isUnderRepeat(ISmartletField f) { 
 		bool result = false;
@@ -162,6 +181,42 @@
 
 	public ISmartletField getFieldFromControlInfo(ControlInfo ctrl) {
 		return sg5.Context.getSmartlet().getCurrentPage().findFieldById(ctrl.getFieldId());
+	}
+
+	public string getCustomControlPathForCurrentControl(ControlInfo ctrl){
+		if(Context.Items["custom-control-dictionary"] == null) {
+            Context.Items["custom-control-dictionary"] = new Dictionary<string,string>();
+		}
+		Dictionary<string, string> customControlDictionary = (Dictionary<string, string>) Context.Items["cachebreak-dictionary"];
+		string code = ctrl.getFieldId();
+		string path = "";
+		if(!customControlDictionary.ContainsKey(code)){
+			ISmartletField field = getFieldFromControlInfo(ctrl);
+			string customControl = field.getNonLocalizedMetaData("Controls");
+			string controlsPath = "/controls/" + customControl + ".aspx";
+			if (!customControl.Equals("") && !resolvePath(controlsPath).Equals("")) {
+				path = resolvePath(controlsPath);
+			}
+			customControlDictionary.Add(code, path);
+		} else {
+			customControlDictionary.TryGetValue(code, out path);
+		}
+		return path;
+	}
+
+	//// Utilities ///
+	public void TimerTraceStart(string key) {
+		Context.Items["timer-" + key] = DateTime.UtcNow;
+	}
+
+	public void TimerTraceStop(string key) {
+		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
+		var timerstart = (DateTime) Context.Items["timer-" + key];
+		if(timerstart != null) {
+			log.debug("Trace timer for :" + key + ", duration = " + (DateTime.UtcNow - timerstart).TotalSeconds);
+		} else {
+			log.debug("Missing timer start for :" + key);
+		}
 	}
 
 </script>
