@@ -1,13 +1,17 @@
 <%@ Import Namespace="com.alphinat.xmlengine.interview.tag" %>
 <script runat="server" language="c#">
 
+	public void ClearCaches() {
+		Context.Items["paths-dictionary"] = new Dictionary<string, string>();
+		Context.Items["cachebreak-dictionary"] = new Dictionary<string, string>();
+		Context.Items["custom-control-dictionary"] = new Dictionary<string, string>();
+	}
 	//Initialize the hierarchy of themes for asset reference priorities.
 	//Provide an array of "theme" names from the Lowest -> Highest.
 	//Last theme to have a positive asset hit will be the executed asset.
 	//Asset can be any server side processed reference. (*.aspx, *.css, *.js, *.*)
 	public void setThemeLocations(string[] locations) {
 		Context.Items["theme-locations"] = locations;
-		Context.Items["paths-dictionary"] = new Dictionary<string, string>();
 	}
 	
 	//// Filepaths Helpers ////
@@ -28,35 +32,39 @@
 	}
 
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
-	public string resolvePath(string asset) {
+	public string resolvePath(string path) {
 		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
-		//log.debug("start resolvePath for: " + asset);
+		log.trace(String.Concat("resolvePath start: ", path));
+		if(Context.Items["paths-dictionary"] == null) {
+            Context.Items["paths-dictionary"] = new Dictionary<string, string>();
+		}
 		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Context.Items["paths-dictionary"];
 		
 		string filePath = "";
 		string pathParams = "";
-
-		if (!pathsDictionary.ContainsKey(asset)) {
-			if(asset.Contains("?")) {
-				pathParams = asset.Split('?')[1];
-				asset = asset.Split('?')[0];
-			}
+		
+		if(path.Contains("?")) {
+			pathParams = path.Split('?')[1];
+			path = path.Split('?')[0];
+		}
+		if (!pathsDictionary.ContainsKey(path)) {
 			foreach(string themeLocation in (string[])Context.Items["theme-locations"]) {
-				string path = getThemePathForAsset(themeLocation, asset);
-				if(path != "") {
-					filePath = path;
+				string themePath = getThemePathForAsset(themeLocation, path);
+				if(themePath != "") {
+					filePath = themePath;
 				}
 			}
-			pathsDictionary.Add(asset,filePath);
+			pathsDictionary.Add(path, filePath);
 
 			if(filePath.Equals("")) {
-				log.debug(String.Concat(getTheme(), ": path not found for ", asset));
+				log.debug(String.Concat(getTheme(), ": path not found for ", path));
 			}
-			if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
-			//log.trace(String.Concar(getTheme(), ": ", filePath));
 		} else {
-			pathsDictionary.TryGetValue(asset, out filePath);
+			pathsDictionary.TryGetValue(path, out filePath);
 		}
+
+		if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
+		log.trace(String.Concat("resolvePath end: ", filePath));
 		return filePath;
 	}
 
@@ -64,8 +72,14 @@
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string cacheBreak(string url) {
 		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
+		log.trace(String.Concat("cacheBreak start: ", url));
 		if(Context.Items["cachebreak-dictionary"] == null) {
             Context.Items["cachebreak-dictionary"] = new Dictionary<string, string>();
+		}
+		string pathParams = "";
+		if(url.Contains("?")) {
+			pathParams = url.Split('?')[1];
+			url = url.Split('?')[0];
 		}
 		StringBuilder filePath = new StringBuilder("");
         Dictionary<string, string> cacheBreakDictionary = (Dictionary<string, string>) Context.Items["cachebreak-dictionary"];
@@ -73,9 +87,11 @@
 			filePath.Append(resolvePath(url));
 			if(!filePath.ToString().Equals("")) {
 				try { 
-					return filePath.Append("?cache=").Append(Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256")).ToString();
+					string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
+					filePath.Append("?cache=");
+					filePath.Append(filehash);
 				} catch (Exception e) {
-					log.error(String.Concat("File not found: ", filePath, ", ", e.ToString()));
+					log.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
 				}
 			}
 			cacheBreakDictionary.Add(url, filePath.ToString());
@@ -84,6 +100,8 @@
 			cacheBreakDictionary.TryGetValue(url, out newPath);
 			filePath.Append(newPath);
 		}
+		if(pathParams.Length > 0) filePath.Append("?").Append(pathParams);
+		log.trace(String.Concat("cacheBreak end: ", filePath.ToString()));
 		return filePath.ToString();
 	}
 
@@ -184,11 +202,15 @@
 	}
 
 	public string getCustomControlPathForCurrentControl(ControlInfo ctrl){
+		string code = ctrl.getFieldId();
+		ISmartletLogger log = sg5.Context.getLogger("helpers.aspx");
+		log.trace(String.Concat("getCustomControlPathForCurrentControl: ", ctrl.getCode()));
+
 		if(Context.Items["custom-control-dictionary"] == null) {
             Context.Items["custom-control-dictionary"] = new Dictionary<string, string>();
 		}
-		Dictionary<string, string> customControlDictionary = (Dictionary<string, string>) Context.Items["cachebreak-dictionary"];
-		string code = ctrl.getFieldId();
+		Dictionary<string, string> customControlDictionary = (Dictionary<string, string>) Context.Items["custom-control-dictionary"];
+		
 		StringBuilder path = new StringBuilder("");
 		if(!customControlDictionary.ContainsKey(code)){
 			ISmartletField field = getFieldFromControlInfo(ctrl);
@@ -202,6 +224,7 @@
 			string newPath = "";
 			customControlDictionary.TryGetValue(code, out newPath);
 			path.Append(newPath);
+			log.trace(String.Concat("getCustomControlPathForCurrentControl: ", ctrl.getCode(), " found in cache."));
 		}
 		return path.ToString();
 	}
