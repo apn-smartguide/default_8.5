@@ -9,11 +9,12 @@
 <apn:control runat="server" id="control">
 <%
 	Context.Items["hiddenName"] = "";
-    Context.Items["hideAddButton"] = control.Current.getCSSClass().Contains("hide-add-btn");
-	Context.Items["showMoveUpDownButton"] = control.Current.getCSSClass().Contains("show-moveupdown-btn");
-	Context.Items["hideDeleteButton"] = control.Current.getCSSClass().Contains("hide-delete-btn");
-	Context.Items["hidePagination"] = control.Current.getCSSClass().Contains("hide-pagination");
-	Context.Items["hideSearch"] = control.Current.getCSSClass().Contains("hide-search");
+	string currentCSSClass = control.Current.getCSSClass();
+    Context.Items["hideAddButton"] = currentCSSClass.Contains("hide-add-btn");
+	Context.Items["showMoveUpDownButton"] = currentCSSClass.Contains("show-moveupdown-btn");
+	Context.Items["hideDeleteButton"] = currentCSSClass.Contains("hide-delete-btn");
+	Context.Items["hidePagination"] = currentCSSClass.Contains("hide-pagination");
+	Context.Items["hideSearch"] = currentCSSClass.Contains("hide-search");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);

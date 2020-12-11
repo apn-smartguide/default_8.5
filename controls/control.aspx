@@ -5,12 +5,9 @@
 <!-- #include file="../helpers.aspx" -->
 <apn:control runat="server" id="control">
 <%
-	ISmartletPage currentPage = sg5.Context.getSmartlet().getCurrentPage();
-	ISmartletField field = currentPage.findFieldById(control.Current.getFieldId());
-	string customControl = field.getNonLocalizedMetaData("Controls");
-	string controlsPath = "/controls/" + customControl + ".aspx";
-	if (!customControl.Equals("") && !resolvePath(controlsPath).Equals("")) {
-		Server.Execute(resolvePath(controlsPath));
+	string controlsPath = getCustomControlPathForCurrentControl(control.Current);
+	if (!controlsPath.Equals("")) {
+		Server.Execute(controlsPath);
 	} else if(control.Current.getCSSClass().Contains("proxy")) { 
 		//It's a proxy we do nothing.
 	} else { 
