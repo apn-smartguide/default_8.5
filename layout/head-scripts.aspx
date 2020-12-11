@@ -5,6 +5,7 @@
 <%-- Scripts needed earlier --%>
 <script src='<%= cacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>
+	var basePath = '<%= getBasePath() %>';
 	var currentLocale = '<%= getCurrentLocale() %>';
 	var supportedLocales = [];
 	var smartletName = '<%= getSmartletCode() %>'; 

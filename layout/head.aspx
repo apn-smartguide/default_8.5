@@ -1,4 +1,3 @@
-<!-- TODO : Fix missing WET static dependencies -->
 <%@ Page Language="C#" %>
 <%@ Import Namespace="com.alphinat.sg5" %>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>

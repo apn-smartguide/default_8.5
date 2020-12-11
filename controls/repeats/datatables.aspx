@@ -359,7 +359,7 @@
 	<span>
 		<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 	</span>
-	<table id='<%=control.Current.getCode()%>' class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
+	<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
 		<apn:control runat="server" type="default-instance" id="headerGroup">
 		<thead>
 			<tr>
@@ -377,16 +377,18 @@
 						<apn:WhenControl type="ROW" runat="server">
 							<%-- special case where SG generated a row inside a col, and not a field --%>
 							<%-- this needs to be refactored to be more generic --%>
-							<apn:forEach runat="server" id="thRowField">
-								<% if(!thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
-								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
-									<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-										<apn:label runat="server"/>
+							<apn:forEach runat="server" id="thColField">
+								<apn:forEach runat="server" id="thRowField">
+									<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+									<th class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'>
+										<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
+											<apn:label runat="server"/>
+										<% } %>
+									</th>
+									<% } else { %>
+									<th></th>
 									<% } %>
-								</th>
-								<% } else { %>
-								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
-								<% } %>
+								</apn:forEach>
 							</apn:forEach>
 						</apn:WhenControl>
 						<apn:WhenControl type="GROUP" runat="server">
@@ -397,14 +399,14 @@
 							</th>
 						</apn:WhenControl>
 						<apn:Otherwise runat="server">
-							<% if(!thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+							<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
 							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 								<apn:label runat="server"/>
 							<% } %>
 							</th>
 							<% } else { %>
-							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></th>
+							<th></th>
 							<% } %>
 						</apn:Otherwise>
 					</apn:ChooseControl>

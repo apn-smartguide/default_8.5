@@ -251,7 +251,8 @@ $("form[id^='smartguide_']" ).each(function() {
 
 							for(var i=0;i<numberOfGroups;i++) {
 								var fieldHtmlName = key + "\\[" + (i+1) + "\\]";
-								if($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0) {
+								var jqField = r._getJQField(fieldType, fieldHtmlName);
+								if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf("btn-modal") < 0) {
 									r._bindFieldEvent(field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 								} else {
 									r._bindModalFieldEvent(field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
@@ -302,7 +303,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					,_contextField: contextField
 					,_fieldHtmlName : fieldHtmlName
 					,lang: function(){
-						return currentLang;
+						return currentLocale;
 					}
 					,field : function(nameOrId){
 						if (!nameOrId) return this._fieldObj(this._contextField, this._fieldHtmlName);

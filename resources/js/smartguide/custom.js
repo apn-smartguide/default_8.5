@@ -190,6 +190,21 @@ $("[id^=btn-lang-").each(function () {
 	//$(this).prepend(flag);
 });
 
+function getLangLinks(supportedLocales, currentLocale) {
+	var lngLinks = [];
+	for (var i = 0; i < supportedLocales.length; i++) {
+		var element = supportedLocales[i];
+		var langDesc = element;
+		if (LANGUAGES_LIST.hasOwnProperty(element)) {
+			langDesc = LANGUAGES_LIST[element].nativeName;
+		}
+		if(element != currentLocale) {
+			lngLinks.push({'lang':element, 'href': 'do.aspx?lang=' + element, 'text': langDesc});
+		}
+	}
+	return lngLinks;
+}
+
 /*
  Input Mask plugin binding
  http://github.com/RobinHerbots/jquery.inputmask

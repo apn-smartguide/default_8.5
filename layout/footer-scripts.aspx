@@ -49,16 +49,6 @@
 <script src='<%= cacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script>
-	var basePath = '<%= getBasePath() %>';
-	var currentLocale = '<%= getCurrentLocale() %>';
-	var currentLang = currentLocale;
-	var supportedLocales = [];
-	<apn:ifsmartletmultilingual runat="server">
-		<apn:forEach runat="server" id="locale" items="languages">
-		supportedLocales.push('<%=locale.Current.getValue()%>');
-		</apn:forEach>
-	</apn:ifsmartletmultilingual>
-	initToBrowserLocale(currentLocale);	
 	var dataTableTranslations = {
 		'zeroRecords': '<apn:localize runat="server" key="theme.text.datatable.zeroRecords"/>',
 		'infoEmpty': '<apn:localize runat="server" key="theme.text.datatable.infoEmpty"/>',
@@ -75,7 +65,9 @@
 		'discardChanges': $("<div>").html('<apn:localize runat="server" key="theme.text.modals.discardChanges"/>').text(),
 		'deleteRow': $("<div>").html('<apn:localize runat="server" key="theme.text.modals.deleteRow"/>').text()
 	};
+	initToBrowserLocale(currentLocale);	
 </script>
+<% if (!isLogged()) { %>
 <script>
     $(function () {
         $.idleHands({
@@ -94,3 +86,4 @@
         });
     });
 </script>
+<% } %>

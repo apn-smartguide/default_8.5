@@ -19,7 +19,7 @@
 		<% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %>
 		<a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
 	</apn:ifnotcontrolvalid>
-	<div id='div_<apn:name runat="server"/>' class='form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> > 
+	<div id='div_<apn:name runat="server"/>' class='input-group date form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> > 
 	<% Server.Execute(resolvePath("/controls/label.aspx")); %>
 			<apn:choosecontrol runat="server">
 				<apn:whencontrol type="INPUT" runat="server">
@@ -40,7 +40,7 @@
                         }
 						
 					%>
-					<input type='<%=Context.Items["html5type"]%>' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<%=Context.Items["data-value"]%>' size='<apn:controlattribute attr="size" runat="server"/>' <apn:metadata runat="server" /> maxlength='<apn:controlattribute attr="size" runat="server" />' <%= Context.Items["readonly"] %> #include file="aria-attributes.inc" />
+					<input type='<%=Context.Items["html5type"]%>' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<%=Context.Items["data-value"]%>' size='<apn:controlattribute attr="size" runat="server"/>' <apn:metadata runat="server" /> maxlength='<apn:controlattribute attr="size" runat="server" />' <%= Context.Items["readonly"] %> <!-- #include file="aria-attributes.inc" --> />
 				</apn:whencontrol>
 				<apn:whencontrol type="SELECT1" runat="server">
 					<apn:control id="control1" runat="server">

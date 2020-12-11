@@ -9,7 +9,7 @@ var dataTablesController = {
 				basePath + "/default_8.5/resources/plugins/dataTables/Responsive-2.2.5/js/dataTables.responsive" + wb.getMode() + ".js"
 			],
 			complete: function() {
-				$(".wb-tables").trigger("wb-init.wb-tables");
+				//$(".wb-tables").trigger("wb-init.wb-tables");
 			}
 		} );
 
@@ -19,16 +19,18 @@ var dataTablesController = {
 			// 	details: false
 			// });
 			$( ".wb-tables" ).find('thead th').css('width', 'auto');
-			sgRef.bindEvents([$(this)]);
+			//sgRef.bindEvents([$(this)]);
 		});
 	},
 	
 	bindEvents : function(sgRef, context) {
 		// WET reinit controls
-		$( ".wb-tables", context).trigger("wb-init.wb-tables");
+		if(!$(".wb-tables", context).hasClass("wb-tables-inited")) {
+			$( ".wb-tables", context).trigger("wb-init.wb-tables");
+		}
 
 		// rebind on wet datatable event
-		$(".wb-tables", context).off("wb-updated.wb-tables").on("wb-updated.wb-tables", function (event) {
+		$(".wb-tables", context).on("wb-updated.wb-tables", function (event) {
 			// handle status of select all checkbox if available
 			var el = $('[name=select_all]', $(this).closest('table')).get(0);
 			if (typeof el != 'undefined') {
