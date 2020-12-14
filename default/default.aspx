@@ -16,7 +16,7 @@
 			<%-- SmartGuide library definitions --%>
 			<span id="sglib"><% Server.Execute(resolvePath("/controls/sglib.aspx")); %></span><%-- required to support actions on fields, must be placed within the SmartGuide form --%>
 			<span id="sgControls"><%-- do not change the div id as it is referenced in smartguide.js --%>
-			<div id="loader"></div>
+			<div id="loader"> </div>
 			<% Server.Execute(resolvePath("/layout/header.aspx")); %>
 			<div class="container" role="main">
 				<div class="row page-title">
