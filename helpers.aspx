@@ -18,7 +18,10 @@
 	
 	//Will provide the runniing basePath based on the current Workspace name.
 	public string getBasePath() {
-		return String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", sg5.Smartlet.getWorkspace(), "/");
+		if(Context.Items["basepath"] == null) {
+			Context.Items["basepath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", sg5.Smartlet.getWorkspace(), "/");
+		}
+		return (string)Context.Items["basepath"];
 	}
 
 	//Will return an empty string if the searched "asset" is not found at this Theme Location
@@ -133,28 +136,46 @@
 
 	//// Smartlet infos Helpers ////
 	public string getSmartletName() {
-		return sg5.Context.getSmartlet().getName();
+		if(Context.Items["smartlet-name"] == null) {
+			Context.Items["smartlet-name"] = sg5.Context.getSmartlet().getName();
+		}
+		return (string)Context.Items["smartlet-name"];
 	}
 
 	public string getSmartletCode() {
-		return sg5.Context.getSmartlet().getCode();
+		if(Context.Items["smartlet-code"] == null) {
+			Context.Items["smartlet-code"] = sg5.Context.getSmartlet().getCode();
+		}
+		return (string)Context.Items["smartlet-code"] ;
 	}
 
 	public string getCurrentLocale() {
-		return sg5.Context.getSmartlet().getCurrentLocale();
+		if(Context.Items["locale"] == null) {
+			Context.Items["locale"] = sg5.Context.getSmartlet().getCurrentLocale();
+		}
+		return (string)Context.Items["locale"];
 	}
 
 	public string getTheme() {
-		return sg5.Smartlet.getTheme();
+		if(Context.Items["theme"] == null) {
+			Context.Items["theme"] = sg5.Smartlet.getTheme();
+		}
+		return (string)Context.Items["theme"];
 	}
 
 	public string getWorkspace() {
-		return sg5.Context.getSmartlet().getWorkspace();
+		if(Context.Items["workspace"] == null) {
+			Context.Items["workspace"] = sg5.Context.getSmartlet().getWorkspace();
+		}
+		return (string)Context.Items["workspace"];
 	}
 
 	public string getSmartletSubject() {
 		//using the localized ressource, the API getSubject does not support localization.
-		return sg5.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
+		if(Context.Items["subject"] == null) {
+			Context.Items["subject"] = sg5.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
+		}
+		return (string)Context.Items["subject"];
 	}
 
 	public string getLastModificationDate() {
@@ -191,7 +212,10 @@
 
 	//// Smartlet Features Helpers ////
 	public bool showWizard() {
-		return sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
+		if(Context.Items["show-wizard"] == null) {
+			Context.Items["show-wizard"] = sg5.Context.getSmartlet().getCurrentPage().getCSSClass().Contains("show-wizard");
+		}
+		return (bool)Context.Items["show-wizard"];
 	}
 
 	//// Field Helpers ////
