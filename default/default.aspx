@@ -26,6 +26,7 @@
 						</h2>
 					</div>
 				</div>
+				
 				<% Server.Execute(resolvePath("/controls/validation.aspx")); %>
 				<% Server.Execute(resolvePath("/layout/main.aspx")); %>
 				<%-- MAIN LOOP OVER PAGE CONTROLS --%>		
