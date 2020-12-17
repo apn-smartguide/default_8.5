@@ -29,6 +29,40 @@ var dataTablesController = {
 			$( ".wb-tables", context).trigger("wb-init.wb-tables");
 		}
 
+		var serverSideTables = false;
+			
+		$('[data-wb-tables]').each(function() {
+			if($(this).attr('data-wb-tables-second-init')) {
+				return;
+			}
+			var options = $(this).attr('data-wb-tables');
+			if(options.indexOf('ajaxSource') > -1) {
+				serverSideTables = true;
+			}
+			$(this).attr('data-wb-tables-second-init', true);
+		});
+		
+		if(serverSideTables) {
+			$.ajax({
+				type: "GET",
+				url: "do.aspx",
+				processData: false
+			}).done(function (data) {
+				var fm = sgRef.fm;
+				
+				var sourceSGLIBDiv = $('#sglib', fm);
+				var targetSGLIBDiv = $('#sglib', data);
+				$(sourceSGLIBDiv).after(targetSGLIBDiv).remove();
+
+				sgRef.bindEvents();
+				
+			}).complete(function() {
+				$("#loader").fadeOut("slow");
+			});
+		} else {
+			$("#loader").fadeOut("slow");
+		}	
+		
 		// rebind on wet datatable event
 		$(".wb-tables", context).on("wb-updated.wb-tables", function (event) {
 			// handle status of select all checkbox if available

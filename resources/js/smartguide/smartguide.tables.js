@@ -13,7 +13,7 @@ var tablesController = {
 			var repeatDivId = table.closest('div.repeat').prop('id');
 			if ($('#'+repeatDivId).hasClass('repeatblock')) return true;
 			var loadTable = function(){
-				$('#loader').show();
+				$('#loader').fadeIn("slow");
 				table.fadeTo(0, 0.2);
 				$form.ajaxSubmit({
 					crossDomain: false,
@@ -39,7 +39,7 @@ var tablesController = {
 						} catch(e) {
 							if (console) console.log(e.stack);
 						}
-						$('#loader').hide();
+						$('#loader').fadeOut("slow");
 						table.fadeTo(0, 1.0);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -49,7 +49,7 @@ var tablesController = {
 							console.log(textStatus);
 							console.log(errorThrown);
 						}
-						$('#loader').hide();
+						$('#loader').fadeOut("slow");
 						table.fadeTo(0, 1.0);
 					}
 				});

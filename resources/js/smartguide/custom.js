@@ -43,6 +43,7 @@ var customJS = {
 		//dataTablesController.init(sgRef);
 		formatterController.init(sgRef);
 		crudController.init(sgRef);
+		keepAliveController.init(sgRef);
 	}
 	, bindEvents: function (sgRef, context) {
 		// can reference objects and methods in smartguide.js
@@ -51,6 +52,11 @@ var customJS = {
 		if (!context) {
 			context = sgRef.fm;
 		}
+
+		//make help window dragable, JQuery UI Draggable
+		$('.modal-dialog', frm).draggable({
+			handle: ".modal-header"
+		});
 
 		for(i=0; i<context.length; i++) {
 			tinymceController.bindEvents(sgRef, "TEXTAREA.tinymce", context[i]);
@@ -86,9 +92,7 @@ var customJS = {
 			var $this = $(this);
 			$this.inputmask($this.attr('data-mask'));
 		});
-		
-		
-	},
+	}
 };
 
 function setGetParameter(paramName, paramValue) {

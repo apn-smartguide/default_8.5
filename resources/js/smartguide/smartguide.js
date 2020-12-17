@@ -179,7 +179,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			$('select:has(option[data-eventtarget])').off('change',r.bindThisOption).on('change', r.bindThisOption);
 			$('.modal-close').off('click').on('click', function(e){
 				var modal = $(this).parent().parent().parent().parent();  
-				r.ajaxProcess(modal,null,true, function () {
+				r.ajaxProcess(modal, null, true, null, null, function () {
 					r.removeScrollLock();
 				});
 				modal.modal('hide');
@@ -325,9 +325,13 @@ $("form[id^='smartguide_']" ).each(function() {
 					}		
 					,openModal : function(modal) {
 						var r = SMARTGUIDES[smartletCode];
-						r.ajaxProcess(modal,null,true, function() {
-							r.addScrollLock();
-						});
+						r.ajaxProcess(modal,null,true,
+							function() {
+								r.addScrollLock();
+							},
+							null,
+							null
+						);
 						//Clear validation errors that might have appeared						
 						modal.modal('show');
 
@@ -335,9 +339,11 @@ $("form[id^='smartguide_']" ).each(function() {
 					,closeModal : function(modal) {
 						var r = SMARTGUIDES[smartletCode];
 
-						r.ajaxProcess(modal,null,true, function () {
-							r.removeScrollLock();
-						});
+						r.ajaxProcess(modal, null, true, null, null,
+							function () {
+								r.removeScrollLock();
+							}
+						);
 						modal.modal('hide');
 					}
 					,validateModal : function(modalId, callback){
@@ -445,26 +451,30 @@ $("form[id^='smartguide_']" ).each(function() {
 					if (isAjax) {
 						var modalId = "";
 						
-						r.ajaxProcess(this,null,true, function() {
-							// must remove the e_ field we added
-							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
-							
-							setTimeout(function() {
-								var updated = [];
+						r.ajaxProcess(this, null, true, 
+							function() {
+								// must remove the e_ field we added
+								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 								
-								$field.off(jqEvent);
-								
-								var errorMessages = $('.alert-danger', $form).text().trim();
-								if(errorMessages == '') {								
-									//prepare client event context
-									var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
-									var handler = r._createEventHandler(clientEvent);
-									$field.data('_smartlet', smartlet).on(jqEvent, handler);
-																					
-									$field.triggerHandler(jqEvent);
-								}
-							}, 0);
-						});
+								setTimeout(function() {
+									var updated = [];
+									
+									$field.off(jqEvent);
+									
+									var errorMessages = $('.alert-danger', $form).text().trim();
+									if(errorMessages == '') {								
+										//prepare client event context
+										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
+										var handler = r._createEventHandler(clientEvent);
+										$field.data('_smartlet', smartlet).on(jqEvent, handler);
+																						
+										$field.triggerHandler(jqEvent);
+									}
+								}, 0);
+							},
+							null,
+							null
+						);
 					}
 					else {
 						if (!$(this).hasClass("always-enabled")) {
@@ -530,10 +540,14 @@ $("form[id^='smartguide_']" ).each(function() {
 					}
 
 					if (isAjax) {
-						r.ajaxProcess(this,null,true, function() {
-							// must remove the e_ field we added
-							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
-						});
+						r.ajaxProcess(this, null, true, 
+							function() {
+								// must remove the e_ field we added
+								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+							},
+							null,
+							null
+						);
 					}
 					else {
 						if (!$(this).hasClass("always-enabled")) {
@@ -555,17 +569,17 @@ $("form[id^='smartguide_']" ).each(function() {
 		, bindThis : function(){
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
-			r.ajaxProcess(this,null,false);
+			r.ajaxProcess(this, null, false, null, null, null);
 		}
 		, bindThisAllowSelfRefresh: function(){
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
-			r.ajaxProcess(this,null,true); 
+			r.ajaxProcess(this, null, true, null, null, null); 
 		}
 		, bindThisOption: function(){
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
-			r.ajaxProcess($('option', this),null,false); 
+			r.ajaxProcess($('option', this), null, false, null, null, null); 
 		}
 		, bindAllFieldsUnderRepeat: function(elmt) {
 			// check if we are outside a repeat, but make modifications to a field in a repeat
@@ -624,7 +638,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				});
 			}); */
 		}		
-		, ajaxProcess : function(elmt, elmt2, allowSelfRefresh, callBack) {
+		, ajaxProcess : function(elmt, elmt2, allowSelfRefresh, successCallback, errorCallback, completeCallback) {
 			var r = SMARTGUIDES[smartletCode];
 			var fm = r.fm;
 			// Optimization in case we don't allow self refresh and the target is the same as the source field
@@ -717,7 +731,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						
 						if (elmt2 != null && !(typeof elmt2 === 'undefined')) $(elmt2).val('');	
 						
-						if (callBack) callBack(updated);
+						if (successCallback) successCallback(updated);
 						
 					} catch(e) {
 						if (console) console.log(e.stack);
@@ -733,9 +747,15 @@ $("form[id^='smartguide_']" ).each(function() {
 						console.log(errorThrown);
 						console.log(XMLHttpRequest.responseText);
 						alert("ERROR: <code>" + XMLHttpRequest.responseText + "<code>")
-					} else {
+					}
+					if(errorCallback) {
+						errorCallback(XMLHttpRequest, textStatus, errorThrown);
+					} else if (!console) {
 						alert("ERROR: Could not process action, please try again.")
 					}
+				},
+				complete: function() {
+					if(completeCallback) completeCallback();
 				}
 			}); 
 		}

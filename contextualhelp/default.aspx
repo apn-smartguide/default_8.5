@@ -34,6 +34,9 @@
 		</div>
 		<% Server.Execute(resolvePath("/layout/footer.aspx")); %>
 		<% Server.Execute(resolvePath("/layout/scripts.aspx")); %>
-		<div id="loader" style="display: none;"> </div>
+		<script>
+			<%=Context.Items["javascript"]%>
+			$("#loader").fadeOut("slow");
+		</script>
 	</body>
 </html>

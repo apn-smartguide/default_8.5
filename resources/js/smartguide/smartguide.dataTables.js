@@ -27,6 +27,26 @@ var dataTablesController = {
 		// WET reinit controls
 		//$( ".wb-tables", context).trigger("wb-init.wb-tables");
 
+		$('button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn, :has(span.glyphicon-indent-right, span.glyphicon-indent-left)),' +
+		'button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn) > span:not(.glyphicon-indent-right, .glyphicon-indent-left), ' + 
+		'a:not(.paginate_button), a:not(.paginate_button) > span')
+		.click(function () {
+			var id = $(this).parent().attr("id");
+			
+			if(id == undefined || id.indexOf("error_") < 0) {
+				var isSGPost = true;
+			
+				if($(this).is('a')) {
+					if($(this).attr("href").indexOf("do.aspx?") < 0) {
+						isSGPost = false;
+					}
+				}
+				if(isSGPost) {
+					$("#loader").fadeIn("slow");
+				}
+			}
+		});
+		
 		// rebind on wet datatable event
 		$("table.table :checkbox :radio", context).change(function (event) {
 			// handle status of select all checkbox if available

@@ -34,7 +34,7 @@ var crudController = {
 						var cancelBtn = $('button.btn.repeat_cancel_add_btn', this);
 						var newinput = '<input type="hidden" name="' + cancelBtn[0].id + '" id="' + cancelBtn[0].id + '" value="' + cancelBtn[0].id + '" />';
 						$(cancelBtn[0]).after(newinput);
-						r.ajaxProcess(cancelBtn[0], null, true);
+						r.ajaxProcess(cancelBtn[0], null, true, null, null, null);
 					});
 
 					// $('.crud-modal' + level + ' .modal-content', $form).draggable({
@@ -44,7 +44,9 @@ var crudController = {
 					$('.hide-from-add-view', '.crud-modal' + level).parent().hide();
 					$('input:visible:first', '.crud-modal' + level).focus();
 					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				}
+				},
+				null,
+				null
 			);
 		});
 		// repeat save added instance
@@ -81,7 +83,9 @@ var crudController = {
 					$this.prop('disabled', false);
 					$('.hide-from-add-view', '.crud-modal' + level).parent().hide();
 					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				}
+				},
+				null,
+				null
 			);
 		});
 		//cancel add
@@ -101,10 +105,14 @@ var crudController = {
 			modal.off('hide.bs.modal');
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function(){
-				$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			} );
+			r.ajaxProcess(this, null, true, 
+				function(){
+					$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 		//repeat prepare edit instance
 		$('.repeat_prepare_edit_btn', $form).off('click').on('click', function () {
@@ -133,7 +141,7 @@ var crudController = {
 							var cancelBtn = $('button.btn.repeat_cancel_edit_btn', this);
 							var newinput = '<input type="hidden" name="' + cancelBtn[0].id + '" id="' + cancelBtn[0].id + '" value="' + cancelBtn[0].id + '" />';
 							$(cancelBtn[0]).after(newinput);
-							r.ajaxProcess(cancelBtn[0], null, true);
+							r.ajaxProcess(cancelBtn[0], null, true, null, null, null);
 						});
 					}
 					// $('.crud-modal' + level + ' .modal-content', $form).draggable({
@@ -142,7 +150,9 @@ var crudController = {
 					$('.hide-from-edit-view', '.crud-modal' + level).parent().hide();
 					$('input:visible:first', '.crud-modal' + level).focus();
 					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				}
+				},
+				null,
+				null
 			);
 		});
 		//Cancel edit repeat
@@ -162,10 +172,14 @@ var crudController = {
 			modal.off('hide.bs.modal');
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function () {
-				$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			});
+			r.ajaxProcess(this, null, true, 
+				function () {
+					$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 		//Save edit instance
 		$('button.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
@@ -206,7 +220,9 @@ var crudController = {
 					btn.prop('disabled', false);
 					$('.hide-from-edit-view', '.crud-modal' + level).parent().hide();
 					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				}
+				},
+				null,
+				null
 			);
 		});
 
@@ -228,9 +244,13 @@ var crudController = {
 			$('input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			$('#' + this.id.replace("[", "\\[").replace("]", "\\]")).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
-			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, function(){
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			});
+			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, 
+				function(){
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 
 		/**** Non CRUD table/group mode ****/
@@ -248,9 +268,13 @@ var crudController = {
 			}
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function(updatedEles){
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			});
+			r.ajaxProcess(this, null, true, 
+				function(updatedEles){
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 
 		//delete
@@ -273,9 +297,13 @@ var crudController = {
 			$('input[name=' + rpt + ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			$('#' + this.id).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
-			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, function(){
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			});
+			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, 
+				function(){
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 
 		//Move up
@@ -294,9 +322,13 @@ var crudController = {
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function(){
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			});
+			r.ajaxProcess(this, null, true, 
+				function(){
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 
 		//Move down
@@ -315,9 +347,13 @@ var crudController = {
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function(){
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			});
+			r.ajaxProcess(this, null, true, 
+				function(){
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				},
+				null,
+				null
+			);
 		});
 
 		//hide-from-list-view

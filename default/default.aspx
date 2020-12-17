@@ -11,12 +11,12 @@
 <html lang="<%= getCurrentLocale() %>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
 	<body role="document" class='<apn:control runat="server" type="step"><apn:cssclass runat="server"/></apn:control>' style='<apn:control runat="server" type="step"><apn:cssstyle runat="server"/></apn:control>' >
+		<div id="loader"><div id="spinner"></div></div>
 		<form id='smartguide_<apn:control runat="server" type="smartlet-code"><apn:value runat="server"/></apn:control>' action="do.aspx" method="post" enctype="multipart/form-data"><%-- do not change the form id as it is referenced in smartguide.js --%>
 			<input type="hidden" name="com.alphinat.sgs.anticsrftoken" value="<%=Session["com.alphinat.sgs.anticsrftoken"] %>"/>
 			<%-- SmartGuide library definitions --%>
 			<span id="sglib"><% Server.Execute(resolvePath("/controls/sglib.aspx")); %></span><%-- required to support actions on fields, must be placed within the SmartGuide form --%>
 			<span id="sgControls"><%-- do not change the div id as it is referenced in smartguide.js --%>
-			<div id="loader"></div>
 			<% Server.Execute(resolvePath("/layout/header.aspx")); %>
 			<div class="container" role="main">
 				<div class="row page-title">
@@ -40,6 +40,10 @@
 			<% Server.Execute(resolvePath("/layout/footer.aspx")); %>
 			</span>
 		</form>
+		<script>
+			<%=Context.Items["javascript"]%>
+			$("#loader").fadeOut("slow");
+		</script>
 	</body>
 </html>
 <% TimerTraceStop("default"); %>

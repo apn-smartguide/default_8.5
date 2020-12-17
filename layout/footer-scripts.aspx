@@ -36,8 +36,9 @@
 <script src='<%= cacheBreak("/resources/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.fr.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/holder.min.js") %>'></script>
-<script src='<%= cacheBreak("/resources/js/basil/basil.js") %>'></script>
-<script src='<%= cacheBreak("/resources/plugins/jquery-idle-hands/jquery-idle-hands.js") %>'></script>
+<!-- <script src='<%= cacheBreak("/resources/js/basil/basil.js") %>'></script> -->
+<!-- <script src='<%= cacheBreak("/resources/plugins/jquery-idle-hands/jquery-idle-hands.js") %>'></script> -->
+<script src='<%= cacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
 <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
 <!-- SmartGuide JS -->
@@ -46,6 +47,7 @@
 <script src='<%= cacheBreak("/resources/js/smartguide/smartguide.tables.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/smartguide/smartguide.dataTables.wb.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/smartguide/smartguide.formatters.js") %>'></script>
+<script src='<%= cacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script>
@@ -68,7 +70,7 @@
 	initToBrowserLocale(currentLocale);	
 </script>
 <% if (!isLogged()) { %>
-<script>
+<!-- <script>
     $(function () {
         $.idleHands({
 			activityEvents: 'click keypress scroll wheel mousewheel mousemove',
@@ -85,5 +87,5 @@
             maxInactivitySeconds: 20*60
         });
     });
-</script>
+</script> -->
 <% } %>

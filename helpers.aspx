@@ -152,6 +152,18 @@
 		return sg5.Context.getSmartlet().getWorkspace();
 	}
 
+	public string getSmartletSubject() {
+		//using the localized ressource, the API getSubject does not support localization.
+		return sg5.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
+	}
+
+	public string getLastModificationDate() {
+		double ticks = double.Parse(sg5.Context.getSmartlet().getCurrentPage().getLastModificationDate());
+		TimeSpan time = TimeSpan.FromMilliseconds(ticks * 1000);
+		DateTime startdate = new DateTime(1970, 1, 1) + time;
+		return startdate.ToString("yyyy-MM-dd");
+	}
+
 	//// Authentication Helpers ////
 	public bool isLogged() {
 		return (!getUsername().Equals(""));
