@@ -9,7 +9,3 @@
 	</div>
 </footer>
 <% Server.Execute(resolvePath("/layout/footer-scripts.aspx")); %>
-<div id="loader" style="display: none;"> </div>
-<script>
-  <%=Context.Items["javascript"]%>
-</script>

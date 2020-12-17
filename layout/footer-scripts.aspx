@@ -36,8 +36,6 @@
 <script src='<%= cacheBreak("/resources/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.fr.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= cacheBreak("/resources/js/holder.min.js") %>'></script>
-<!-- <script src='<%= cacheBreak("/resources/js/basil/basil.js") %>'></script> -->
-<!-- <script src='<%= cacheBreak("/resources/plugins/jquery-idle-hands/jquery-idle-hands.js") %>'></script> -->
 <script src='<%= cacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
 <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
@@ -69,23 +67,3 @@
 	};
 	initToBrowserLocale(currentLocale);	
 </script>
-<% if (!isLogged()) { %>
-<!-- <script>
-    $(function () {
-        $.idleHands({
-			activityEvents: 'click keypress scroll wheel mousewheel mousemove',
-			dialogMessage: '<apn:localize runat="server" key="theme.text.idle-timeout-message"/>',
-			dialogTimeRemainingLabel: '<apn:localize runat="server" key="theme.text.idle-timeout-remaining-label"/>',
-			dialogTitle: '<apn:localize runat="server" key="theme.text.idle-timeout-title"/>',
-			logoutNowButtonText: '<apn:localize runat="server" key="theme.text.idle-timeout-logout"/>',
-			stayLoggedInButtonText: '<apn:localize runat="server" key="theme.text.idle-timeout-stay"/>',
-            applicationId: '<%=getSmartletName()%>',
-			heartRate: 1*60,
-			heartbeatUrl: window.location.href,
-            inactivityDialogDuration: 5*60,
-            inactivityLogoutUrl: '<%=getLogoutURL()%>',
-            maxInactivitySeconds: 20*60
-        });
-    });
-</script> -->
-<% } %>

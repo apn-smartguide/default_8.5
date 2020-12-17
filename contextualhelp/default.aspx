@@ -8,6 +8,7 @@
 <html lang="<%=getCurrentLocale()%>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
 	<body role="document">
+		<div id="loader"><div id="spinner"></div></div>
 		<div class="container" role="main">
 			<!-- SMARTGUIDE MAIN FORM -->
 			<form id="smartguide" action="do.aspx" method="post" enctype="multipart/form-data">
@@ -24,7 +25,6 @@
 					</apn:choosecontrol>
 				  </apn:forEach>
 				</div>
-
 				<div id="sgNavButtons">
 				  <apn:control runat="server" type="previous" id="button">
 					 <input type="submit" name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:localize runat="server" key="theme.text.helpprevbutton"/>' />
