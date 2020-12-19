@@ -1,20 +1,16 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session.field" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
 <apn:control runat="server" id="control">
 <%
 	Context.Items["hiddenName"] = "";
-	string currentCSSClass = control.Current.getCSSClass();
-    Context.Items["hideAddButton"] = currentCSSClass.Contains("hide-add-btn");
-	Context.Items["showMoveUpDownButton"] = currentCSSClass.Contains("show-moveupdown-btn");
-	Context.Items["hideDeleteButton"] = currentCSSClass.Contains("hide-delete-btn");
-	Context.Items["hidePagination"] = currentCSSClass.Contains("hide-pagination");
-	Context.Items["hideSearch"] = currentCSSClass.Contains("hide-search");
+	string CSSClass = control.Current.getCSSClass();
+    Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
+	Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
+	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
+	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
+	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
@@ -261,7 +257,7 @@
 				</tbody>
 				<%
 				string tableFooterGroupName = control.Current.getCode() + "_footer";
-				SessionGroup tableFooterGroup = (SessionGroup)sg5.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName(tableFooterGroupName);
+				SessionGroup tableFooterGroup = (SessionGroup)sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName(tableFooterGroupName);
 				%>
 				<% if (tableFooterGroup != null) { %>
 				<tfooter>

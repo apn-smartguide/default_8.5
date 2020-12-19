@@ -1,8 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server" />
-<!-- #include file="../../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <% 
 Context.Items["currentSectionName"]  = "";
 Context.Items["sectionIndex"]  = 1;

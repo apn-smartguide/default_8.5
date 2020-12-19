@@ -1,12 +1,7 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%-- Do not change the div ids as they are referenced in smartguide.js --%>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
 <apn:control runat="server" id="control">
 <%
-ISmartletPage currentPage = sg5.Context.getSmartlet().getCurrentPage();
 Context.Items["hiddenName"] = ""; 
 Context.Items["repeatCode"] = control.Current.getCode();
 Context.Items["repeat-name-" + Context.Items["repeat-level"]] = control.Current.getName(); 
@@ -22,25 +17,25 @@ Context.Items["repeat-event-targets-edit-" + Context.Items["repeat-level"]] = re
 Context.Items["repeat-event-targets-cancel-" + Context.Items["repeat-level"]] = repeatEventTargets + ",\"" + control.Current.getName() + "\"";
 Context.Items["repeat-event-targets-add-" + Context.Items["repeat-level"]] = repeatEventTargets + ",\"" + control.Current.getName() + "_add_modal_body" + "\",\"" + control.Current.getName() + "_table" + "\"";
 
-string currentCSSClass = control.Current.getCSSClass();
-Context.Items["hideAddButton"] = currentCSSClass.Contains("hide-add-btn");
-Context.Items["showViewButton"] = currentCSSClass.Contains("show-view-btn");
-Context.Items["showMoveUpDownButton"] = currentCSSClass.Contains("show-moveupdown-btn");
-Context.Items["hideDeleteButton"] = currentCSSClass.Contains("hide-delete-btn");
-Context.Items["hidePagination"] = currentCSSClass.Contains("hide-pagination");
-Context.Items["hideSearch"] = currentCSSClass.Contains("hide-search");
+string CSSClass = control.Current.getCSSClass();
+Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
+Context.Items["showViewButton"] = CSSClass.Contains("show-view-btn");
+Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
+Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
+Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
+Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
 Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 Context.Items["isSelectable"] = "true".Equals(control.Current.getAttribute("isselectable"));
 Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination"));
 Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 
-Context.Items["hideEditButton"] = currentCSSClass.Contains("hide-edit-btn");
+Context.Items["hideEditButton"] = CSSClass.Contains("hide-edit-btn");
 
 Context.Items["btnAddTitle"] = "Add";
 Context.Items["btnAddCSSClass"] = "btn btn-sm btn-primary repeat_prepare_add_btn";
 Context.Items["btnAddStyle"] = "";
 Context.Items["btnAddType"] = "prepare_add_instance";
-ISmartletField btnAdd = (ISmartletField)currentPage.findFieldByName(Context.Items["repeatCode"]  + "_add");
+ISmartletField btnAdd = (ISmartletField)CurrentPage.findFieldByName(Context.Items["repeatCode"]  + "_add");
 if(btnAdd != null) {
 	Context.Items["btnAddTitle"] = btnAdd.getLabel();
 	Context.Items["btnAddCSSClass"] = btnAdd.getCSSClass().Replace("proxy","");
@@ -54,7 +49,7 @@ if(btnAdd != null) {
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
 	<div class='panel-heading clearfix'>
-		<% if (!control.Current.getCSSClass().Contains("hide-add-btn")) { %>
+		<% if (!CSSClass.Contains("hide-add-btn")) { %>
 			<div class='pull-right'>
 			<apn:control id="button" runat="server" type="prepare_add_instance">
 				<button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>'><%=Context.Items["btnAddTitle"]%></button>
@@ -125,7 +120,7 @@ if(btnAdd != null) {
 				</apn:forEach>
 			</apn:forEach>
 			</apn:control>
-			<% if(!control.Current.getCSSClass().Contains("hide-edit-btn") || !control.Current.getCSSClass().Contains("hide-delete-btn")) { %>
+			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %>
 				<th></th>
 			<% } %>
 			</tr>

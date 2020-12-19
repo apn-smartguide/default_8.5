@@ -1,14 +1,11 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <% Context.Items["show-langdetect"] = control.Current.getCSSClass().Contains("show-langdetect"); %>
 	<apn:ifsmartletmultilingual runat="server">
 		<div class='row'>
 			<div class='col-md-12 lang-picker btn-block'>
 				<apn:forEach runat="server" id="locale" items="languages">
-					<%  String active = (locale.Current.getValue().Equals(getCurrentLocale())) ? " btn-primary" : ""; %>
+					<%  String active = (locale.Current.getValue().Equals(CurrentLocale) ? " btn-primary" : ""; %>
 					<a id='btn-lang-<%=locale.Current.getValue()%>' class='btn btn-default btn-xlarge <%=active%>' data-lang='<%=locale.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=locale.Current.getValue()%>'></a>
 				</apn:forEach>
 				<% if ((bool)Context.Items["show-langdetect"]) { %>

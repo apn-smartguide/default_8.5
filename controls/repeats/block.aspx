@@ -1,20 +1,18 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%-- WET4 Version --%>
 <% 
     Context.Items["hiddenName"] = "";
     Context.Items["isOnlyStatic"] = true ;
     Context.Items["optionIndex"] = 0;
 %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
 <apn:control runat="server" id="control">
 <%
-	Context.Items["hideAddButton"] = control.Current.getCSSClass().Contains("hide-add-btn");
-	Context.Items["showMoveUpDownButton"] = control.Current.getCSSClass().Contains("show-moveupdown-btn");
-	Context.Items["hideDeleteButton"] = control.Current.getCSSClass().Contains("hide-delete-btn");
-	Context.Items["hidePagination"] = control.Current.getCSSClass().Contains("hide-pagination");
-	Context.Items["hideSearch"] = control.Current.getCSSClass().Contains("hide-search");
+	string CSSClass = control.Current.getCSSClass();
+	Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
+	Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
+	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
+	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
+	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);

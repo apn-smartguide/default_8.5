@@ -1,13 +1,9 @@
 <!-- TODO: Refactor to not dependent of WET Nomenclature -->
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%@ Import Namespace="Newtonsoft.Json" %>
 <%@ Import Namespace="Newtonsoft.Json.Linq" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
 <apn:control runat="server" id="control">
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
@@ -33,7 +29,7 @@
 	// Configuration of selection options; checkbox (for multi) or radio (for single) is done via the designer
 	// Additional options configurable bia data-attributes below.
 
-	public ISmartletLogger logger() {return sg5.Context.getLogger("datatables.aspx");}
+	public ISmartletLogger logger() {return sg.Context.getLogger("datatables.aspx");}
  	
 	// Helper method to get a MetaDataValue for this DataTable, will return empty string or value, but not null.
 	public string getMetaDataValue(string meta) {
@@ -120,7 +116,7 @@
 		if (renderMode != null && renderMode.Equals("true")) {
 			jOptions.Add("serverSide", true);
 			// if server side, must add the ajaxSource
-			jOptions.Add("ajaxSource",  resolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg5.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
+			jOptions.Add("ajaxSource",  resolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
 		}
 		return jOptions;
 	}
@@ -334,7 +330,7 @@
 		if (datatablesInitOptions == null || datatablesInitOptions.Length == 0) {
 			JObject jOptions = new JObject();
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
-			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg5.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
+			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
 
 			jOptions.Add("responsive", true);
 			jOptions.Add("deferRender", true);

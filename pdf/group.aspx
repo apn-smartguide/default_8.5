@@ -1,7 +1,5 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
 <apn:control id="group" runat="server">
 <tr>
 	<td colspan="12" style="border:1px solid #EEE">

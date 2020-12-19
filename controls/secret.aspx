@@ -1,7 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <apn:control runat="server" id="control">
 	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : ""; %>
 	<% if(control.Current.getAttribute("visible").Equals("false")) { %>

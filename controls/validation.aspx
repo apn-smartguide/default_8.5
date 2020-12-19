@@ -1,8 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
@@ -12,9 +8,8 @@
 </apn:IfRequiredControlExists>
 <% Context.Items["errorIndex"] = 0; %>
 <%
-  ISmartletPage pg = sg5.Context.getSmartlet().getCurrentPage();
   ISmartletField f = null;
-  ISmartletField[] fields = pg.findAllFields();
+  ISmartletField[] fields = CurrentPage.findAllFields();
   for(int i = 0; i < fields.Length; i++) {
     if((fields[i].getTypeConst() == DotnetConstants.ElementType.REPEAT) && fields[i].getCSSClass().Contains("grid-view")) {
         Context.Items["underCrudRepeat"] = true;              
@@ -45,7 +40,7 @@
 	</apn:IfRequiredControlExists>
 	<% if ((int)Context.Items["alerts-count"] > 0) { %>
 	<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
-		<h2><%=sg5.Context.getSmartlet().getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
+		<h2><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
 		<ul>
 		<apn:forEach items="alert-controls" id="control1" runat="server">
 			<li id='error_<%=Context.Items["counter"] %>_<%= control1.Current.getName() %>'>
@@ -62,7 +57,7 @@
 						if(indexOfStringToStrip > -1) {
 							id = id.Substring(0, indexOfStringToStrip);
 						}	
-					    toDisplay = sg5.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+					    toDisplay = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
 					}
 				%>
 				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName() %>').offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>

@@ -1,6 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%-- https://datatables.net/manual/index --%>
@@ -9,9 +7,8 @@ smartlet.SmartletID = Request["appID"];
 string tableName = Request["tableName"];
 %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" runat="server" ProcessingEvent="Render" visible="true" />
-<apn:api5 id="sg5" runat="server" />
 <%
-ISmartletRepeat repeat = (ISmartletRepeat)sg5.Smartlet.findFieldByName(tableName);
+ISmartletRepeat repeat = (ISmartletRepeat)sg.Smartlet.findFieldByName(tableName);
 
 string selectClass = repeat.getMetaData("select-class");
 string selectStyle = repeat.getMetaData("select-style");

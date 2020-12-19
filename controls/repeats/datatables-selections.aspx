@@ -1,6 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%-- https://datatables.net/manual/index --%>
@@ -8,9 +6,8 @@
 smartlet.SmartletID = Request["appID"];
 %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" RenderPage="false" CalculatePage="false" runat="server" ProcessingEvent="Render" visible="true" />
-<apn:api5 id="sg5" runat="server" />
 <%
-ISmartletLogger log = sg5.Context.getLogger("selections");
+ISmartletLogger log = sg.Context.getLogger("selections");
 
 string tableId = Request["tableId"];
 // remove prefix and suffixes
@@ -25,7 +22,7 @@ if (tableId.IndexOf("div_d_") == 0) {
 
 log.debug("tableId: " + tableId);
 
-ISmartletRepeat repeat = (ISmartletRepeat)sg5.Smartlet.findFieldById(tableId);
+ISmartletRepeat repeat = (ISmartletRepeat)sg.Smartlet.findFieldById(tableId);
 
 string primaryKeyFieldName = repeat.getMetaData("id");
 bool isSelectable = repeat.isSelectable();

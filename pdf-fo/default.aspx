@@ -1,6 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- <%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<apn:api5 id="sg5" runat="server"/>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default.aspx.cs" Inherits="Default" Trace="false"%>
+<%@ Assembly src="../../default_8.5/helpers.cs" %>
+<%
+	sg = sg5;
+	Init();
+	ThemesLocations = new string[]{"/..",Theme};
+	LogoutURL = getURLForSmartlet(SmartletName);
+%>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <fo:layout-master-set>
 	<fo:simple-page-master master-name="all-pages"  margin-right="1cm" margin-left="1cm" margin-bottom="2cm" margin-top="1cm" page-width="21cm" page-height="29.7cm">

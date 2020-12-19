@@ -1,7 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <!-- Check to see if there are required fields and if any validation errors occurred -->
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
@@ -32,7 +29,7 @@
 		<% } else { %>
 		<%
             string id =control.Current.getName().Remove(0,2);
-            string label = sg5.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+            string label = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
 			int index = (int)Context.Items["loopOnErrorControls"];
 			Context.Items["loopOnErrorControls"] = ++index;
         %>

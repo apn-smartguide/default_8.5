@@ -1,14 +1,10 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../../helpers.aspx" -->
 <div class="row">
     <div class="col-md-12">
         <div class="pull-left">
             <%
-                SessionField previousBtn = (SessionField)sg5.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName("previous");
+                SessionField previousBtn = (SessionField)sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName("previous");
                 if(previousBtn != null) {
                     ISmartletField[] targets = previousBtn.getEventTarget();
                     string eventTargets = "";
@@ -48,7 +44,7 @@
                 </button>
             </apn:control>
             <%
-            SessionField nextBtn = (SessionField)sg5.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName("next");
+            SessionField nextBtn = (SessionField)sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName("next");
             if(nextBtn != null) { 
                 ISmartletField[] nextTargets = nextBtn.getEventTarget();
                 string nextEventTargets = "";

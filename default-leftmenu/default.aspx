@@ -1,15 +1,16 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="_Default" Trace="false"%>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+<!DOCTYPE html>
 <apn:api5 id="sg5" runat="server" />
-<!-- #include file="../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="Default" Trace="false"%>
+<%@ Assembly src="../../default_8.5/helpers.cs" %>
 <%
+	sg = sg5;
+	Init();
 	TimerTraceStart("default");
 	Context.Items["optionIndex"] = "";
-	setThemeLocations(new string[]{"/..",sg5.Smartlet.getTheme()});
-	setLogoutURL(getURLForSmartlet(getSmartletName()));
+	ThemesLocations = new string[]{"/..",Theme};
+	LogoutURL = getURLForSmartlet(SmartletName);
 %>
-<!DOCTYPE html>
-<html lang="<%= getCurrentLocale() %>">
+<html lang="<%= CurrentLocale %>">
 <% Server.Execute(resolvePath("/layout/head.aspx")); %>
 <body role="document" class='<apn:control runat="server" type="step"><apn:cssclass runat="server"/></apn:control>' style='<apn:control runat="server" type="step"><apn:cssstyle runat="server"/></apn:control>'>
 	<div id="loader"><div id="spinner"></div></div>
@@ -29,7 +30,7 @@
 						<% Server.Execute(resolvePath("/layout/secondary-navigation.aspx")); %>
 					</div>
 					<div class="col-md-9">
-						<% if (showWizard()) { %>
+						<% if (ShowWizards) { %>
 							<% Server.Execute(resolvePath("/controls/wizard/sections.aspx")); %>
 						<% } %>
 						<div class="row page-title">
@@ -42,7 +43,7 @@
 						<% Server.Execute(resolvePath("/controls/validation.aspx")); %>
 						<%-- MAIN LOOP OVER PAGE CONTROLS --%>
 						<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
-						<% if (showWizard()) { %>
+						<% if (ShowWizards) { %>
 						<%-- WIZARD PREV/NEXT BUTTONS --%>
 						<div class="navigation">
 							<% Server.Execute(resolvePath("/controls/wizard/bottom-controls.aspx")); %>

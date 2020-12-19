@@ -1,13 +1,10 @@
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <%
-	string controlsPath = getCustomControlPathForCurrentControl(control.Current);
-	if (!controlsPath.Equals("")) {
-		Server.Execute(controlsPath);
+	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
+	if (!customControl.Equals("")) {
+		string controlsPath = getCustomControlPathForCurrentControl(customControl);
+		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
 	} else if(control.Current.getCSSClass().Contains("proxy")) { 
 		//It's a proxy we do nothing.
 	} else { 

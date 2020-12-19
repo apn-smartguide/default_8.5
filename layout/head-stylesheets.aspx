@@ -1,8 +1,4 @@
-<%@ Page Language="C#" %>
-<%@ Import Namespace="com.alphinat.sg5" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server" />
-<!-- #include file="../helpers.aspx" -->
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <!--[if gte IE 9 | !IE ]><!-->
 <link href='<%=resolvePath("/resources/img/favicon.ico")%>' rel="icon" type="image/x-icon">
 <link href='<%=resolvePath("/resources/img/apn_icon.png")%>' rel="icon" sizes="192x192">

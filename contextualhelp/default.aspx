@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ Page Language="C#" %>
-<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="Default" Trace="false"%>
+<%@ Assembly src="../../default_8.5/helpers.cs" %>
 <apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
+<% 
+	sg = sg5;
+	Init();
+	ThemesLocations = new string[]{"/..",Theme};
+	LogoutURL = getURLForSmartlet(SmartletName);
+%>
 <!DOCTYPE html>
-<html lang="<%=getCurrentLocale()%>">
+<html lang="<%= CurrentLocale %>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
 	<body role="document">
 		<div id="loader"><div id="spinner"></div></div>

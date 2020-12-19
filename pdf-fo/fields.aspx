@@ -1,5 +1,7 @@
-<!--<%@ Page Language="C#" %>
-<%@ Register Tagprefix="Apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>-->
+<!--
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
+-->
 <Apn:forEach  runat="server">
 	<Apn:choosecontrol  runat="server">
 		<Apn:whencontrol type="INPUT"  runat="server">

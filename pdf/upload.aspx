@@ -1,7 +1,5 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
 <apn:control id="control" runat="server">
 <% if(control.Current.getAttribute("value").Trim().Length > 0) { %>
 <tr>
@@ -9,5 +7,5 @@
 		<a target= "_blank" href='upload/<apn:value runat="server"/>?id=<apn:name runat="server"/>&amp;amp;interview=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>'><apn:value runat="server"/></a>
 	</td>
 </tr>
-<% }%>
+<% } %>
 </apn:control>

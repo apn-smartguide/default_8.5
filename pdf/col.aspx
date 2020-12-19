@@ -1,8 +1,6 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <%@ Import Namespace="System.Text.RegularExpressions" %> 
-<apn:api5 id="sg5" runat="server"/>
-<!-- #include file="../helpers.aspx" -->
 <apn:control runat="server" id="col">
 <%
 string layout = col.Current.getLayoutAttribute("all");

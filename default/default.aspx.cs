@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -11,9 +14,10 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
 using com.alphinat.sg5;
-public partial class _Default : System.Web.UI.Page 
+
+public partial class Default : SGPage
 {
-    public void InitSG() {
+    public void Init() {
         HttpBrowserCapabilities browser = Request.Browser;
 
         if(!(bool)Context.Items["WebPartMode"]) {
