@@ -3,7 +3,7 @@
 <% Context.Items["show-langdetect"] = control.Current.getCSSClass().Contains("show-langdetect"); %>
 <% if(control.Current.getSmartletLocales().Length <= 2) { %>
 	<apn:forEach runat="server" id="locID" items="languages">
-		<% if(!locID.Current.getValue().Equals(CurrentLocale) { %>
+		<% if(!locID.Current.getValue().Equals(CurrentLocale)) { %>
 		<a id='btn-lang-<%=locID.Current.getValue()%>' data-lang='<%=locID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=locID.Current.getValue()%>'></a>
 		<% } %>
 	</apn:forEach>

@@ -324,12 +324,51 @@ namespace SG
 			}
 		}
 
+		public string HomeURL {
+			get {
+				if(Context.Items["home-url"] == null || ((string)Context.Items["home-url"]).Equals("")) {
+					Context.Items["home-url"] = getURLForSmartlet("home");
+				}
+				return (string)Context.Items["home-url"];
+			}
+			set {
+				Context.Items["home-url"] = value;
+			}
+		}
+
+		public string LoginURL {
+			get {
+				if(Context.Items["login-url"] == null || ((string)Context.Items["login-url"]).Equals("")) {
+					Context.Items["login-url"] = getURLForSmartlet("login");
+				}
+				return (string)Context.Items["login-url"];
+			}
+			set {
+				Context.Items["login-url"] = value;
+			}
+		}
+
 		public string LogoutURL {
 			get {
+				if(Context.Items["logout-url"] == null || ((string)Context.Items["logout-url"]).Equals("")) {
+					Context.Items["logout-url"] = getURLForSmartlet("logout");
+				}
 				return (string)Context.Items["logout-url"];
 			}
 			set {
 				Context.Items["logout-url"] = value;
+			}
+		}
+
+		public string ProfileURL {
+			get {
+				if(Context.Items["profile-url"] == null || ((string)Context.Items["profile-url"]).Equals("")) {
+					Context.Items["profile-url"] = getURLForSmartlet("profile");
+				}
+				return (string)Context.Items["profile-url"];
+			}
+			set {
+				Context.Items["profile-url"] = value;
 			}
 		}
 
@@ -344,6 +383,60 @@ namespace SG
 					Context.Items["showWizard"] = (bool?)CurrentPage.getCSSClass().Contains("show-wizard");
 				}
 				return (bool)Context.Items["showWizard"];
+			}
+		}
+
+		public bool HideHeader {
+			get {
+				if(Context.Items["hideHeader"] == null) {
+					Context.Items["hideHeader"] = (bool?)CurrentPage.getCSSClass().Contains("hide-header");
+				}
+				return (bool)Context.Items["hideHeader"];
+			}
+		}
+
+		public bool HideFooter {
+			get {
+				if(Context.Items["hideFooter"] == null) {
+					Context.Items["hideFooter"] = (bool?)CurrentPage.getCSSClass().Contains("hide-footer");
+				}
+				return (bool)Context.Items["hideFooter"];
+			}
+		}
+
+		public bool HideBreadcrumb {
+			get {
+				if(Context.Items["hideBreadcrumb"] == null) {
+					Context.Items["hideBreadcrumb"] = (bool?)CurrentPage.getCSSClass().Contains("hide-breadcrumb");
+				}
+				return (bool)Context.Items["hideBreadcrumb"];
+			}
+		}
+
+		public bool HideProgressBar {
+			get {
+				if(Context.Items["hideProgressBar"] == null) {
+					Context.Items["hideProgressBar"] = (bool?)CurrentPage.getCSSClass().Contains("hide-progress-bar");
+				}
+				return (bool)Context.Items["hideProgressBar"];
+			}
+		}
+
+		public bool HideStepNavigation {
+			get {
+				if(Context.Items["hideStepNavigation"] == null) {
+					Context.Items["hideStepNavigation"] = (bool?)CurrentPage.getCSSClass().Contains("hide-step-navigation");
+				}
+				return (bool)Context.Items["hideStepNavigation"];
+			}
+		}
+
+		public bool HideFunelNavigation {
+			get {
+				if(Context.Items["hideFunelNavigation"] == null) {
+					Context.Items["hideFunelNavigation"] = (bool?)CurrentPage.getCSSClass().Contains("hide-funel-navigation");
+				}
+				return (bool)Context.Items["hideFunelNavigation"];
 			}
 		}
 

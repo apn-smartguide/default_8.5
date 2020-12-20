@@ -3,7 +3,6 @@
 <apn:api5 id="sg5" runat="server" />
 <%
 	sg = sg5;
-	Init();
 	TimerTraceStart("default");
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = getURLForSmartlet(SmartletName);

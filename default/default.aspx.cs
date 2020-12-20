@@ -20,9 +20,16 @@ using com.alphinat.sgs.smartlet.display;
 
 public partial class _Default : SG.Page
 {
-    public void Init() {
+    protected void Page_Load(object sender, EventArgs e) {
+        if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
+            ClearCaches();
+        }
+
         HttpBrowserCapabilities browser = Request.Browser;
+        
         Context.Items["optionIndex"] = "";
+        Context.Items["javascript"] = ""; // injected javascript via designer using custom javascript control, rendered at end of page
+
         if(Context.Items["WebPartMode"] == null) {
             Context.Items["WebPartMode"] = false;
         }
@@ -46,16 +53,12 @@ public partial class _Default : SG.Page
 
         Context.Items["BrowserVersion"] = browser.Version;
         Context.Items["BrowserType"] = browser.Type;
+
     }
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
-            ClearCaches();
-        }
-    }
+
 	private void Page_Error(object sender, EventArgs e)
 	{
-		ISmartletLogger log = sg5.Context.getLogger("default.aspx");
+		ISmartletLogger log = sg5.Context.getLogger("Page_Error");
 		//log.debug("Application ERROR");
 		//Exception ex = Server.GetLastError();
 
@@ -64,6 +67,7 @@ public partial class _Default : SG.Page
 		//ex = ex.InnerException ?? ex;
 		//log.debug(ExceptionInfo(ex));
 	}
+
     public int GetLineNumber(Exception ex)
     {
         var lineNumber = 0;
