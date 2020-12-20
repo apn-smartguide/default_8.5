@@ -1,15 +1,14 @@
-<!DOCTYPE html>
+<%@ Assembly Src="../helpers.cs" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="_Default" Trace="false"%>
 <apn:api5 id="sg5" runat="server" />
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="Default" Trace="false"%>
-<%@ Assembly src="../../default_8.5/helpers.cs" %>
 <%
 	sg = sg5;
 	Init();
 	TimerTraceStart("default");
-	Context.Items["optionIndex"] = "";
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = getURLForSmartlet(SmartletName);
 %>
+<!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
 <% Server.Execute(resolvePath("/layout/head.aspx")); %>
 <body role="document" class='<apn:control runat="server" type="step"><apn:cssclass runat="server"/></apn:control>' style='<apn:control runat="server" type="step"><apn:cssstyle runat="server"/></apn:control>'>
@@ -30,7 +29,7 @@
 						<% Server.Execute(resolvePath("/layout/secondary-navigation.aspx")); %>
 					</div>
 					<div class="col-md-9">
-						<% if (ShowWizards) { %>
+						<% if (ShowWizard) { %>
 							<% Server.Execute(resolvePath("/controls/wizard/sections.aspx")); %>
 						<% } %>
 						<div class="row page-title">
@@ -43,7 +42,7 @@
 						<% Server.Execute(resolvePath("/controls/validation.aspx")); %>
 						<%-- MAIN LOOP OVER PAGE CONTROLS --%>
 						<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
-						<% if (ShowWizards) { %>
+						<% if (ShowWizard) { %>
 						<%-- WIZARD PREV/NEXT BUTTONS --%>
 						<div class="navigation">
 							<% Server.Execute(resolvePath("/controls/wizard/bottom-controls.aspx")); %>

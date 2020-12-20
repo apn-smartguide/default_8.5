@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SG.Page" Trace="false"%>
 <apn:control runat="server" id="control">
 	<div
 		id='div_<apn:name runat="server"/>'

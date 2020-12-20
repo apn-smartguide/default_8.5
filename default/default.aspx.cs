@@ -14,11 +14,18 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
 using com.alphinat.sg5;
+using com.alphinat.sgs;
+using com.alphinat.sgs.smartlet;
+using com.alphinat.sgs.smartlet.display;
 
-public partial class Default : SGPage
+public partial class _Default : SG.Page
 {
     public void Init() {
         HttpBrowserCapabilities browser = Request.Browser;
+        Context.Items["optionIndex"] = "";
+        if(Context.Items["WebPartMode"] == null) {
+            Context.Items["WebPartMode"] = false;
+        }
 
         if(!(bool)Context.Items["WebPartMode"]) {
             // handling of PDF or XML generation in tag mode
@@ -39,23 +46,23 @@ public partial class Default : SGPage
 
         Context.Items["BrowserVersion"] = browser.Version;
         Context.Items["BrowserType"] = browser.Type;
-        //Response.Headers.Add("Cache-Control", "no-store");
-        //Response.Headers.Add("Pragma","no-cache");
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
+            ClearCaches();
+        }
     }
 	private void Page_Error(object sender, EventArgs e)
 	{
 		ISmartletLogger log = sg5.Context.getLogger("default.aspx");
-		log.debug("Application ERROR");
-		Exception ex = Server.GetLastError();
+		//log.debug("Application ERROR");
+		//Exception ex = Server.GetLastError();
 
 		// The original error may have been wrapped in a HttpUnhandledException,
 		// so we need to log the details of the InnerException.
-		ex = ex.InnerException ?? ex;
-		log.debug(ExceptionInfo(ex));
+		//ex = ex.InnerException ?? ex;
+		//log.debug(ExceptionInfo(ex));
 	}
     public int GetLineNumber(Exception ex)
     {

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SG.Page" Trace="false"%>
 <%@ Import Namespace="System.Globalization" %>
 <apn:control runat="server" id="control">
 <%

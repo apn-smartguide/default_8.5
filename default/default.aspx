@@ -1,15 +1,14 @@
-<!DOCTYPE html>
+<%@ Assembly Src="../helpers.cs" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="default.aspx.cs" Inherits="_Default" Trace="false"%>
 <apn:api5 id="sg5" runat="server"/>
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default.aspx.cs" Inherits="Default" Trace="false"%>
-<%@ Assembly src="../../default_8.5/helpers.cs" %>
 <%
 	sg = sg5;
 	Init();
 	TimerTraceStart("default");
-	Context.Items["optionIndex"] = "";
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = getURLForSmartlet(SmartletName);
 %>
+<!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
 	<body role="document" class='<apn:control runat="server" type="step"><apn:cssclass runat="server"/></apn:control>' style='<apn:control runat="server" type="step"><apn:cssstyle runat="server"/></apn:control>' >

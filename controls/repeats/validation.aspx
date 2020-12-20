@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SG.Page" Trace="false"%>
 <!-- Check to see if there are required fields and if any validation errors occurred -->
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>

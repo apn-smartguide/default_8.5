@@ -1,4 +1,5 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Import Namespace="com.alphinat.sg5" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SG.Page" Trace="false"%>
 <nav id="sidebar" class="sidenav affix">
 	<ul class="list-unstyled components">
 <%
