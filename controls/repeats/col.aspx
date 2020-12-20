@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SG.Page" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <apn:control runat="server" id="control">
 	<Apn:ForEach id="field" runat="server">
 		<Apn:ChooseControl runat="server">

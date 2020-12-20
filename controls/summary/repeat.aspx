@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SG.Page" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <apn:forEach id="control2" runat="server">
   <% if (control2.Current.getType() == com.alphinat.xmlengine.interview.tag.ControlInfo.GROUP) { %>
     <apn:ifnotcontrolvalid runat="server">

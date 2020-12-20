@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SG.Page" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%-- https://datatables.net/manual/index --%>

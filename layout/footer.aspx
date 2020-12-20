@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SG.Page" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
 <footer class="footer">
 	<div class="container">
 		<p class="text-muted"><apn:localize runat="server" key="theme.text.copyright"/></p>
