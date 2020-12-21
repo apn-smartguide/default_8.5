@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="Default" Trace="false"%>
-<%@ Assembly src="../../default_8.5/helpers.cs" %>
+<%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <apn:api5 id="sg5" runat="server"/>
 <%

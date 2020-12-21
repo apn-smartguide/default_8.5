@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
 <% Context.Items["show-langdetect"] = control.Current.getCSSClass().Contains("show-langdetect"); %>
 <% if(control.Current.getSmartletLocales().Length <= 2) { %>

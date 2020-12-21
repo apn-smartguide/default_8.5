@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../helpers.cs" Inherits="SGPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <!--[if gte IE 9 | !IE ]><!-->
 <link href='<%=resolvePath("/resources/img/favicon.ico")%>' rel="icon" type="image/x-icon">
 <link href='<%=resolvePath("/resources/img/apn_icon.png")%>' rel="icon" sizes="192x192">

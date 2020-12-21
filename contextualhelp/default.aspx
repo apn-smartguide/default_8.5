@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="Default" Trace="false"%>
-<%@ Assembly src="../../default_8.5/helpers.cs" %>
+<%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
 <apn:api5 id="sg5" runat="server"/>
 <% 
 	sg = sg5;

@@ -1,4 +1,4 @@
-<%@ Assembly Src="../helpers.cs" %>
+<%@ Assembly Src="../SGWebCore.cs" %>
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="default.aspx.cs" Inherits="_Default" Trace="false"%>
 <apn:api5 id="sg5" runat="server"/>
 <%

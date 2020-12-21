@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <apn:api5 id="sg5" runat="server"/>
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../default.aspx.cs" Inherits="Default" Trace="false"%>
-<%@ Assembly src="../../default_8.5/helpers.cs" %>
+<%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
 <%
 	sg = sg5;
 	Init();

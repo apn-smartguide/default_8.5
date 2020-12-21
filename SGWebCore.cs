@@ -26,14 +26,14 @@ using com.alphinat.xmlengine.interview.tag;
 using com.alphinat.interview.si.xml.servlet.environment;
 using Alphinat.SmartGuideServer.Controls;
 
-public partial class SGPage : System.Web.UI.Page 
+public partial class SGWebCore : System.Web.UI.Page 
 {	
 	private string currentLocale = "";
 	private string lastModificationDate = "";
 
 	public void ClearCaches() {
-		Context.Items["paths-dictionary"] = new Dictionary<string, string>();
-		Context.Items["cachebreak-dictionary"] = new Dictionary<string, string>();
+		Session["paths-dictionary"] = new Dictionary<string, string>();
+		Session["cachebreak-dictionary"] = new Dictionary<string, string>();
 		Context.Items["api5"] = null;
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletLogger"] = null;
@@ -72,7 +72,7 @@ public partial class SGPage : System.Web.UI.Page
 	public ISmartletLogger log {
 		get { 
 			if(Context.Items["smartletLogger"] == null) {
-				Context.Items["smartletLogger"] = sg.Context.getLogger("SGPage"); 
+				Context.Items["smartletLogger"] = sg.Context.getLogger("SGWebCore"); 
 			}
 			return (ISmartletLogger)Context.Items["smartletLogger"];
 		}
@@ -210,10 +210,10 @@ public partial class SGPage : System.Web.UI.Page
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
 	public string resolvePath(string path) {
 		log.trace(String.Concat("resolvePath start: ", path));
-		if(Context.Items["paths-dictionary"] == null) {
-			Context.Items["paths-dictionary"] = new Dictionary<string, string>();
+		if(Session["paths-dictionary"] == null) {
+			Session["paths-dictionary"] = new Dictionary<string, string>();
 		}
-		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Context.Items["paths-dictionary"];
+		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Session["paths-dictionary"];
 		
 		string filePath = "";
 		string pathParams = "";
@@ -247,8 +247,8 @@ public partial class SGPage : System.Web.UI.Page
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string cacheBreak(string url) {
 		log.trace(String.Concat("cacheBreak start: ", url));
-		if(Context.Items["cachebreak-dictionary"] == null) {
-			Context.Items["cachebreak-dictionary"] = new Dictionary<string, string>();
+		if(Session["cachebreak-dictionary"] == null) {
+			Session["cachebreak-dictionary"] = new Dictionary<string, string>();
 		}
 		string pathParams = "";
 		if(url.Contains("?")) {
@@ -256,7 +256,7 @@ public partial class SGPage : System.Web.UI.Page
 			url = url.Split('?')[0];
 		}
 		StringBuilder filePath = new StringBuilder("");
-		Dictionary<string, string> cacheBreakDictionary = (Dictionary<string, string>) Context.Items["cachebreak-dictionary"];
+		Dictionary<string, string> cacheBreakDictionary = (Dictionary<string, string>) Session["cachebreak-dictionary"];
 		if(!cacheBreakDictionary.ContainsKey(url)){
 			filePath.Append(resolvePath(url));
 			if(!filePath.ToString().Equals("")) {
