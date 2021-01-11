@@ -4,10 +4,12 @@
 <%
 	sg = sg5;
 	TimerTraceStart("default");
-	ThemesLocations = new string[]{"/..",Theme};
+	ThemesLocations = new string[]{Theme,"/.."};
 	LogoutURL = getURLForSmartlet(SmartletName);
 %>
+<% Context.Items["pdf"] = false; %>
 <!DOCTYPE html>
+path:<%=resolvePath("/layout/head.aspx")%>
 <html lang="<%= CurrentLocale %>">
 <% Server.Execute(resolvePath("/layout/head.aspx")); %>
 <body role="document" class='<apn:control runat="server" type="step"><apn:cssclass runat="server"/></apn:control>' style='<apn:control runat="server" type="step"><apn:cssstyle runat="server"/></apn:control>'>

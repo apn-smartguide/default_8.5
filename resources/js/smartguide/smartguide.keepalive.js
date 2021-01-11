@@ -8,10 +8,24 @@ var keepAliveController = {
 	}
 }
 
-function keepAlive(warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutPage, redirPage) {
+function keepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logoutUrl, _redirUrl) {
+
+	if(typeof _keepAliveUrl !== 'undefined' && _keepAliveUrl != "") {
+		keepAlivePage = _keepAliveUrl;
+	}
+
+	if(typeof _logoutUrl !== 'undefined' && _logoutUrl != "") {
+		logoutPage = _logoutUrl;
+	}
+
 	if(typeof logoutPage === 'undefined' || logoutPage == "") {
 		logoutPage = '/smartlets/do.aspx?interviewID=logout&workspace=' + workspace + '&lang=' + currentLocale + '&session-timeout=true';
 	}
+
+	if(typeof _redirUrl !== 'undefined' && _redirUrl != "") {
+		redirPage = _redirUrl;
+	}
+
 	if(typeof redirPage === 'undefined' || redirPage == "") {
 		redirPage = logoutPage;
 	}

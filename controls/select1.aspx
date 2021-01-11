@@ -14,7 +14,7 @@
 				<% Context.Items["errorIndex"] = (int) Context.Items["errorIndex"] + 1; %>
 				<a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
 			</apn:ifnotcontrolvalid>
-			<fieldset  id='div_<apn:name runat="server" />' class='sg-radio chkbxrdio-grp form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' <apn:metadata runat="server"/> <%=Context.Items["readonly"]%> <!-- #include file="aria-live.inc" --> >
+			<fieldset  id='div_<apn:name runat="server" />' <%=Context.Items["layout"] %> class='sg-radio chkbxrdio-grp form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' <apn:metadata runat="server"/> <%=Context.Items["readonly"]%> <!-- #include file="aria-live.inc" --> >
 				<% if (!((bool)Context.Items["bareControl"])){ Server.Execute(resolvePath("/controls/legend.aspx")); }	%>
 				<% if(!((string)Context.Items["layout"]).Equals("vertically")) { %><br/><% } %>
 				<% Context.Items["counter"] = 1; %>

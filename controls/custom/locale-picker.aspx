@@ -4,18 +4,18 @@
 <% if(control.Current.getSmartletLocales().Length <= 2) { %>
 	<apn:forEach runat="server" id="locID" items="languages">
 		<% if(!locID.Current.getValue().Equals(CurrentLocale)) { %>
-		<a id='btn-lang-<%=locID.Current.getValue()%>' data-lang='<%=locID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=locID.Current.getValue()%>'></a>
+		<a id='btn-lang-<%=locID.Current.getValue()%>' data-lang='<%=locID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=locID.Current.getValue()%>'><%=locID.Current.getValue()%></a>
 		<% } %>
 	</apn:forEach>
 <% } else { %>
 <div class='locale-picker dropdown pull-right' aria-haspopup='true' aria-expanded='false'>
 	<button id='btn-lang-<%=CurrentLocale%>' data-lang='<%=CurrentLocale%>' class='btn btn-default dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
-		<span id='current-locale'></span> <span class='caret'></span>
+		<span id='current-locale'></span><%=Context.Items["currentLocale"]%> <span class='caret'></span>
 	</button>
 	<ul class='dropdown-menu'>
 		<apn:forEach runat="server" id="localeID" items="languages">
 			<li>
-				<a id='btn-lang-<%=localeID.Current.getValue()%>' data-lang='<%=localeID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=localeID.Current.getValue()%>'></a>
+				<a id='btn-lang-<%=localeID.Current.getValue()%>' data-lang='<%=localeID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=localeID.Current.getValue()%>'><%=Context.Items["currentLocale"]%></a>
 			</li>
 		</apn:forEach>
 		<% if ((bool)Context.Items["show-langdetect"]) { %>

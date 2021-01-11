@@ -5,8 +5,8 @@
 	if (!customControl.Equals("")) {
 		string controlsPath = getCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
+	} else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { 
 	} else if(control.Current.getCSSClass().Contains("proxy")) { 
-		//It's a proxy we do nothing.
 	} else { 
 %>
 	<apn:ChooseControl runat="server">
@@ -53,7 +53,9 @@
 			<% Server.Execute(resolvePath("/controls/upload.aspx")); %>
 		</apn:WhenControl>
 		<apn:WhenControl runat="server" type="TRIGGER">
+			<% if (!(bool)Context.Items["pdf"]) { %>
 			<% Server.Execute(resolvePath("/controls/button.aspx")); %>
+			<% } %>
 		</apn:WhenControl>
 		<apn:WhenControl runat="server" type="SUB-SMARTLET">
 			<% Server.Execute(resolvePath("/controls/subsmartlet.aspx")); %>

@@ -4,9 +4,10 @@
 <%
 	sg = sg5;
 	TimerTraceStart("default");
-	ThemesLocations = new string[]{"/..",Theme};
+	ThemesLocations = new string[]{Theme,"/.."};
 	LogoutURL = getURLForSmartlet(SmartletName);
 %>
+<% Context.Items["pdf"] = false; %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
 	<% Server.Execute(resolvePath("/layout/head.aspx")); %>

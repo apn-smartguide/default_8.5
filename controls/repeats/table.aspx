@@ -6,7 +6,8 @@
 <%
 	Context.Items["hiddenName"] = "";
 	string CSSClass = control.Current.getCSSClass();
-    Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
+	Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
+	Context.Items["hideRowAddButton"] = control.Current.getCSSClass().Contains("hide-row-add-btn");
 	Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
 	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
@@ -38,7 +39,7 @@
 							<label class="sr-only" for="datatable-search"><apn:localize runat="server" key="theme.text.datatable.filter" />:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><apn:localize runat="server" key="theme.text.datatable.filter" />:</div>
-								<input id='datatable-search' type='text' class="form-control input-sm searchBox" value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder=''>
+								<input id='datatable-search' type='text' class="form-control input-sm searchBox" value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<apn:controlattribute attr="placeholder" runat="server"/>'>
 							</div>
 						</div>
 						<button type="submit" class='searchBtn btn btn-sm btn-default'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
@@ -87,7 +88,11 @@
 							<apn:forEach runat="server" id="row">
 								<apn:forEach runat="server" id="col">
 									<apn:forEach runat="server" id="field">
-										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getCSSClass().Contains("hide-from-list-view")) { // Don't show if it's a hidden field %>
+										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") 
+										&& !field.Current.getAttribute("visible").Equals("false") 
+										&& !field.Current.getCSSClass().Contains("hide-from-list-view")
+										&& !field.Current.getCSSClass().Contains("proxy")
+										) { %>
 										<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
 											<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 											<% if ("true".Equals(field.Current.getAttribute("isSortable"))) { %>
@@ -165,11 +170,21 @@
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="INPUT" runat="server">
-										<% if(!field2.Current.getAttribute("style").Equals("visibility:hidden;")) {%>
+										<% if(
+											!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
+											&& !field2.Current.getAttribute("visible").Equals("false") 
+											&& !field2.Current.getCSSClass().Contains("hide-from-list-view")
+											&& !field2.Current.getCSSClass().Contains("proxy")
+										) { %>
 										<td>
 										<% } %>
 											<% Server.Execute(resolvePath("/controls/input.aspx?bare_control=true")); %>
-										<% if(!field2.Current.getAttribute("style").Equals("visibility:hidden;")) {%>
+											<% if(
+												!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
+												&& !field2.Current.getAttribute("visible").Equals("false") 
+												&& !field2.Current.getCSSClass().Contains("hide-from-list-view")
+												&& !field2.Current.getCSSClass().Contains("proxy")
+										) { %>
 										</td>
 										<% } %>
 									</apn:whencontrol>
@@ -232,9 +247,11 @@
 							</apn:forEach>
 							<td class='repeatbutton nowrap'>
 								<% if (!(bool)Context.Items["hideAddButton"]) { %>
+									<% if (!(bool)Context.Items["hideRowAddButton"]) { %>
 									<apn:control type="insert" id="addbutton" runat='server'>
 										<span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_add_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
 									</apn:control>
+									<% } %>
 								<% } %>
 								<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
 								<apn:control type="delete" id="deletebutton" runat="server">
@@ -266,9 +283,14 @@
 						<td></td>
 						<% } %>
 						<% foreach(ISmartletField footerField in tableFooterGroup.findAllFields()) { %>
+							<% if(footerField.isAvailable() 
+							&& !footerField.getCSSClass().Contains("hide-from-list-view")
+							&& !footerField.getCSSClass().Contains("proxy")
+							) { %> 
 							<td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' >
 								<%=footerField.getValue()%>
 							</td>
+							<% } %>
 						<% } %>
 					</tr>	
 				</tfooter>

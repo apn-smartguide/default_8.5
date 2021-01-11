@@ -4,7 +4,7 @@
 <apn:control runat="server" id="control">
 	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
-	<label for='<apn:name runat="server"/>' <apn:ifcontrolrequired runat="server">class='required'</apn:ifcontrolrequired>>
+	<label id='lbl_<apn:name runat="server"/>' for='<apn:name runat="server"/>' <apn:ifcontrolrequired runat="server">class='required'</apn:ifcontrolrequired>>
 		<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
 		<apn:ifnotcontrolvalid runat="server">
 			<apn:ifcontrolrequired runat="server"><strong class='has-error'><%=Smartlet.getLocalizedResource("theme.text.required-suffix")%></strong></apn:ifcontrolrequired>

@@ -2,6 +2,7 @@
 <apn:control runat="server" id="control">
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
+<% } else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else { %>
 <% Context.Items["btn-group"] = true; %>
 <div class="btn-group" role="group">

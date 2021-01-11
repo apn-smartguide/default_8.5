@@ -286,7 +286,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//// Referencing other smartlets helpers ////
 	public string getURLForSmartlet(string smartletName, string urlParams) {
-		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
+		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(SmartletCode).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
 		if (!urlParams.Equals("")) {
 			smartletUrl.Append("&").Append(urlParams);
 		}
@@ -319,6 +319,17 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string UserId {
 		get {
 			return (Session["userid"] != null) ? (string) Session["userid"] : "";
+		}
+	}
+
+	//Roles are retreive and set on ther Session in the /smartprofile/dashboard smartlet, welcome page, actions
+	public string UserRoles {
+		get {
+			string result = "";
+			if(Session["roles"] != null && !((string)Session["roles"]).Equals("")) {
+				result = ((string)Session["roles"]);
+			}
+			return result;
 		}
 	}
 
@@ -481,5 +492,122 @@ public partial class SGWebCore : System.Web.UI.Page
 		} else {
 			log.debug(String.Concat("Missing timer start for :", key));
 		}
+	}
+
+	///Cookies
+	private readonly Regex rgx = new Regex("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
+
+	// public void ClearCookie(IServiceContext context, string cookieName)
+	// {
+	// 	log.debug("Cookie - Start clearing " + cookieName);
+
+	// 	try
+	// 	{
+	// 		string secureValue = (string)context.getEnvironment().getAttribute(Constants.Scope.CONFIGURATION, "SP.Smartlets.Cookie.Secure");
+	// 		if (String.IsNullOrEmpty(secureValue))
+	// 		{
+	// 			secureValue = "false";
+	// 		}
+
+	// 		HttpRequest req = (HttpRequest)context.getEnvironment().getRequest();
+
+	// 		string baseURL = req.Url.ToString();
+
+	// 		log.debug("BaseURL is " + baseURL);
+
+	// 		string fullDomain = Between(baseURL, "://", "/");
+
+	// 		if (fullDomain.IndexOf(":") > -1)
+	// 		{
+	// 			fullDomain = Before(fullDomain, ":");
+	// 		}
+
+	// 		log.debug("Full domain is " + fullDomain);
+
+	// 		string domain = "";
+
+	// 		// is it an IP address
+	// 		if (rgx.Match(fullDomain).Success)
+	// 		{
+	// 			domain = fullDomain;
+	// 		}
+	// 		else
+	// 		{
+	// 			string[] parts = fullDomain.Split('.');
+	// 			int nbrparts = parts.Length;
+	// 			domain = fullDomain;
+	// 			if (nbrparts > 2)
+	// 			{
+	// 				int indexDot = domain.IndexOf(".");
+	// 				if (indexDot > -1)
+	// 				{
+	// 					domain = domain.Substring(indexDot);
+	// 				}
+	// 			}
+	// 		}
+
+	// 		int index = domain.IndexOf(".");
+	// 		if (index == 0)
+	// 		{
+	// 			domain = domain.Substring(1);
+	// 		}
+
+	// 		log.debug("Final domain is " + domain);
+
+	// 		context.getEnvironment().addHttpCookie(cookieName, "", "0", domain, "/", secureValue, "true");
+	// 	}
+	// 	catch (Exception e)
+	// 	{
+	// 		log.error("An exception occured trying to clear cookie " + cookieName + ".  The exception is " + e.Message);
+	// 	}
+
+	// 	log.debug("Done clearing " + cookieName);
+	// }
+
+	public string Before(string value, string a)
+	{
+		int posA = value.IndexOf(a);
+		if (posA == -1)
+		{
+			return "";
+		}
+		return value.Substring(0, posA);
+	}
+
+	public string After(string value, string a)
+	{
+		int posA = value.LastIndexOf(a);
+		if (posA == -1)
+		{
+			return "";
+		}
+		int adjustedPosA = posA + a.Length;
+		if (adjustedPosA >= value.Length)
+		{
+			return "";
+		}
+		return value.Substring(adjustedPosA);
+	}
+
+	public string Between(string value, string a, string b)
+	{
+		int posA = value.IndexOf(a);
+		if (posA == -1)
+		{
+			return "";
+		}
+		int adjustedPosA = posA + a.Length;
+
+		int posB = value.Substring(adjustedPosA).IndexOf(b)+ adjustedPosA;
+		if (posB == -1)
+		{
+			return "";
+		}
+		
+		if (adjustedPosA >= posB)
+		{
+			return "";
+		}
+		return value.Substring(adjustedPosA, posB - adjustedPosA);
 	}
 }

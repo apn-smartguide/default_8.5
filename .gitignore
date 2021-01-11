@@ -27,3 +27,5 @@ Themes/dotnet/materializecss
 Themes/java/materializecss
 
 ._theme.xls
+*.diff
+*.user

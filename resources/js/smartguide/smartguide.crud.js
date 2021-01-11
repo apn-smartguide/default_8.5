@@ -254,9 +254,8 @@ var crudController = {
 		});
 
 		/**** Non CRUD table/group mode ****/
-		//Insert
 		$('.repeat_table_add_btn, .repeat_block_add_btn').off('click').on('click', function (e) {
-			//onAddInstance
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var isRepeatTable = $this.hasClass('repeat_table_add_btn');
 			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
@@ -268,13 +267,37 @@ var crudController = {
 			}
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, 
-				function(updatedEles){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				},
-				null,
-				null
-			);
+			r.ajaxProcess(this, null, true, function(updatedEles){
+				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+			},function(){
+				$("#loader").fadeOut("slow");
+			});
+		});
+
+		$('.repeat_table_insert_btn, .repeat_block_insert_btn').off('click').on('click', function(e) {
+			$('#loader').fadeIn("slow");
+			var $this = $(this);
+			var isRepeatTable = $this.hasClass('repeat_table_insert_btn');
+			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var f = $repeat.triggerHandler('repeat:addinstance');
+			if (typeof f !== 'undefined' && f === false) {
+				e.stopImmediatePropagation();
+				return false;
+			}
+
+			var thisId = $this.attr('id').replace("[", "\\[").replace("]", "\\]");
+			var count = thisId.substring(thisId.lastIndexOf("_")+1);
+
+			var rpt = $repeat.attr('id').substring($repeat.attr('id').indexOf("_")+1);
+			$('input[name='+rpt.replace("[","\\[").replace("]","\\]")+']').val(count);
+			var basename = this.id.substring(0,this.id.lastIndexOf("_"));
+			var newinput = '<input type="hidden" name="'+basename+'" id="'+basename+'" value="'+basename+'" />';
+			$this.after(newinput);
+			r.ajaxProcess(this, null, true, function(updatedEles){
+				$('#'+rpt).find("table").trigger( "wb-init.wb-tables" );
+			},function(){
+				$("#loader").fadeOut("slow");
+			});
 		});
 
 		//delete

@@ -71,7 +71,7 @@
 						<% if(!(bool)Context.Items["hideSearch"]) {%>
 						<apn:localize runat="server" key="theme.text.datatable.filter" />:
 						<apn:control type="repeat-filter" runat='server'>
-							<input type='text' class='form-control input-sm searchBox' placeholder='' value='<apn:value runat="server" />' name='<apn:name runat="server" />' />
+							<input type='text' class='form-control input-sm searchBox' placeholder='<apn:controlattribute attr="placeholder" runat="server"/>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' />
 						</apn:control>
 						<span class='searchBtn'>
 							<span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' />

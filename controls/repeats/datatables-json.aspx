@@ -71,14 +71,14 @@ string selectionType = repeat.getSelectionType();
 					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
+					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' target='" + fields[j].getMetaData("target") + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
 					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
 					ISmartletField[] grpFields = ((ISmartletGroup)fields[j]).getFields();
 					for(int k=0; k<grpFields.Length;k++){
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' class='" + grpFields[k].getCSSClass() + "' target='" + fields[j].getMetaData("target") + "' style='" + grpFields[k].getCSSStyle() + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}

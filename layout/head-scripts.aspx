@@ -4,6 +4,7 @@
 <script>
 	var keepAlivePage = '<%= resolvePath("/keep-alive.aspx") %>'
 	var keepAliveFlag = '<%= isLogged() %>';
+	var logoutUrl = '<%= LogoutURL %>';
 	var basePath = '<%= BasePath %>';
 	var currentLocale = '<%= CurrentLocale %>';
 	var supportedLocales = [];
