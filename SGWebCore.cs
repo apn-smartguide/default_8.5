@@ -286,7 +286,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//// Referencing other smartlets helpers ////
 	public string getURLForSmartlet(string smartletName, string urlParams) {
-		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(SmartletCode).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
+		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
 		if (!urlParams.Equals("")) {
 			smartletUrl.Append("&").Append(urlParams);
 		}
