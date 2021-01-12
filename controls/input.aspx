@@ -6,6 +6,11 @@
 	if (control.Current.getAttribute("html5type").Length > 0) {
 		Context.Items["html5type"] = control.Current.getAttribute("html5type");
 	}	
+	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { 
+		Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
+	} else {
+		Context.Items["no-col-layout"] = "";
+	}
 %>
 <% if(control.Current.getAttribute("style").Contains("visibility:hidden;")) { %>
 	<div id='div_<apn:name runat="server"/>' <!-- #include file="aria-live.inc" --> >
@@ -24,7 +29,7 @@
 			<% Context.Items["errorIndex"] = (int) Context.Items["errorIndex"] + 1; %>
 			<a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
 		</apn:ifnotcontrolvalid>
-		<div id='div_<apn:name runat="server"/>' class='form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
+		<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
 			<% Server.Execute(resolvePath("/controls/label.aspx")); %>
 			<% if(control.Current.getType()==1014) { %>
 				<% Server.Execute(resolvePath("/controls/date.aspx")); %>

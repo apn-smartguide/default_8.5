@@ -6,6 +6,11 @@
 	// check if html5 type specified explicitly
 	if (control.Current.getAttribute("html5type").Length > 0) {
 		Context.Items["html5type"] = control.Current.getAttribute("html5type");
+	}
+	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { 
+		Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
+	} else {
+		Context.Items["no-col-layout"] = "";
 	}	
 %>
 <% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : ""; %>
@@ -16,7 +21,7 @@
 		<% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %>
 		<a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
 	</apn:ifnotcontrolvalid>
-	<div id='div_<apn:name runat="server"/>' class='input-group date form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> > 
+	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> input-group date form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> > 
 	<% Server.Execute(resolvePath("/controls/label.aspx")); %>
 			<apn:choosecontrol runat="server">
 				<apn:whencontrol type="INPUT" runat="server">

@@ -5,19 +5,23 @@
 <% } else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else { %>
 <% Context.Items["no-col"] = true; %>
+<div class="row">
 <apn:forEach runat="server" id="row">
 	<apn:chooseControl runat="server">
 		<apn:whenControl runat="server" type="ROW">
 			<apn:forEach runat="server" id="col">
 				<apn:chooseControl runat="server">
 					<apn:whenControl runat="server" type="COL">
+						<% Context.Items["no-col-layout"] = col.Current.getLayoutAttribute("all"); %>
 						<apn:forEach runat="server" id="field"><% Server.Execute(resolvePath("/controls/control.aspx")); %></apn:forEach>
+						<% Context.Items["no-col-layout"] = ""; %>
 					</apn:whenControl>
 				</apn:chooseControl>
 			</apn:ForEach>
 		</apn:whenControl>
 	</apn:chooseControl>
 </apn:ForEach>
+</div>
 <% Context.Items["no-col"]  = false; %>
 <% } %>  						
 </apn:control>	
