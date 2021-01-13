@@ -449,6 +449,15 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool HidePageTitle {
+		get {
+			if(Context.Items["hidePageTitle"] == null) {
+				Context.Items["hidePageTitle"] = (bool?)CurrentPage.getCSSClass().Contains("hide-label");
+			}
+			return (bool)Context.Items["hidePageTitle"];
+		}
+	}
+
 	//// Field Helpers ////
 	public bool isUnderRepeat(ISmartletField f) { 
 		bool result = false;

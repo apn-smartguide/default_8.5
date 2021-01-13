@@ -193,7 +193,7 @@
   display: none;
 }
 /* Mandatory star */
-span.required {
+.required {
   color: #e51c23;
 }
 /* Alert link */
