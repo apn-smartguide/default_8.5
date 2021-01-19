@@ -192,10 +192,6 @@
 .hide-progress-bar .progress {
   display: none;
 }
-/* Mandatory star */
-.required {
-  color: #e51c23;
-}
 /* Alert link */
 .alert > a:link, 
 .alert > a:visited,

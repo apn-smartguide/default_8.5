@@ -198,12 +198,12 @@ overflow-y: auto;
 }
 
 .panel-borderless {
-    border       : 0;
-    box-shadow   : none;
+    border       : 0 !important;
+    box-shadow   : none !important;
     margin-left  : -15px;
     margin-right : -15px;
     margin-top   : 0px;
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
 }
 
 .panel-borderless .panel-heading {
