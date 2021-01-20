@@ -42,7 +42,7 @@
                         }
 						
 					%>
-					<input type='<%=Context.Items["html5type"]%>' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<%=Context.Items["data-value"]%>' size='<apn:controlattribute attr="size" runat="server"/>' <apn:metadata runat="server" /> maxlength='<apn:controlattribute attr="size" runat="server" />' <%= Context.Items["readonly"] %> <!-- #include file="aria-attributes.inc" --> />
+					<input type='<%=Context.Items["html5type"]%>' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<%=Context.Items["data-value"]%>' size='<apn:controlattribute attr="size" runat="server"/>' <apn:metadata runat="server" /> maxlength='<apn:controlattribute attr="size" runat="server" />' <%= Context.Items["readonly"] %> <!-- #include file="aria-attributes.inc" --> data-apnformat="<apn:controlattribute runat='server' attr='format'/>"/>
 				</apn:whencontrol>
 				<apn:whencontrol type="SELECT1" runat="server">
 					<apn:control id="control1" runat="server">
