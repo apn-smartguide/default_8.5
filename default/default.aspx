@@ -27,6 +27,9 @@
 						</h2>
 					</div>
 				</div>
+                <% if (ShowWizard) { %>
+							<% Server.Execute(resolvePath("/controls/wizard/sections.aspx")); %>
+				<% } %>
 				<% Server.Execute(resolvePath("/controls/validation.aspx")); %>
 				<% Server.Execute(resolvePath("/layout/main.aspx")); %>
 				<%-- MAIN LOOP OVER PAGE CONTROLS --%>		
