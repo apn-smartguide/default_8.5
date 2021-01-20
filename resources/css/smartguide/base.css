@@ -43,6 +43,11 @@ body > .container {
 }
 /* Sticky Footer */
 
+span.required {
+    color: #d3080c;
+    font-weight: 700;
+}
+
 .logo {
     padding-top: 16px;
 }
@@ -317,6 +322,11 @@ tr .checkbox, tr .radio {
 .checkbox-inline {
     padding-left : 38px;
     margin-bottom: 5px;
+}
+
+/* Password */
+input[type="password"] {
+    width: 100% !important;
 }
 
 /* Large Checkbox Start */
