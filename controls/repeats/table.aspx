@@ -83,7 +83,7 @@
 					<thead>
 						<tr id='tr_<apn:name runat="server"/>'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
-							<th></th>
+							<td></td>
 							<% } %>
 							<apn:forEach runat="server" id="row">
 								<apn:forEach runat="server" id="col">

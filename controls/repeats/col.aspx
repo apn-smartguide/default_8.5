@@ -18,7 +18,7 @@
 					<apn:forEach runat="server">
 						<apn:choosecontrol runat="server">
 							<apn:whencontrol runat="server" type="COL">
-								<% Server.Execute(resolvePath("/controls/repeats/col.aspx")); %>
+								<% Server.Execute(resolvePath("/controls/repeats/col.aspx?bare_control=true")); %>
 							</apn:whencontrol>
 						</apn:choosecontrol>
 					</apn:forEach>
