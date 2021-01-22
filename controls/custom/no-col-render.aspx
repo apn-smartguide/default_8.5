@@ -5,8 +5,10 @@
 <% } else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else { %>
 <% Context.Items["no-col"] = true; %>
-<!-- <div class="row"> -->
 <apn:forEach runat="server" id="row">
+	<% if (!control.Current.getCSSClass().Contains("suppress-rows")) { %>
+	<div class="row">
+	<% } %>
 	<apn:chooseControl runat="server">
 		<apn:whenControl runat="server" type="ROW">
 			<apn:forEach runat="server" id="col">
@@ -20,8 +22,10 @@
 			</apn:ForEach>
 		</apn:whenControl>
 	</apn:chooseControl>
+	<% if (!control.Current.getCSSClass().Contains("suppress-rows")) { %>
+	</div>
+	<% } %>
 </apn:ForEach>
-<!-- </div> -->
 <% Context.Items["no-col"]  = false; %>
 <% } %>  						
 </apn:control>	
