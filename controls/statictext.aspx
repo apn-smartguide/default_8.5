@@ -11,8 +11,7 @@
 	<label>
 		<span><% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %></span>
 	</label>
-	<% } %>
-	<% if (control.Current.getValue().Trim().Length > 0 && !bareControl) { %>
+	<% } else if (control.Current.getValue().Trim().Length > 0 && !bareControl) { %>
 	<span><% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %></span>
 	<% } %>
 	<apn:value runat="server"/>
