@@ -2,12 +2,14 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
+<%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <%@ Import Namespace="Newtonsoft.Json" %>
 <%@ Import Namespace="Newtonsoft.Json.Linq" %>
 <apn:control runat="server" id="control">
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
+<% Context.Items["repeat-name"] = control.Current.getCode(); %>
 <script runat="server">
 	// note: datatable implementation uses the WET systax.
 	// https://datatables.net/manual/index
@@ -207,7 +209,7 @@
 			}
 
 			//Cannot add a non available field to the collection, it will not exist in the header's collection of fields.
-			if(fields[i].isAvailable()) {
+			if(fields[i].isAvailable() && !cssClass.Contains("proxy")) {
 				if (fields[i].getTypeConst() == 80000 || cssStyle.Contains("visibility:hidden;") || cssStyle.Contains("display:none;") || cssClass.Contains("hide-from-list-view")) {
 					col.Add("visible", false);
 				} else {
@@ -375,34 +377,37 @@
 							<%-- this needs to be refactored to be more generic --%>
 							<apn:forEach runat="server" id="thColField">
 								<apn:forEach runat="server" id="thRowField">
-									<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
-									<th class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'>
+									<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 										<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-											<apn:label runat="server"/>
+											<th class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
+										<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
+											<td class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'></td>
 										<% } %>
-									</th>
 									<% } else { %>
-									<th></th>
+										<td class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'></td>
 									<% } %>
 								</apn:forEach>
 							</apn:forEach>
 						</apn:WhenControl>
 						<apn:WhenControl type="GROUP" runat="server">
-							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-								<apn:label runat="server"/>
+								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
+							<% } else { %>
+								<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
 							<% } %>
-							</th>
+						</apn:WhenControl>
+						<apn:WhenControl type="HIDDEN" runat="server">
+							<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
 						</apn:WhenControl>
 						<apn:Otherwise runat="server">
-							<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view")) { %>
-							<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
-							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-								<apn:label runat="server"/>
-							<% } %>
-							</th>
+							<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
+								<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
+									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
+								<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+								<% } %>
 							<% } else { %>
-							<th></th>
+								<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
 							<% } %>
 						</apn:Otherwise>
 					</apn:ChooseControl>
@@ -415,13 +420,21 @@
 		<% if(!serverSide()) { %>
 		<tbody>
 			<apn:forEach runat="server" id="trGroup">
+			<% if (!control.Current.getCSSClass().Contains("bloc-render") || control.Current.getCSSClass().Contains("table-render")) { %><tr><% } %>
 			<apn:forEach runat="server" id="trRow">
-				<tr>
+				<% if (control.Current.getCSSClass().Contains("bloc-render")) { %><tr><% } %>
 					<% if (isSelectable()) { %>
 						<td>
 							<apn:control runat="server" type="select_instance" id="sel">
 								<input type="hidden" name='<apn:name runat="server"/>' value="" />
+								<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName((string)Context.Items["repeat-name"] + "_select"); %>
+               					<% if(selectControl != null) { %>
+									<% if (selectControl.isAvailable()) { %>
+									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+									<% } %>
+								<% } else { %>
 								<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+								<% } %>
 							</apn:control>
 						</td>
 					<% } %>
@@ -431,6 +444,7 @@
 								<apn:WhenControl type="ROW" runat="server">
 									<%-- this needs to be refactored to be more generic --%>
 									<apn:forEach runat="server" id="trFieldRow">
+										<apn:forEach runat="server" id="col">
 										<apn:ChooseControl runat="server">
 											<apn:WhenControl type="GROUP" runat="server">
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
@@ -438,18 +452,24 @@
 											<apn:WhenControl type="TRIGGER" runat="server">
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
 											</apn:WhenControl>
+											<apn:WhenControl type="HIDDEN" runat="server">
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+											</apn:WhenControl>
 											<apn:Otherwise runat="server">
-												<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view")) { %>
+												<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
 													<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
-													<% } else { %>	
+													<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>	
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+													<% } else { %>
+														<td></td>
 													<% } %>
 												<% } else { %>
 													<td><!-- #include file="../hidden.inc" --></td>
 												<% } %>
 											</apn:Otherwise>
 										</apn:ChooseControl>
+										</apn:forEach>
 									</apn:forEach>
 								</apn:WhenControl>
 								<apn:WhenControl type="GROUP" runat="server">
@@ -458,13 +478,18 @@
 								<apn:WhenControl type="TRIGGER" runat="server">
 									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
 								</apn:WhenControl>
+								<apn:WhenControl type="HIDDEN" runat="server">
+									<td></td>
+								</apn:WhenControl>
 								<apn:Otherwise runat="server">
-									<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view"))  { %>
+									<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy"))  { %>
 										<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
 											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
-										<% } else { %>
+										<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
 											<%-- if you need to output html formatted content, add the render-html class --%>
 											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+										<% } else { %>
+											<td></td>
 										<% } %>
 									<% } else { %>
 										<td><!-- #include file="../hidden.inc" --></td>
@@ -473,8 +498,9 @@
 							</apn:ChooseControl>	
 						</apn:forEach>
 					</apn:forEach>
-				</tr>
+				<% if (control.Current.getCSSClass().Contains("bloc-render")) { %></tr><% } %>
 			</apn:forEach>
+			<% if (!control.Current.getCSSClass().Contains("bloc-render") || control.Current.getCSSClass().Contains("table-render")) { %></tr><% } %>
 			</apn:forEach>
 		</tbody>
 		<% } %>

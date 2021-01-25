@@ -1,7 +1,7 @@
 <% if (Context.Items["aria-labelledby"] !=null ){ %>
 	aria-labelledby='<%=Context.Items["aria-labelledby"].ToString()%>'
 <% } else { %>
-	aria-labelledby='lbl_<apn:name runat="server"/>'
+	<% if (!control.Current.getLabel().Equals("") && !control.Current.getCSSClass().Contains("hide-label")) { %> aria-labelledby='lbl_<apn:name runat="server"/>' <% } %>
 <% } %>
 <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>
 	data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' 

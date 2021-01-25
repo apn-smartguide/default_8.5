@@ -2,7 +2,7 @@
 <% bool bareControl = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
 <% if (!bareControl){ %>
 <apn:control runat="server" id="control">
-	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
+	<% if (!control.Current.getCSSClass().Contains("hide-label") && !control.Current.getLabel().Equals("")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
 	<label id='lbl_<apn:name runat="server"/>' for='<apn:name runat="server"/>' <apn:ifcontrolrequired runat="server">class='required'</apn:ifcontrolrequired>>
 		<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>

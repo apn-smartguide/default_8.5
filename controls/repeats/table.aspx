@@ -83,7 +83,7 @@
 					<thead>
 						<tr id='tr_<apn:name runat="server"/>'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
-							<td></td>
+								<td></td> <!-- intentional use of td instead of th for suppressing WCAG requirement -->
 							<% } %>
 							<apn:forEach runat="server" id="row">
 								<apn:forEach runat="server" id="col">
@@ -112,11 +112,13 @@
 								</apn:forEach>
 							</apn:forEach>
 							<% if (!(bool)Context.Items["hideAddButton"]) { %>
-							<th data-priority='1' style='text-align:center'>
+							<td data-priority='1' style='text-align:center'>
 								<apn:control type="insert" id="button" runat="server">
 									<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='btn btn-sm btn-primary repeat_table_add_btn' id='<apn:name runat="server"/>'><%--<span class='<apn:localize runat="server" key="theme.icon.add"/>'></span>--%><apn:localize runat="server" key="theme.modal.add"/></span>
 								</apn:control>
-							</th>
+							</td>
+							<% } else if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
+								<td></td>
 							<% } %>
 						</tr>
 					</thead>
@@ -179,11 +181,11 @@
 										<td>
 										<% } %>
 											<% Server.Execute(resolvePath("/controls/input.aspx?bare_control=true")); %>
-											<% if(
-												!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
-												&& !field2.Current.getAttribute("visible").Equals("false") 
-												&& !field2.Current.getCSSClass().Contains("hide-from-list-view")
-												&& !field2.Current.getCSSClass().Contains("proxy")
+										<% if(
+											!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
+											&& !field2.Current.getAttribute("visible").Equals("false") 
+											&& !field2.Current.getCSSClass().Contains("hide-from-list-view")
+											&& !field2.Current.getCSSClass().Contains("proxy")
 										) { %>
 										</td>
 										<% } %>

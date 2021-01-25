@@ -121,7 +121,7 @@ if(btnAdd != null) {
 			</apn:forEach>
 			</apn:control>
 			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %>
-				<th></th>
+				<td></td>
 			<% } %>
 			</tr>
 		</thead>

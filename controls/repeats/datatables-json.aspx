@@ -1,6 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
+<%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <%-- https://datatables.net/manual/index --%>
 <%
 smartlet.SmartletID = Request["appID"];
@@ -52,9 +53,17 @@ string selectionType = repeat.getSelectionType();
 						}
 					}
 				}
-				//data-group='d_"+repeatId'
-				string inputs = "<input type='hidden' name='d_s"+repeatId+"["+id+"]' value=''><input type='"+selectionType+"'" 
-					+" name='d_s"+repeatId+"["+id+"]' id='d_s"+repeatId+"["+id+"]' class='"+selectClass+"' style='"+selectStyle+"' value='true' "+check+">";
+				string inputs = "<input type='hidden' name='d_s" + repeatId + "[" + id + "]' value=''>" ;
+				ISmartletField selectControl = grp.findFieldByName(repeat.getName() + "_select"); 
+               	if(selectControl != null) { 
+					selectControl.calculateAvailability();
+					if (selectControl.isAvailable()) {
+						inputs = inputs + "<input type='"+selectionType+"' name='d_s"+repeatId+"["+id+"]' id='d_s"+repeatId+"["+id+"]' class='"+selectClass+"' style='"+selectStyle+"' value='true' "+check+">";
+					}
+				} else {
+					//data-group='d_"+repeatId'
+					inputs = inputs + "<input type='"+selectionType+"' name='d_s"+repeatId+"["+id+"]' id='d_s"+repeatId+"["+id+"]' class='"+selectClass+"' style='"+selectStyle+"' value='true' "+check+">";
+				}
 				inputs = HttpUtility.JavaScriptStringEncode(inputs);
 				%>
 				"selected":"<%=inputs%>",
@@ -67,18 +76,19 @@ string selectionType = repeat.getSelectionType();
 				string label = fields[j].getLabel();
 				string value = "";
 				
-				if (!fields[j].isAvailable()) {
+				fields[j].calculateAvailability();
+				if (!fields[j].isAvailable() || fields[j].getCSSClass().Contains("proxy") ) {
 					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' target='" + fields[j].getMetaData("target") + "' style='" + fields[j].getCSSStyle() + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
+					value = "<button id='d_"+fieldid+"["+id+"]' class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getMetaData("target") + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
 					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
 					ISmartletField[] grpFields = ((ISmartletGroup)fields[j]).getFields();
 					for(int k=0; k<grpFields.Length;k++){
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' class='" + grpFields[k].getCSSClass() + "' target='" + fields[j].getMetaData("target") + "' style='" + grpFields[k].getCSSStyle() + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
