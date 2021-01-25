@@ -245,7 +245,9 @@
 									</apn:whencontrol>
 								</apn:choosecontrol>
 							</apn:forEach>
+							<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
 							<td class='repeatbutton nowrap'>
+							<% } %>
 								<% if (!(bool)Context.Items["hideAddButton"]) { %>
 									<% if (!(bool)Context.Items["hideRowAddButton"]) { %>
 									<apn:control type="insert" id="addbutton" runat='server'>
@@ -266,7 +268,9 @@
 									<span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
 								</apn:control>
 								<% } %>
+							<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
 							</td>
+							<% } %>
 						</tr>
 						<%Context.Items.Remove("aria-labelledby"); %>
 					</apn:forEach>
