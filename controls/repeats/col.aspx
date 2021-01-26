@@ -10,7 +10,7 @@
 		<apn:ChooseControl runat="server">
 			<apn:whencontrol runat="server" type="SUMMARY-SECTION">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/summary/summary.aspx")); %>
+					<% ExecutePath("/controls/summary/summary.aspx"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="ROW">
@@ -18,7 +18,7 @@
 					<apn:forEach runat="server">
 						<apn:choosecontrol runat="server">
 							<apn:whencontrol runat="server" type="COL">
-								<% Server.Execute(resolvePath("/controls/repeats/col.aspx?bare_control=true")); %>
+								<% ExecutePath("/controls/repeats/col.aspx?bare_control=true"); %>
 							</apn:whencontrol>
 						</apn:choosecontrol>
 					</apn:forEach>
@@ -26,76 +26,76 @@
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="GROUP">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/group.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/group.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="REPEAT">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/repeats/repeat.aspx")); %>
+					<% ExecutePath("/controls/repeats/repeat.aspx"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="INPUT">
 				<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;")) {%>
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
 					<% } %>
-					<% Server.Execute(resolvePath("/controls/input.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/input.aspx?bare_control=true"); %>
 					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;")) {%>
 				</td>
 				<% } %>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="TEXTAREA">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/textarea.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/textarea.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="SECRET">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/secret.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/secret.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="DATE">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/date.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/date.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="SELECT">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/select.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/select.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="SELECT1">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/select1.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/select1.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="STATICTEXT">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/statictext.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/statictext.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="IMAGE">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/image.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/image.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="UPLOAD">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/upload.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/upload.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="TRIGGER">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/button.aspx")); %>
+					<% ExecutePath("/controls/button.aspx"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="SUB-SMARTLET">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/subsmartlet.aspx?bare_control=true")); %>
+					<% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %>
 				</td>
 			</apn:whencontrol>
 			<apn:whencontrol runat="server" type="RESULT">
 				<td class='<%=control.Current.getLayoutAttribute("all")%>'>
-					<% Server.Execute(resolvePath("/controls/result.aspx")); %>
+					<% ExecutePath("/controls/result.aspx"); %>
 				</td>
 			</apn:whencontrol>
 		</apn:choosecontrol>

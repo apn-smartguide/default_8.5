@@ -4,8 +4,8 @@
 <section id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></section>
 <% } else { %>
 <section id='div_<apn:name runat="server"/>' class='<apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> role='alert'>
-	<p><% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %></p>
-	<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
+	<p><% ExecutePath("/controls/custom/control-label.aspx"); %></p>
+	<% ExecutePath("/controls/controls.aspx"); %>
 </section>
 <% } %>
 </apn:control>

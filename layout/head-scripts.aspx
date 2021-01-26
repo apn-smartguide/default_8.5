@@ -1,9 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%-- Scripts needed earlier --%>
-<script src='<%= cacheBreak("/resources/js/iso-639-1.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>
-	var keepAlivePage = '<%= resolvePath("/keep-alive.aspx") %>'
-	var keepAliveFlag = '<%= isLogged() %>';
+	var keepAlivePage = '<%= ResolvePath("/keep-alive.aspx") %>'
+	var keepAliveFlag = '<%= IsLogged() %>';
 	var logoutUrl = '<%= LogoutURL %>';
 	var basePath = '<%= BasePath %>';
 	var currentLocale = '<%= CurrentLocale %>';

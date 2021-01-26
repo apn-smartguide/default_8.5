@@ -15,7 +15,7 @@
 							<apn:forEach runat="server" id="field"><%-- Each field --%>
 								<apn:chooseControl runat="server">
 									<apn:whenControl runat="server" type="TRIGGER">
-										<% Server.Execute(resolvePath("/controls/button.aspx")); %>
+										<% ExecutePath("/controls/button.aspx"); %>
 									</apn:whenControl>
 								</apn:choosecontrol>
 							</apn:forEach>

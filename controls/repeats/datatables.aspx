@@ -118,7 +118,7 @@
 		if (renderMode != null && renderMode.Equals("true")) {
 			jOptions.Add("serverSide", true);
 			// if server side, must add the ajaxSource
-			jOptions.Add("ajaxSource",  resolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
+			jOptions.Add("ajaxSource",  ResolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
 		}
 		return jOptions;
 	}
@@ -355,7 +355,7 @@
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<span>
-		<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+		<% ExecutePath("/controls/custom/control-label.aspx"); %>
 	</span>
 	<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
 		<apn:control runat="server" type="default-instance" id="headerGroup">
@@ -447,10 +447,10 @@
 										<apn:forEach runat="server" id="col">
 										<apn:ChooseControl runat="server">
 											<apn:WhenControl type="GROUP" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 											</apn:WhenControl>
 											<apn:WhenControl type="TRIGGER" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/button.aspx"); %></td>
 											</apn:WhenControl>
 											<apn:WhenControl type="HIDDEN" runat="server">
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
@@ -458,7 +458,7 @@
 											<apn:Otherwise runat="server">
 												<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
 													<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
-														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
+														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 													<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>	
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
 													<% } else { %>
@@ -473,10 +473,10 @@
 									</apn:forEach>
 								</apn:WhenControl>
 								<apn:WhenControl type="GROUP" runat="server">
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/controls.aspx")); %></td>
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/controls.aspx"); %></td>
 								</apn:WhenControl>
 								<apn:WhenControl type="TRIGGER" runat="server">
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/button.aspx")); %></td>
+									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/button.aspx"); %></td>
 								</apn:WhenControl>
 								<apn:WhenControl type="HIDDEN" runat="server">
 									<td></td>
@@ -484,7 +484,7 @@
 								<apn:Otherwise runat="server">
 									<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy"))  { %>
 										<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
-											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Server.Execute(resolvePath("/controls/control.aspx")); %></td>
+											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 										<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
 											<%-- if you need to output html formatted content, add the render-html class --%>
 											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>

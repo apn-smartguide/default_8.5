@@ -26,7 +26,7 @@
 		<% } %>
 		<div class='panel-heading'>
 			<h2 class='panel-title'>
-				<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+				<% ExecutePath("/controls/custom/control-label.aspx"); %>
 			</h2>
 		</div>
 		<div class='panel-body bootpag'>
@@ -94,7 +94,7 @@
 										&& !field.Current.getCSSClass().Contains("proxy")
 										) { %>
 										<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-											<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+											<% ExecutePath("/controls/custom/control-label.aspx"); %>
 											<% if ("true".Equals(field.Current.getAttribute("isSortable"))) { %>
 											&nbsp;&nbsp;
 											<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
@@ -140,7 +140,7 @@
 								<apn:choosecontrol runat="server">
 									<apn:whencontrol type="RECAP" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/summary/summary.aspx")); %>
+											<% ExecutePath("/controls/summary/summary.aspx"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol runat="server" type="ROW">
@@ -150,7 +150,7 @@
 													<apn:whencontrol runat="server" type="COL">
 														<% 
 															Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+col3.getCount();
-															Server.Execute(resolvePath("/controls/repeats/col.aspx")); 
+															ExecutePath("/controls/repeats/col.aspx"); 
 															Context.Items.Remove("aria-labelledby"); 
 														%>
 													</apn:whencontrol>
@@ -159,16 +159,16 @@
 										</apn:control>
 									</apn:whencontrol>
 									<apn:whencontrol runat="server" type="COL">
-										<% Server.Execute(resolvePath("/controls/col.aspx")); %>
+										<% ExecutePath("/controls/col.aspx"); %>
 									</apn:whencontrol>
 									<apn:whencontrol type="GROUP" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/group.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/group.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="REPEAT" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/repeats/repeat.aspx")); %>
+											<% ExecutePath("/controls/repeats/repeat.aspx"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="INPUT" runat="server">
@@ -180,7 +180,7 @@
 										) { %>
 										<td>
 										<% } %>
-											<% Server.Execute(resolvePath("/controls/input.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/input.aspx?bare_control=true"); %>
 										<% if(
 											!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
 											&& !field2.Current.getAttribute("visible").Equals("false") 
@@ -192,57 +192,57 @@
 									</apn:whencontrol>
 									<apn:whencontrol type="TEXTAREA" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/textarea.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/textarea.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="SECRET" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/secret.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/secret.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="DATE" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/date.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/date.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="SELECT" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/select.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/select.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="SELECT1" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/select1.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/select1.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="STATICTEXT" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/statictext.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/statictext.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="IMAGE" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/image.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/image.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:WhenControl runat="server" type="UPLOAD">
 										<td>
-											<% Server.Execute(resolvePath("/controls/upload.aspx")); %>
+											<% ExecutePath("/controls/upload.aspx"); %>
 										</td>
 									</apn:WhenControl>
 									<apn:WhenControl runat="server" type="TRIGGER">
 										<td>
-											<% Server.Execute(resolvePath("/controls/button.aspx")); %>
+											<% ExecutePath("/controls/button.aspx"); %>
 										</td>
 									</apn:WhenControl>
 									<apn:whencontrol type="SUB-SMARTLET" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/subsmartlet.aspx?bare_control=true")); %>
+											<% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol type="RESULT" runat="server">
 										<td>
-											<% Server.Execute(resolvePath("/controls/result.aspx")); %>
+											<% ExecutePath("/controls/result.aspx"); %>
 										</td>
 									</apn:whencontrol>
 								</apn:choosecontrol>

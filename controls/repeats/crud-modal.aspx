@@ -5,15 +5,15 @@
 			<div class='modal-content'>
 				<header class='modal-header'>
 					<h5 class='modal-title'>
-						<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+						<% ExecutePath("/controls/custom/control-label.aspx"); %>
 					</h5>
 				</header>
 				<% string repeatName = "repeat-name-" + Context.Items["repeat-level"]; %>
 				<% string modalBodyName = "div_" + Context.Items[repeatName] + "_" + Context.Items["modal-mode"] + "_modal_body"; %>
 				<div class='modal-body' id='<%=modalBodyName%>'>
-					<% Server.Execute(resolvePath("/controls/repeats/validation.aspx")); %>
+					<% ExecutePath("/controls/repeats/validation.aspx"); %>
 					<% Context.Items["context-modal"] = true; %>
-					<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
+					<% ExecutePath("/controls/controls.aspx"); %>
 					<% Context.Items["context-modal"] = null; %>
 				</div>
 				<div class='modal-footer'>

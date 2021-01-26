@@ -4,7 +4,7 @@
 <% if(control.Current.getSmartletLocales().Length <= 2) { %>
 	<apn:forEach runat="server" id="locID" items="languages">
 		<% if(!locID.Current.getValue().Equals(CurrentLocale)) { %>
-		<a id='btn-lang-<%=locID.Current.getValue()%>' data-lang='<%=locID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=locID.Current.getValue()%>'><%=locID.Current.getValue()%></a>
+		<a id='btn-lang-<%=locID.Current.getValue()%>' data-lang='<%=locID.Current.getValue()%>' href='<%= GetRequestURI() %>?lang=<%=locID.Current.getValue()%>'><%=locID.Current.getValue()%></a>
 		<% } %>
 	</apn:forEach>
 <% } else { %>
@@ -15,7 +15,7 @@
 	<ul class='dropdown-menu'>
 		<apn:forEach runat="server" id="localeID" items="languages">
 			<li>
-				<a id='btn-lang-<%=localeID.Current.getValue()%>' data-lang='<%=localeID.Current.getValue()%>' href='<%= getRequestURI() %>?lang=<%=localeID.Current.getValue()%>'><%=Context.Items["currentLocale"]%></a>
+				<a id='btn-lang-<%=localeID.Current.getValue()%>' data-lang='<%=localeID.Current.getValue()%>' href='<%= GetRequestURI() %>?lang=<%=localeID.Current.getValue()%>'><%=Context.Items["currentLocale"]%></a>
 			</li>
 		</apn:forEach>
 		<% if ((bool)Context.Items["show-langdetect"]) { %>

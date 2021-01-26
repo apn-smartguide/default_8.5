@@ -15,14 +15,14 @@
 <% } else { %>
 <%
 	if (control.Current.getCSSClass().IndexOf("datatables") > -1) {
-		Server.Execute(resolvePath("/controls/repeats/datatables.aspx"));
+		ExecutePath("/controls/repeats/datatables.aspx");
 	} else if (control.Current.getCSSClass().IndexOf("grid-view") > -1) {
-			Server.Execute(resolvePath("/controls/repeats/crud.aspx"));
+		ExecutePath("/controls/repeats/crud.aspx");
 	} else {
 		if ( (control.Current.getAttribute("rendermode").Equals("table") || control.Current.getCSSClass().IndexOf("table-render") > -1) && control.Current.getCSSClass().IndexOf("block-render") == -1) {
-			Server.Execute(resolvePath("/controls/repeats/table.aspx"));
+			ExecutePath("/controls/repeats/table.aspx");
 		} else {
-			Server.Execute(resolvePath("/controls/repeats/block.aspx"));
+			ExecutePath("/controls/repeats/block.aspx");
 		}
 	}
 %>

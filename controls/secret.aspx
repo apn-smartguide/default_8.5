@@ -17,7 +17,7 @@
 		<a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
 	</apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
-		<% Server.Execute(resolvePath("/controls/label.aspx")); %>
+		<% ExecutePath("/controls/label.aspx"); %>
 		<apn:ifcontrolattribute runat="server" attr="prefix or suffix">
 			<div class="input-group">
 		</apn:ifcontrolattribute>

@@ -10,7 +10,7 @@
 	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
 	<legend id='lbl_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <%= ( "".Equals(control.Current.getLabel()) ? "emptyLegend":"") %>'>
-		<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+		<% ExecutePath("/controls/custom/control-label.aspx"); %>
 		<apn:ifnotcontrolvalid runat="server">
 			<apn:ifcontrolrequired runat="server"><strong class='has-error'><%=Smartlet.getLocalizedResource("theme.text.required-suffix")%></strong></apn:ifcontrolrequired>
 			<strong id='<apn:name runat="server"/>-error' class='error'>

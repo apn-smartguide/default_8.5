@@ -6,7 +6,7 @@
 	sg = sg5;
 	Init();
 	ThemesLocations = new string[]{"/..",Theme};
-	LogoutURL = getURLForSmartlet(SmartletName);
+	LogoutURL = GetURLForSmartlet(SmartletName);
 %>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <fo:layout-master-set>
@@ -37,7 +37,7 @@
 		<fo:table-column column-width="50%"/>
 		<fo:table-column column-width="50%"/>
 			<fo:table-body font-family="sans-serif" font-weight="normal" font-size="10pt">
-				<% Server.Execute(resolvePath("/pdf-fo/fields.aspx")); %>
+				<% ExecutePath("/pdf-fo/fields.aspx"); %>
 			</fo:table-body>
 		</fo:table>
 	</fo:flow>

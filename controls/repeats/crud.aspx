@@ -58,11 +58,11 @@ if(btnAdd != null) {
 		<% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl">
 			<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %>
-				<% Server.Execute(resolvePath("/controls/button.aspx")); %>
+				<% ExecutePath("/controls/button.aspx"); %>
 			<% } %>
 		</apn:forEach></apn:forEach></apn:forEach>
 		<h2 class="panel-title">
-			<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+			<% ExecutePath("/controls/custom/control-label.aspx"); %>
 		</h2>
 	</div>
 	</apn:control>
@@ -95,7 +95,7 @@ if(btnAdd != null) {
 							) { %> 
 						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
-							<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
+							<% ExecutePath("/controls/controls.aspx"); %>
 						</th>
 						<% } else { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
@@ -148,7 +148,7 @@ if(btnAdd != null) {
 								<apn:ChooseControl runat="server">
 									<apn:WhenControl type="GROUP" runat="server">
 										<td class='<%=field1.Current.getCSSClass()%>'>
-											<% Server.Execute(resolvePath("/controls/control.aspx")); %>
+											<% ExecutePath("/controls/control.aspx"); %>
 										</td>	
 									</apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server">
@@ -244,10 +244,10 @@ if(btnAdd != null) {
 	<apn:forEach runat="server" id="group1">
 		<% if ("true".Equals(group1.Current.getAttribute("new-instance"))) { %>
 			<% Context.Items["modal-mode"] = "add"; %>
-			<% Server.Execute(resolvePath("/controls/repeats/crud-modal.aspx")); %>
+			<% ExecutePath("/controls/repeats/crud-modal.aspx"); %>
 		<% } else if ("true".Equals(group1.Current.getAttribute("edit-instance"))) { %>
 			<% Context.Items["modal-mode"] = "edit"; %>
-			<% Server.Execute(resolvePath("/controls/repeats/crud-modal.aspx")); %>
+			<% ExecutePath("/controls/repeats/crud-modal.aspx"); %>
 		<% } %>
 		<% Context.Items["modal-mode"] = ""; %>
 	</apn:forEach>

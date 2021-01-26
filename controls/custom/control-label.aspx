@@ -19,7 +19,7 @@
 		<span class="field-name" data-toggle='tooltip' title='<apn:controlattribute runat="server" tohtml="true" attr="tooltip"/>'><apn:label runat="server" /></span>
 	</apn:ifcontrolvalid>
 </apn:ifcontrolattribute>
-<% Server.Execute(resolvePath("/controls/help.aspx")); %>
+<% ExecutePath("/controls/help.aspx"); %>
 <% if (control.Current.getCSSClass().IndexOf("tts") > -1 || (Context.Items["tts-option"] != null && (bool)Context.Items["tts-option"])) { %>
 	<span class='<apn:localize runat="server" key="theme.icon.play"/>' />
 <% } %>

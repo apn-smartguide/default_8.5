@@ -11,6 +11,6 @@
     <div class='sgSummary <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
       <h4><apn:label runat="server" /><% if (!(control2.getCount() == 1 && control2.Last)) { %><%= control2.getCount() %><% } %></h4>
     </div>
-    <% Server.Execute(resolvePath("/controls/summary/controls.aspx")); %>
+    <% ExecutePath("/controls/summary/controls.aspx"); %>
   <% } %>
 </apn:forEach>

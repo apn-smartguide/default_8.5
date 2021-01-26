@@ -18,7 +18,7 @@ if (layout!=null){
 	<table width="100%">
 	<tr><td></td></tr>
   	<apn:forEach runat='server'>
-		<% Server.Execute(resolvePath("/pdf/controls.aspx")); %>
+		<% ExecutePath("/pdf/controls.aspx"); %>
   	</apn:forEach>
 	</table>
 </td>

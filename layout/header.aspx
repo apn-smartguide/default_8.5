@@ -14,18 +14,18 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href='<%=getURLForSmartlet("sg-8-5-theme")%>'>Theme</a></li>
-						<li><a href='<%=getURLForSmartlet("sg-8-5-repeats-table")%>'>Repeat Table</a></li>
-						<li><a href='<%=getURLForSmartlet("sg-8-5-repeats-modals")%>'>Repeat & Modals</a></li>
-						<li><a href='<%=getURLForSmartlet("sg-8-5-navigation")%>'>Navigation</a></li>
-						<li><a href='<%=getURLForSmartlet("sg-8-5-datatable-server-fruits-serverside")%>'>Datatables.Net</a></li>
+						<li><a href='<%=GetURLForSmartlet("sg-8-5-theme")%>'>Theme</a></li>
+						<li><a href='<%=GetURLForSmartlet("sg-8-5-repeats-table")%>'>Repeat Table</a></li>
+						<li><a href='<%=GetURLForSmartlet("sg-8-5-repeats-modals")%>'>Repeat & Modals</a></li>
+						<li><a href='<%=GetURLForSmartlet("sg-8-5-navigation")%>'>Navigation</a></li>
+						<li><a href='<%=GetURLForSmartlet("sg-8-5-datatable-server-fruits-serverside")%>'>Datatables.Net</a></li>
 					</ul>
 				</li>
 				<apn:ifsmartletmultilingual runat="server">
 					<li class="dropdown">
 						<apn:locale runat="server" id="loc2"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id=""><%=loc2.Current.getLabel()%> <span class="caret"></span></a></apn:locale>
 						<ul class="dropdown-menu" aria-labelledby="langselect">
-							<apn:forEach runat="server" id="locale" items="languages"><li><a href='<%= getRequestURI() %>?lang=<%=locale.Current.getValue()%>'><%=locale.Current.getLabel()%></a></li></apn:forEach>
+							<apn:forEach runat="server" id="locale" items="languages"><li><a href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>'><%=locale.Current.getLabel()%></a></li></apn:forEach>
 						</ul>
 					</li>
 				</apn:ifsmartletmultilingual>

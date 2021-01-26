@@ -58,14 +58,14 @@ public partial class _Default : SGWebCore
 
 	private void Page_Error(object sender, EventArgs e)
 	{
-		ISmartletLogger log = sg5.Context.getLogger("Page_Error");
-		//log.debug("Application ERROR");
+		ISmartletLogger Logger = sg5.Context.getLogger("Page_Error");
+		//Logger.debug("Application ERROR");
 		//Exception ex = Server.GetLastError();
 
 		// The original error may have been wrapped in a HttpUnhandledException,
 		// so we need to log the details of the InnerException.
 		//ex = ex.InnerException ?? ex;
-		//log.debug(ExceptionInfo(ex));
+		//Logger.debug(ExceptionInfo(ex));
 	}
 
     public int GetLineNumber(Exception ex)

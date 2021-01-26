@@ -12,7 +12,7 @@
 	sg = sg5;
 	Init();
 	ThemesLocations = new string[]{"/..",Theme};
-	LogoutURL = getURLForSmartlet(SmartletName);
+	LogoutURL = GetURLForSmartlet(SmartletName);
 	//global style
 	Context.Items["pageTitle"] = "font-family:Helvetica; font-size:1.17em; color: #333";
 	Context.Items["pageContent"] =  "font-family:Helvetica; font-size:0.875em;  color: #333;";
@@ -21,7 +21,7 @@
 	Context.Items["groupTitle"] =  "font-size:100%; font-weight:bold; font-style:italic; color:#333; background-color:#EEE; margin:0; padding:0";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<%=Context.Items["currentLocale"]%>">
-<% Server.Execute(resolvePath("/layout/head.aspx")); %>
+<% ExecutePath("/layout/head.aspx"); %>
 <body vocab="http://schema.org/" typeof="WebPage" class="pdf">
 <!-- page header -->
 <div style="<%=Context.Items["pageTitle"]%>">
@@ -29,10 +29,10 @@
 </div>
 <div id="sgControls" style="<%=Context.Items["pageContent"]%>">
 <table cellpadding="0" cellspacing="0" border="0">
-	<% Server.Execute(resolvePath("/layout/main.aspx")); %>
+	<% ExecutePath("/layout/main.aspx"); %>
 </table>
 </div>
-<% Server.Execute(resolvePath("/layout/footer.aspx")); %>
+<% ExecutePath("/layout/footer.aspx"); %>
 </body>
 </html>
 <% Context.Items["pdf"] = false; %>

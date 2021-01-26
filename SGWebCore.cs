@@ -33,7 +33,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public void ClearCaches() {
 		Session["paths-dictionary"] = new Dictionary<string, string>();
-		Session["cachebreak-dictionary"] = new Dictionary<string, string>();
+		Session["CacheBreak-dictionary"] = new Dictionary<string, string>();
 		Context.Items["api5"] = null;
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletLogger"] = null;
@@ -69,7 +69,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			return (ISmartlet)Context.Items["smartlet"] ;
 		}
 	}
-	public ISmartletLogger log {
+	public ISmartletLogger Logger {
 		get { 
 			if(Context.Items["smartletLogger"] == null) {
 				Context.Items["smartletLogger"] = sg.Context.getLogger("SGWebCore"); 
@@ -114,6 +114,17 @@ public partial class SGWebCore : System.Web.UI.Page
 			return (ISmartletPage)Context.Items["currentPage"];
 		}
 	}
+
+	// public ISmartletPage CurrentPage {
+	// 	get {
+	// 		if(Context.Items["currentPage"] == null) {
+	// 			Context.Items["currentPage"] = sg.Context.getSmartlet().getSessionSmartlet().getCurrentPage();
+	// 		}
+	// 		return (ISmartletPage)Context.Items["currentPage"];
+	// 	}
+	// }
+
+
 	public string Theme {
 		get {
 			if(Context.Items["theme"] == null || ((string)Context.Items["theme"]).Equals("")) {
@@ -199,17 +210,17 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 	//Will return an empty string if the searched "asset" is not found at this Theme Location
-	public string getThemePathForAsset(string themeLocation, string asset) {
+	public string GetThemePathForAsset(string themeLocation, string asset) {
 		string path = String.Concat(BasePath, themeLocation, asset);
-		if(fileExists(path)){
+		if(FileExists(path)){
 			return path;
 		}
 		return "";
 	}
 
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
-	public string resolvePath(string path) {
-		log.trace(String.Concat("resolvePath start: ", path));
+	public string ResolvePath(string path) {
+		Logger.trace(String.Concat("ResolvePath start: ", path));
 		if(Session["paths-dictionary"] == null) {
 			Session["paths-dictionary"] = new Dictionary<string, string>();
 		}
@@ -224,7 +235,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 		if (!pathsDictionary.ContainsKey(path)) {
 			foreach(string themeLocation in ThemesLocations) {
-				string themePath = getThemePathForAsset(themeLocation, path);
+				string themePath = GetThemePathForAsset(themeLocation, path);
 				if(themePath != "") {
 					filePath = themePath;
 				}
@@ -232,23 +243,27 @@ public partial class SGWebCore : System.Web.UI.Page
 			pathsDictionary.Add(path, filePath);
 
 			if(filePath.Equals("")) {
-				log.debug(String.Concat(Theme, ": path not found for ", path));
+				Logger.debug(String.Concat(Theme, ": path not found for ", path));
 			}
 		} else {
 			pathsDictionary.TryGetValue(path, out filePath);
 		}
 
 		if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
-		log.trace(String.Concat("resolvePath end: ", filePath));
+		Logger.trace(String.Concat("ResolvePath end: ", filePath));
 		return filePath;
 	}
 
-	//This help will build a path to the asset and append a cachebreak computed with a SHA-256 of the file content.
+	public void ExecutePath(string path) {
+		Server.Execute(ResolvePath(path));
+	}
+
+	//This help will build a path to the asset and append a CacheBreak computed with a SHA-256 of the file content.
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
-	public string cacheBreak(string url) {
-		log.trace(String.Concat("cacheBreak start: ", url));
-		if(Session["cachebreak-dictionary"] == null) {
-			Session["cachebreak-dictionary"] = new Dictionary<string, string>();
+	public string CacheBreak(string url) {
+		Logger.trace(String.Concat("CacheBreak start: ", url));
+		if(Session["CacheBreak-dictionary"] == null) {
+			Session["CacheBreak-dictionary"] = new Dictionary<string, string>();
 		}
 		string pathParams = "";
 		if(url.Contains("?")) {
@@ -256,36 +271,36 @@ public partial class SGWebCore : System.Web.UI.Page
 			url = url.Split('?')[0];
 		}
 		StringBuilder filePath = new StringBuilder("");
-		Dictionary<string, string> cacheBreakDictionary = (Dictionary<string, string>) Session["cachebreak-dictionary"];
-		if(!cacheBreakDictionary.ContainsKey(url)){
-			filePath.Append(resolvePath(url));
+		Dictionary<string, string> CacheBreakDictionary = (Dictionary<string, string>) Session["CacheBreak-dictionary"];
+		if(!CacheBreakDictionary.ContainsKey(url)){
+			filePath.Append(ResolvePath(url));
 			if(!filePath.ToString().Equals("")) {
 				try { 
 					string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
 					filePath.Append("?cache=");
 					filePath.Append(filehash);
 				} catch (Exception e) {
-					log.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
+					Logger.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
 				}
 			}
-			cacheBreakDictionary.Add(url, filePath.ToString());
+			CacheBreakDictionary.Add(url, filePath.ToString());
 		} else {
 			string newPath = "";
-			cacheBreakDictionary.TryGetValue(url, out newPath);
+			CacheBreakDictionary.TryGetValue(url, out newPath);
 			filePath.Append(newPath);
 		}
 		if(pathParams.Length > 0) filePath.Append("?").Append(pathParams);
-		log.trace(String.Concat("cacheBreak end: ", filePath.ToString()));
+		Logger.trace(String.Concat("CacheBreak end: ", filePath.ToString()));
 		return filePath.ToString();
 	}
 
 	//Check if file actually exists on disk.
-	public bool fileExists(string path) {
+	public bool FileExists(string path) {
 		return System.IO.File.Exists(Server.MapPath(path));
 	}
 
 	//// Referencing other smartlets helpers ////
-	public string getURLForSmartlet(string smartletName, string urlParams) {
+	public string GetURLForSmartlet(string smartletName, string urlParams) {
 		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
 		if (!urlParams.Equals("")) {
 			smartletUrl.Append("&").Append(urlParams);
@@ -293,20 +308,20 @@ public partial class SGWebCore : System.Web.UI.Page
 		return smartletUrl.ToString();
 	}
 	
-	public string getURLForSmartlet(string smartletName) {
-		return getURLForSmartlet(smartletName, "");
+	public string GetURLForSmartlet(string smartletName) {
+		return GetURLForSmartlet(smartletName, "");
 	}
 
-	public string getURLForSmartletReset(string smartletName) {
-		return getURLForSmartlet(smartletName, "reset=true");
+	public string GetURLForSmartletReset(string smartletName) {
+		return GetURLForSmartlet(smartletName, "reset=true");
 	}
 
-	public string getRequestURI() {
+	public string GetRequestURI() {
 		return Request.Url.AbsolutePath;
 	}
 
 	//// Authentication Helpers ////
-	public bool isLogged() {
+	public bool IsLogged() {
 		return (!Username.Equals(""));
 	}
 	
@@ -336,7 +351,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string HomeURL {
 		get {
 			if(Context.Items["home-url"] == null || ((string)Context.Items["home-url"]).Equals("")) {
-				Context.Items["home-url"] = getURLForSmartlet("home");
+				Context.Items["home-url"] = GetURLForSmartlet("home");
 			}
 			return (string)Context.Items["home-url"];
 		}
@@ -348,7 +363,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string LoginURL {
 		get {
 			if(Context.Items["login-url"] == null || ((string)Context.Items["login-url"]).Equals("")) {
-				Context.Items["login-url"] = getURLForSmartlet("login");
+				Context.Items["login-url"] = GetURLForSmartlet("login");
 			}
 			return (string)Context.Items["login-url"];
 		}
@@ -360,7 +375,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string LogoutURL {
 		get {
 			if(Context.Items["logout-url"] == null || ((string)Context.Items["logout-url"]).Equals("")) {
-				Context.Items["logout-url"] = getURLForSmartlet("logout");
+				Context.Items["logout-url"] = GetURLForSmartlet("logout");
 			}
 			return (string)Context.Items["logout-url"];
 		}
@@ -372,7 +387,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string ProfileURL {
 		get {
 			if(Context.Items["profile-url"] == null || ((string)Context.Items["profile-url"]).Equals("")) {
-				Context.Items["profile-url"] = getURLForSmartlet("profile");
+				Context.Items["profile-url"] = GetURLForSmartlet("profile");
 			}
 			return (string)Context.Items["profile-url"];
 		}
@@ -386,10 +401,35 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	//// Smartlet Features Helpers ////
+	public string CurrentPageCSS {
+		get {
+			if (Session["page-css"] == null || ((string)Session["page-css"]).Equals("")) {
+				Session["page-css"] = CurrentPage.getCSSClass();
+			}
+			return (string)Session["page-css"];
+		}
+	}
+
+	public string GetLocalizedResource(string key) {
+		return Smartlet.getLocalizedResource(key);
+	}
+
+	public string GetVariableByName(string key) {
+
+		string smartVal = "";
+		ISmartletVariable smartVar = Smartlet.findVariableByName(key);
+		
+		if(smartVar != null) {
+			smartVal = (string) smartVar.getValue(); 
+			if(smartVal == null) smartVal = "";
+		}
+		return smartVal;
+	}
+
 	public bool ShowWizard {
 		get {
 			if(Context.Items["showWizard"] == null) {
-				Context.Items["showWizard"] = (bool?)CurrentPage.getCSSClass().Contains("show-wizard");
+				Context.Items["showWizard"] = (bool?)CurrentPageCSS.Contains("show-wizard");
 			}
 			return (bool)Context.Items["showWizard"];
 		}
@@ -398,7 +438,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HideHeader {
 		get {
 			if(Context.Items["hideHeader"] == null) {
-				Context.Items["hideHeader"] = (bool?)CurrentPage.getCSSClass().Contains("hide-header");
+				Context.Items["hideHeader"] = (bool?)CurrentPageCSS.Contains("hide-header");
 			}
 			return (bool)Context.Items["hideHeader"];
 		}
@@ -407,7 +447,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HideFooter {
 		get {
 			if(Context.Items["hideFooter"] == null) {
-				Context.Items["hideFooter"] = (bool?)CurrentPage.getCSSClass().Contains("hide-footer");
+				Context.Items["hideFooter"] = (bool?)CurrentPageCSS.Contains("hide-footer");
 			}
 			return (bool)Context.Items["hideFooter"];
 		}
@@ -416,7 +456,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HideBreadcrumb {
 		get {
 			if(Context.Items["hideBreadcrumb"] == null) {
-				Context.Items["hideBreadcrumb"] = (bool?)CurrentPage.getCSSClass().Contains("hide-breadcrumb");
+				Context.Items["hideBreadcrumb"] = (bool?)CurrentPageCSS.Contains("hide-breadcrumb");
 			}
 			return (bool)Context.Items["hideBreadcrumb"];
 		}
@@ -425,7 +465,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HideProgressBar {
 		get {
 			if(Context.Items["hideProgressBar"] == null) {
-				Context.Items["hideProgressBar"] = (bool?)CurrentPage.getCSSClass().Contains("hide-progress-bar");
+				Context.Items["hideProgressBar"] = (bool?)CurrentPageCSS.Contains("hide-progress-bar");
 			}
 			return (bool)Context.Items["hideProgressBar"];
 		}
@@ -434,7 +474,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HideStepNavigation {
 		get {
 			if(Context.Items["hideStepNavigation"] == null) {
-				Context.Items["hideStepNavigation"] = (bool?)CurrentPage.getCSSClass().Contains("hide-step-navigation");
+				Context.Items["hideStepNavigation"] = (bool?)CurrentPageCSS.Contains("hide-step-navigation");
 			}
 			return (bool)Context.Items["hideStepNavigation"];
 		}
@@ -443,7 +483,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HideFunelNavigation {
 		get {
 			if(Context.Items["hideFunelNavigation"] == null) {
-				Context.Items["hideFunelNavigation"] = (bool?)CurrentPage.getCSSClass().Contains("hide-funel-navigation");
+				Context.Items["hideFunelNavigation"] = (bool?)CurrentPageCSS.Contains("hide-funel-navigation");
 			}
 			return (bool)Context.Items["hideFunelNavigation"];
 		}
@@ -452,14 +492,14 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool HidePageTitle {
 		get {
 			if(Context.Items["hidePageTitle"] == null) {
-				Context.Items["hidePageTitle"] = (bool?)CurrentPage.getCSSClass().Contains("hide-label");
+				Context.Items["hidePageTitle"] = (bool?)CurrentPageCSS.Contains("hide-label");
 			}
 			return (bool)Context.Items["hidePageTitle"];
 		}
 	}
 
 	//// Field Helpers ////
-	public bool isUnderRepeat(ISmartletField f) { 
+	public bool IsUnderRepeat(ISmartletField f) { 
 		bool result = false;
 		
 		while(f.getParent() != null) {
@@ -473,15 +513,15 @@ public partial class SGWebCore : System.Web.UI.Page
 		return result;
 	}
 
-	public ISmartletField getFieldFromControlInfo(ControlInfo ctrl) {
+	public ISmartletField GetFieldFromControlInfo(ControlInfo ctrl) {
 		return CurrentPage.findFieldById(ctrl.getFieldId());
 	}
-	public string getCustomControlPathForCurrentControl(String customControl){
+	public string GetCustomControlPathForCurrentControl(String customControl){
 		StringBuilder path = new StringBuilder("");
 		if(customControl != null && !customControl.Equals("")) {
 			string controlsPath = String.Concat("/controls/", customControl, ".aspx");
-			controlsPath = resolvePath(controlsPath);
-			log.trace(controlsPath);
+			controlsPath = ResolvePath(controlsPath);
+			Logger.trace(controlsPath);
 			if (!customControl.Equals("") && !controlsPath.Equals("")) {
 				path.Append(controlsPath);
 			}
@@ -497,9 +537,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public void TimerTraceStop(string key) {
 		DateTime timerstart = (DateTime) Context.Items["timer-" + key];
 		if(timerstart != null) {
-			log.debug(String.Concat("Trace timer for :", key, ", duration = ", (DateTime.UtcNow - timerstart).TotalSeconds));
+			Logger.debug(String.Concat("Trace timer for :", key, ", duration = ", (DateTime.UtcNow - timerstart).TotalSeconds));
 		} else {
-			log.debug(String.Concat("Missing timer start for :", key));
+			Logger.debug(String.Concat("Missing timer start for :", key));
 		}
 	}
 
@@ -508,7 +548,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	// public void ClearCookie(IServiceContext context, string cookieName)
 	// {
-	// 	log.debug("Cookie - Start clearing " + cookieName);
+	// 	lLogger.debug("Cookie - Start clearing " + cookieName);
 
 	// 	try
 	// 	{
@@ -522,7 +562,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	// 		string baseURL = req.Url.ToString();
 
-	// 		log.debug("BaseURL is " + baseURL);
+	// 		Logger.debug("BaseURL is " + baseURL);
 
 	// 		string fullDomain = Between(baseURL, "://", "/");
 
@@ -531,7 +571,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	// 			fullDomain = Before(fullDomain, ":");
 	// 		}
 
-	// 		log.debug("Full domain is " + fullDomain);
+	// 		Logger.debug("Full domain is " + fullDomain);
 
 	// 		string domain = "";
 
@@ -561,16 +601,16 @@ public partial class SGWebCore : System.Web.UI.Page
 	// 			domain = domain.Substring(1);
 	// 		}
 
-	// 		log.debug("Final domain is " + domain);
+	// 		Logger.debug("Final domain is " + domain);
 
 	// 		context.getEnvironment().addHttpCookie(cookieName, "", "0", domain, "/", secureValue, "true");
 	// 	}
 	// 	catch (Exception e)
 	// 	{
-	// 		log.error("An exception occured trying to clear cookie " + cookieName + ".  The exception is " + e.Message);
+	// 		Logger.error("An exception occured trying to clear cookie " + cookieName + ".  The exception is " + e.Message);
 	// 	}
 
-	// 	log.debug("Done clearing " + cookieName);
+	// 	Logger.debug("Done clearing " + cookieName);
 	// }
 
 	public string Before(string value, string a)

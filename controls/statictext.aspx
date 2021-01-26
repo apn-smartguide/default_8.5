@@ -9,10 +9,10 @@
 	<% if (control.Current.getLabel().Trim().Length == 0) bareControl = true; %>
 	<% if (!bareControl){ %>
 	<label>
-		<span><% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %></span>
+		<span><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
 	</label>
 	<% } else if (control.Current.getValue().Trim().Length > 0 && !bareControl) { %>
-	<span><% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %></span>
+	<span><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
 	<% } %>
 	<apn:value runat="server"/>
 	</span>

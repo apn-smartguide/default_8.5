@@ -19,7 +19,7 @@
 					</h2>
 				</div>
 				<div class='panel-body'>
-					<% Server.Execute(resolvePath("/controls/summary/controls.aspx")); %>
+					<% ExecutePath("/controls/summary/controls.aspx"); %>
 				</div>
 			</div>
 		</apn:forEach>

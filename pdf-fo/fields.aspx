@@ -226,7 +226,7 @@
 				<apn:forEach runat="server">											
 					<apn:choosecontrol runat="server">
 						<apn:whencontrol runat="server" type="COL">
-							<% Server.Execute(resolvePath("/pdf-fo/fields.aspx")); %>
+							<% ExecutePath("/pdf-fo/fields.aspx"); %>
 						</apn:whencontrol>
 					</apn:choosecontrol>
 				</apn:forEach>
@@ -247,7 +247,7 @@
 						<fo:table-column column-width="50%"/>
 						<fo:table-column column-width="50%"/>
 						<fo:table-body font-family="sans-serif" font-weight="normal" font-size="10pt">
-							<% Server.Execute(resolvePath("/pdf-fo/fields.aspx")); %>
+							<% ExecutePath("/pdf-fo/fields.aspx"); %>
 						</fo:table-body>
 					</fo:table>
 				</fo:table-cell>
@@ -328,7 +328,7 @@
 							<fo:block text-align="start" ><![CDATA[<Apn:label runat="server"/>]]></fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<% Server.Execute(resolvePath("/pdf-fo/fields.aspx")); %>
+					<% ExecutePath("/pdf-fo/fields.aspx"); %>
 					<!-- end of eaach page -->
 				</Apn:forEach>
 			</Apn:control>

@@ -199,7 +199,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					
 					var $field = null;			
 					
-					if (field.isUnderRepeat) {				
+					if (field.IsUnderRepeat) {				
 						$field = r._getJQField(fieldType, key+'[1]');
 					} else {
 						$field = r._getJQField(fieldType, key);	
@@ -208,7 +208,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					if ($field != null && typeof ajaxUpdates !== 'undefined' && ajaxUpdates!=null && ajaxUpdates.length >0){ //Ajax submit, only bind events for updated elements
 							var updated = false;
 							
-							if(field.isUnderRepeat) {
+							if(field.IsUnderRepeat) {
 								var rptId = field.repeatId;
 								var numberOfGroups = smartletfields[rptId].numberOfGroups;
 								for(var i=0;i<numberOfGroups;i++) {
@@ -244,7 +244,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}	
 						// check if we are under repeat, in which case we must bind each instance of that field
-						if (field.isUnderRepeat) {
+						if (field.IsUnderRepeat) {
 							// get number of instances to bind
 							var rptId = field.repeatId;
 							var numberOfGroups = smartletfields[rptId].numberOfGroups;
@@ -313,7 +313,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							var f = smartletfields[key];
 							if (f.name == nameOrId) {
 								// return contextual instance in case field and this are under repeat
-								if (f.isUnderRepeat && this.field().htmlName.indexOf("[")>-1) {
+								if (f.IsUnderRepeat && this.field().htmlName.indexOf("[")>-1) {
 									// append index to key
 									var index = this.field().htmlName.substring(this.field().htmlName.indexOf("["));
 									key = key + index;
@@ -594,7 +594,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						if (targetArr[i].indexOf('[') > -1) {
 							baseId = targetArr[i].substring(0, targetArr[i].indexOf('['));
 						}
-						if (typeof smartletfields[baseId] !== 'undefined' && smartletfields[baseId].isUnderRepeat) {
+						if (typeof smartletfields[baseId] !== 'undefined' && smartletfields[baseId].IsUnderRepeat) {
 							// find parent repeat
 							var rptId = smartletfields[baseId].repeatId;
 							var nbrGroups = smartletfields[rptId].numberOfGroups;

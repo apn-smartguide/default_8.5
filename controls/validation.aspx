@@ -14,7 +14,7 @@
     if((fields[i].getTypeConst() == DotnetConstants.ElementType.REPEAT) && fields[i].getCSSClass().Contains("grid-view")) {
         Context.Items["underCrudRepeat"] = true;              
     } 
-    else if (isUnderRepeat(fields[i]) && ((bool)Context.Items["underCrudRepeat"])){
+    else if (IsUnderRepeat(fields[i]) && ((bool)Context.Items["underCrudRepeat"])){
         continue;
     } else {
         Context.Items["underCrudRepeat"] = false;

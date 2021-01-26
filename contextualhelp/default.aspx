@@ -7,11 +7,11 @@
 	sg = sg5;
 	Init();
 	ThemesLocations = new string[]{"/..",Theme};
-	LogoutURL = getURLForSmartlet(SmartletName);
+	LogoutURL = GetURLForSmartlet(SmartletName);
 %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
-	<% Server.Execute(resolvePath("/layout/head.aspx")); %>
+	<% ExecutePath("/layout/head.aspx"); %>
 	<body role="document">
 		<div id="loader"><div id="spinner"></div></div>
 		<div class="container" role="main">
@@ -37,8 +37,8 @@
 				</div>
 			</form>
 		</div>
-		<% Server.Execute(resolvePath("/layout/footer.aspx")); %>
-		<% Server.Execute(resolvePath("/layout/scripts.aspx")); %>
+		<% ExecutePath("/layout/footer.aspx"); %>
+		<% ExecutePath("/layout/scripts.aspx"); %>
 		<script>
 			<%=Context.Items["javascript"]%>
 			$("#loader").fadeOut("slow");

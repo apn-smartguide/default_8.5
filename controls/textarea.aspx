@@ -21,7 +21,7 @@
         <a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
     </apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
-		<% Server.Execute(resolvePath("/controls/label.aspx")); %>
+		<% ExecutePath("/controls/label.aspx"); %>
 		<apn:controlattribute runat="server" attr="prefix"/>
 		<textarea name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' rows='<%= Context.Items["rows"] %>' cols='<%= Context.Items["cols"] %>' style='<apn:controlattribute runat="server" attr="style"/><apn:cssstyle runat="server"/>' class='form-control <apn:cssclass runat="server"/>' title='<apn:controlattribute runat="server" attr="title" tohtml="true"/>'<apn:metadata runat="server"/><%= Context.Items["readonly"] %> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" --> >
 			<apn:value runat="server" tohtml="true"/>

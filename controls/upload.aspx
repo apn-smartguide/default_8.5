@@ -14,7 +14,7 @@
     </apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
 <% if(!((bool)Context.Items["bareControl"])) { %> 
-	<% Server.Execute(resolvePath("/controls/label.aspx")); %>
+	<% ExecutePath("/controls/label.aspx"); %>
 <% } %>
 <% if(control.Current.getAttribute("value").Trim().Length==0) { %>
   		<input type='file' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <%=(string)Context.Items["readonly"]%> style='<apn:cssstyle runat="server"/>' title='<apn:controlattribute runat="server" attr="title" tohtml="true"/>' <apn:metadata runat="server"/> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" -->/>

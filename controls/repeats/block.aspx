@@ -26,7 +26,7 @@
 			</apn:control>
 			<div class='panel-heading'>
 				<div>
-					<% Server.Execute(resolvePath("/controls/custom/control-label.aspx")); %>
+					<% ExecutePath("/controls/custom/control-label.aspx"); %>
 				</div>
 				<% if (!(bool)Context.Items["hideAddButton"]) { %>
 				<div class='pull-right'>
@@ -125,7 +125,7 @@
 										</div>
 									</div>
 									<div class='panel-body'>
-										<% Server.Execute(resolvePath("/controls/controls.aspx")); %>
+										<% ExecutePath("/controls/controls.aspx"); %>
 									</div>
 								</div>
 							</apn:forEach>
