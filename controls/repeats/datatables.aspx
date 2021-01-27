@@ -379,35 +379,35 @@
 								<apn:forEach runat="server" id="thRowField">
 									<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 										<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-											<th class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
+											<th><apn:label runat="server"/></th>
 										<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
-											<td class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'></td>
+											<td></td>
 										<% } %>
 									<% } else { %>
-										<td class='<<apn:cssClass runat="server" />>' style='<apn:cssStyle runat="server" />'></td>
+										<td></td>
 									<% } %>
 								</apn:forEach>
 							</apn:forEach>
 						</apn:WhenControl>
 						<apn:WhenControl type="GROUP" runat="server">
 							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-								<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
+								<th><apn:label runat="server"/></th>
 							<% } else { %>
-								<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+								<td></td>
 							<% } %>
 						</apn:WhenControl>
 						<apn:WhenControl type="HIDDEN" runat="server">
-							<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+							<td></td>
 						</apn:WhenControl>
 						<apn:Otherwise runat="server">
 							<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 								<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
 								<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+									<td></td>
 								<% } %>
 							<% } else { %>
-								<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+								<td></td>
 							<% } %>
 						</apn:Otherwise>
 					</apn:ChooseControl>
@@ -450,10 +450,10 @@
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 											</apn:WhenControl>
 											<apn:WhenControl type="TRIGGER" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/button.aspx"); %></td>
+												<td><% ExecutePath("/controls/button.aspx"); %></td>
 											</apn:WhenControl>
 											<apn:WhenControl type="HIDDEN" runat="server">
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'></td>
+												<td><!-- #include file="../hidden.inc" --></td>
 											</apn:WhenControl>
 											<apn:Otherwise runat="server">
 												<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
@@ -476,10 +476,10 @@
 									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/controls.aspx"); %></td>
 								</apn:WhenControl>
 								<apn:WhenControl type="TRIGGER" runat="server">
-									<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/button.aspx"); %></td>
+									<td><% ExecutePath("/controls/button.aspx"); %></td>
 								</apn:WhenControl>
 								<apn:WhenControl type="HIDDEN" runat="server">
-									<td></td>
+									<td><!-- #include file="../hidden.inc" --></td>
 								</apn:WhenControl>
 								<apn:Otherwise runat="server">
 									<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy"))  { %>
