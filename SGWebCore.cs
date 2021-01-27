@@ -115,16 +115,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
-	// public ISmartletPage CurrentPage {
-	// 	get {
-	// 		if(Context.Items["currentPage"] == null) {
-	// 			Context.Items["currentPage"] = sg.Context.getSmartlet().getSessionSmartlet().getCurrentPage();
-	// 		}
-	// 		return (ISmartletPage)Context.Items["currentPage"];
-	// 	}
-	// }
-
-
 	public string Theme {
 		get {
 			if(Context.Items["theme"] == null || ((string)Context.Items["theme"]).Equals("")) {
@@ -229,24 +219,26 @@ public partial class SGWebCore : System.Web.UI.Page
 		string filePath = "";
 		string pathParams = "";
 		
+		string key = path + String.Join("-",ThemesLocations);
+
 		if(path.Contains("?")) {
 			pathParams = path.Split('?')[1];
 			path = path.Split('?')[0];
 		}
-		if (!pathsDictionary.ContainsKey(path)) {
+		if (!pathsDictionary.ContainsKey(key)) {
 			foreach(string themeLocation in ThemesLocations) {
 				string themePath = GetThemePathForAsset(themeLocation, path);
 				if(themePath != "") {
 					filePath = themePath;
 				}
 			}
-			pathsDictionary.Add(path, filePath);
+			pathsDictionary.Add(key, filePath);
 
 			if(filePath.Equals("")) {
 				Logger.debug(String.Concat(Theme, ": path not found for ", path));
 			}
 		} else {
-			pathsDictionary.TryGetValue(path, out filePath);
+			pathsDictionary.TryGetValue(key, out filePath);
 		}
 
 		if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
@@ -262,32 +254,21 @@ public partial class SGWebCore : System.Web.UI.Page
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string CacheBreak(string url) {
 		Logger.trace(String.Concat("CacheBreak start: ", url));
-		if(Session["CacheBreak-dictionary"] == null) {
-			Session["CacheBreak-dictionary"] = new Dictionary<string, string>();
-		}
 		string pathParams = "";
 		if(url.Contains("?")) {
 			pathParams = url.Split('?')[1];
 			url = url.Split('?')[0];
 		}
 		StringBuilder filePath = new StringBuilder("");
-		Dictionary<string, string> CacheBreakDictionary = (Dictionary<string, string>) Session["CacheBreak-dictionary"];
-		if(!CacheBreakDictionary.ContainsKey(url)){
-			filePath.Append(ResolvePath(url));
-			if(!filePath.ToString().Equals("")) {
-				try { 
-					string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
-					filePath.Append("?cache=");
-					filePath.Append(filehash);
-				} catch (Exception e) {
-					Logger.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
-				}
+		filePath.Append(ResolvePath(url));
+		if(!filePath.ToString().Equals("")) {
+			try { 
+				string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
+				filePath.Append("?cache=");
+				filePath.Append(filehash);
+			} catch (Exception e) {
+				Logger.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
 			}
-			CacheBreakDictionary.Add(url, filePath.ToString());
-		} else {
-			string newPath = "";
-			CacheBreakDictionary.TryGetValue(url, out newPath);
-			filePath.Append(newPath);
 		}
 		if(pathParams.Length > 0) filePath.Append("?").Append(pathParams);
 		Logger.trace(String.Concat("CacheBreak end: ", filePath.ToString()));
