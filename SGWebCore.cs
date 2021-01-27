@@ -513,9 +513,19 @@ public partial class SGWebCore : System.Web.UI.Page
 		return result;
 	}
 
-	public ISmartletField GetFieldFromControlInfo(ControlInfo ctrl) {
-		return CurrentPage.findFieldById(ctrl.getFieldId());
+	public ISmartletField FindFieldByName(string name) {
+		return CurrentPage.findFieldByName(name);
 	}
+
+	public ISmartletField FindFieldById(string id) {
+
+		return CurrentPage.findFieldById(id);
+	}
+
+	public ISmartletField GetFieldFromControlInfo(ControlInfo ctrl) {
+		return FindFieldById(ctrl.getFieldId());
+	}
+
 	public string GetCustomControlPathForCurrentControl(String customControl){
 		StringBuilder path = new StringBuilder("");
 		if(customControl != null && !customControl.Equals("")) {
