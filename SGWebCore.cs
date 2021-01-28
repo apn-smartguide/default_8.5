@@ -60,6 +60,12 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["api5"] = value; 
 		}
 	}
+
+	public bool IsDevelopment {
+		get {
+			return GetAppSetting("com.alphinat.sgs.environment").Equals("Development");
+		}
+	}
 	
 	public ISmartlet Smartlet {
 		get {
@@ -297,6 +303,11 @@ public partial class SGWebCore : System.Web.UI.Page
 		return GetURLForSmartlet(smartletName, "reset=true");
 	}
 
+	public string GetURLForPage(ISmartletPage page) {
+		string pageId = "t_g" + page.getId() + "=1";
+		return GetURLForSmartlet(SmartletCode, pageId);
+	}
+
 	public string GetRequestURI() {
 		return Request.Url.AbsolutePath;
 	}
@@ -384,10 +395,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	//// Smartlet Features Helpers ////
 	public string CurrentPageCSS {
 		get {
-			if (Session["page-css"] == null || ((string)Session["page-css"]).Equals("")) {
-				Session["page-css"] = CurrentPage.getCSSClass();
-			}
-			return (string)Session["page-css"];
+			return (string)CurrentPage.getCSSClass();
 		}
 	}
 
@@ -405,6 +413,67 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(smartVal == null) smartVal = "";
 		}
 		return smartVal;
+	}
+
+	public string GetAppSetting(string key) {
+		if(System.Configuration.ConfigurationManager.AppSettings[key] != null) {
+			return (string)System.Configuration.ConfigurationManager.AppSettings[key];
+		}
+		return "";
+	}
+
+
+	public string SectionPrimaryPageURL {
+		get {
+			if(Session["section-primary-page"] != null && CurrentPageSection.Equals(CurrentActiveSection)) {
+				return ((string)Session["section-primary-page"]);
+			}
+			return "";
+		}
+		set {
+			Session["section-primary-page"] = value;
+		}
+	}
+
+	public bool IsPageSectionPrimary {
+		get {
+			if(CurrentPageCSS.Contains("section-primary-page")) {
+				CurrentActiveSection = CurrentPageSection;
+				SectionPrimaryPageURL = GetURLForPage(CurrentPage);
+				return true;
+			} else if (CurrentPageSection != CurrentActiveSection) {
+				CurrentActiveSection = CurrentPageSection;
+			}
+			return false;
+		}
+	}
+	public bool IsPageMemberOfCurrentSection {
+		get {
+			return (
+				!IsPageSectionPrimary && 
+				!CurrentPageSection.Equals("") && 
+				!CurrentActiveSection.Equals("") && 
+				CurrentPageSection.Equals(CurrentActiveSection)
+			);
+		}
+	}
+
+	public string CurrentActiveSection {
+		get {
+			if(Session["active-section"] != null) {
+				return (string)Session["active-section"];
+			}
+			return "";
+		}
+		set {
+			Session["active-section"] = value;
+		}
+	}
+
+	public string CurrentPageSection {
+		get {
+			return ((SessionPage)CurrentPage).getSection(CurrentLocale);
+		}
 	}
 
 	public bool ShowWizard {
