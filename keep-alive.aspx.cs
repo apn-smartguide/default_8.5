@@ -7,36 +7,46 @@ using System.Web.Security;
 
 public partial class KeepAlive : System.Web.UI.Page 
 {    
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsSessionExpired()) {
-            Response.Write("{alive}");
-            Response.Flush();
-            Response.Close();
-        }
+        VerifySession();
+        Response.Flush();
+        Response.Close();
     }	
 
-    public static bool IsSessionExpired() 
+    public static void VerifySession() 
     {
+        HttpCookie aspnetCookie = HttpContext.Current.Request.Cookies["ASP.NET_SessionId"];
+        HttpCookie smartProfileAuthCookie = HttpContext.Current.Request.Cookies["SmartProfileAuthCookie"]; 
+
         if (HttpContext.Current.Session != null)
         {
             if (HttpContext.Current.Session.IsNewSession)
             {
-                string CookieHeaders = HttpContext.Current.Request.Headers["Cookie"];
-
-                if ((null != CookieHeaders) && (CookieHeaders.IndexOf("ASP.NET_SessionId") >= 0))
-                {
-                    // IsNewSession is true, but session cookie exists,
-                    // so, ASP.NET session is expired
-                    return true;
-                }
-
-                if (CookieHeaders.IndexOf("SmartProfileAuthCookie") <= 0) {
-                    return true;
-                }
+                HttpContext.Current.Response.Write("{session:new}");
             }
+            if (aspnetCookie != null && !aspnetCookie.Value.Equals(""))
+            {
+                HttpContext.Current.Response.Write("{session:alive}");
+            }
+            if (smartProfileAuthCookie != null && !smartProfileAuthCookie.Value.Equals("")) {
+                string apiUrl = GetAppSetting("SmartProfileRestApi")+"/spv3/utils/keepalive";
+                WebClient client = new WebClient();
+                client.Headers["SPAccessToken"] = GetAppSetting("SP.Smartlets.WS.AccessKey");
+                client.Headers["SPAuthToken"] = smartProfileAuthCookie.Value;
+                string result = client.DownloadString(apiUrl);
+                HttpContext.Current.Response.Write("{smartprofile:"+result+"}");
+            }   
+        } else {
+            HttpContext.Current.Response.Write("{session:none}");
         }
-
-        return false;
     }
+
+    public static string GetAppSetting(string key) {
+		if(System.Configuration.ConfigurationManager.AppSettings[key] != null) {
+			return (string)System.Configuration.ConfigurationManager.AppSettings[key];
+		}
+		return "";
+	}
 }
