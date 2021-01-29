@@ -56,6 +56,10 @@ span.required {
 	position: static;
 }
 
+#leftcol, #main {
+    margin-top: 140px;
+}
+
 #loader {
     z-index: 10000;
     border: none;
