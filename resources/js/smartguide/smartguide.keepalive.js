@@ -1,6 +1,6 @@
 var keepAliveController = {
 	init: function (sgRef, warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutUrl, redirUrl) {
-		keepAlive(warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutUrl, redirUrl);		
+		sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutUrl, redirUrl);		
 	},
 
 	bindEvents: function (sgRef, context) {
@@ -8,7 +8,7 @@ var keepAliveController = {
 	}
 }
 
-function keepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logoutUrl, _redirUrl) {
+function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logoutUrl, _redirUrl) {
 
 	if(typeof _keepAliveUrl !== 'undefined' && _keepAliveUrl != "") {
 		keepAlivePage = _keepAliveUrl;
@@ -42,6 +42,9 @@ function keepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logout
 			warnAfter:warnDelay*60*1000,
 			redirAfter: redirDelay*60*1000,
 			keepAliveInterval: keepAliveDelay*1000,
+			ignoreUserActivity: false,
+			keepAliveInterval: 30*1000,
+			keepAlive: true,
 			countdownMessage: 'Redirection dans {timer} secondes.',
 			countdownBar: true
 		});			
@@ -58,6 +61,9 @@ function keepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logout
 			warnAfter:warnDelay*60*1000,
 			redirAfter: redirDelay*60*1000,
 			keepAliveInterval: keepAliveDelay*1000,
+			ignoreUserActivity: false,
+			keepAliveInterval: 30*1000,
+			keepAlive: true,
 			countdownMessage: 'Redirecting in {timer} seconds.',
 			countdownBar: true
 		});			

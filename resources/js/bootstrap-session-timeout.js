@@ -66,7 +66,7 @@
                 <div class="modal-content"> \
                   <div class="modal-header"> \
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> \
-                    <h4 class="modal-title">' + opt.title + '</h4> \
+                    <strong class="modal-title">' + opt.title + '</strong> \
                   </div> \
                   <div class="modal-body"> \
                     <p>' + opt.message + '</p> \
@@ -95,7 +95,7 @@
         // Reset timer on any of these events
         if (!opt.ignoreUserActivity) {
             var mousePosition = [-1, -1];
-            $(document).on('keyup touchend touchmove', function(e) { // removed mouseup mousemove
+            $(document).on('keyup touchend touchmove scroll click mousemove', function(e) { // removed mouseup
                 if (e.type === 'mousemove') {
                     // Solves mousemove even when mouse not moving issue on Chrome:
                     // https://code.google.com/p/chromium/issues/detail?id=241476
