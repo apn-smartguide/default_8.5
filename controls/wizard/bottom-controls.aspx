@@ -16,33 +16,15 @@
                         }
                     }
             %>
-            <span id='div_d_<%=previousBtn.getId()%>'>
-                <button type='submit' name='d_<%=previousBtn.getId()%>' class='<%=previousBtn.getCSSClass()%>' style='<%=previousBtn.getCSSStyle()%>' data-eventtarget='[<%=eventTargets%>]'>
-                    <%=previousBtn.getLabel()%>
-                </button>
-            </span>
+            <span id='div_d_<%=previousBtn.getId()%>'><button type='submit' name='d_<%=previousBtn.getId()%>' class='<%=previousBtn.getCSSClass()%>' style='<%=previousBtn.getCSSStyle()%>' data-eventtarget='[<%=eventTargets%>]'><%=previousBtn.getLabel()%></button></span>
             <% } else { %>
-            <apn:control type="previous" runat="server" id="previous">
-                <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><%=GetAttribute(previous.Current, "label")%></button>
-            </apn:control>
+            <apn:control type="previous" runat="server" id="previous"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><%=GetAttribute(previous.Current, "label")%></button></apn:control>
             <% } %>
         </div>
         <div class='pull-right'>
-            <apn:control type="summary" runat="server" id="summary">
-                <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'>
-                    <%=GetAttribute(summary.Current, "label")%>
-                </button>
-            </apn:control>
-            <apn:control type="return-save" runat="server" id="save">
-                <button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'>
-                    <%=GetAttribute(save.Current, "label")%>
-                </button>
-            </apn:control>
-            <apn:control type="return-cancel" runat="server" id="cancel">
-                <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'>
-                    <%=GetAttribute(cancel.Current, "label")%>
-                </button>
-            </apn:control>
+            <apn:control type="summary" runat="server" id="summary"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><%=GetAttribute(summary.Current, "label")%></button></apn:control>
+            <apn:control type="return-save" runat="server" id="save"><button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'><%=GetAttribute(save.Current, "label")%></button></apn:control>
+            <apn:control type="return-cancel" runat="server" id="cancel"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><%=GetAttribute(cancel.Current, "label")%></button></apn:control>
             <%
             SessionField nextBtn = (SessionField)sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName("next");
             if(nextBtn != null) { 
@@ -56,15 +38,9 @@
                     }
                 }
                 %>
-                <span id='div_d_<%=nextBtn.getId()%>'>
-                    <button type='submit' name='d_<%=nextBtn.getId()%>' class='<%=nextBtn.getCSSClass()%>' style='<%=nextBtn.getCSSStyle()%>' data-eventtarget='[<%=nextEventTargets%>]'>
-                        <%=nextBtn.getLabel()%>
-                    </button>
-                </span>
+                <span id='div_d_<%=nextBtn.getId()%>'><button type='submit' name='d_<%=nextBtn.getId()%>' class='<%=nextBtn.getCSSClass()%>' style='<%=nextBtn.getCSSStyle()%>' data-eventtarget='[<%=nextEventTargets%>]'><%=nextBtn.getLabel()%></button></span>
             <% } else { %>
-            <apn:control type="next" runat="server" id="next">
-                <button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'><%=GetAttribute(next.Current, "label")%></button>
-            </apn:control>
+            <apn:control type="next" runat="server" id="next"><button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'><%=GetAttribute(next.Current, "label")%></button></apn:control>
             <% } %>
         </div>
     </div>

@@ -27,22 +27,14 @@
   }
   Context.Items["alerts-count"] = 0;
 %> 
-<apn:forEach id="alerts" items="alert-controls" runat="server">
-	<% Context.Items["alerts-count"] = alerts.getCount(); %>
-</apn:forEach>
+<apn:forEach id="alerts" items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
 <% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) {%>
 <div id='alerts'><%-- do not change the div id as it is referenced in smartguide.js --%>
-    <apn:IfRequiredControlExists runat="server">
-        <div class='alert alert-info' role='alert'>
-			<span class='required'>*</span>
-			<apn:localize runat="server" key="theme.text.required"/>
-		</div>
-	</apn:IfRequiredControlExists>
+    <apn:IfRequiredControlExists runat="server"><div class='alert alert-info' role='alert'><span class='required'>*</span><apn:localize runat="server" key="theme.text.required"/></div></apn:IfRequiredControlExists>
 	<% if ((int)Context.Items["alerts-count"] > 0) { %>
 	<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
 		<h2><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
-		<ul>
-		<apn:forEach items="alert-controls" id="control1" runat="server">
+		<ul><apn:forEach items="alert-controls" id="control1" runat="server">
 			<li id='error_<%=Context.Items["counter"] %>_<%= control1.Current.getName() %>'>
 				<% if(control1.Current.getAlert().Trim().Equals("error.goto.summary")) { %>
 					<apn:localize runat="server" key="theme.text.flowchange"/>
@@ -64,8 +56,7 @@
 				<% } %>
 			</li>
 			<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
-		</apn:forEach>
-		<ul>
+		</apn:forEach><ul>
 	</section>
 	<% } %>
 </div>

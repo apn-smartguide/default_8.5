@@ -15,10 +15,7 @@
 %>
   	<apn:choosecontrol runat="server" >
 		<apn:whencontrol runat="server" type="radio">
-			<apn:ifnotcontrolvalid runat="server">
-				<% Context.Items["errorIndex"] = (int) Context.Items["errorIndex"] + 1; %>
-				<a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
-			</apn:ifnotcontrolvalid>
+			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int) Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<fieldset  id='div_<apn:name runat="server" />' <%=Context.Items["layout"] %> class='<%=Context.Items["no-col-layout"]%> sg-radio chkbxrdio-grp form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' <apn:metadata runat="server"/> <%=Context.Items["readonly"]%> <!-- #include file="aria-live.inc" --> >
 				<% if (!((bool)Context.Items["bareControl"])){ ExecutePath("/controls/legend.aspx"); }	%>
 				<% if(!((string)Context.Items["layout"]).Equals("vertically")) { %><br/><% } %>
@@ -26,9 +23,7 @@
 				<apn:forEach runat="server" id="control5" >
 					<apn:choosecontrol runat="server">
 					<apn:whencontrol runat="server" type="optgroup">
-						<label class='optgroup'>
-							<% ExecutePath("/controls/custom/control-label.aspx"); %>
-						</label>
+						<label class='optgroup'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
 						<apn:forEach runat="server" id="control6">
 							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 								<div class='radio vertical' <%= Context.Items["readonly"] %>>
@@ -64,16 +59,11 @@
 			</fieldset>
   		</apn:whencontrol>
   		<apn:whencontrol runat="server" type="drop" >
-            <apn:ifnotcontrolvalid runat="server">
-                 <% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %>
-				<a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
-            </apn:ifnotcontrolvalid>
+            <apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' isSelect1 <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> <%=Context.Items["readonly"]%><!-- #include file="aria-live.inc" --> >
 				<% ExecutePath("/controls/label.aspx"); %>
 				<% if (control.Current.getCSSClass().IndexOf("autocomplete") > -1) { %>
 				<input <%=Context.Items["readonly"]%> value='<%=control.Current.getSelectedLabel()%>' <apn:metadata runat="server"/> id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control' />
-					<%--<input name='<apn:name runat="server"/>' type='hidden' value='<%=control.Current.getValue()%>'/>--%>
-					<%--<input value='<%=control.Current.getSelectedLabel()%>' id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control' />--%>
 					<input value='<%= control.Current.getLabel()%>' id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control' />
 					<datalist id='<%= control.Current.getName() %>_list'>
 						<apn:forEach runat="server" id="control7" >
@@ -92,17 +82,11 @@
 						<apn:choosecontrol runat="server">
 						<apn:whencontrol runat="server" type="optgroup" >
 							<optgroup label='<%=GetAttribute(control4.Current, "label")%>' title='<%=GetAttribute(control4.Current, "title", true)%>'>
-								<apn:forEach runat="server" id="control2" >
-									<option value='<%= control2.Current.getHTMLValue() %>' title='<%= control2.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control2.Current.getValue()) ? " selected='selected'" : "" %> > 
-										<%=GetAttribute(control2.Current, "label")%>
-									</option>
-								</apn:forEach>
+								<apn:forEach runat="server" id="control2" ><option value='<%= control2.Current.getHTMLValue() %>' title='<%= control2.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control2.Current.getValue()) ? " selected='selected'" : "" %> > <%=GetAttribute(control2.Current, "label")%></option></apn:forEach>
 							</optgroup>
 						</apn:whencontrol>
 						<apn:otherwise >
-							<option value='<%= control4.Current.getHTMLValue() %>' title='<%= control4.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control4.Current.getValue()) ? " selected='selected'" : "" %> >
-								<%=GetAttribute(control4.Current, "label")%>
-							</option>
+							<option value='<%= control4.Current.getHTMLValue() %>' title='<%= control4.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control4.Current.getValue()) ? " selected='selected'" : "" %> ><%=GetAttribute(control4.Current, "label")%></option>
 						</apn:otherwise>
 						</apn:choosecontrol>
 					</apn:forEach>

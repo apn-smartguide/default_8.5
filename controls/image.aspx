@@ -13,9 +13,7 @@
 		<% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>
 		<% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %>>
 		<img src='<apn:controlattribute attr="src" runat="server"/>' id='<apn:code runat="server"/>' class='<apn:cssclass runat="server"/>' style='width:<apn:controlattribute attr="width" runat="server"/>;height:<apn:controlattribute attr="height" runat="server"/>;<apn:cssstyle runat="server"/>' alt='<%=GetAttribute(control.Current, "alt")%>' <apn:metadata runat="server" /> title='<%=GetAttribute(control.Current, "title", true)%>'/>
-		<div class='caption'>
-			<% ExecutePath("/controls/label.aspx"); %>
-		</div>
+		<div class='caption'><% ExecutePath("/controls/label.aspx"); %></div>
 	</div>
 	<% } %>
 </apn:control>
