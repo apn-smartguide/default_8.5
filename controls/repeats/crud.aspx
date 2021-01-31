@@ -146,11 +146,7 @@ if(btnAdd != null) {
 									&& !field1.Current.getCSSClass().Contains("proxy")
 									) { %> 
 								<apn:ChooseControl runat="server">
-									<apn:WhenControl type="GROUP" runat="server">
-										<td class='<%=field1.Current.getCSSClass()%>'>
-											<% ExecutePath("/controls/control.aspx"); %>
-										</td>	
-									</apn:WhenControl>
+									<apn:WhenControl type="GROUP" runat="server"><td class='<%=field1.Current.getCSSClass()%>'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server">
 										<td>
 											<% if (field1.Current.getAttribute("class").Equals("button")) {%>
@@ -176,27 +172,19 @@ if(btnAdd != null) {
 											}                       
 										%>
 										<td data-order='<%=staticvalue%>'>
-											<apn:ifcontrolattribute runat="server" attr="prefix">
-												<apn:controlattribute runat="server" attr="prefix"/>
-											</apn:ifcontrolattribute>
+											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 											<apn:value runat="server" tohtml="true"/>
-											<apn:ifcontrolattribute runat="server" attr="suffix">
-												<apn:controlattribute runat="server" attr="suffix"/>
-											</apn:ifcontrolattribute>
+											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 										</td>
 									<% } else { %>
 										<td>
-											<apn:ifcontrolattribute runat="server" attr="prefix">
-												<apn:controlattribute runat="server" attr="prefix"/>
-											</apn:ifcontrolattribute>
+											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 											<% if (field1.Current.getCSSClass().Contains("render-html")) { %>
 											<apn:value runat="server" />
 											<% } else { %>
 											<apn:value runat="server" tohtml="true"/>
 											<% } %>
-											<apn:ifcontrolattribute runat="server" attr="suffix">
-												<apn:controlattribute runat="server" attr="suffix"/>
-											</apn:ifcontrolattribute>
+											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 										</td>
 									<% } %>
 									</apn:Otherwise>
@@ -211,27 +199,17 @@ if(btnAdd != null) {
 					||(bool)Context.Items["showMoveUpDownButton"]) { %>	
 				<td class='repeatbutton'>
 					<% if (!(bool)Context.Items["hideEditButton"]) { %>
-					<apn:control runat="server" type="prepare_edit_instance">
-						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.edit"/> repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> 
-					</apn:control>
+					<apn:control runat="server" type="prepare_edit_instance"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.edit"/> repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> </apn:control>
 					<% } %>
 					<% if ((bool)Context.Items["showViewButton"]) { %>
-						<apn:control runat="server" type="prepare_edit_instance">
-							<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.edit"/> repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> 
-						</apn:control>
+					<apn:control runat="server" type="prepare_edit_instance"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.edit"/> repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> </apn:control>
 					<% } %>
 					<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
-					<apn:control runat="server" type="delete">
-						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_del_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> 
-					</apn:control>
+					<apn:control runat="server" type="delete"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_del_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> </apn:control>
 					<% } %>
 					<% if ((bool)Context.Items["showMoveUpDownButton"]) { %>
-						<apn:control type="moveup" runat="server">
-							<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.up"/> repeat_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span>
-						</apn:control>
-						<apn:control type="movedown" runat="server">
-							<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.down"/> repeat_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span>
-						</apn:control>
+					<apn:control type="moveup" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.up"/> repeat_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
+					<apn:control type="movedown" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.down"/> repeat_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
 					<% } %>				
 				</td>
 				<% } %>

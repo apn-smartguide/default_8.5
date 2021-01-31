@@ -609,6 +609,21 @@ public partial class SGWebCore : System.Web.UI.Page
 		} 
 	}
 
+	public SessionField GetProxyButton(string key, ref string eventTargets) {
+        SessionField btn = (SessionField)FindFieldByName(key);
+        if(btn != null) {
+            ISmartletField[] targets = btn.getEventTarget();
+            if(targets != null) {
+                foreach(ISmartletField targetField in targets) {
+                    if(targetField != null) {
+                        eventTargets += targetField.getId() + ",";
+                    }
+                }
+            }
+        }
+        return btn;
+    }
+
 	//// Utilities ///
 	public void TimerTraceStart(string key) {
 		Context.Items["timer-" + key] = DateTime.UtcNow;

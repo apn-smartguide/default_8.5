@@ -3,9 +3,7 @@
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
 <% Context.Items["counter"] = 1; %>
-<apn:IfRequiredControlExists runat="server">																		
-	<% Context.Items["required"] = true; %>
-</apn:IfRequiredControlExists>
+<apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
 <% Context.Items["errorIndex"] = 0; %>
 <%
   ISmartletField f = null;

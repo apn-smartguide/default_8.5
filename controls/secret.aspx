@@ -4,18 +4,8 @@
 	<% if(control.Current.getAttribute("visible").Equals("false")) { %>
 	<!-- #include file="hidden.inc" -->
 	<% } else { %>
-		<% if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { 
-			Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
-		} else {
-			Context.Items["no-col-layout"] = "";
-		} %>
-	<apn:ifnotcontrolvalid runat="server">
-		<%
-        int index = (int)Context.Items["errorIndex"];
-        Context.Items["errorIndex"] = ++index;
-        %>
-		<a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a>
-	</apn:ifnotcontrolvalid>
+	<% if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";} %>
+	<apn:ifnotcontrolvalid runat="server"><% int index = (int)Context.Items["errorIndex"]; Context.Items["errorIndex"] = ++index; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
 		<% ExecutePath("/controls/label.aspx"); %>
 		<apn:ifcontrolattribute runat="server" attr="prefix or suffix"><div class="input-group"></apn:ifcontrolattribute>

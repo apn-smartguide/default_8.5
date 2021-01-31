@@ -24,11 +24,7 @@
 			<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 		</apn:control>
 		<% } %>
-		<div class='panel-heading'>
-			<h2 class='panel-title'>
-				<% ExecutePath("/controls/custom/control-label.aspx"); %>
-			</h2>
-		</div>
+		<div class='panel-heading'><h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2></div>
 		<div class='panel-body bootpag'>
 			<% if ((bool)Context.Items["hasPagination"]) { %>
 			<div class='form-inline' style='padding-bottom:5px'>
@@ -70,14 +66,10 @@
 			<% } %>
 			<table class='responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") + "'" : "")  %>>
 				<% if ((bool)Context.Items["hasPagination"]) { %>
-				<apn:control type="repeat-current-page" runat="server">
-					<input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' />
-				</apn:control>
+				<apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control>
 				<% } %>
 				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
-				<apn:control type="repeat-sort" runat="server">
-					<input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' />
-				</apn:control>
+				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
 				<% } %>
 				<apn:control runat="server" type="default-instance" id="defaultGroup">
 					<thead>
@@ -112,13 +104,9 @@
 								</apn:forEach>
 							</apn:forEach>
 							<% if (!(bool)Context.Items["hideAddButton"]) { %>
-							<td data-priority='1' style='text-align:center'>
-								<apn:control type="insert" id="button" runat="server">
-									<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='btn btn-sm btn-primary repeat_table_add_btn' id='<apn:name runat="server"/>'><%--<span class='<apn:localize runat="server" key="theme.icon.add"/>'></span>--%><apn:localize runat="server" key="theme.modal.add"/></span>
-								</apn:control>
-							</td>
+							<td data-priority='1' style='text-align:center'><apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='btn btn-sm btn-primary repeat_table_add_btn' id='<apn:name runat="server"/>'><%--<span class='<apn:localize runat="server" key="theme.icon.add"/>'></span>--%><apn:localize runat="server" key="theme.modal.add"/></span></apn:control></td>
 							<% } else if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
-								<td></td>
+							<td></td>
 							<% } %>
 						</tr>
 					</thead>
@@ -138,11 +126,7 @@
 								<%Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+field2.getCount(); //override aria-labelledby by table header %>
 								<%Context.Items["optionIndex"] = status.getCount(); %>
 								<apn:choosecontrol runat="server">
-									<apn:whencontrol type="RECAP" runat="server">
-										<td>
-											<% ExecutePath("/controls/summary/summary.aspx"); %>
-										</td>
-									</apn:whencontrol>
+									<apn:whencontrol type="RECAP" runat="server"><td><% ExecutePath("/controls/summary/summary.aspx"); %></td></apn:whencontrol>
 									<apn:whencontrol runat="server" type="ROW">
 										<apn:control runat="server" id="controlrow">
 											<apn:forEach runat="server" id="col3">
@@ -158,19 +142,10 @@
 											</apn:forEach>
 										</apn:control>
 									</apn:whencontrol>
-									<apn:whencontrol runat="server" type="COL">
-										<% ExecutePath("/controls/col.aspx"); %>
+									<apn:whencontrol runat="server" type="COL"><% ExecutePath("/controls/col.aspx"); %></apn:whencontrol>
+									<apn:whencontrol type="GROUP" runat="server"><td><% ExecutePath("/controls/group.aspx?bare_control=true"); %></td>
 									</apn:whencontrol>
-									<apn:whencontrol type="GROUP" runat="server">
-										<td>
-											<% ExecutePath("/controls/group.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="REPEAT" runat="server">
-										<td>
-											<% ExecutePath("/controls/repeats/repeat.aspx"); %>
-										</td>
-									</apn:whencontrol>
+									<apn:whencontrol type="REPEAT" runat="server"><td><% ExecutePath("/controls/repeats/repeat.aspx"); %></td></apn:whencontrol>
 									<apn:whencontrol type="INPUT" runat="server">
 										<% if(
 											!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
@@ -190,61 +165,17 @@
 										</td>
 										<% } %>
 									</apn:whencontrol>
-									<apn:whencontrol type="TEXTAREA" runat="server">
-										<td>
-											<% ExecutePath("/controls/textarea.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="SECRET" runat="server">
-										<td>
-											<% ExecutePath("/controls/secret.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="DATE" runat="server">
-										<td>
-											<% ExecutePath("/controls/date.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="SELECT" runat="server">
-										<td>
-											<% ExecutePath("/controls/select.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="SELECT1" runat="server">
-										<td>
-											<% ExecutePath("/controls/select1.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="STATICTEXT" runat="server">
-										<td>
-											<% ExecutePath("/controls/statictext.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="IMAGE" runat="server">
-										<td>
-											<% ExecutePath("/controls/image.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:WhenControl runat="server" type="UPLOAD">
-										<td>
-											<% ExecutePath("/controls/upload.aspx"); %>
-										</td>
-									</apn:WhenControl>
-									<apn:WhenControl runat="server" type="TRIGGER">
-										<td>
-											<% ExecutePath("/controls/button.aspx"); %>
-										</td>
-									</apn:WhenControl>
-									<apn:whencontrol type="SUB-SMARTLET" runat="server">
-										<td>
-											<% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol type="RESULT" runat="server">
-										<td>
-											<% ExecutePath("/controls/result.aspx"); %>
-										</td>
-									</apn:whencontrol>
+									<apn:whencontrol type="TEXTAREA" runat="server"><td><% ExecutePath("/controls/textarea.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="SECRET" runat="server"><td><% ExecutePath("/controls/secret.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="DATE" runat="server"><td><% ExecutePath("/controls/date.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="SELECT" runat="server"><td><% ExecutePath("/controls/select.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="SELECT1" runat="server"><td><% ExecutePath("/controls/select1.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="STATICTEXT" runat="server"><td><% ExecutePath("/controls/statictext.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="IMAGE" runat="server"><td><% ExecutePath("/controls/image.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:WhenControl runat="server" type="UPLOAD"><td><% ExecutePath("/controls/upload.aspx"); %></td></apn:WhenControl>
+									<apn:WhenControl runat="server" type="TRIGGER"><td><% ExecutePath("/controls/button.aspx"); %></td></apn:WhenControl>
+									<apn:whencontrol type="SUB-SMARTLET" runat="server"><td><% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %></td></apn:whencontrol>
+									<apn:whencontrol type="RESULT" runat="server"><td><% ExecutePath("/controls/result.aspx"); %></td></apn:whencontrol>
 								</apn:choosecontrol>
 							</apn:forEach>
 							<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
@@ -252,23 +183,15 @@
 							<% } %>
 								<% if (!(bool)Context.Items["hideAddButton"]) { %>
 									<% if (!(bool)Context.Items["hideRowAddButton"]) { %>
-									<apn:control type="insert" id="addbutton" runat="server">
-										<span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_add_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
-									</apn:control>
+									<apn:control type="insert" id="addbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_add_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
 									<% } %>
 								<% } %>
 								<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
-								<apn:control type="delete" id="deletebutton" runat="server">
-									<span class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
-								</apn:control>
+								<apn:control type="delete" id="deletebutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
 								<% } %>
 								<% if ((bool)Context.Items["showMoveUpDownButton"]) { %>
-								<apn:control type="moveup" id="moveupbutton" runat="server">
-									<span class='<apn:localize runat="server" key="theme.icon.up"/> repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
-								</apn:control>
-								<apn:control type="movedown" id="movedownbutton" runat="server">
-									<span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
-								</apn:control>
+								<apn:control type="moveup" id="moveupbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.up"/> repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
+								<apn:control type="movedown" id="movedownbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
 								<% } %>
 							<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
 							</td>
@@ -293,9 +216,7 @@
 							&& !footerField.getCSSClass().Contains("hide-from-list-view")
 							&& !footerField.getCSSClass().Contains("proxy")
 							) { %> 
-							<td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' >
-								<%=footerField.getValue()%>
-							</td>
+							<td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' ><%=footerField.getValue()%></td>
 							<% } %>
 						<% } %>
 					</tr>	
@@ -303,9 +224,7 @@
 				<% } %>
 			</table>
 			<% if ((bool)Context.Items["hasPagination"]) { %>
-			<div class='pull-left'>
-				&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span>
-			</div>
+			<div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div>
 			<% } %>
 		</div>
 	</div>
