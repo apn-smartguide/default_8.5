@@ -100,7 +100,7 @@ if(btnAdd != null) {
 						<% } else { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %>
-							<apn:label runat="server"/>
+							<%=GetAttribute(field.Current, "label")%>
 							<% } %>
 							<% if (false && !field.Current.getCSSClass().Contains("hide-sort")) { %>
 								&nbsp;&nbsp;
@@ -158,9 +158,9 @@ if(btnAdd != null) {
 														<apn:value runat="server"/>
 												</button>
 											<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%> 
-												<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' title='<apn:tooltip runat="server"/>' class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+												<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>' class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
 											<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>  
-												<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' title='<apn:tooltip runat="server"/>' class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+												<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>' class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
 											<% } %>
 										</td>
 									</apn:WhenControl>

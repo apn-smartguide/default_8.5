@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --%>
-<title><apn:control runat="server" type="smartlet-name"><apn:value runat="server"/></apn:control> &gt; <apn:control runat="server" type="step"><apn:label runat="server"/></apn:control></title>
+<title><apn:control runat="server" type="smartlet-name"><apn:value runat="server"/></apn:control> &gt; <apn:control runat="server" type="step" id="step"><%=GetAttribute(step.Current, "label")%></apn:control></title>
 <meta name="description" content='<apn:control runat="server" type="smartlet-description"><apn:value runat="server"/></apn:control>'>
 <meta name="theme" content='<apn:control runat="server" type="smartlet-theme"><apn:value runat="server"/></apn:control>'>
 <meta name="author" content='<apn:control runat="server" type="smartlet-author"><apn:value runat="server"/></apn:control>'>

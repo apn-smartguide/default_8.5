@@ -25,7 +25,7 @@
 <body vocab="http://schema.org/" typeof="WebPage" class="pdf">
 <!-- page header -->
 <div style="<%=Context.Items["pageTitle"]%>">
-	<apn:control runat="server" type="step"><apn:label runat="server"/></apn:control>
+	<apn:control runat="server" type="step"><%=GetAttribute(control.Current, "label")%></apn:control>
 </div>
 <div id="sgControls" style="<%=Context.Items["pageContent"]%>">
 <table cellpadding="0" cellspacing="0" border="0">

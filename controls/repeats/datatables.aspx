@@ -379,7 +379,7 @@
 								<apn:forEach runat="server" id="thRowField">
 									<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 										<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-											<th><apn:label runat="server"/></th>
+											<th><%=GetAttribute(thRowField.Current, "label")%></th>
 										<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
 											<td></td>
 										<% } %>
@@ -391,7 +391,7 @@
 						</apn:WhenControl>
 						<apn:WhenControl type="GROUP" runat="server">
 							<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-								<th><apn:label runat="server"/></th>
+								<th><%=GetAttribute(thField.Current, "label")%></th>
 							<% } else { %>
 								<td></td>
 							<% } %>
@@ -402,7 +402,7 @@
 						<apn:Otherwise runat="server">
 							<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 								<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:label runat="server"/></th>
+									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 								<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
 									<td></td>
 								<% } %>

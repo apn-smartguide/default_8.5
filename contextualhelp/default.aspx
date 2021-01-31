@@ -22,8 +22,8 @@
 				  <apn:forEach runat="server">										
 					<apn:choosecontrol runat="server">
 					  <apn:whencontrol runat="server" type="GROUP">																							
-						<apn:control runat="server">
-							<p><apn:label runat="server"/></p>
+						<apn:control runat="server" id="control">
+							<p><%=GetAttribute(control.Current, "label")%></p>
 							<apn:help/>
 						</apn:control>												
 					  </apn:whencontrol>

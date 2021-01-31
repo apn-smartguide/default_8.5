@@ -39,7 +39,7 @@
 							<label class="sr-only" for="datatable-search"><apn:localize runat="server" key="theme.text.datatable.filter" />:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><apn:localize runat="server" key="theme.text.datatable.filter" />:</div>
-								<input id='datatable-search' type='text' class="form-control input-sm searchBox" value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<apn:controlattribute attr="placeholder" runat="server"/>'>
+								<input id='datatable-search' type='text' class='form-control input-sm searchBox' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
 							</div>
 						</div>
 						<button type="submit" class='searchBtn btn btn-sm btn-default'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
@@ -252,7 +252,7 @@
 							<% } %>
 								<% if (!(bool)Context.Items["hideAddButton"]) { %>
 									<% if (!(bool)Context.Items["hideRowAddButton"]) { %>
-									<apn:control type="insert" id="addbutton" runat='server'>
+									<apn:control type="insert" id="addbutton" runat="server">
 										<span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_add_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span>
 									</apn:control>
 									<% } %>

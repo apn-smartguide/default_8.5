@@ -12,7 +12,7 @@
 						<div class='pull-right summaryBtn'>
 							<% if (!(bool)Context.Items["pdf"]) { %>
 							<apn:control runat="server" type="modify" id="button">
-								<input type='submit' class='btn btn-xs btn-default' name='<apn:name runat="server"/>' value='<apn:label runat="server"/>' />
+								<input type='submit' class='btn btn-xs btn-default' name='<apn:name runat="server"/>' value='<%=GetAttribute(button.Current, "label")%>' />
 							</apn:control>
 							<% } %>
 						</div>

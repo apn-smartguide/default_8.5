@@ -1,10 +1,12 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<!-- JQuery -->
+<script src='<%= CacheBreak("/resources/js/ui/jquery-ui.js") %>'></script>
+<%-- the following line is to remove the conflict between jquery-ui tooltip and bootstrap tooltip. bootstap will override and be default --%>
+<script>$.widget.bridge('uitooltip', $.ui.tooltip);</script>
 <!-- Boostrap -->
 <script src='<%= CacheBreak("/resources/js/bootstrap.js") %>'></script>
 <!-- Modernizr -->
 <script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script>
-<!-- JQuery -->
-<script src='<%= CacheBreak("/resources/js/ui/jquery-ui.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>

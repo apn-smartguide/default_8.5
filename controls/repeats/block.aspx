@@ -43,7 +43,7 @@
 			</div>
 			<% if (!control.Current.getAttribute("title").Equals("")) { %>
 			<div class='groupHelp'>
-				<apn:controlattribute attr="title" tohtml="true" runat="server" />
+				<%=GetAttribute(control.Current, "title", true)%>
 			</div>
 			<% } %>
 		</apn:control>
@@ -53,7 +53,7 @@
 				<div class='row'>
 					<div class='col-md-6'>
 						<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;<apn:localize runat="server" key="theme.text.datatable.fetch" />
-						<apn:control runat='server' type="repeat-page-limit" id="pageSize">
+						<apn:control runat="server" type="repeat-page-limit" id="pageSize">
 							<% if (" 10 20 50 75 ".Contains(" " + pageSize.Current.getValue() + " ")) { %>
 							<select name='<apn:name runat="server" />' class='form-control input-sm pageSize'>
 								<option value='10' <%= pageSize.Current.getValue().Equals("10") ? "selected" : "" %>>10</option>
@@ -70,8 +70,8 @@
 					<div class='col-md-6'>
 						<% if(!(bool)Context.Items["hideSearch"]) {%>
 						<apn:localize runat="server" key="theme.text.datatable.filter" />:
-						<apn:control type="repeat-filter" runat='server'>
-							<input type='text' class='form-control input-sm searchBox' placeholder='<apn:controlattribute attr="placeholder" runat="server"/>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' />
+						<apn:control type="repeat-filter" runat="server">
+							<input type='text' class='form-control input-sm searchBox' placeholder='<%=GetAttribute(control.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' />
 						</apn:control>
 						<span class='searchBtn'>
 							<span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' />

@@ -167,7 +167,7 @@
 				<fo:table-cell number-columns-spanned="2" padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:block text-align="start" ><Apn:label runat="server"/></fo:block>
 					<fo:block text-align="start"><fo:external-graphic content-height="scale-to-fit" height="2.00in"  content-width="2.00in" scaling="non-uniform" 
-						text-align="start" display-align="before" src="<Apn:value runat='server'/>" /></fo:block>
+						text-align='start' display-align='before' src='<apn:value runat="server"/>' /></fo:block>
 				</fo:table-cell>
 			</fo:table-row>						
 			</Apn:control>

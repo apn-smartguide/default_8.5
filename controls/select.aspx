@@ -36,11 +36,11 @@
 							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 							<div class='checkbox vertical' <%= Context.Items["layout"] %>>
 								<% if(!control3.Current.getLabel().Equals("")) { %>
-								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
+								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<%=GetAttribute(control3.Current, "title", true)%>'>
 								<% } %>
 							<% } else { %>
 								<% if(!control3.Current.getLabel().Equals("")) { %>
-								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='checkbox-inline' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
+								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='checkbox-inline' title='<%=GetAttribute(control3.Current, "title", true)%>'>
 								<% } %>
 							<% } %>
 									<input type='checkbox' name='<%= control3.Current.getName() %>' id='<%= control3.Current.getAttribute("id")%><%= Context.Items["optionIndex"]%>' class='<%=control.Current.getCSSClass()%>' value='<%= control3.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> <% if(!control3.Current.getLabel().Equals("")) { %>aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>'<% } %> <%= control.Current.containsValue(control3.Current.getValue()) ? " checked='checked'" : "" %> <%= Context.Items["layout"] %> />
@@ -57,14 +57,14 @@
 						<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
 						<div class='checkbox vertical' <%= Context.Items["layout"] %>>
 							<% if(!control2.Current.getLabel().Equals("")) { %>
-							<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<apn:controlattribute runat="server"  attr="title" tohtml="true" />'>
+							<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<%=GetAttribute(control3.Current, "title", true)%>'>
 							<% } %>
 						<% } else { %>
 							<% if(!control2.Current.getLabel().Equals("")) { %>
-							<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='checkbox-inline' title='<apn:controlattribute runat="server" attr="title" tohtml="true" />'>
+							<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='checkbox-inline' title='<%=GetAttribute(control3.Current, "title", true)%>'>
 							<% } %>
 						<% } %>
-								<input type='checkbox' name='<%= control2.Current.getName() %>' id='<%= control2.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='<%=control.Current.getCSSClass()%>' <% if(!control2.Current.getLabel().Equals("")) { %>aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%= Context.Items["optionIndex"]%>'<% } %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %>  value='<%= control2.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control2.Current.getValue()) ? " checked='checked'" : "" %> <%= Context.Items["layout"] %> />
+								<input type='checkbox' name='<%= control2.Current.getName() %>' id='<%= control2.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='<%=control.Current.getCSSClass()%>' <% if(!control2.Current.getLabel().Equals("")) { %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%= Context.Items["optionIndex"]%>'<% } %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %>  value='<%= control2.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control2.Current.getValue()) ? " checked='checked'" : "" %> <%= Context.Items["layout"] %> />
 								<% ExecutePath("/controls/custom/control-label.aspx"); %>
 							<% if(!control2.Current.getLabel().Equals("")) { %>
 							</label>
@@ -90,7 +90,7 @@
 				<apn:forEach runat="server" id="control6">
 					<apn:choosecontrol runat="server">
 						<apn:whencontrol runat="server" type="optgroup">
-							<optgroup label='<apn:label runat="server" />' title='<apn:controlattribute runat="server" attr="title" tohtml="true"/>'>
+							<optgroup label='<apn:label runat="server" />' title='<%=GetAttribute(control3.Current, "title", true)%>'>
 								<apn:forEach runat="server" id="control7">
 									<option <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> value='<%= control7.Current.getHTMLValue() %>' title='<%= control7.Current.getAttribute("title") %>' <%= control.Current.containsValue(control7.Current.getValue()) ? "selected='selected'" : "" %>>
 										<apn:label runat="server" />

@@ -4,20 +4,10 @@
 	<span class="required">*</span>
 </apn:ifcontrolrequired>
 <apn:ifnotcontrolattribute attr="tooltip" runat="server">
-	<apn:ifnotcontrolvalid runat="server">
-		<span class="has-error field-name"><apn:label runat="server" /></span>
-	</apn:ifnotcontrolvalid>
-	<apn:ifcontrolvalid runat="server">
-		<span class="field-name"><apn:label runat="server" /></span>
-	</apn:ifcontrolvalid>
+	<span class='<apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> field-name'><%=GetAttribute(control.Current, "label")%></span>
 </apn:ifnotcontrolattribute>
 <apn:ifcontrolattribute attr="tooltip" runat="server">
-	<apn:ifnotcontrolvalid runat="server">
-		<span class="has-error field-name" data-toggle='tooltip' title='<apn:controlattribute runat="server" tohtml="true" attr="tooltip"/>'><apn:label runat="server" /></span>
-	</apn:ifnotcontrolvalid>
-	<apn:ifcontrolvalid runat="server">
-		<span class="field-name" data-toggle='tooltip' title='<apn:controlattribute runat="server" tohtml="true" attr="tooltip"/>'><apn:label runat="server" /></span>
-	</apn:ifcontrolvalid>
+	<span class='<apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> field-name' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>'><%=GetAttribute(control.Current, "label")%></span>
 </apn:ifcontrolattribute>
 <% ExecutePath("/controls/help.aspx"); %>
 <% if (control.Current.getCSSClass().IndexOf("tts") > -1 || (Context.Items["tts-option"] != null && (bool)Context.Items["tts-option"])) { %>

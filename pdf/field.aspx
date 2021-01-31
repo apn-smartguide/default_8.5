@@ -4,7 +4,7 @@
 <tr><td colspan="12">
 	<table width="100%">
 		<tr><td style="<%=Context.Items["fieldLabel"]%>">
-			<apn:label runat="server"/>
+			<%=GetAttribute(control.Current, "label")%>
 		</td></tr>
 		<tr><td style="<%=Context.Items["fieldValue"]%>"> 
 			&nbsp;<![CDATA[<apn:value runat="server"/>]]>

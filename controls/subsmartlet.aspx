@@ -12,7 +12,7 @@
 		<% ExecutePath("/controls/label.aspx"); %>
 		<% } %>
 		<apn:control type="edit-sub-interview" runat="server">
-			<input <%=Context.Items["readonly"]%> value='<apn:label runat="server"/>' class='btn <apn:CSSClass runat="server"/> subSmartletBtn' name='<apn:name runat="server"/>' type='submit' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> />
+			<input <%=Context.Items["readonly"]%> value='<%=GetAttribute(control.Current, "label")%>' class='btn <apn:CSSClass runat="server"/> subSmartletBtn' name='<apn:name runat="server"/>' type='submit' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> />
 		</apn:control>
 		<apn:forEach runat="server">
 			<div class='recap'>

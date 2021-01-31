@@ -14,10 +14,10 @@ if (layout!=null){
 	}
 }
 %>
-<td class="<apn:controllayoutattribute attr='all' runat='server'/>" colspan="<%=colspan%>">
+<td class='<apn:controllayoutattribute attr="all" runat="server"/>' colspan='<%=colspan%>'>
 	<table width="100%">
 	<tr><td></td></tr>
-  	<apn:forEach runat='server'>
+  	<apn:forEach runat="server">
 		<% ExecutePath("/pdf/controls.aspx"); %>
   	</apn:forEach>
 	</table>

@@ -22,25 +22,25 @@
                 </button>
             </span>
             <% } else { %>
-            <apn:control type="previous" runat="server">
-                <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><apn:label runat="server"/></button>
+            <apn:control type="previous" runat="server" id="previous">
+                <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><%=GetAttribute(previous.Current, "label")%></button>
             </apn:control>
             <% } %>
         </div>
         <div class='pull-right'>
-            <apn:control type="summary" runat="server">
+            <apn:control type="summary" runat="server" id="summary">
                 <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'>
-                    <apn:label runat="server"/>
+                    <%=GetAttribute(summary.Current, "label")%>
                 </button>
             </apn:control>
-            <apn:control type="return-save" runat="server">
+            <apn:control type="return-save" runat="server" id="save">
                 <button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'>
-                    <apn:label runat="server"/>
+                    <%=GetAttribute(save.Current, "label")%>
                 </button>
             </apn:control>
-            <apn:control type="return-cancel" runat="server">
+            <apn:control type="return-cancel" runat="server" id="cancel">
                 <button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'>
-                    <apn:label runat="server"/>
+                    <%=GetAttribute(cancel.Current, "label")%>
                 </button>
             </apn:control>
             <%
@@ -62,8 +62,8 @@
                     </button>
                 </span>
             <% } else { %>
-            <apn:control type="next" runat="server">
-                <button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'><apn:label runat="server"/></button>
+            <apn:control type="next" runat="server" id="next">
+                <button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary'><%=GetAttribute(next.Current, "label")%></button>
             </apn:control>
             <% } %>
         </div>

@@ -589,6 +589,26 @@ public partial class SGWebCore : System.Web.UI.Page
 		return path.ToString();
 	}
 
+	public string JavascriptEncode(string value) {
+		return value.Replace("'","&#39").Replace("\"","&quot;");
+	}
+
+	public string GetLabel(ControlInfo ctrl) {
+		return JavascriptEncode(ctrl.getLabel());
+	}
+
+	public string GetAttribute(ControlInfo ctrl, string attribute) {
+		return JavascriptEncode(ctrl.getAttribute(attribute));
+	}
+
+	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
+		if(tohtml) {
+			return HttpUtility.HtmlEncode(JavascriptEncode(ctrl.getAttribute(attribute)));
+		} else {
+			return JavascriptEncode(ctrl.getAttribute(attribute));
+		} 
+	}
+
 	//// Utilities ///
 	public void TimerTraceStart(string key) {
 		Context.Items["timer-" + key] = DateTime.UtcNow;
