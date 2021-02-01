@@ -50,7 +50,7 @@
 					    toDisplay = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
 					}
 				%>
-				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName() %>').offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>
+				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName(); %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>
 				<% } %>
 			</li>
 			<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
