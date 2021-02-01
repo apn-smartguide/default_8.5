@@ -38,7 +38,7 @@
 					<apn:localize runat="server" key="theme.text.flowchange"/>
 				<% } else if (control1.Current.getAlert().Trim().Equals("error.language.change")) { %>
 					<apn:localize runat="server" key="theme.text.languagechange"/>
-				<% } else { %>
+				<% }else if (!control1.Current.getName().Equal("")) { %>					 
 				<%
 				    string toDisplay = "";
 					if(!string.IsNullOrEmpty(control1.Current.getName())) {					
@@ -51,6 +51,8 @@
 					}
 				%>
 				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>
+				<% } else { %>
+					Page Error: <%= control1.Current.getAlert() %>
 				<% } %>
 			</li>
 			<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
