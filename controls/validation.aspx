@@ -2,7 +2,7 @@
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
-<% Context.Items["counter"] = 1; %>
+<% Context.Items["counter"] = 0; %>
 <apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
 <% Context.Items["errorIndex"] = 0; %>
 <%
@@ -38,7 +38,7 @@
 					<apn:localize runat="server" key="theme.text.flowchange"/>
 				<% } else if (control1.Current.getAlert().Trim().Equals("error.language.change")) { %>
 					<apn:localize runat="server" key="theme.text.languagechange"/>
-				<% }else if (!control1.Current.getName().Equal("")) { %>					 
+				<% }else if (!control1.Current.getName().Equals("")) { %>					 
 				<%
 				    string toDisplay = "";
 					if(!string.IsNullOrEmpty(control1.Current.getName())) {					
@@ -49,13 +49,14 @@
 						}	
 					    toDisplay = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
 					}
-				%>
+				 	Context.Items["counter"] = (int)Context.Items["counter"] + 1; 
+				 %>
 				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>
 				<% } else { %>
 					Page Error: <%= control1.Current.getAlert() %>
 				<% } %>
 			</li>
-			<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
+			
 		</apn:forEach><ul>
 	</section>
 	<% } %>
