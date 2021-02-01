@@ -476,6 +476,7 @@
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
 
 			jOptions.Add("responsive", true);
+			jOptions.Add("scrollX", true);
 			jOptions.Add("deferRender", true);
 			jOptions = getRenderMode(jOptions);
 			jOptions = getInitParameters(jOptions);

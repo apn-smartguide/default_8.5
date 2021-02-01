@@ -9,7 +9,9 @@
       <a id='error_index_<%=Context.Items["errorIndex"]%>' />
     </apn:ifnotcontrolvalid>
     <div class='sgSummary <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
+      <% if(!control2.Current.getLabel().Equals("")) { %>
       <h4><apn:label runat="server" /><% if (!(control2.getCount() == 1 && control2.Last)) { %><%= control2.getCount() %><% } %></h4>
+      <% } %>
     </div>
     <% ExecutePath("/controls/summary/controls.aspx"); %>
   <% } %>
