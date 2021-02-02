@@ -5,7 +5,7 @@
 
 # apn_common exclusions
 Smartlets/**/apn_common/themes
-Smartlets/**/apn_common/resources
+#Smartlets/**/apn_common/resources
 Smartlets/**/apn_common/groups/_themes.xml
 Smartlets/**/apn_common/groups/_themes-category.xml
 Smartlets/**/apn_common/groups/themes-category.xml
