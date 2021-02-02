@@ -53,7 +53,7 @@
 				 %>
 				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>
 				<% } else { %>
-					Page Error: <%= control1.Current.getAlert() %>
+					<span class="required">Page Error: <%= control1.Current.getAlert() %></span>
 				<% } %>
 			</li>
 			
