@@ -130,7 +130,24 @@
 											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 										<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
 											<%-- if you need to output html formatted content, add the render-html class --%>
-											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+											<%-- check type and format if applicable --%>
+											<%
+												string type = trField.Current.getMetaDataValue("type");
+												if ("date".Equals(type)) {
+													// check format and extract number of "ticks" to use for sort
+													string dateFormat = trField.Current.getMetaDataValue("format");
+													long staticvalue = 0;
+													try {
+														staticvalue = DateTime.ParseExact(trField.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks/10000000;
+													} catch(Exception e) {
+													}                       
+
+													Context.Items["dataOrder"] = "data-order=\""+staticvalue+"\"";
+												} else {
+													Context.Items["dataOrder"] = "";
+												}
+											%>
+											<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
 										<% } else { %>
 											<td></td>
 										<% } %>
