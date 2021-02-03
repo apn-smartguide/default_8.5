@@ -264,7 +264,7 @@ overflow-y: auto;
 /* Buttons - start */
 .btn {
     min-width: 44px;
-    min-height: 40px;
+    min-height: 20px !important;
 }
 
 /* xsmall button patch */
