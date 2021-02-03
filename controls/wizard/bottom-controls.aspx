@@ -9,7 +9,7 @@
             if(previousBtn != null) { %>
             <span id='div_d_<%=previousBtn.getId()%>'><button type='submit' name='d_<%=previousBtn.getId()%>' class='<%=previousBtn.getCSSClass()%>' style='<%=previousBtn.getCSSStyle()%>' data-eventtarget='[<%=previousEventTargets%>]'><%=previousBtn.getLabel()%></button></span>
             <% } else { %>
-            <apn:control type="previous" runat="server" id="previous"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default'><%=GetAttribute(previous.Current, "label")%></button></apn:control>
+            <apn:control type="previous" runat="server" id="previous"><button type='submit' name='<apn:name runat="server"/>' class='previous btn btn-default'><%=GetAttribute(previous.Current, "label")%></button></apn:control>
             <% } %>
         </div>
         <div class='pull-right'>

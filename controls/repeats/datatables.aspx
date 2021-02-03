@@ -75,9 +75,9 @@
 		<% if(!serverSide()) { %>
 		<tbody>
 			<apn:forEach runat="server" id="trGroup">
-			<% if (!control.Current.getCSSClass().Contains("bloc-render") || control.Current.getCSSClass().Contains("table-render")) { %><tr><% } %>
+			<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render")) { %><tr><% } %>
 			<apn:forEach runat="server" id="trRow">
-				<% if (control.Current.getCSSClass().Contains("bloc-render")) { %><tr><% } %>
+				<% if (control.Current.getCSSClass().Contains("block-render")) { %><tr><% } %>
 					<% if (isSelectable()) { %>
 						<td>
 							<apn:control runat="server" type="select_instance" id="sel">
@@ -158,9 +158,9 @@
 							</apn:ChooseControl>	
 						</apn:forEach>
 					</apn:forEach>
-				<% if (control.Current.getCSSClass().Contains("bloc-render")) { %></tr><% } %>
+				<% if (control.Current.getCSSClass().Contains("block-render")) { %></tr><% } %>
 			</apn:forEach>
-			<% if (!control.Current.getCSSClass().Contains("bloc-render") || control.Current.getCSSClass().Contains("table-render")) { %></tr><% } %>
+			<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render")) { %></tr><% } %>
 			</apn:forEach>
 		</tbody>
 		<% } %>
