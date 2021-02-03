@@ -365,6 +365,8 @@
 			if (cssClass.Contains("nonsearchable")) {
 				col.Add("searchable", false);
 			}
+
+			//https://datatables.net/reference/option/columns.type
 			if(fields[i].getMetaData("type") != null) {
 				col.Add("type", fields[i].getMetaData("type"));
 			}
