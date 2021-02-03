@@ -365,6 +365,9 @@
 			if (cssClass.Contains("nonsearchable")) {
 				col.Add("searchable", false);
 			}
+			if(fields[i].getMetaData("type") != null) {
+				col.Add("type", fields[i].getMetaData("type"));
+			}
 
 			//Cannot add a non available field to the collection, it will not exist in the header's collection of fields.
 			if(fields[i].isAvailable() && !cssClass.Contains("proxy")) {
