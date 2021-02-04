@@ -49,6 +49,9 @@
 			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1;%><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<div id='div_<apn:name runat="server"/>' <%=Context.Items["layout"]%> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
 				<% if (!((bool)Context.Items["bareControl"])){ %><% ExecutePath("/controls/label.aspx"); %><% } %>
+				<% if ((bool)Context.Items["pdf"]) { %>
+					<p><%=control.Current.getSelectedLabel()%></p>
+				<% } else { %>
 				<select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' <apn:metadata runat="server" /> class='<apn:cssclass runat="server" /> form-control' <%=Context.Items["readonly"]%> style='<%= (control.Current.getAttribute("style")+" "+control.Current.getCSSStyle()) %>' multiple size='<%= control.Current.getAttribute("size") %>' <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" -->>
 				<apn:forEach runat="server" id="control6">
 					<apn:choosecontrol runat="server">
@@ -63,6 +66,7 @@
 					</apn:choosecontrol>
 				</apn:forEach>
 				</select>
+				<% } %>
 			</div>
 		</apn:whencontrol>
 	</apn:choosecontrol>

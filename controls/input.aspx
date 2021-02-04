@@ -30,6 +30,8 @@
 			<% ExecutePath("/controls/label.aspx"); %>
 			<% if(control.Current.getType()==1014) { %>
 				<% ExecutePath("/controls/date.aspx"); %>
+			<% } else if((bool)Context.Items["pdf"]) { %>
+				<p><apn:value runat="server" tohtml="true"/></p>
 			<% } else { %>
 				<apn:ifcontrolattribute runat="server" attr="prefix or suffix"><div class='input-group'></apn:ifcontrolattribute>
 				<apn:ifcontrolattribute runat="server" attr="prefix"><span class='input-group-addon'><apn:controlattribute runat="server" attr="prefix" /></span></apn:ifcontrolattribute>

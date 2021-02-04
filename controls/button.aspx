@@ -8,7 +8,7 @@
 			Context.Items["tooltip-attribute"] = "title='" + tooltip + "' aria-label='" + tooltip + "'";
 		} 
 	%>
-	<% if (control.Current.getAttribute("visible").Equals("false")) { %>
+	<% if (control.Current.getAttribute("visible").Equals("false") || (bool)Context.Items["pdf"]) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else if (control.Current.getAttribute("class").Equals("view-xml-button") || control.Current.getAttribute("class").Equals("pdf-button")) { %>
 		<span id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
