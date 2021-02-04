@@ -272,13 +272,6 @@ table.dataTable thead > tr > th.repeatbutton {
   padding-right: 5px;
   text-align: center;
 }
-div.repeatblock .repeat_block_del_btn {
-  margin-right:4px;
-}
-
-th.repeatbutton > .repeat_table_add_btn {
-	width: 80px;
-}
 
 div.repeat .selectBoxControl {
 	width: 20px;
@@ -406,9 +399,6 @@ fieldset .radio-inline:first-of-type, fieldset .checkbox-inline:first-of-type {
 }
 .navigation .col-xs-6 {
   text-align: center;
-}
-.btn-primary.next {
-  background-color: #0c7cd5;
 }
 /* Page footer */
 .footer {

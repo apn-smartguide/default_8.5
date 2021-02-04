@@ -24,7 +24,12 @@
 			<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 		</apn:control>
 		<% } %>
-		<div class='panel-heading'><h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2></div>
+		<div class='panel-heading'>
+			<% if (!(bool)Context.Items["hideAddButton"]) { %>
+				<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>
+			<% } %>
+			<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		</div>
 		<div class='panel-body bootpag'>
 			<% if ((bool)Context.Items["hasPagination"]) { %>
 			<div class='form-inline' style='padding-bottom:5px'>
@@ -103,9 +108,7 @@
 									</apn:forEach>
 								</apn:forEach>
 							</apn:forEach>
-							<% if (!(bool)Context.Items["hideAddButton"]) { %>
-							<td data-priority='1' style='text-align:center'><apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='btn btn-sm btn-primary repeat_table_add_btn' id='<apn:name runat="server"/>'><%--<span class='<apn:localize runat="server" key="theme.icon.add"/>'></span>--%><apn:localize runat="server" key="theme.modal.add"/></span></apn:control></td>
-							<% } else if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
+							<% if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
 							<td></td>
 							<% } %>
 						</tr>
