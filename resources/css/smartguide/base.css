@@ -333,10 +333,16 @@ input[type="password"] {
     width: 100% !important;
 }
 
+
 /* Large Checkbox Start */
 .large-checkbox label {
     padding-top   : 5px;
     display       : inline-block;
+    vertical-align: middle;
+}
+
+input[vertically].large-checkbox + span, input[vertically].large-radio + span {
+    margin-left: 15px;
     vertical-align: middle;
 }
 
