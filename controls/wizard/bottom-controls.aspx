@@ -1,5 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
+<% if (!(bool)Context.Items["pdf"]) { %>
 <div class="row">
     <div class="col-md-12">
         <div class="pull-left">
@@ -27,3 +28,4 @@
         </div>
     </div>
 </div>
+<% } %>

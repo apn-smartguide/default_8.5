@@ -28,9 +28,6 @@
 						<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 					</apn:control>
 					<div class=''>
-						<% if (!control.Current.getLabel().Equals("")) { %>
-						<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
-						<% } %>
 						<% if (!(bool)Context.Items["hideAddButton"]) { %>
 						<div class='pull-right'>
 							<apn:control runat="server" type="insert" id="button">
@@ -39,6 +36,10 @@
 							</apn:control>
 						</div>
 						<% } %>
+						<% if (!control.Current.getLabel().Equals("")) { %>
+						<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+						<% } %>
+
 					</div>
 					<% if (!control.Current.getAttribute("title").Equals("")) { %><div class='groupHelp'><%=GetAttribute(control.Current, "title", true)%></div><% } %>
 				</apn:control>

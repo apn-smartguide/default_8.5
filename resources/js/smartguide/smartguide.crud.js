@@ -267,9 +267,12 @@ var crudController = {
 			}
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function(updatedEles){
+			r.ajaxProcess(this, null, true, 
+			function(updatedEles){
 				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			},function(){
+			},
+			null,
+			function(){
 				$("#loader").fadeOut("slow");
 			});
 		});
@@ -293,9 +296,12 @@ var crudController = {
 			var basename = this.id.substring(0,this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="'+basename+'" id="'+basename+'" value="'+basename+'" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, function(updatedEles){
+			r.ajaxProcess(this, null, true, 
+			function(updatedEles){
 				$('#'+rpt).find("table").trigger( "wb-init.wb-tables" );
-			},function(){
+			},
+			null,
+			function(){
 				$("#loader").fadeOut("slow");
 			});
 		});

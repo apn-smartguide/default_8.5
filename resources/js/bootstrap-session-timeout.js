@@ -1,6 +1,7 @@
 /*
  * bootstrap-session-timeout
  * www.orangehilldev.com
+ * https://github.com/orangehill/bootstrap-session-timeout
  *
  * Copyright (c) 2014 Vedran Opacic
  * Licensed under the MIT license.
@@ -95,7 +96,7 @@
         // Reset timer on any of these events
         if (!opt.ignoreUserActivity) {
             var mousePosition = [-1, -1];
-            $(document).on('keyup touchend touchmove scroll click mousemove', function(e) { // removed mouseup
+            $(document).on('keyup touchend touchmove scroll click', function(e) { // removed mouseup
                 if (e.type === 'mousemove') {
                     // Solves mousemove even when mouse not moving issue on Chrome:
                     // https://code.google.com/p/chromium/issues/detail?id=241476

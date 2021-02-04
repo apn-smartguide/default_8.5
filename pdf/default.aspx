@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../default/default.aspx.cs" Inherits="Default" Trace="false"%>
-<%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
+<%@ Assembly Src="../SGWebCore.cs" %>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="default.aspx.cs" Inherits="_Default" Trace="false"%>
 <%@ Register Tagprefix="apn" Namespace="Alphinat.SmartGuideServer.Controls" Assembly="apnsgscontrols" %>
 <%@ Import Namespace="com.alphinat.sg5" %>
 <%@ Import Namespace="System.Reflection" %>
 <apn:control runat="server" id="control">
 <apn:api5 id="sg5" runat="server" />
-<!-- #include file="../controls/helpers.aspx" -->
 <% Context.Items["pdf"] = true; %>
 <%
 	sg = sg5;

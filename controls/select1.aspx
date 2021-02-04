@@ -54,22 +54,23 @@
   		</apn:whencontrol>
   		<apn:whencontrol runat="server" type="drop" >
             <apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
-			<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' isSelect1 <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> <%=Context.Items["readonly"]%><!-- #include file="aria-live.inc" --> >
+			<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group has-feedback has-search <apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> <%=Context.Items["readonly"]%><!-- #include file="aria-live.inc" --> >
 				<% ExecutePath("/controls/label.aspx"); %>
 				<% if (control.Current.getCSSClass().IndexOf("autocomplete") > -1) { %>
-				<input <%=Context.Items["readonly"]%> value='<%=control.Current.getSelectedLabel()%>' <apn:metadata runat="server"/> id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control' />
-					<input value='<%= control.Current.getLabel()%>' id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control' />
-					<datalist id='<%= control.Current.getName() %>_list'>
-						<apn:forEach runat="server" id="control7" >
-							<apn:choosecontrol runat="server">
-								<apn:whencontrol type="optgroup" runat="server">
-								</apn:whencontrol>
-								<apn:otherwise runat="server">
-									<option value='<%= control7.Current.getHTMLValue() %>' ><%=GetAttribute(control7.Current, "label")%></option>
-								</apn:otherwise>
-							</apn:choosecontrol>
-						</apn:forEach>
-					</datalist>
+				<input name="<apn:name/>" data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' type="hidden" value="<%=control.Current.getValue()%>"/>
+				<input type='text' id='<%= control.Current.getName() %>' name='<%= control.Current.getName() %>' <%=Context.Items["readonly"]%> value='<%=control.Current.getSelectedLabel()%>' <apn:metadata runat="server"/> class='<apn:cssclass runat="server"/> form-control' aria-labelledby='lbl_<apn:name runat="server"/>'/>
+				<datalist id='<%= control.Current.getName() %>_list'>
+					<apn:forEach runat="server" id="control7" >
+						<apn:choosecontrol runat="server">
+							<apn:whencontrol type="optgroup" runat="server">
+							</apn:whencontrol>
+							<apn:otherwise runat="server">
+								<option value='<%= control7.Current.getHTMLValue() %>' ><%=GetAttribute(control7.Current, "label")%></option>
+							</apn:otherwise>
+						</apn:choosecontrol>
+					</apn:forEach>
+				</datalist>
+				<%--<span class="combo-dropdown glyphicon glyphicon-chevron-down form-control-feedback"></span>--%>
 				<% } else { %>
                 <select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control input-sm' aria-labelledby='lbl_<apn:name runat="server"/>' style='<%= (control.Current.getAttribute("style") + " " + control.Current.getCSSStyle()) %>' size='1' <apn:metadata runat="server"/><%=Context.Items["readonly"]%> >
                     <apn:forEach runat="server" id="control4" >
