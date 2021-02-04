@@ -52,7 +52,7 @@ if(btnAdd != null) {
 		<% if (!CSSClass.Contains("hide-add-btn")) { %>
 			<div class='pull-right'>
 			<apn:control id="button" runat="server" type="prepare_add_instance">
-				<button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>'><%=Context.Items["btnAddTitle"]%></button>
+				<button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button>
 			</apn:control>
 			</div>
 		<% } %>
@@ -150,13 +150,13 @@ if(btnAdd != null) {
 									<apn:WhenControl type="TRIGGER" runat="server">
 										<td>
 											<% if (field1.Current.getAttribute("class").Equals("button")) {%>
-												<button class='btn <apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'>
+												<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>>
 														<apn:value runat="server"/>
 												</button>
 											<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%> 
-												<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>' class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+												<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
 											<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>  
-												<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>' class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+												<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
 											<% } %>
 										</td>
 									</apn:WhenControl>

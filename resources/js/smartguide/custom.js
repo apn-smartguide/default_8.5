@@ -66,7 +66,7 @@ var customJS = {
 			crudController.bindEvents(sgRef, context[i]);
 		}
 
-		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').tooltip({container: 'body'});
 				
 		// Devbridge autocomplete dropdowns
 		// https://github.com/devbridge/jQuery-Autocomplete

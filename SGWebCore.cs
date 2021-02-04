@@ -597,6 +597,18 @@ public partial class SGWebCore : System.Web.UI.Page
 		return JavascriptEncode(ctrl.getLabel());
 	}
 
+	public string GetTooltip(ControlInfo ctrl) {
+		return JavascriptEncode(ctrl.getTooltip());
+	}
+
+	public string GetTooltip(ISmartletField ctrl) {
+		return JavascriptEncode(ctrl.getTooltip());
+	}
+
+	public string GetTooltip(SessionField ctrl) {
+		return JavascriptEncode(ctrl.getTooltip());
+	}
+
 	public string GetAttribute(ControlInfo ctrl, string attribute) {
 		return JavascriptEncode(ctrl.getAttribute(attribute));
 	}

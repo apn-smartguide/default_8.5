@@ -31,8 +31,8 @@
 						<% if (!(bool)Context.Items["hideAddButton"]) { %>
 						<div class='pull-right'>
 							<apn:control runat="server" type="insert" id="button">
-							<%--<button type='button' class='btn btn-sm btn-primary repeat_block_append_btn' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' title='<apn:localize runat="server" key="theme.modal.add" />' name='<apn:name runat="server" />' id='<apn:name runat="server" />'><apn:localize runat="server" key="theme.modal.add" /></button>--%>
-							<span data-eventtarget='["<%=control.Current.getName()%>"]' aria-controls='div_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.text.add"/>' class='<apn:localize runat="server" key="theme.icon.add"/> repeat_block_add_btn pull-right' id='<apn:name runat="server"/>'></span>
+							<%--<button type='button' class='btn btn-sm btn-primary repeat_block_append_btn' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'title='<apn:localize runat="server" key="theme.text.add"/>'  aria-label='<apn:localize runat="server" key="theme.text.add" />' name='<apn:name runat="server" />' id='<apn:name runat="server" />'><apn:localize runat="server" key="theme.modal.add" /></button>--%>
+							<span data-eventtarget='["<%=control.Current.getName()%>"]' aria-controls='div_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.text.add"/>' aria-label='<apn:localize runat="server" key="theme.text.add"/>' class='<apn:localize runat="server" key="theme.icon.add"/> repeat_block_add_btn pull-right' id='<apn:name runat="server"/>'></span>
 							</apn:control>
 						</div>
 						<% } %>

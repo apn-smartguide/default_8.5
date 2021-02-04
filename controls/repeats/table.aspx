@@ -38,7 +38,7 @@
 								<input id='datatable-search' type='text' class='form-control input-sm searchBox' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
 							</div>
 						</div>
-						<button type="submit" class='searchBtn btn btn-sm btn-default'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
+						<button type="submit" class='searchBtn btn btn-sm btn-default' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 					</div>
 					<% } %>
 					<div class='col-md-8 col-sm-4'>
