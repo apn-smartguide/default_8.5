@@ -46,7 +46,7 @@
 						<button type="submit" class='searchBtn btn btn-sm btn-default' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 					</div>
 					<% } %>
-					<div class='col-md-8 col-sm-4'>
+					<div class='col-xs-4 col-md-8'>
 						<b>Page
 							<span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%>
 								/

@@ -2,7 +2,7 @@
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <% if (!(bool)Context.Items["pdf"]) { %>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-xs-12">
         <div class="pull-left">
             <%
             string previousEventTargets = "";

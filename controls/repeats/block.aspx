@@ -46,7 +46,7 @@
 				<% if ((bool)Context.Items["hasPagination"] && !(bool)Context.Items["pdf"]  ) { %>
 					<div class='container form-inline' style='padding:10px'>
 						<div class='row'>
-							<div class='col-md-6'>
+							<div class='col-xs-6'>
 								<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;<apn:localize runat="server" key="theme.text.datatable.fetch" />
 								<apn:control runat="server" type="repeat-page-limit" id="pageSize">
 									<% if (" 10 20 50 75 ".Contains(" " + pageSize.Current.getValue() + " ")) { %>
@@ -62,7 +62,7 @@
 								</apn:control>
 								<apn:localize runat="server" key="theme.text.datatable.entry" />
 							</div>
-							<div class='col-md-6'>
+							<div class='col-xs-6'>
 								<% if(!(bool)Context.Items["hideSearch"]) {%>
 								<apn:localize runat="server" key="theme.text.datatable.filter" />:
 								<apn:control type="repeat-filter" runat="server"><input type='text' class='form-control input-sm searchBox' placeholder='<%=GetAttribute(control.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>

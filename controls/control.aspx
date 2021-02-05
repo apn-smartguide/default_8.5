@@ -22,7 +22,7 @@
 		<apn:WhenControl runat="server" type="STATICTEXT"><% ExecutePath("/controls/statictext.aspx"); %></apn:WhenControl>
 		<apn:WhenControl runat="server" type="IMAGE"><% ExecutePath("/controls/image.aspx"); %></apn:WhenControl>
 		<apn:WhenControl runat="server" type="UPLOAD"><% ExecutePath("/controls/upload.aspx"); %></apn:WhenControl>
-		<apn:WhenControl runat="server" type="TRIGGER"><% if (!(bool)Context.Items["pdf"]) { %><% ExecutePath("/controls/button.aspx"); %><% } %></apn:WhenControl>
+		<apn:WhenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:WhenControl>
 		<apn:WhenControl runat="server" type="SUB-SMARTLET"><% ExecutePath("/controls/subsmartlet.aspx"); %></apn:WhenControl>
 		<apn:WhenControl runat="server" type="RESULT"><% ExecutePath("/controls/result.aspx"); %></apn:WhenControl>
 	</apn:ChooseControl>	
