@@ -342,15 +342,15 @@ fieldset:first-child .checkbox-inline {
     margin-left: 0px;
 }
 
+fieldset label input+span, fieldset label input+span {
+    font-weight: 400;
+}
+
 /* Large Checkbox/Radio Start */
 .large-checkbox label, .large-radio label {
     padding-top   : 5px;
     display       : inline-block;
     vertical-align: bottom;
-}
-
-.large-checkbox label input+span, .large-radio label input+span {
-    font-weight: 400;
 }
 
 input[vertically].large-checkbox + span, input[vertically].large-radio + span {
@@ -360,21 +360,23 @@ input[vertically].large-checkbox + span, input[vertically].large-radio + span {
 
 input[type="checkbox"].large-checkbox, fieldset.large-checkbox label input[type="checkbox"], input[type="radio"].large-radio, fieldset.large-radio label input[type="radio"] {
     -webkit-appearance: none;
-    width             : 24px;
-    height            : 24px;
+    width             : 23px;
+    height            : 23px;
     background        : white;
     border-radius     : 4px;
     border-top        : 2px solid #aaa;
     border-bottom     : 2px solid #aaa;
     border-left       : 2px solid #aaa;
     border-right      : 2px solid #aaa;
-    vertical-align    : bottom;
-    margin-top: 0px;
+    vertical-align    : middle;
+    margin-top        : 0px;
+    padding-left      : 2.5px;
 
 }
 
 input[type="checkbox"].large-checkbox:hover, fieldset.large-checkbox label input[type="checkbox"]:hover, input[type="radio"].large-radio:hover, fieldset.large-radio label input[type="radio"]:hover {
-    border-bottom: 1px solid #929496;
+    border-bottom: 2px solid #929496;
+    border-right: 2px solid #929496;
 }
 
 fieldset.large-checkbox label.checkbox-inline span, fieldset.large-radio label.radio-inline span {
@@ -384,7 +386,7 @@ fieldset.large-checkbox label.checkbox-inline span, fieldset.large-radio label.r
 
 .checkbox-inline > input[type="checkbox"].large-checkbox, fieldset.large-checkbox label.checkbox-inline input[type="checkbox"], .radio-inline > input[type="radio"].large-radio, fieldset.large-radio label.radio-inline input[type="radio"] {
     position: absolute;
-    margin-top: -3px;
+    margin-top: -4px;
     margin-left: -20px !important;
 }
 /* Large Checkbox/radio- End */
@@ -397,8 +399,8 @@ input[type="checkbox"].large-checkbox:checked::before, fieldset.large-checkbox l
     content      : "\f00c";
     color        : #555;
     /* position     : absolute; will break if overflow: scroll*/
-    padding-left : 3px;
-    padding-top  : 3px;
+    /* padding-left : 3px; */
+    /* padding-top  : 3px; */
 }
 
 input[type="checkbox"].large-checkbox:indeterminate::before, fieldset.large-checkbox label input[type="checkbox"]:indeterminate::before {
@@ -408,8 +410,8 @@ input[type="checkbox"].large-checkbox:indeterminate::before, fieldset.large-chec
     content      : "\f068";
     color        : #555;
     /* position     : absolute; will break if overflow: scroll*/
-    padding-left : 3px;
-    padding-top  : 3px;
+    /* padding-left : 3px; */
+    /* padding-top  : 3px; */
 }
 /* Large Checkbox - End */
 
@@ -425,8 +427,8 @@ input[type="radio"].large-radio:checked::before, fieldset.large-radio label inpu
     content     : "\f111";
     color       : #555;
     /* position     : absolute; will break if overflow: scroll*/
-    padding-left: 3px;
-    padding-top : 3px;
+    /* padding-left: 3px; */
+    /* padding-top : 3px; */
 }
 /* Large-Radio - End */
 
