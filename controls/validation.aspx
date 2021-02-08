@@ -1,4 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Import Namespace="System.Text.RegularExpressions" %> 
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
@@ -47,7 +48,8 @@
 						if(indexOfStringToStrip > -1) {
 							id = id.Substring(0, indexOfStringToStrip);
 						}	
-					    toDisplay = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+						toDisplay = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+						toDisplay = Regex.Replace(toDisplay,"<a ([\\s\\S]*?)>([\\s\\S]*?)<\\/a>","$2",RegexOptions.IgnoreCase);
 					}
 				 	Context.Items["counter"] = (int)Context.Items["counter"] + 1; 
 				 %>
