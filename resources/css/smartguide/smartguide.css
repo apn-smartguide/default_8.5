@@ -357,7 +357,7 @@ legend {
   font-size: inherit;
   border-bottom: none;
 }
-.radio-inline,
+/* .radio-inline,
 .checkbox-inline {
   padding-left: 25px;
 }
@@ -366,7 +366,7 @@ input+.radio-inline, input+.checkbox-inline {
 }
 fieldset .radio-inline:first-of-type, fieldset .checkbox-inline:first-of-type {
 	margin-left: 0px;
-}
+} */
 /* Knowledge base*/
 .knowledge {
   margin-bottom: 15px;
