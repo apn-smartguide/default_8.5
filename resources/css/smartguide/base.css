@@ -108,6 +108,14 @@ span.required {
     }
 }
 
+.recap .row {
+    margin-top: 5px;
+}
+
+.recap .panel-heading .panel-title {
+    font-weight: bold;
+}
+
 .modal-backdrop {
     opacity: 0.5 !important;
 }

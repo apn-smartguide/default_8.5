@@ -49,7 +49,7 @@ if(btnAdd != null) {
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
 	<div class='panel-heading clearfix'>
-		<% if (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["pdf"]) { %>
+		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 			<div class='pull-right'>
 			<apn:control id="button" runat="server" type="prepare_add_instance">
 				<button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button>
@@ -149,7 +149,7 @@ if(btnAdd != null) {
 									<apn:WhenControl type="GROUP" runat="server"><td class='<%=field1.Current.getCSSClass()%>'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server">
 										<td>
-											<% if (!(bool)Context.Items["pdf"]) { %>
+											<% if (!IsPdf) { %>
 												<% if (field1.Current.getAttribute("class").Equals("button")) {%>
 													<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>>
 															<apn:value runat="server"/>
@@ -195,7 +195,7 @@ if(btnAdd != null) {
 						</apn:forEach>
 					</apn:forEach>
 				</apn:forEach>
-				<% if (!(bool)Context.Items["pdf"]) { %>
+				<% if (!IsPdf) { %>
 					<% if (
 						!(bool)Context.Items["hideEditButton"]
 						||!(bool)Context.Items["hideDeleteButton"]

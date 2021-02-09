@@ -548,6 +548,33 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool IsPdf {
+		get {
+			if(Request["pdf"] != null) {
+            	Context.Items["pdf"] = true;
+        	}
+			if(Context.Items["pdf"] == null) {
+				Context.Items["pdf"] = false;
+			}
+			return (bool)Context.Items["pdf"];
+		}
+		set {
+			Context.Items["pdf"] = value;
+		}
+	}
+
+	public bool IsSummary {
+		get {
+			if(Context.Items["summary"] == null) {
+				Context.Items["summary"] = false;
+			}
+			return (bool)Context.Items["summary"];
+		}
+		set {
+			Context.Items["summary"] = value;
+		}
+	}
+
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) { 
 		bool result = false;

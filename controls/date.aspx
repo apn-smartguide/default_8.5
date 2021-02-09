@@ -24,7 +24,7 @@
 			Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
 		}
 	%>
-	<% if ((bool)Context.Items["pdf"]) { %>
+	<% if (IsPdf) { %>
 		<p><%=Context.Items["data-value"]%></p>
 	<% } else { %>
 		<apn:choosecontrol runat="server">

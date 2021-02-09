@@ -8,7 +8,7 @@
 	<apn:ifnotcontrolvalid runat="server"><% int index = (int)Context.Items["errorIndex"]; Context.Items["errorIndex"] = ++index; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
 		<% ExecutePath("/controls/label.aspx"); %>
-		<% if ((bool)Context.Items["pdf"]) { %>
+		<% if (IsPdf) { %>
 			<p>********</p>
 		<% } else { %>
 		<apn:ifcontrolattribute runat="server" attr="prefix or suffix"><div class="input-group"></apn:ifcontrolattribute>

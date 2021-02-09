@@ -4,7 +4,7 @@
 	if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { 
+	} else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { 
 	} else if(control.Current.getCSSClass().Contains("proxy")) { 
 	} else { %>
 	<apn:ChooseControl runat="server">

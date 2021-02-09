@@ -7,7 +7,7 @@
 	ThemesLocations = new string[]{Theme,"/.."};
 	LogoutURL = GetURLForSmartlet(SmartletName);
 %>
-<% Context.Items["pdf"] = false; %>
+<% IsPdf = false; %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
 	<% ExecutePath("/layout/head.aspx"); %>

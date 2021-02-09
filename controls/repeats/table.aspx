@@ -25,13 +25,13 @@
 		</apn:control>
 		<% } %>
 		<div class='panel-heading'>
-			<% if (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["pdf"]) { %>
+			<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 				<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>
 			<% } %>
 			<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 		</div>
 		<div class='panel-body bootpag'>
-			<% if ((bool)Context.Items["hasPagination"] && !(bool)Context.Items["pdf"]) { %>
+			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
 			<div class='form-inline' style='padding-bottom:5px'>
 				<div class='row'>
 					<% if(!(bool)Context.Items["hideSearch"]) {%>
@@ -181,7 +181,7 @@
 									<apn:whencontrol type="RESULT" runat="server"><td><% ExecutePath("/controls/result.aspx"); %></td></apn:whencontrol>
 								</apn:choosecontrol>
 							</apn:forEach>
-							<% if (!(bool)Context.Items["pdf"]) { %>
+							<% if (!IsPdf) { %>
 								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
 								<td class='repeatbutton nowrap'>
 								<% } %>
