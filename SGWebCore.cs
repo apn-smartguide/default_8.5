@@ -52,7 +52,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public API5 sg {
 		get {
 			if(Context.Items["api5"] == null) {
-				return null;
+				Context.Items["api5"] = new API5();
 			}
 			return (API5)Context.Items["api5"];
 		}
@@ -550,7 +550,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public bool IsPdf {
 		get {
-			if(Request["pdf"] != null) {
+			if((Request["pdf"] != null && Request["pdf"].Equals("true")) || (Context.Items["pdf"] != null && ((bool)Context.Items["pdf"]))) {
             	Context.Items["pdf"] = true;
         	}
 			if(Context.Items["pdf"] == null) {

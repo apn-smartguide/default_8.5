@@ -6,10 +6,8 @@
 <%@ Import Namespace="System.Reflection" %>
 <apn:control runat="server" id="control">
 <apn:api5 id="sg5" runat="server" />
-<% IsPdf = true; %>
 <%
-	sg = sg5;
-	Init();
+	IsPdf = true;
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = GetURLForSmartlet(SmartletName);
 	//global style

@@ -21,6 +21,7 @@ using com.alphinat.sgs.smartlet.display;
 public partial class _Default : SGWebCore
 {
     protected void Page_Load(object sender, EventArgs e) {
+
         if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
             ClearCaches();
         }

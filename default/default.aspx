@@ -2,12 +2,9 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="default.aspx.cs" Inherits="_Default" Trace="false"%>
 <apn:api5 id="sg5" runat="server"/>
 <%
-	sg = sg5;
-	TimerTraceStart("default");
 	ThemesLocations = new string[]{Theme,"/.."};
 	LogoutURL = GetURLForSmartlet(SmartletName);
 %>
-<% IsPdf = false; %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
 	<% ExecutePath("/layout/head.aspx"); %>
@@ -65,4 +62,3 @@
 		</script>
 	</body>
 </html>
-<% TimerTraceStop("default"); %>
