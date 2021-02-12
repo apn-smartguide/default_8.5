@@ -2,10 +2,10 @@
 <apn:forEach runat="server">	
 	<apn:control runat="server" id="control">	
 	<%	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
-	if (!customControl.Equals("")) {
+	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) { 
+	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { 
 	} else if(control.Current.getCSSClass().Contains("proxy")) { 
 	} else { %>
 		<apn:choosecontrol runat="server">
