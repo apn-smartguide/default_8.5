@@ -52,7 +52,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public API5 sg {
 		get {
 			if(Context.Items["api5"] == null) {
-				return null;
+				Context.Items["api5"] = new API5();
 			}
 			return (API5)Context.Items["api5"];
 		}
@@ -84,7 +84,11 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public ISmartletLogger GetLogger(string name) {
 		if(Context.Items["smartletLogger"+name] == null) {
-			Context.Items["smartletLogger"+name] = sg.Context.getLogger(name); 
+			if(sg.Context != null) {
+				Context.Items["smartletLogger"+name] = sg.Context.getLogger(name); 
+			} else {
+				Context.Items["smartletLogger"+name] = null;
+			}
 		}
 		return (ISmartletLogger)Context.Items["smartletLogger"+name];
 	}
@@ -222,7 +226,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
 	public string ResolvePath(string path) {
-		Logger.trace(String.Concat("ResolvePath start: ", path));
+		if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
 		if(Session["paths-dictionary"] == null) {
 			Session["paths-dictionary"] = new Dictionary<string, string>();
 		}
@@ -247,14 +251,14 @@ public partial class SGWebCore : System.Web.UI.Page
 			pathsDictionary.Add(key, filePath);
 
 			if(filePath.Equals("")) {
-				Logger.debug(String.Concat(Theme, ": path not found for ", path));
+				if (Logger != null) Logger.debug(String.Concat(Theme, ": path not found for ", path));
 			}
 		} else {
 			pathsDictionary.TryGetValue(key, out filePath);
 		}
 
 		if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
-		Logger.trace(String.Concat("ResolvePath end: ", filePath));
+		if (Logger != null) Logger.trace(String.Concat("ResolvePath end: ", filePath));
 		return filePath;
 	}
 
@@ -265,7 +269,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	//This help will build a path to the asset and append a CacheBreak computed with a SHA-256 of the file content.
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string CacheBreak(string url) {
-		Logger.trace(String.Concat("CacheBreak start: ", url));
+		if (Logger != null) Logger.trace(String.Concat("CacheBreak start: ", url));
 		string pathParams = "";
 		if(url.Contains("?")) {
 			pathParams = url.Split('?')[1];
@@ -279,11 +283,11 @@ public partial class SGWebCore : System.Web.UI.Page
 				filePath.Append("?cache=");
 				filePath.Append(filehash);
 			} catch (Exception e) {
-				Logger.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
+				if (Logger != null) Logger.error(String.Concat("File not found: ", filePath.ToString(), ", ", e.ToString()));
 			}
 		}
 		if(pathParams.Length > 0) filePath.Append("?").Append(pathParams);
-		Logger.trace(String.Concat("CacheBreak end: ", filePath.ToString()));
+		if (Logger != null) Logger.trace(String.Concat("CacheBreak end: ", filePath.ToString()));
 		return filePath.ToString();
 	}
 
@@ -554,6 +558,34 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool IsPdf {
+		get {
+			bool flag = false;
+			bool isPdfRequest = false;
+			bool isPdfContext = false;
+
+			isPdfRequest = (Request["pdf"] != null && !"".Equals(Request["pdf"]));
+			isPdfContext = (Context.Items["pdf"] != null);
+
+			return (isPdfRequest || isPdfContext);
+		}
+		set {
+			Context.Items["pdf"] = value;
+		}
+	}
+
+	public bool IsSummary {
+		get {
+			if(Context.Items["summary"] == null) {
+				Context.Items["summary"] = false;
+			}
+			return (bool)Context.Items["summary"];
+		}
+		set {
+			Context.Items["summary"] = value;
+		}
+	}
+
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) { 
 		bool result = false;
@@ -654,9 +686,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public void TimerTraceStop(string key) {
 		DateTime timerstart = (DateTime) Context.Items["timer-" + key];
 		if(timerstart != null) {
-			Logger.debug(String.Concat("Trace timer for :", key, ", duration = ", (DateTime.UtcNow - timerstart).TotalSeconds));
+			if (Logger != null) Logger.debug(String.Concat("Trace timer for :", key, ", duration = ", (DateTime.UtcNow - timerstart).TotalSeconds));
 		} else {
-			Logger.debug(String.Concat("Missing timer start for :", key));
+			if (Logger != null) Logger.debug(String.Concat("Missing timer start for :", key));
 		}
 	}
 

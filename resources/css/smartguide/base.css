@@ -98,6 +98,14 @@ span.required {
     100% { transform: rotate(360deg); }
 }
 
+.recap .row {
+    margin-top: 5px;
+}
+
+.recap .panel-heading .panel-title {
+    font-weight: bold;
+}
+
 .modal-backdrop {
     opacity: 0.5 !important;
 }
@@ -312,23 +320,35 @@ tr .checkbox, tr .radio {
     margin-bottom: 0px;
 }
 
-.radio-inline,
-.checkbox-inline {
-    padding-left : 38px;
-    margin-bottom: 5px;
-}
+
 
 /* Password */
 input[type="password"] {
     width: 100% !important;
 }
 
+.radio-inline,
+.checkbox-inline {
+    margin-top: 0px !important;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
 
-/* Large Checkbox Start */
-.large-checkbox label {
+fieldset:first-child .radio-inline,
+
+fieldset:first-child .checkbox-inline {
+    margin-left: 0px;
+}
+
+fieldset label input+span, fieldset label input+span {
+    font-weight: 400;
+}
+
+/* Large Checkbox/Radio Start */
+.large-checkbox label, .large-radio label {
     padding-top   : 5px;
     display       : inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 input[vertically].large-checkbox + span, input[vertically].large-radio + span {
@@ -336,100 +356,77 @@ input[vertically].large-checkbox + span, input[vertically].large-radio + span {
     vertical-align: middle;
 }
 
-.large-checkbox>legend>label {
-    margin-left: 0px;
-}
-
-input[type="checkbox"].large-checkbox {
+input[type="checkbox"].large-checkbox, fieldset.large-checkbox label input[type="checkbox"], input[type="radio"].large-radio, fieldset.large-radio label input[type="radio"] {
     -webkit-appearance: none;
-    width             : 24px;
-    height            : 24px;
+    width             : 23px;
+    height            : 23px;
     background        : white;
     border-radius     : 4px;
     border-top        : 2px solid #aaa;
     border-bottom     : 2px solid #aaa;
     border-left       : 2px solid #aaa;
     border-right      : 2px solid #aaa;
-    vertical-align    : bottom;
+    vertical-align    : middle;
+    margin-top        : 0px;
+    padding-left      : 2.5px;
 
 }
 
-input[type="checkbox"].large-checkbox:hover {
-    border-bottom: 1px solid #929496;
+input[type="checkbox"].large-checkbox:hover, fieldset.large-checkbox label input[type="checkbox"]:hover, input[type="radio"].large-radio:hover, fieldset.large-radio label input[type="radio"]:hover {
+    border-bottom: 2px solid #929496;
+    border-right: 2px solid #929496;
 }
 
-input[type="checkbox"].large-checkbox:checked::before {
+fieldset.large-checkbox label.checkbox-inline span, fieldset.large-radio label.radio-inline span {
+    padding-left: 10px 
+}
+
+
+.checkbox-inline > input[type="checkbox"].large-checkbox, fieldset.large-checkbox label.checkbox-inline input[type="checkbox"], .radio-inline > input[type="radio"].large-radio, fieldset.large-radio label.radio-inline input[type="radio"] {
+    position: absolute;
+    margin-top: -4px;
+    margin-left: -20px !important;
+}
+/* Large Checkbox/radio- End */
+
+/* Large Checkbox Start */
+input[type="checkbox"].large-checkbox:checked::before, fieldset.large-checkbox label input[type="checkbox"]:checked::before {
     font-family  : "Font Awesome 5 Free";
     font-weight  : 900;
     font-size    : 16px;
     content      : "\f00c";
     color        : #555;
     /* position     : absolute; will break if overflow: scroll*/
-    padding-left : 3px;
-    padding-top  : 3px;
+    /* padding-left : 3px; */
+    /* padding-top  : 3px; */
 }
 
-input[type="checkbox"].large-checkbox:indeterminate::before {
+input[type="checkbox"].large-checkbox:indeterminate::before, fieldset.large-checkbox label input[type="checkbox"]:indeterminate::before {
     font-family  : "Font Awesome 5 Free";
     font-weight  : 900;
     font-size    : 16px;
     content      : "\f068";
     color        : #555;
     /* position     : absolute; will break if overflow: scroll*/
-    padding-left : 3px;
-    padding-top  : 3px;
-}
-
-.checkbox-inline > input[type="checkbox"].large-checkbox {
-    position: absolute;
-    margin-top: -3px;
-    margin-left: -30px;
+    /* padding-left : 3px; */
+    /* padding-top  : 3px; */
 }
 /* Large Checkbox - End */
 
 /* Large Radio - Start */
-.large-radio label {
-    padding-top   : 5px;
-    display       : inline-block;
-    vertical-align: middle;
-}
-
-.large-radio>legend>label {
-    margin-left: 0px;
-}
-
-input[type="radio"].large-radio {
-    -webkit-appearance: none;
-    width             : 24px;
-    height            : 24px;
-    background        : white;
+input[type="radio"].large-radio, fieldset.large-radio label input[type="radio"] {
     border-radius     : 100px;
-    border-top        : 2px solid #aaa;
-    border-bottom     : 2px solid #aaa;
-    border-left       : 2px solid #aaa;
-    border-right      : 2px solid #aaa;
-    vertical-align    : bottom;
 }
 
-input[type="radio"].large-radio:hover {
-    border-bottom: 1px solid #929496;
-}
-
-input[type="radio"].large-radio:checked::before {
+input[type="radio"].large-radio:checked::before, fieldset.large-radio label input[type="radio"]:checked::before {
     font-family : "Font Awesome 5 Free";
     font-weight : 900;
     font-size   : 14px;
     content     : "\f111";
     color       : #555;
     /* position     : absolute; will break if overflow: scroll*/
-    padding-left: 3px;
-    padding-top : 3px;
-}
-
-.radio-inline > input[type="radio"].large-radio {
-    position: absolute;
-    margin-top: -3px;
-    margin-left: -30px;
+    /* padding-left: 3px; */
+    /* padding-top : 3px; */
 }
 /* Large-Radio - End */
 

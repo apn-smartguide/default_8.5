@@ -9,14 +9,6 @@
 	</apn:ifnotcontrolvalid>
 	<div class='row <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
 		<div class='col-xs-6'><span><strong><apn:label runat="server" /></strong></span></div>
-		<div class='col-xs-6'>
-			<apn:forEach runat="server">
-				<apn:choosecontrol runat="server">
-					<apn:whencontrol type="INPUT" runat="server"><apn:value runat="server" tohtml="true" /></apn:whencontrol>
-					<apn:whencontrol type="SELECT1" runat="server"><apn:value runat="server" tohtml="true" /></apn:whencontrol>
-					<apn:whencontrol type="LABEL" runat="server"><apn:label runat="server" /></apn:whencontrol>
-				</apn:choosecontrol>
-			</apn:forEach>
-		</div>
+		<div class='col-xs-6'><%= control.Current.getSelectedLabel() %></div>
 	</div>
 </apn:control>

@@ -6,14 +6,8 @@
 		style='<apn:cssstyle runat="server"/>'
 		<% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
 		<% if (control.Current.getLabel() != ""){ %>
-		<div class='panel-heading'>
-			<h2 class='panel-title'>
-				<apn:label runat="server" />
-			</h2>
-		</div>
+		<div class='panel-heading'><h2 class='panel-title'><apn:label runat="server" /></h2></div>
 		<% } %>
-		<div class='panel-body'>
-			<% ExecutePath("/controls/summary/controls.aspx"); %>
-		</div>
+		<div class='panel-body'><% ExecutePath("/controls/summary/controls.aspx"); %></div>
 	</div>
 </apn:control>

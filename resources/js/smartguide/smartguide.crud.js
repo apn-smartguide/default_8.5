@@ -307,6 +307,7 @@ var crudController = {
 		//delete
 		$('.repeat_table_del_btn, .repeat_block_del_btn').off('click').on('click', function (e) {
 			//onDeleteInstance
+			if (!confirm(crudModalsTranslations.deleteRow)) return false;
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");

@@ -3,9 +3,7 @@
 <div class="row">
   	<apn:forEach runat="server">											
   		<apn:choosecontrol runat="server">
-			<apn:whencontrol type="COL" runat="server">
-  				<% ExecutePath("/controls/summary/col.aspx"); %>
-  			</apn:whencontrol>
+			<apn:whencontrol type="COL" runat="server"><% ExecutePath("/controls/summary/col.aspx"); %></apn:whencontrol>
   		</apn:choosecontrol>
   	</apn:forEach>
 </div>

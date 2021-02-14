@@ -7,17 +7,8 @@
         %>
 		<a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
 	</apn:ifnotcontrolvalid>
-	<div class='row sgSummary <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
-		<div class='col-xs-6'>
-			<span>
-				<apn:label runat="server" /></span>
-		</div>
-		<div class='col-xs-6'>
-			<apn:forEach id="control2" runat="server">
-				<% if (control2.Current.getAttribute("selected").Equals("selected")) { %>
-				<apn:label runat="server" /> &nbsp;
-				<% } %>
-			</apn:forEach> &nbsp;
-		</div>
+	<div class='row <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
+		<div class='col-xs-6'><span><strong><apn:label runat="server" /></strong></span></div>
+		<div class='col-xs-6'><%= control.Current.getSelectedLabel() %></div>
 	</div>
 </apn:control>

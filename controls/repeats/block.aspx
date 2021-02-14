@@ -28,7 +28,7 @@
 						<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 					</apn:control>
 					<div class=''>
-						<% if (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["pdf"]) { %>
+						<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 						<div class='pull-right'>
 							<apn:control runat="server" type="insert" id="button">
 							<span data-eventtarget='["<%=control.Current.getName()%>"]' aria-controls='div_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.text.add"/>' aria-label='<apn:localize runat="server" key="theme.text.add"/>' class='<apn:localize runat="server" key="theme.icon.add"/> repeat_block_add_btn pull-right' id='<apn:name runat="server"/>'></span>
@@ -40,7 +40,7 @@
 						<% } %>
 					</div>
 				</apn:control>
-				<% if ((bool)Context.Items["hasPagination"] && !(bool)Context.Items["pdf"]  ) { %>
+				<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
 					<div class='container form-inline' style='padding:10px'>
 						<div class='row'>
 							<div class='col-xs-6'>
@@ -90,7 +90,7 @@
 								<%= status.getCount()%>.
 							</div>
 							<% } %>
-							<% if ((!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) && !(bool)Context.Items["pdf"]) { %>
+							<% if ((!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) && !IsPdf) { %>
 							<div class='pull-right'>
 								<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
 								<apn:control runat="server" type="delete"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='div_<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
@@ -107,7 +107,7 @@
 					</div>
 				</apn:forEach>
 			</div>
-			<% if ((bool)Context.Items["hasPagination"] && !(bool)Context.Items["pdf"]) { %>
+			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
 			<div class='pull-left'>
 				&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> /
 						<%=control.Current.getAttribute("totalPages")%></b></span>
