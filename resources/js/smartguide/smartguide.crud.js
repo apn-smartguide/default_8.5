@@ -11,7 +11,7 @@ var crudController = {
 		// Note: bootstrap modal should be refactored to
 		// https://wet-boew.github.io/v4.0-ci/demos/overlay/overlay-en.html
 
-		$('button.repeat_prepare_add_btn', $form).off('click').on('click', function () {
+		$('.repeat_prepare_add_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -50,7 +50,7 @@ var crudController = {
 			);
 		});
 		// repeat save added instance
-		$('button.repeat_save_add_btn', $form).off('click').on('click', function (e) {
+		$('.repeat_save_add_btn', $form).off('click').on('click', function (e) {
 			//onAddInstance
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -89,7 +89,7 @@ var crudController = {
 			);
 		});
 		//cancel add
-		$('button.repeat_cancel_add_btn', $form).off('click').on('click', function () {
+		$('.repeat_cancel_add_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -156,7 +156,7 @@ var crudController = {
 			);
 		});
 		//Cancel edit repeat
-		$('button.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
+		$('.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
@@ -182,7 +182,7 @@ var crudController = {
 			);
 		});
 		//Save edit instance
-		$('button.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
+		$('.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
 			//onUpdateInstance
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -257,8 +257,7 @@ var crudController = {
 		$('.repeat_table_add_btn, .repeat_block_add_btn').off('click').on('click', function (e) {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_add_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
@@ -280,8 +279,7 @@ var crudController = {
 		$('.repeat_table_insert_btn, .repeat_block_insert_btn').off('click').on('click', function(e) {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_insert_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -310,8 +308,7 @@ var crudController = {
 		$('.repeat_table_del_btn, .repeat_block_del_btn').off('click').on('click', function (e) {
 			//onDeleteInstance
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_del_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
@@ -339,8 +336,7 @@ var crudController = {
 		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn').off('click').on('click', function (e) {
 			//onMoveUpInstance
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_moveup_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var thisId = this.id.replace("[", "\\[").replace("]", "\\]");
 			var classes = $('#' + thisId).attr('class');
@@ -353,7 +349,7 @@ var crudController = {
 			$this.after(newinput);
 			r.ajaxProcess(this, null, true, 
 				function(){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				null
@@ -364,8 +360,7 @@ var crudController = {
 		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn').off('click').on('click', function (e) {
 			//onMoveDownInstance
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_movedown_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var thisId = this.id.replace("[", "\\[").replace("]", "\\]");
 			var classes = $('#' + thisId).attr('class');
@@ -378,7 +373,7 @@ var crudController = {
 			$this.after(newinput);
 			r.ajaxProcess(this, null, true, 
 				function(){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				null

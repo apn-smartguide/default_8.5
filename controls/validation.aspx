@@ -32,28 +32,25 @@
 	<% if ((int)Context.Items["alerts-count"] > 0) { %>
 	<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
 		<h2><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
-		<ul><apn:forEach items="alert-controls" id="control1" runat="server">
-			<li id='error_<%=Context.Items["counter"] %>_<%= control1.Current.getName() %>'>
-				<% if(control1.Current.getAlert().Trim().Equals("error.goto.summary")) { %>
+		<ul><apn:forEach items="alert-controls" id="alert" runat="server">
+			<li id='error_<%=Context.Items["counter"] %>_<%= alert.Current.getName() %>'>
+				<% if(alert.Current.getAlert().Trim().Equals("error.goto.summary")) { %>
 					<apn:localize runat="server" key="theme.text.flowchange"/>
-				<% } else if (control1.Current.getAlert().Trim().Equals("error.language.change")) { %>
+				<% } else if (alert.Current.getAlert().Trim().Equals("error.language.change")) { %>
 					<apn:localize runat="server" key="theme.text.languagechange"/>
-				<% }else if (!control1.Current.getName().Equals("")) { %>					 
+				<% }else if (!alert.Current.getName().Equals("")) { %>					 
 				<%
-				    string toDisplay = "";
-					if(!string.IsNullOrEmpty(control1.Current.getName())) {					
-						string id =control1.Current.getName().Remove(0,2);							
-						int indexOfStringToStrip = id.IndexOf("[");
-						if(indexOfStringToStrip > -1) {
-							id = id.Substring(0, indexOfStringToStrip);
-						}	
-					    toDisplay = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+				    string fieldLabel = "";
+					if(!string.IsNullOrEmpty(alert.Current.getName())) {					
+						string id =alert.Current.getName().Remove(0,2);	
+						if(id.Contains("[")) { id = id.Remove(id.IndexOf("[")); }						
+					    fieldLabel = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
 					}
 				 	Context.Items["counter"] = (int)Context.Items["counter"] + 1; 
 				 %>
-				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= control1.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= toDisplay %> - <%= control1.Current.getAlert() %></a>
+				<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= fieldLabel %> - <%= alert.Current.getAlert() %></a>
 				<% } else { %>
-					<span class="required">Page Error: <%= control1.Current.getAlert() %></span>
+					<span class="required">Page Error: <%= alert.Current.getAlert() %></span>
 				<% } %>
 			</li>
 			

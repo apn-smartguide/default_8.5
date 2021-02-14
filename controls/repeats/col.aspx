@@ -1,12 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
 	<apn:ForEach id="field" runat="server">
-		<% if(
-			!field.Current.getAttribute("style").Equals("visibility:hidden;") 
-			&& !field.Current.getAttribute("visible").Equals("false") 
-			&& !field.Current.getCSSClass().Contains("hide-from-list-view")
-			&& !field.Current.getCSSClass().Contains("proxy")
-		) { %>
+		<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 		<apn:ChooseControl runat="server">
 			<apn:whencontrol runat="server" type="SUMMARY-SECTION"><td class='<%=control.Current.getLayoutAttribute("all")%>'><% ExecutePath("/controls/summary/summary.aspx"); %></td></apn:whencontrol>
 			<apn:whencontrol runat="server" type="ROW">

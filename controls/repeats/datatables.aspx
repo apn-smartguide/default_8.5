@@ -10,14 +10,12 @@
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %> <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %> <% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
-	<span>
-		<% ExecutePath("/controls/custom/control-label.aspx"); %>
-	</span>
+	<span><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
 	<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <apn:metadata runat="server" match="data-*" /> data-wb-tables='<%=getDatatablesInitOptions()%>' >
 		<apn:control runat="server" type="default-instance" id="headerGroup">
 		<thead>
@@ -137,11 +135,8 @@
 													// check format and extract number of "ticks" to use for sort
 													string dateFormat = trField.Current.getMetaDataValue("format");
 													long staticvalue = 0;
-													try {
-														staticvalue = DateTime.ParseExact(trField.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks/10000000;
-													} catch(Exception e) {
-													}                       
-
+													try { staticvalue = DateTime.ParseExact(trField.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks/10000000; } 
+													catch(Exception e) { }                       
 													Context.Items["dataOrder"] = "data-order=\""+staticvalue+"\"";
 												} else {
 													Context.Items["dataOrder"] = "";
@@ -188,33 +183,26 @@
 	// 	to implement, add a hidden field on the page, named as the repeat name with the suffix "-data-aopts"
 	// Configuration of selection options; checkbox (for multi) or radio (for single) is done via the designer
 	// Additional options configurable bia data-attributes below.
-
-	public ISmartletLogger logger() {return sg.Context.getLogger("datatables.aspx");}
  	
-	// Helper method to get a MetaDataValue for this DataTable, will return empty string or value, but not null.
-	public string getMetaDataValue(string meta) {
-		return (control.Current.getMetaDataValue(meta).Equals("")) ? "" : control.Current.getMetaDataValue(meta);
-	}
-
 	// ** Start Styling Bloc **//
 	// Get the Select All CSS Class to apply from data-attribute: Datatable -> select-all-class -> [value]
-	public string getSelectAllCSSClass() { return getMetaDataValue("select-all-class"); }
+	public string getSelectAllCSSClass() { return GetMetaDataValue(control.Current, "select-all-class"); }
 
 	// Get the Select All CSS Style to apply from data-attribute: Datatable -> select-all-style -> [value]
-	public string getSelectAllCSSStyle() { return getMetaDataValue("select-all-style"); }
+	public string getSelectAllCSSStyle() { return GetMetaDataValue(control.Current, "select-all-style"); }
 	 
 	// Get the Select CSS Class to apply from data-attribute: Datatable -> select-class -> [value]
-	public string getSelectCSSClass() { return getMetaDataValue("select-class"); }
+	public string getSelectCSSClass() { return GetMetaDataValue(control.Current, "select-class"); }
 
 	// Get the Select CSS Style to apply from data-attribute: Datatable -> select-style -> [value]
-	public string getSelectCSSStyle() { return getMetaDataValue("select-style"); }
+	public string getSelectCSSStyle() { return GetMetaDataValue(control.Current, "select-style"); }
 	// ** End Styling Bloc **//
 
 	public bool isSelectable() {
 		return control.Current.getAttribute("isselectable").Equals("true");
 	}
 
-	public bool serverSide() { return getMetaDataValue("render-mode").Equals("true"); }
+	public bool serverSide() { return GetMetaDataValue(control.Current, "render-mode").Equals("true"); }
 
 	// Obtain the configure RenderMode from data-attribute: Datatable -> RenderMode [Server Side|Client Side]
 	// Note; for server-side paging, you must configure the service that provides the data with the following:
@@ -272,7 +260,7 @@
 	// Actual names of the Inputs may vary depending on you service implementation.
 	private JObject getRenderMode(JObject jOptions) {
 		// check render mode
-		string renderMode = getMetaDataValue("render-mode");
+		string renderMode = GetMetaDataValue(control.Current, "render-mode");
 		if (renderMode != null && renderMode.Equals("true")) {
 			jOptions.Add("serverSide", true);
 			// if server side, must add the ajaxSource
@@ -286,7 +274,7 @@
 	// Therefore duplicates may occurs, validate by inspecting the data-wb-tables in the browser console.
 	private JObject getInitParameters(JObject jOptions) {
 		// check init parameters
-		string initParams = getMetaDataValue("init");
+		string initParams = GetMetaDataValue(control.Current, "init");
 		if (!String.IsNullOrEmpty(initParams)) {
 			JObject jInit = JObject.Parse(initParams);
 			// loop entries and append to main options
@@ -415,10 +403,10 @@
 	// Special consideration, setting a sort on the "select" column will force the display of the sorting widgets.
 	// Use the field name as identifier with a desired direction [asc|desc]
 	private JObject getSorts(ISmartletGroup defaultGroup, JObject jOptions, Dictionary<string, int> fieldNameToId) {
-		logger().debug("Preparing sort options");
-		string sortMeta = getMetaDataValue("sorts");
+		GetLogger("datatables").debug("Preparing sort options");
+		string sortMeta = GetMetaDataValue(control.Current, "sorts");
 		if (!String.IsNullOrEmpty(sortMeta)) {
-			logger().debug("sortMeta: " + sortMeta);
+			GetLogger("datatables").debug("sortMeta: " + sortMeta);
 			JObject jSortMeta = JObject.Parse(sortMeta);
 			// parse and replace field names by their internal id
 			JArray sortCols = (JArray)jSortMeta["order"];
@@ -442,7 +430,7 @@
 		} else {
 			// fall back on repeat sort field properties, if defined
 			string sort = control.Current.getAttribute("sort");
-			logger().debug("sort attribute: " + sort);
+			GetLogger("datatables").debug("sort attribute: " + sort);
 			if (!String.IsNullOrEmpty(sort)) {
 				// split on "," and iterate
 				string[] sortFields = sort.Split(',');
@@ -490,7 +478,7 @@
 	public string getDatatablesInitOptions() {
 
 		// check if data-wb-tables meta exists
-		string datatablesInitOptions = getMetaDataValue("data-wb-tables");
+		string datatablesInitOptions = GetMetaDataValue(control.Current, "data-wb-tables");
 
 		if (datatablesInitOptions == null || datatablesInitOptions.Length == 0) {
 			JObject jOptions = new JObject();

@@ -17,7 +17,7 @@
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default repeatgroup repeat <%=control.Current.getCSSClass()%> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default repeat <%=control.Current.getCSSClass()%> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<% if(((string)Context.Items["hiddenName"]).Length == 0) { %>
 		<apn:control runat="server" type="repeat-index" id="repeatIndex">
 			<input name='<apn:name runat="server"/>' type="hidden" value="" />
@@ -129,6 +129,7 @@
 								<%Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+field2.getCount(); //override aria-labelledby by table header %>
 								<%Context.Items["optionIndex"] = status.getCount(); %>
 								<apn:choosecontrol runat="server">
+									<% if(!field2.Current.getAttribute("style").Equals("visibility:hidden;") && !field2.Current.getAttribute("visible").Equals("false") && !field2.Current.getCSSClass().Contains("hide-from-list-view") && !field2.Current.getCSSClass().Contains("proxy")) { %><td><% } %>
 									<apn:whencontrol type="RECAP" runat="server"><td><% ExecutePath("/controls/summary/summary.aspx"); %></td></apn:whencontrol>
 									<apn:whencontrol runat="server" type="ROW">
 										<apn:control runat="server" id="controlrow">
@@ -145,40 +146,22 @@
 											</apn:forEach>
 										</apn:control>
 									</apn:whencontrol>
-									<apn:whencontrol runat="server" type="COL"><% ExecutePath("/controls/col.aspx"); %></apn:whencontrol>
-									<apn:whencontrol type="GROUP" runat="server"><td><% ExecutePath("/controls/group.aspx?bare_control=true"); %></td>
-									</apn:whencontrol>
-									<apn:whencontrol type="REPEAT" runat="server"><td><% ExecutePath("/controls/repeats/repeat.aspx"); %></td></apn:whencontrol>
-									<apn:whencontrol type="INPUT" runat="server">
-										<% if(
-											!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
-											&& !field2.Current.getAttribute("visible").Equals("false") 
-											&& !field2.Current.getCSSClass().Contains("hide-from-list-view")
-											&& !field2.Current.getCSSClass().Contains("proxy")
-										) { %>
-										<td>
-										<% } %>
-											<% ExecutePath("/controls/input.aspx?bare_control=true"); %>
-										<% if(
-											!field2.Current.getAttribute("style").Equals("visibility:hidden;") 
-											&& !field2.Current.getAttribute("visible").Equals("false") 
-											&& !field2.Current.getCSSClass().Contains("hide-from-list-view")
-											&& !field2.Current.getCSSClass().Contains("proxy")
-										) { %>
-										</td>
-										<% } %>
-									</apn:whencontrol>
-									<apn:whencontrol type="TEXTAREA" runat="server"><td><% ExecutePath("/controls/textarea.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="SECRET" runat="server"><td><% ExecutePath("/controls/secret.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="DATE" runat="server"><td><% ExecutePath("/controls/date.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="SELECT" runat="server"><td><% ExecutePath("/controls/select.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="SELECT1" runat="server"><td><% ExecutePath("/controls/select1.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="STATICTEXT" runat="server"><td><% ExecutePath("/controls/statictext.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="IMAGE" runat="server"><td><% ExecutePath("/controls/image.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:WhenControl runat="server" type="UPLOAD"><td><% ExecutePath("/controls/upload.aspx"); %></td></apn:WhenControl>
-									<apn:WhenControl runat="server" type="TRIGGER"><td><% ExecutePath("/controls/button.aspx"); %></td></apn:WhenControl>
-									<apn:whencontrol type="SUB-SMARTLET" runat="server"><td><% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %></td></apn:whencontrol>
-									<apn:whencontrol type="RESULT" runat="server"><td><% ExecutePath("/controls/result.aspx"); %></td></apn:whencontrol>
+									<apn:whencontrol type="COL" runat="server"><% ExecutePath("/controls/col.aspx"); %></apn:whencontrol>
+									<apn:whencontrol type="GROUP" runat="server"><% ExecutePath("/controls/group.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="REPEAT" runat="server"><% ExecutePath("/controls/repeats/repeat.aspx"); %></apn:whencontrol>
+									<apn:whencontrol type="INPUT" runat="server"><% ExecutePath("/controls/input.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="TEXTAREA" runat="server"><% ExecutePath("/controls/textarea.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="SECRET" runat="server"><% ExecutePath("/controls/secret.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="DATE" runat="server"><% ExecutePath("/controls/date.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="SELECT" runat="server"><% ExecutePath("/controls/select.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="SELECT1" runat="server"><% ExecutePath("/controls/select1.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="STATICTEXT" runat="server"><% ExecutePath("/controls/statictext.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="IMAGE" runat="server"><% ExecutePath("/controls/image.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:WhenControl type="UPLOAD" runat="server"><% ExecutePath("/controls/upload.aspx"); %></apn:WhenControl>
+									<apn:WhenControl type="TRIGGER" runat="server"><% ExecutePath("/controls/button.aspx"); %></apn:WhenControl>
+									<apn:whencontrol type="SUB-SMARTLET" runat="server"><% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %></apn:whencontrol>
+									<apn:whencontrol type="RESULT" runat="server"><% ExecutePath("/controls/result.aspx"); %></apn:whencontrol>
+									<% if(!field2.Current.getAttribute("style").Equals("visibility:hidden;") && !field2.Current.getAttribute("visible").Equals("false") && !field2.Current.getCSSClass().Contains("hide-from-list-view") && !field2.Current.getCSSClass().Contains("proxy")) { %></td><% } %>
 								</apn:choosecontrol>
 							</apn:forEach>
 							<% if (!(bool)Context.Items["pdf"]) { %>
@@ -187,7 +170,7 @@
 								<% } %>
 									<% if (!(bool)Context.Items["hideAddButton"]) { %>
 										<% if (!(bool)Context.Items["hideRowAddButton"]) { %>
-										<apn:control type="insert" id="addbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_add_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
+										<apn:control type="insert" id="addbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_insert_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
 										<% } %>
 									<% } %>
 									<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
@@ -219,10 +202,7 @@
 						<td></td>
 						<% } %>
 						<% foreach(ISmartletField footerField in tableFooterGroup.findAllFields()) { %>
-							<% if(footerField.isAvailable() 
-							&& !footerField.getCSSClass().Contains("hide-from-list-view")
-							&& !footerField.getCSSClass().Contains("proxy")
-							) { %> 
+							<% if(footerField.isAvailable()  && !footerField.getCSSClass().Contains("hide-from-list-view") && !footerField.getCSSClass().Contains("proxy")) { %> 
 							<td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' ><%=footerField.getValue()%></td>
 							<% } %>
 						<% } %>

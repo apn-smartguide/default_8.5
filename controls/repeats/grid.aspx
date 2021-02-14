@@ -66,8 +66,8 @@ if(btnAdd != null) {
 		</h2>
 	</div>
 	</apn:control>
-	<div class='panel-body repeat-table'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
-    <table class='wb-tables table table-striped table-hover <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
+	<div class='panel-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
+    <table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 		<% if ((bool)Context.Items["hasPagination"]) { %>
 		<apn:control type="repeat-current-page" runat="server" >
 			<input type='hidden' value='<apn:value runat="server"/>' name='<apn:name runat="server" />' class='repeatCurrentPage'/>
@@ -78,7 +78,6 @@ if(btnAdd != null) {
 			<input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort'/>
 		</apn:control>
 		<% } %>
-		
 		<thead>
 			<tr id='tr_<apn:name runat="server"/>' role='row'>
 			<% if ((bool)Context.Items["isSelectable"]) { %>
