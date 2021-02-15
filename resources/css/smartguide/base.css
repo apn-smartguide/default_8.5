@@ -36,11 +36,6 @@ body {
     height: 40px; /* Set the fixed height of the footer here */
     background-color: #f5f5f5;
 }
-
-body > .container {
-    padding-top: 60px;
-    padding-bottom: 20px;
-}
 /* Sticky Footer */
 
 span.required {
