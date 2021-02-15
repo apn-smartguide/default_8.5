@@ -87,7 +87,7 @@ var crudController = {
 					}
 					$this.prop('disabled', false);
 					$('.hide-from-add-view', '.crud-modal' + level).parent().hide();
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				function(){
@@ -239,7 +239,7 @@ var crudController = {
 					}
 					btn.prop('disabled', false);
 					$('.hide-from-edit-view', '.crud-modal' + level).parent().hide();
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				function(){
