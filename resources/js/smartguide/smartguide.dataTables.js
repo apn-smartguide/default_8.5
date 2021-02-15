@@ -6,9 +6,10 @@ var dataTablesController = {
 	bindEvents : function(sgRef, context) {
 		var $form = sgRef.fm;
 
-		$('div.repeat table').each(function(index, elmt) {
+		$('div.repeat table:not(.wb-tables)').each(function(index, elmt) {
 			var table = $(this);
 			var repeatDivId = table.closest('div.repeat').attr('id');
+
 			var loadTable = function(){
 				$('#loader').fadeIn("slow");
 				table.fadeTo(0, 0.2);
@@ -177,7 +178,8 @@ var dataTablesController = {
 					var otable = $(elmt).show().DataTable(dtOptions);
 					// hook onto paging and filtering events
 					otable.on('draw.dt', function () {
-						sgRef.bindEvents();
+						//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
+						//sgRef.bindEvents();
 					});
 					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
 				} else {
@@ -191,7 +193,7 @@ var dataTablesController = {
 				table.addClass('table responsive table-striped table-hover no-footer dtr-inline collapsed');
 				table.css('margin-bottom', 0);
 				refreshTable();
-			} else {
+			} else if(!table.hasClass('wb-tables')) {
 				//no pagination, use datatable for client pagination
 				try {
 					initDataTable(this);
@@ -203,28 +205,28 @@ var dataTablesController = {
 		});
 
 		//Todo: Should not blindly start loader on click
-		$('button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn, :has(span.glyphicon-indent-right, span.glyphicon-indent-left)),' +
-		'button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn) > span:not(.glyphicon-indent-right, .glyphicon-indent-left), ' + 
-		'a:not(.paginate_button), a:not(.paginate_button) > span')
-		.click(function () {
-			var id = $(this).parent().attr("id");
+		// $('button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn, :has(span.glyphicon-indent-right, span.glyphicon-indent-left)),' +
+		// 'button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn) > span:not(.glyphicon-indent-right, .glyphicon-indent-left), ' + 
+		// 'a:not(.paginate_button), a:not(.paginate_button) > span')
+		// .click(function () {
+		// 	var id = $(this).parent().attr("id");
 			
-			if(id == undefined || id.indexOf("error_") < 0) {
-				var isSGPost = true;
+		// 	if(id == undefined || id.indexOf("error_") < 0) {
+		// 		var isSGPost = true;
 			
-				if($(this).is('a')) {
-					if($(this).attr("href").indexOf("do.aspx?") < 0) {
-						isSGPost = false;
-					}
-				}
-				if(isSGPost) {
-					$("#loader").fadeIn("slow");
-				}
-			}
-		});
+		// 		if($(this).is('a')) {
+		// 			if($(this).attr("href").indexOf("do.aspx?") < 0) {
+		// 				isSGPost = false;
+		// 			}
+		// 		}
+		// 		if(isSGPost) {
+		// 			$("#loader").fadeIn("slow");
+		// 		}
+		// 	}
+		// });
 		
 		// rebind on wet datatable event
-		$("table.table :checkbox :radio", context).change(function (event) {
+		$("table:not(.wb-tables).table :checkbox :radio", context).change(function (event) {
 			// handle status of select all checkbox if available
 			var el = $('[name=select_all]', $(this).closest('table')).get(0);
 			if (typeof el != 'undefined') {
@@ -254,7 +256,7 @@ var dataTablesController = {
 			sgRef.bindEvents([$(this)]);
 		});
 
-		$('[name=select_all]', 'table.table thead tr th').first().off('click').on('click', function(){
+		$('[name=select_all]', 'table:not(.wb-tables).table thead tr th').first().off('click').on('click', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			var rows = dataTable.rows({ 'page': 'current' }).nodes();
 			// Check/uncheck checkboxes for all rows in the table
@@ -271,7 +273,7 @@ var dataTablesController = {
 		});
 
 		// Handle click on checkbox to set state of "Select all" control
-		$('input[type="checkbox"]', 'table.table tbody').off('change').on('change', function(){
+		$('input[type="checkbox"]', 'table:not(.wb-tables).table tbody').off('change').on('change', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			
 			// If checkbox is not checked

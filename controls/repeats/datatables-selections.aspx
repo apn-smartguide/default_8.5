@@ -6,8 +6,9 @@
 smartlet.SmartletID = Request["appID"];
 %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" RenderPage="false" CalculatePage="false" runat="server" ProcessingEvent="Render" visible="true" />
+<apn:api5 id="sg5" runat="server" />
 <%
-ISmartletLogger log = sg.Context.getLogger("selections");
+ISmartletLogger log = sg5.Context.getLogger("selections");
 
 string tableId = Request["tableId"];
 // remove prefix and suffixes
@@ -22,7 +23,7 @@ if (tableId.IndexOf("div_d_") == 0) {
 
 log.debug("tableId: " + tableId);
 
-ISmartletRepeat repeat = (ISmartletRepeat)sg.Smartlet.findFieldById(tableId);
+ISmartletRepeat repeat = (ISmartletRepeat)sg5.Smartlet.findFieldById(tableId);
 
 string primaryKeyFieldName = repeat.getMetaData("id");
 bool isSelectable = repeat.isSelectable();
