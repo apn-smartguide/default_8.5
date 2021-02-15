@@ -565,7 +565,10 @@ public partial class SGWebCore : System.Web.UI.Page
 			bool isPdfContext = false;
 
 			isPdfRequest = (Request["pdf"] != null && !"".Equals(Request["pdf"]));
-			isPdfContext = (Context.Items["pdf"] != null);
+			isPdfContext = (Context.Items["pdf"] != null && (
+																(Context.Items["pdf"] is String && "true".Equals((string)Context.Items["pdf"])) ||
+																(Context.Items["pdf"] is bool && (bool)Context.Items["pdf"])
+															) );
 
 			return (isPdfRequest || isPdfContext);
 		}
