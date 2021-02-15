@@ -263,10 +263,15 @@ div.repeat table td.repeatbutton {
 div.repeat table td.repeatbutton > span {
   margin-right:3px;	
 }
+
 table.dataTable thead > tr > th.repeatbutton {
   padding-left: 5px;
   padding-right: 5px;
   text-align: center;
+}
+
+table.dataTable td {
+  padding: 5px;
 }
 
 div.repeat .selectBoxControl {

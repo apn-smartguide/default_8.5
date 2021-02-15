@@ -4,10 +4,9 @@
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 	<!-- #include file="hidden.inc" -->
 <% } else { %>
-<% Context.Items["bareControl"] = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
     <apn:ifnotcontrolvalid runat="server"><% int index = (int)Context.Items["errorIndex"]; Context.Items["errorIndex"] = ++index;%><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>' title='<apn:localize runat="server" key="theme.text.erroranchor"/>' aria-label='<apn:localize runat="server" key="theme.text.erroranchor"/>'><apn:localize runat="server" key="theme.text.erroranchor"/> <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
-<% if(!((bool)Context.Items["bareControl"])) { %> <% ExecutePath("/controls/label.aspx"); %><% } %>
+<% if(!BareRender) { %> <% ExecutePath("/controls/label.aspx"); %><% } %>
 <% if(control.Current.getAttribute("value").Trim().Length==0) { %>
   		<input type='file' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <%=(string)Context.Items["readonly"]%> style='<apn:cssstyle runat="server"/>' title='<%=GetAttribute(control.Current, "title", true)%>' <apn:metadata runat="server"/> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" -->/>
 	<% } else { %>

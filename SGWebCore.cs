@@ -585,6 +585,18 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["summary"] = value;
 		}
 	}
+	
+	public bool BareRender {
+		get {
+			if(Context.Items["renderbare"] == null) {
+				Context.Items["renderbare"] = false;
+			}
+			return (bool)Context.Items["renderbare"];
+		}
+		set {
+			Context.Items["renderbare"] = value;
+		}
+	}
 
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) { 

@@ -1,6 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-<% bool bareControl = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
-<% if (!bareControl){ %>
+<% if (!BareRender){ %>
 <apn:control runat="server" id="control">
 	<% if (!control.Current.getCSSClass().Contains("hide-label") && !control.Current.getLabel().Equals("")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>

@@ -165,6 +165,10 @@ div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr[role="r
     padding-left:15px!important;
 }
 
+table.dataTable td {
+    padding: 5px;
+  }
+
 div.repeat:not(.grid-view) table {
 border-collapse: collapse!important;
 }

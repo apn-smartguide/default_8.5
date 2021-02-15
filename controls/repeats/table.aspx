@@ -125,45 +125,10 @@
 								</apn:control>
 							</td>
 							<% } %>
-							<apn:forEach id="field2" runat="server">
-								<%Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+field2.getCount(); //override aria-labelledby by table header %>
-								<%Context.Items["optionIndex"] = status.getCount(); %>
-								<apn:choosecontrol runat="server">
-									<% if(!field2.Current.getAttribute("style").Equals("visibility:hidden;") && !field2.Current.getAttribute("visible").Equals("false") && !field2.Current.getCSSClass().Contains("hide-from-list-view") && !field2.Current.getCSSClass().Contains("proxy")) { %><td><% } %>
-									<apn:whencontrol type="RECAP" runat="server"><td><% ExecutePath("/controls/summary/summary.aspx"); %></td></apn:whencontrol>
-									<apn:whencontrol runat="server" type="ROW">
-										<apn:control runat="server" id="controlrow">
-											<apn:forEach runat="server" id="col3">
-												<apn:choosecontrol runat="server">
-													<apn:whencontrol runat="server" type="COL">
-														<% 
-															Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+col3.getCount();
-															ExecutePath("/controls/repeats/col.aspx"); 
-															Context.Items.Remove("aria-labelledby"); 
-														%>
-													</apn:whencontrol>
-												</apn:choosecontrol>
-											</apn:forEach>
-										</apn:control>
-									</apn:whencontrol>
-									<apn:whencontrol type="COL" runat="server"><% ExecutePath("/controls/col.aspx"); %></apn:whencontrol>
-									<apn:whencontrol type="GROUP" runat="server"><% ExecutePath("/controls/group.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="REPEAT" runat="server"><% ExecutePath("/controls/repeats/repeat.aspx"); %></apn:whencontrol>
-									<apn:whencontrol type="INPUT" runat="server"><% ExecutePath("/controls/input.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="TEXTAREA" runat="server"><% ExecutePath("/controls/textarea.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="SECRET" runat="server"><% ExecutePath("/controls/secret.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="DATE" runat="server"><% ExecutePath("/controls/date.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="SELECT" runat="server"><% ExecutePath("/controls/select.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="SELECT1" runat="server"><% ExecutePath("/controls/select1.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="STATICTEXT" runat="server"><% ExecutePath("/controls/statictext.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="IMAGE" runat="server"><% ExecutePath("/controls/image.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:WhenControl type="UPLOAD" runat="server"><% ExecutePath("/controls/upload.aspx"); %></apn:WhenControl>
-									<apn:WhenControl type="TRIGGER" runat="server"><% ExecutePath("/controls/button.aspx"); %></apn:WhenControl>
-									<apn:whencontrol type="SUB-SMARTLET" runat="server"><% ExecutePath("/controls/subsmartlet.aspx?bare_control=true"); %></apn:whencontrol>
-									<apn:whencontrol type="RESULT" runat="server"><% ExecutePath("/controls/result.aspx"); %></apn:whencontrol>
-									<% if(!field2.Current.getAttribute("style").Equals("visibility:hidden;") && !field2.Current.getAttribute("visible").Equals("false") && !field2.Current.getCSSClass().Contains("hide-from-list-view") && !field2.Current.getCSSClass().Contains("proxy")) { %></td><% } %>
-								</apn:choosecontrol>
-							</apn:forEach>
+							<% BareRender = true; %>
+							<% Context.Items["optionIndex"] = status.getCount(); %>
+							<% ExecutePath("/controls/repeats/col.aspx"); %>
+							<% BareRender = false; %>	
 							<% if (!IsPdf) { %>
 								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
 								<td class='repeatbutton nowrap'>
