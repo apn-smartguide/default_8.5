@@ -1,0 +1,88 @@
+        <!-- Add the following Metas at the end of your /apn_common/groups/library.xml meta_data -->
+        <section description="Data attributes for the datatable control" id="G99997" name="Datatable">
+            <attribute description="How many items to display per page in the datatable" id="G37" name="data-page-length">
+                <value description="" id="G8" name="10" value="10"/>
+            </attribute>
+            <attribute description="All configuration options are detailed in the DataTables documentation" id="G38" name="data-aopts">
+                <value description="add a field to your repeat named: [repeat-name]-data-aopts, set the configurations there." id="G9" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-aopts&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
+            </attribute>
+            <attribute description="" id="G40" name="id">
+                <value description="Example of an smartlet field defined as the id for the datatable" id="G1" name="product_url" value="product_url"/>
+            </attribute>
+            <attribute description="Configure your sort options for the datatable" id="G41" name="sorts">
+                <value description="Example" id="G1" name="Name ASC" value="{&quot;order&quot;: [ &quot;name&quot;, &quot;asc&quot; ]}"/>
+            </attribute>
+            <attribute description="Configure your datatable columns" id="G42" name="columns">
+                <value description="Example" id="G1" name="Example" value="[{&quot;product_url&quot;:[&quot;searchable&quot;:&quot;false&quot;, &quot;visible&quot;:&quot;hidden&quot;&quot;]},{&quot;id&quot;:[&quot;visible&quot;:&quot;hidden&quot;]}]"/>
+            </attribute>
+            <attribute description="Options for initialization of the datatable" id="G43" name="init">
+                <value description="" id="G1" name="Preserve state" value="{&quot;stateSave&quot;: true}"/>
+                <value description="" id="G2" name="browsers-server" value="{ &quot;columnDefs&quot;: [ &quot;selections&quot; ] }"/>
+            </attribute>
+            <attribute description="Choose the datatable render-mode" id="G44" name="render-mode">
+                <value description="" id="G1" name="Client Side" value=""/>
+                <value description="" id="G2" name="Server Side" value="true"/>
+            </attribute>
+            <attribute description="Configure the wet-boew settings for your datatable" id="G45" name="data-wb-tables">
+                <value description="Method to set the configuration dynamically be using a settings field on the page." id="G1" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-wb-tables&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
+            </attribute>
+            <attribute description="" id="G46" name="select-all-class">
+                <value description="" id="G1" name="hide-sort large-checkbox" value="hide-sort large-checkbox"/>
+            </attribute>
+            <attribute description="" id="G47" name="select-all-style"/>
+            <attribute description="" id="G48" name="select-class">
+                <value description="" id="G1" name="large-checkbox" value="large-checkbox"/>
+                <value description="" id="G2" name="large-radio" value="large-radio"/>
+            </attribute>
+            <attribute description="" id="G49" name="select-style"/>
+            <attribute description="" id="G50" name="data-priority">
+                <value description="" id="G1" name="1" value="1"/>
+            </attribute>
+        </section>
+        <section description="" id="G99998" name="HTML">
+            <attribute description="" id="G33" name="hasPagination">
+                <value description="" id="G1" name="true" value="true"/>
+            </attribute>
+            <attribute description="" id="G34" name="data-confirm-modal">
+                <value description="" id="G1" name="modal_block-render" value="modal_block-render"/>
+            </attribute>
+            <attribute description="Select an HTML Role attribute to apply" id="G51" name="role">
+                <value description="" id="G1" name="presentation" value="presentation"/>
+                <value description="" id="G2" name="tablist" value="tablist"/>
+            </attribute>
+            <attribute description="" id="G52" name="target">
+                <value description="Open in a new window" id="G1" name="_blank" value="_blank"/>
+                <value description="Open in the parent window" id="G2" name="_parent" value="_parent"/>
+                <value description="Replace the content of the current window" id="G3" name="_self" value="_self"/>
+                <value description="Open in the top most window" id="G4" name="_top" value="_top"/>
+            </attribute>
+            <attribute description="" id="G35" name="data-mask">
+                <value description="" id="G1" name="yyyy-mm-dd" value="9999-99-99"/>
+                <value description="" id="G2" name="999999" value="999999"/>
+            </attribute>
+            <attribute description="values are; small, normal, large, xtra large" id="G53" name="modal-size">
+                <value description="" id="G1" name="modal-sm" value="modal-sm"/>
+                <value description="" id="G2" name="modal-lg" value="modal-lg"/>
+                <value description="" id="G3" name="modal-xl" value="modal-xl"/>
+                <value description="Normal size modal, requires no class be specified." id="G4" name="modal-md" value=""/>
+            </attribute>
+        </section>
+        <section description="Special Components" id="G99999" name="Components">
+            <attribute description="HTML Controls and other advanced components" id="G30" name="Controls">
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G6" name="h1" value="custom/h1"/>
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G7" name="h2" value="custom/h2"/>
+                <value description="The &lt;span&gt; tag is an inline container used to mark up a part of a text, or a part of a document. When using a group field, the fields inside the group will not render in bootstrap columns." id="G8" name="span" value="custom/span"/>
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G9" name="h3" value="custom/h3"/>
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G10" name="h4" value="custom/h4"/>
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G11" name="h5" value="custom/h5"/>
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G12" name="h6" value="custom/h6"/>
+                <value description="Paragraph, when using a group field, the fields inside the group will not render in bootstrap columns." id="G17" name="p" value="custom/p"/>
+                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G18" name="ul" value="custom/ul"/>
+                <value description="vhen using a group field, the fields inside the group will not render in bootstrap columns." id="G19" name="li" value="custom/li"/>
+                <value description="The &lt;a&gt; tag defines a hyperlink, which is used to link from one page to another. When using a group field, The href attribute will be set using the label attribute and the contents of the group will be its label. Otherwise, the href will use the value attribute." id="G20" name="a" value="custom/a"/>
+                <value description="Render this group using the datatable control" id="G21" name="datatables" value="repeats/datatables"/>
+                <value description="Render a &lt;script&gt;&lt;/script&gt; bloc using content from value" id="G22" name="Javascript" value="custom/javascript"/>
+                <value description="Text in a &lt;pre&gt; element is displayed in a fixed-width font, and the text preserves both spaces and line breaks. The text will be displayed exactly as written in the HTML source code." id="G23" name="pre" value="custom/pre"/>
+                <value description="" id="G24" name="test" value="test"/>
+            </attribute>
+        </section>
