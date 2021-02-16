@@ -157,6 +157,22 @@ if(btnAdd != null) {
 											<% } %>
 										</td>
 									</apn:WhenControl>
+									<% if(!field1.Current.getCSSClass().Contains("render-value")) { %>
+									<apn:whencontrol runat="server" type="SELECT">
+										<td data-order='<apn:value runat="server" tohtml="true"/>'>
+											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+											<p><%=field1.Current.getSelectedLabel()%></p>
+											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+										</td>
+									</apn:whencontrol>
+									<apn:whencontrol runat="server" type="SELECT1">
+										<td data-order='<apn:value runat="server" tohtml="true"/>'>
+										<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+										<p><%=field1.Current.getSelectedLabel()%></p>
+										<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+									</td>
+									</apn:whencontrol>
+									<% } %>
 									<apn:Otherwise runat="server">
 									<% if(field1.Current.getType()==1014) { %>
 										<%
