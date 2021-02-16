@@ -175,6 +175,10 @@ var dataTablesController = {
 					}
 					
 					//Init DataTables with Options
+					var tempOptions = eval('dtOptions_' + $(repeatDiv).attr('id'));
+					if(typeof tempOptions != 'undefined') {
+					  dtOptions = Object.assign(dtOptions, tempOptions);
+					}
 					var otable = $(elmt).show().DataTable(dtOptions);
 					// hook onto paging and filtering events
 					otable.on('draw.dt', function () {
