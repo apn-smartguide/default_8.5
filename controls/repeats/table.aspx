@@ -146,7 +146,7 @@
 										</apn:control>
 									</apn:whencontrol>
 									<apn:whencontrol runat="server" type="COL"><% ExecutePath("/controls/col.aspx"); %></apn:whencontrol>
-									<apn:whencontrol type="GROUP" runat="server"><td><% ExecutePath("/controls/group.aspx?bare_control=true"); %></td>
+									<apn:whencontrol type="GROUP" runat="server"><td><% ExecutePath("/controls/group.aspx"); %></td>
 									</apn:whencontrol>
 									<apn:whencontrol type="REPEAT" runat="server"><td><% ExecutePath("/controls/repeats/repeat.aspx"); %></td></apn:whencontrol>
 									<apn:whencontrol type="INPUT" runat="server">

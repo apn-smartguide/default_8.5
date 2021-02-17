@@ -20,7 +20,7 @@
 					</apn:forEach>
 				</apn:control>
 			</apn:whencontrol>
-			<apn:whencontrol runat="server" type="GROUP"><td class='<%=control.Current.getLayoutAttribute("all")%>'><% ExecutePath("/controls/group.aspx?bare_control=true"); %></td></apn:whencontrol>
+			<apn:whencontrol runat="server" type="GROUP"><td class='<%=control.Current.getLayoutAttribute("all")%>'><% ExecutePath("/controls/group.aspx"); %></td></apn:whencontrol>
 			<apn:whencontrol runat="server" type="REPEAT"><td class='<%=control.Current.getLayoutAttribute("all")%>'><% ExecutePath("/controls/repeats/repeat.aspx"); %></td></apn:whencontrol>
 			<apn:whencontrol runat="server" type="INPUT">
 				<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;")) {%>
