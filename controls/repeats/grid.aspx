@@ -25,6 +25,7 @@ Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
 Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
+Context.Items["useDataTables"] = (CSSClass.Contains("datatables") || CSSClass.Contains("wb-tables"));
 Context.Items["isSelectable"] = "true".Equals(control.Current.getAttribute("isselectable"));
 Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination"));
 Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
@@ -63,6 +64,7 @@ if(btnAdd != null) {
 	</div>
 	</apn:control>
 	<div class='panel-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
+	<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
     <table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 		<% if ((bool)Context.Items["hasPagination"]) { %>
 		<apn:control type="repeat-current-page" runat="server" >
@@ -83,21 +85,15 @@ if(btnAdd != null) {
 			<apn:forEach runat="server" id="row">
 				<apn:forEach runat="server" id="col">
 					<apn:forEach runat="server" id="field">
-					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") 
-							&& !field.Current.getAttribute("visible").Equals("false") 
-							&& !field.Current.getCSSClass().Contains("hide-from-list-view")
-							&& !field.Current.getCSSClass().Contains("proxy")
-							) { %> 
+					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %> 
 						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 							<% ExecutePath("/controls/controls.aspx"); %>
 						</th>
 						<% } else { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
-							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %>
-							<%=GetAttribute(field.Current, "label")%>
-							<% } %>
-							<% if (false && !field.Current.getCSSClass().Contains("hide-sort")) { %>
+							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(field.Current, "label") %><% } %>
+							<% if (!field.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
 								&nbsp;&nbsp;
 								<span data-sort='<%=field.Current.getAttribute("sort")%>' data-field-id='<%=field.Current.getFieldId()%>' 
 								<% if ("asc".Equals(field.Current.getAttribute("sort"))) { %>
@@ -116,13 +112,13 @@ if(btnAdd != null) {
 			</apn:forEach>
 			</apn:control>
 			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %>
-				<td></td>
+				<td data-orderable="false"></td>
 			<% } %>
 			</tr>
 		</thead>
 		<tbody>
 		<apn:forEach id="status" runat="server">
-			<% 	Context.Items["isEditOrDelete"] = "true".Equals(status.Current.getAttribute("edit-instance")) || "true".Equals(status.Current.getAttribute("new-instance")); %>
+			<% Context.Items["isEditOrDelete"] = "true".Equals(status.Current.getAttribute("edit-instance")) || "true".Equals(status.Current.getAttribute("new-instance")); %>
 			<tr role='row' id='tr_<apn:name runat="server"/>_<%= status.getCount()%>' class='<%=((bool)Context.Items["isEditOrDelete"]? "active" : "")%>'>
 				<% if ((bool)Context.Items["isSelectable"]) { %>
 				<td class='selectBoxControl'>
@@ -135,20 +131,14 @@ if(btnAdd != null) {
 				<apn:forEach runat="server" id="row1">
 					<apn:forEach runat="server" id="col1">
 						<apn:forEach runat="server" id="field1">
-							<% if(!field1.Current.getAttribute("style").Equals("visibility:hidden;") 
-									&& !field1.Current.getAttribute("visible").Equals("false")
-									&& !field1.Current.getCSSClass().Contains("hide-from-list-view")
-									&& !field1.Current.getCSSClass().Contains("proxy")
-									) { %> 
+							<% if(!field1.Current.getAttribute("style").Equals("visibility:hidden;") && !field1.Current.getAttribute("visible").Equals("false") && !field1.Current.getCSSClass().Contains("hide-from-list-view") && !field1.Current.getCSSClass().Contains("proxy")) { %> 
 								<apn:ChooseControl runat="server">
 									<apn:WhenControl type="GROUP" runat="server"><td class='<%=field1.Current.getCSSClass()%>'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server">
 										<td>
 											<% if (!IsPdf) { %>
 												<% if (field1.Current.getAttribute("class").Equals("button")) {%>
-													<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>>
-															<apn:value runat="server"/>
-													</button>
+													<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>><apn:value runat="server"/></button>
 												<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%> 
 													<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
 												<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>  
@@ -179,7 +169,7 @@ if(btnAdd != null) {
 											long staticvalue = 0;
 											try {
 												string dateFormat = field1.Current.getAttribute("format");
-													dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
+												dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
 												staticvalue = DateTime.ParseExact(field1.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
 											} catch(Exception e) {
 											}                       
@@ -207,10 +197,7 @@ if(btnAdd != null) {
 					</apn:forEach>
 				</apn:forEach>
 				<% if (!IsPdf) { %>
-					<% if (
-						!(bool)Context.Items["hideEditButton"]
-						||!(bool)Context.Items["hideDeleteButton"]
-						||(bool)Context.Items["showMoveUpDownButton"]) { %>	
+					<% if (!(bool)Context.Items["hideEditButton"] ||!(bool)Context.Items["hideDeleteButton"] ||(bool)Context.Items["showMoveUpDownButton"]) { %>	
 					<td class='repeatbutton'>
 						<% if (!(bool)Context.Items["hideEditButton"]) { %>
 						<apn:control runat="server" type="prepare_edit_instance"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.edit"/> repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> </apn:control>

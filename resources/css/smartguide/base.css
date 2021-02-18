@@ -162,10 +162,27 @@ div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr[role="r
 
 table.dataTable td {
     padding: 5px;
-  }
+}
+
+.table > thead > tr > td {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+table.dataTable thead tr th, table.dataTable thead tr td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #111;
+}
 
 div.repeat:not(.grid-view) table {
-border-collapse: collapse!important;
+    border-collapse: collapse!important;
+}
+
+div.repeat table td.repeatbutton {
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .nowrap {

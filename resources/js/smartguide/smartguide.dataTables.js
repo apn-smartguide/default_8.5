@@ -21,8 +21,8 @@ var dataTablesController = {
 					success:  function(data){
 						try {
 							response = data;
-							var responseDiv = $("div#sgControls", response);
-							var repeatDiv = $('div#' + repeatDivId, responseDiv);
+							var responseDiv = $("#sgControls", response);
+							var repeatDiv = $('#' + repeatDivId, responseDiv);
 							var paginationInfo = $('span.paginationInfo', repeatDiv);
 							
 							var newTable = $('table.hasPagination', repeatDiv);
@@ -61,21 +61,21 @@ var dataTablesController = {
 				if ($('input.repeatCurrentPage', table).length > 0){
 					currentPage = parseInt($('input.repeatCurrentPage', table).val()) + 1;
 				}
-				$(elmt).closest('div.bootpag').bootpag(
-					{
-						total: totalPage,
-						page: currentPage,
-						maxVisible: 5,
-						href: "#pro-page-{{number}}",
-						leaps: false,
-						wrapClass: 'pagination',
-						next: '>',
-						prev: '<'
-					}).off('page').on('page', function(event, num)
-					{
-						$('input.repeatCurrentPage', table).val(num -1);
-						loadTable();
-					});
+
+				$(elmt).closest('div.bootpag').bootpag({
+					total: totalPage,
+					page: currentPage,
+					maxVisible: 5,
+					href: "#pro-page-{{number}}",
+					leaps: false,
+					wrapClass: 'pagination',
+					next: '>',
+					prev: '<'
+				}).off('page').on('page', function(event, num)
+				{
+					$('input.repeatCurrentPage', table).val(num -1);
+					loadTable();
+				});
 			};
 
 			$('.sortBtn', this).off('click').on('click', function(){
@@ -139,8 +139,7 @@ var dataTablesController = {
 					if (gridOption['selectable']) dtOptions['order'] = [[ 0, "desc" ]];
 					if (repeatDiv.hasClass('hide-sort')) dtOptions['ordering'] = false;
 					if (!repeatDiv.hasClass('grid-view')) {
-						dtOptions['responsive'] = 
-						{ 
+						dtOptions['responsive'] = { 
 							"details": 
 							{ 
 								type: "inline", "display": function (row, update, render ) 
@@ -176,14 +175,14 @@ var dataTablesController = {
 					
 					//Init DataTables with Options
 					var tempOptions = eval('dtOptions_' + $(repeatDiv).attr('id'));
-					if(typeof tempOptions != 'undefined') {
-					  dtOptions = Object.assign(dtOptions, tempOptions);
+					if(tempOptions != '') {
+					  	dtOptions = Object.assign(dtOptions, tempOptions);
 					}
 					var otable = $(elmt).show().DataTable(dtOptions);
 					// hook onto paging and filtering events
 					otable.on('draw.dt', function () {
 						//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
-						//sgRef.bindEvents();
+						sgRef.bindEvents();
 					});
 					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
 				} else {
@@ -193,19 +192,24 @@ var dataTablesController = {
 				}
 			}
 			
-			if ($(elmt).hasClass('hasPagination')) {
-				table.addClass('table responsive table-striped table-hover no-footer dtr-inline collapsed');
-				table.css('margin-bottom', 0);
-				refreshTable();
-			} else if(!table.hasClass('wb-tables')) {
-				//no pagination, use datatable for client pagination
-				try {
-					initDataTable(this);
-				} catch(e) {
-					if (console)
-						console.log(e.stack);
-				}
+			if($(elmt).hasClass('datatables')) {
+				initDataTable(this);
 			}
+			refreshTable();
+
+			// if ($(elmt).hasClass('hasPagination')) {
+			// 	//table.addClass('table responsive table-striped table-hover no-footer dtr-inline collapsed');
+			// 	//table.css('margin-bottom', 0);
+
+			// } else if(!table.hasClass('wb-tables')) {
+			// 	//no pagination, use datatable for client pagination
+			// 	try {
+			// 		initDataTable(this);
+			// 	} catch(e) {
+			// 		if (console)
+			// 			console.log(e.stack);
+			// 	}
+			// }
 		});
 
 		//Todo: Should not blindly start loader on click

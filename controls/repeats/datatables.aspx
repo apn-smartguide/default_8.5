@@ -47,9 +47,9 @@
 		<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	<div class='panel-body'>
-		<% if (!(bool)Context.Items["is-wb-tables"]) { %>
-			<script>var dtOptions_div_<apn:name runat="server"/> = <%=getDatatablesInitOptions()%>;</script>
-		<% } %>
+		<script>var dtOptions_div_<apn:name runat="server"/>
+		<% if (!(bool)Context.Items["is-wb-tables"]) { %>= <%=getDatatablesInitOptions()%>;<% } else { %> '';<% } %>
+		</script>
 		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
@@ -66,35 +66,33 @@
 									<apn:forEach runat="server" id="thRowField">
 										<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-												<th><%=GetAttribute(thRowField.Current, "label")%></th>
+												<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thRowField.Current, "label")%></th>
 											<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
-												<td></td>
+												<td data-sortable="false"></td>
 											<% } %>
 										<% } else { %>
-											<td></td>
+											<td data-sortable="false"></td>
 										<% } %>
 									</apn:forEach>
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
 								<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-									<th><%=GetAttribute(thField.Current, "label")%></th>
+									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 								<% } else { %>
-									<td></td>
+									<td data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
-							<apn:WhenControl type="HIDDEN" runat="server">
-								<td></td>
-							</apn:WhenControl>
+							<apn:WhenControl type="HIDDEN" runat="server"><td></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
-										<td></td>
+										<td data-sortable="false"></td>
 									<% } %>
 								<% } else { %>
-									<td></td>
+									<td data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
 						</apn:ChooseControl>
@@ -107,7 +105,7 @@
 			<% if(!serverSide()) { %>
 			<tbody>
 				<apn:forEach runat="server" id="trGroup">
-				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render")) { %><tr><% } %>
+				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
 				<apn:forEach runat="server" id="trRow">
 					<% if (control.Current.getCSSClass().Contains("block-render")) { %><tr><% } %>
 						<% if (isSelectable()) { %>
@@ -192,7 +190,7 @@
 						</apn:forEach>
 					<% if (control.Current.getCSSClass().Contains("block-render")) { %></tr><% } %>
 				</apn:forEach>
-				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render")) { %></tr><% } %>
+				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %></tr><% } %>
 				</apn:forEach>
 			</tbody>
 			<% } %>
@@ -425,6 +423,12 @@
 				}
 				if(cssClass.Contains("hidden-lg")) {
 					colClass += "hidden-lg";
+				}
+				if(cssClass.Contains("repeatbutton")) {
+					colClass += "repeatbutton ";
+				}
+				if(cssClass.Contains("nowrap")) {
+					colClass += "nowrap ";
 				}
 				if(!colClass.Equals("")) {
 					col.Add("className", colClass);
