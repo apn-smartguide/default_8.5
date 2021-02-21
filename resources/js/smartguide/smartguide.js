@@ -679,7 +679,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								// Prevent self refresh
 								if (allowSelfRefresh||targetArr[i]!=currentID) {
 									var targetDiv = targetArr[i];
-									if(targetDiv != "") {
+									if(typeof targetDiv != 'undefined' && targetDiv != "") {
 										targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					
 										var responseTarget = $('#div_'+targetDiv, responseDiv);
 										if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
