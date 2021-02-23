@@ -18,7 +18,7 @@
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeatgroup repeatblock <%=control.Current.getCSSClass()%>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass()%>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<div class='bootpag'>
 			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<div class="panel-heading">
@@ -31,7 +31,6 @@
 						<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 						<div class='pull-right'>
 							<apn:control runat="server" type="insert" id="button">
-							<%--<button type='button' class='btn btn-sm btn-primary repeat_block_append_btn' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'title='<apn:localize runat="server" key="theme.text.add"/>'  aria-label='<apn:localize runat="server" key="theme.text.add" />' name='<apn:name runat="server" />' id='<apn:name runat="server" />'><apn:localize runat="server" key="theme.modal.add" /></button>--%>
 							<span data-eventtarget='["<%=control.Current.getName()%>"]' aria-controls='div_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.text.add"/>' aria-label='<apn:localize runat="server" key="theme.text.add"/>' class='<apn:localize runat="server" key="theme.icon.add"/> repeat_block_add_btn pull-right' id='<apn:name runat="server"/>'></span>
 							</apn:control>
 						</div>
@@ -39,9 +38,7 @@
 						<% if (!control.Current.getLabel().Equals("")) { %>
 						<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 						<% } %>
-
 					</div>
-					<% if (!control.Current.getAttribute("title").Equals("")) { %><div class='groupHelp'><%=GetAttribute(control.Current, "title", true)%></div><% } %>
 				</apn:control>
 				<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
 					<div class='container form-inline' style='padding:10px'>
@@ -65,7 +62,7 @@
 							<div class='col-xs-6'>
 								<% if(!(bool)Context.Items["hideSearch"]) {%>
 								<apn:localize runat="server" key="theme.text.datatable.filter" />:
-								<apn:control type="repeat-filter" runat="server"><input type='text' class='form-control input-sm searchBox' placeholder='<%=GetAttribute(control.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
+								<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='form-control input-sm searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
 								<span class='searchBtn'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></span>
 								<% } %>
 							</div>

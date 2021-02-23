@@ -3,8 +3,7 @@
   <% if (control.Current.getAttribute("visible").Equals("false")) { %>
   <!-- #include file="hidden.inc" -->
   <%} else {%>
-  <% bool noLabel = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
-  <% if (!noLabel){ %>
+  <% if (!BareRender){ %>
   <div class='modal' role='dialog' id='modal_<apn:name runat="server"/>'>
     <div class='modal-dialog <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' role='document'>
       <div class='modal-content'>

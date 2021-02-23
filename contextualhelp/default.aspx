@@ -4,10 +4,9 @@
 <%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
 <apn:api5 id="sg5" runat="server"/>
 <% 
-	sg = sg5;
-	Init();
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = GetURLForSmartlet(SmartletName);
+	IsPdf = false;
 %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">

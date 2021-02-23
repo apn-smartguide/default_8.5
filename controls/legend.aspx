@@ -1,6 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-<% bool bareControl = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
-<% if (!bareControl){ %>
+<% if (!BareRender){ %>
 <% if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { 
 	Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
 } else {
