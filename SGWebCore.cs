@@ -72,21 +72,27 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(Context.Items["smartlet"] == null) {
 				Context.Items["smartlet"]  = sg.Context.getSmartlet();
 			}
-			return (ISmartlet)Context.Items["smartlet"] ;
+			return (ISmartlet)Context.Items["smartlet"];
 		}
 	}
+
 	public ISmartletLogger Logger {
-		get { 
-			if(Context.Items["smartletLogger"] == null) {
-				if(sg.Context != null) {
-					Context.Items["smartletLogger"] = sg.Context.getLogger("SGWebCore"); 
-				} else {
-					return null;
-				}
-			}
-			return (ISmartletLogger)Context.Items["smartletLogger"];
+		get {
+			return GetLogger("SGWebCore");
 		}
 	}
+
+	public ISmartletLogger GetLogger(string name) {
+		if(Context.Items["smartletLogger"+name] == null) {
+			if(sg.Context != null) {
+				Context.Items["smartletLogger"+name] = sg.Context.getLogger(name); 
+			} else {
+				Context.Items["smartletLogger"+name] = null;
+			}
+		}
+		return (ISmartletLogger)Context.Items["smartletLogger"+name];
+	}
+
 
 	//// Smartlet infos Helpers ///
 	public string SmartletName {
@@ -582,6 +588,18 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["summary"] = value;
 		}
 	}
+	
+	public bool BareRender {
+		get {
+			if(Context.Items["renderbare"] == null) {
+				Context.Items["renderbare"] = false;
+			}
+			return (bool)Context.Items["renderbare"];
+		}
+		set {
+			Context.Items["renderbare"] = value;
+		}
+	}
 
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) { 
@@ -646,6 +664,10 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string GetAttribute(ControlInfo ctrl, string attribute) {
 		return JavascriptEncode(ctrl.getAttribute(attribute));
+	}
+
+	public string GetMetaDataValue(ControlInfo ctrl, string key) {
+		return (ctrl.getMetaDataValue(key).Equals("")) ? "" : ctrl.getMetaDataValue(key);
 	}
 
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {

@@ -8,8 +8,9 @@ smartlet.SmartletID = Request["appID"];
 string tableName = Request["tableName"];
 %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" runat="server" ProcessingEvent="Render" visible="true" />
+<apn:api5 id="sg5" runat="server" />
 <%
-ISmartletRepeat repeat = (ISmartletRepeat)sg.Smartlet.findFieldByName(tableName);
+ISmartletRepeat repeat = (ISmartletRepeat)sg5.Smartlet.findFieldByName(tableName);
 
 string selectClass = repeat.getMetaData("select-class");
 string selectStyle = repeat.getMetaData("select-style");

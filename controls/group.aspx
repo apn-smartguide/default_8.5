@@ -7,8 +7,7 @@
 		<% if (control.Current.getAttribute("visible").Equals("false")) { %>
 		<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 		<% } else { %>
-			<% bool bareControl = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true")); %>
-			<% if (!bareControl) { %>
+			<% if (!BareRender) { %>
 			<div id='div_<apn:name runat="server"/>' class='panel panel-default <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
 				<% if (control.Current.getLabel() != "") { %>
 				<div class='panel-heading clearfix'>

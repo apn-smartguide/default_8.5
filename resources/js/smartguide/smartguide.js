@@ -679,21 +679,23 @@ $("form[id^='smartguide_']" ).each(function() {
 								// Prevent self refresh
 								if (allowSelfRefresh||targetArr[i]!=currentID) {
 									var targetDiv = targetArr[i];
-									targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					
-									var responseTarget = $('#div_'+targetDiv, responseDiv);
-									if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
+									if(typeof targetDiv != 'undefined' && targetDiv != "") {
+										targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					
+										var responseTarget = $('#div_'+targetDiv, responseDiv);
+										if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
 
-									responseTarget = responseTarget.clone();
-									if (responseTarget.length > 0) {
-										var currentTarget = $('#div_'+targetDiv, currentDiv);
-										if(currentTarget.length == 0) currentTarget = $('#'+targetDiv, currentDiv);
-										//Check to see if we're using a crud-modal, is so, need to hide it.
-										//Display happens at the event handler level (ie. save_...)
-										if($('.crud-modal', responseTarget).length > 0) {
-											$('.crud-modal', responseTarget).hide(); //.show need to be handled in the callback.
-										 }  
-										$(currentTarget).after(responseTarget).remove();
-										updated.push(responseTarget);
+										responseTarget = responseTarget.clone();
+										if (responseTarget.length > 0) {
+											var currentTarget = $('#div_'+targetDiv, currentDiv);
+											if(currentTarget.length == 0) currentTarget = $('#'+targetDiv, currentDiv);
+											//Check to see if we're using a crud-modal, is so, need to hide it.
+											//Display happens at the event handler level (ie. save_...)
+											if($('.crud-modal', responseTarget).length > 0) {
+												$('.crud-modal', responseTarget).hide(); //.show need to be handled in the callback.
+											}  
+											$(currentTarget).after(responseTarget).remove();
+											updated.push(responseTarget);
+										}
 									}
 								}
 							}
@@ -785,3 +787,12 @@ $(document).ready(function() {
     }
   });
 });
+
+function getScripts(scripts, callback) {
+    var progress = 0;
+    scripts.forEach(function(script) { 
+        $.getScript(script, function () {
+            if (++progress == scripts.length) callback();
+        }); 
+    });
+}

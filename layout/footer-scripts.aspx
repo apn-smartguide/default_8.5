@@ -6,7 +6,7 @@
 <!-- Boostrap -->
 <script src='<%= CacheBreak("/resources/js/bootstrap.js") %>'></script>
 <!-- Modernizr -->
-<script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script>
+<!-- <script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script> -->
 <script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
@@ -30,12 +30,13 @@
 <script src='<%= CacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.10.21/js/jquery.datatables.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.5/js/dataTables.responsive.js") %>'></script>
 <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tinymce.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tables.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.wb.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.formatters.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>

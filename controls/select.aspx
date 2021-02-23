@@ -6,13 +6,12 @@
 	<% 
 	Context.Items["layout"] = control.Current.getChoiceLayout();
 	Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : ""; 
-	Context.Items["bareControl"] = (Request["bare_control"]!=null && ((string)Request["bare_control"]).Equals("true"));
 	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; } %>
 	<apn:choosecontrol runat="server">
 		<apn:whencontrol runat="server" type="check">
 			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<fieldset id='div_<apn:name runat="server"/>' <%=Context.Items["layout"] %> <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> sg-checkbox chkbxrdio-grp form-group <apn:cssclass runat="server" /><apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
-			<% if (!((bool)Context.Items["bareControl"])){ ExecutePath("/controls/legend.aspx"); } %>
+			<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
 			<% if(!((string)Context.Items["layout"]).Equals("vertically")) { %><br/><% } %>
 			<apn:forEach id="control2" runat="server">
 				<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
@@ -49,7 +48,7 @@
 		<apn:whencontrol runat="server" type="lbox">
 			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1;%><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<div id='div_<apn:name runat="server"/>' <%=Context.Items["layout"]%> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
-				<% if (!((bool)Context.Items["bareControl"])){ %><% ExecutePath("/controls/label.aspx"); %><% } %>
+				<% if (!BareRender){ %><% ExecutePath("/controls/label.aspx"); %><% } %>
 				<% if (IsPdf) { %>
 					<p><%=control.Current.getSelectedLabel()%></p>
 				<% } else { %>

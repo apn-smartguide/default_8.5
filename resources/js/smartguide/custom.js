@@ -39,10 +39,9 @@ var customJS = {
 		});
 		
 		tinymceController.init(sgRef, currentLocale);
-		tablesController.init(sgRef);
-		//dataTablesController.init(sgRef);
-		formatterController.init(sgRef);
+		dataTablesController.init(sgRef);
 		crudController.init(sgRef);
+		formatterController.init(sgRef);
 		keepAliveController.init(sgRef, (sessionDuration-2), sessionDuration, 30, keepAlivePage, logoutUrl);
 	}
 	, bindEvents: function (sgRef, context) {
@@ -60,10 +59,9 @@ var customJS = {
 
 		for(i=0; i<context.length; i++) {
 			tinymceController.bindEvents(sgRef, "TEXTAREA.tinymce", context[i]);
-			tablesController.bindEvents(sgRef, context[i]);
-			//wet_dataTablesController.bindEvents(sgRef, context[i]);
-			formatterController.bindEvents(sgRef, context[i]);
+			dataTablesController.bindEvents(sgRef, context[i]);
 			crudController.bindEvents(sgRef, context[i]);
+			formatterController.bindEvents(sgRef, context[i]);
 		}
 
 		$('[data-toggle="tooltip"]').tooltip({container: 'body'});

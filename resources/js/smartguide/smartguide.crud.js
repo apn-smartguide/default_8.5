@@ -11,7 +11,8 @@ var crudController = {
 		// Note: bootstrap modal should be refactored to
 		// https://wet-boew.github.io/v4.0-ci/demos/overlay/overlay-en.html
 
-		$('button.repeat_prepare_add_btn', $form).off('click').on('click', function () {
+		$('.repeat_prepare_add_btn', $form).off('click').on('click', function () {
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -43,15 +44,18 @@ var crudController = {
 
 					$('.hide-from-add-view', '.crud-modal' + level).parent().hide();
 					$('input:visible:first', '.crud-modal' + level).focus();
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$('#loader').fadeOut("slow");
+				}
 			);
 		});
 		// repeat save added instance
-		$('button.repeat_save_add_btn', $form).off('click').on('click', function (e) {
+		$('.repeat_save_add_btn', $form).off('click').on('click', function (e) {
 			//onAddInstance
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -59,6 +63,7 @@ var crudController = {
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
+				$('#loader').fadeOut("slow");
 				return false;
 			}
 			$('.crud-modal' + level, $form).off('hide.bs.modal');
@@ -85,11 +90,14 @@ var crudController = {
 					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 		//cancel add
-		$('button.repeat_cancel_add_btn', $form).off('click').on('click', function () {
+		$('.repeat_cancel_add_btn', $form).off('click').on('click', function () {
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -98,7 +106,8 @@ var crudController = {
 			if (modal.data('data') != $('input,textarea,select', modal).serialize()) {
 				//confirm discard modification
 				if (!confirm(crudModalsTranslations.discardChanges)) {
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					$('#loader').fadeOut("slow");
 					return false;
 				}
 			}
@@ -108,14 +117,17 @@ var crudController = {
 			r.ajaxProcess(this, null, true, 
 				function(){
 					$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 		//repeat prepare edit instance
 		$('.repeat_prepare_edit_btn', $form).off('click').on('click', function () {
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -149,14 +161,17 @@ var crudController = {
 					// });
 					$('.hide-from-edit-view', '.crud-modal' + level).parent().hide();
 					$('input:visible:first', '.crud-modal' + level).focus();
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 		//Cancel edit repeat
-		$('button.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
+		$('.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
@@ -165,7 +180,8 @@ var crudController = {
 			if (modal.data('data') != $('input,textarea,select', modal).serialize()) {
 				//confirm discard modification
 				if (!confirm(crudModalsTranslations.discardChanges)) {
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					$('#loader').fadeOut("slow");
 					return false;
 				}
 			}
@@ -175,15 +191,18 @@ var crudController = {
 			r.ajaxProcess(this, null, true, 
 				function () {
 					$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 		//Save edit instance
-		$('button.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
+		$('.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
 			//onUpdateInstance
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -191,6 +210,7 @@ var crudController = {
 			var f = $repeat.triggerHandler('repeat:updateinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
+				$("#loader").fadeOut("slow");
 				return false;
 			}
 			$('.crud-modal' + level, $form).off('hide.bs.modal');
@@ -222,13 +242,16 @@ var crudController = {
 					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 
 		//Delete instance
 		$('.repeat_del_btn').off('click').on('click', function (e) {
 			if (!confirm(crudModalsTranslations.deleteRow)) return false;
+			$('#loader').fadeIn("slow");
 			//onDeleteInstance
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
@@ -236,6 +259,7 @@ var crudController = {
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
+				$('#loader').fadeOut("slow");
 				return false;
 			}
 			$repeat.find("table").dataTable().fnDestroy();
@@ -246,10 +270,12 @@ var crudController = {
 			$('#' + this.id.replace("[", "\\[").replace("]", "\\]")).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
 			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, 
 				function(){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 
@@ -257,19 +283,19 @@ var crudController = {
 		$('.repeat_table_add_btn, .repeat_block_add_btn').off('click').on('click', function (e) {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_add_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
+				$('#loader').fadeIn("slow");
 				return false;
 			}
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
 			r.ajaxProcess(this, null, true, 
 			function(updatedEles){
-				$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+				//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 			},
 			null,
 			function(){
@@ -280,11 +306,11 @@ var crudController = {
 		$('.repeat_table_insert_btn, .repeat_block_insert_btn').off('click').on('click', function(e) {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_insert_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
+				$('#loader').fadeIn("slow");
 				return false;
 			}
 
@@ -298,7 +324,7 @@ var crudController = {
 			$this.after(newinput);
 			r.ajaxProcess(this, null, true, 
 			function(updatedEles){
-				$('#'+rpt).find("table").trigger( "wb-init.wb-tables" );
+				//$('#'+rpt).find("table").trigger( "wb-init.wb-tables" );
 			},
 			null,
 			function(){
@@ -309,14 +335,15 @@ var crudController = {
 		//delete
 		$('.repeat_table_del_btn, .repeat_block_del_btn').off('click').on('click', function (e) {
 			//onDeleteInstance
-			if (!confirm(crudModalsTranslations.deleteRow)) return false;
+			if (!confirm(crudModalsTranslations.deleteRow))  return false;
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_del_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
+				$('#loader').fadeOut("slow");
 				return false;
 			}
 
@@ -329,19 +356,21 @@ var crudController = {
 			$('#' + this.id).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
 			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, 
 				function(){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 
 		//Move up
 		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn').off('click').on('click', function (e) {
 			//onMoveUpInstance
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_moveup_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var thisId = this.id.replace("[", "\\[").replace("]", "\\]");
 			var classes = $('#' + thisId).attr('class');
@@ -354,19 +383,21 @@ var crudController = {
 			$this.after(newinput);
 			r.ajaxProcess(this, null, true, 
 				function(){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 
 		//Move down
 		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn').off('click').on('click', function (e) {
 			//onMoveDownInstance
+			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var isRepeatTable = $this.hasClass('repeat_table_movedown_btn');
-			var $repeat = $this.closest(isRepeatTable ? 'div.repeat' : 'div.repeatblock');
+			var $repeat = $this.closest('div.repeat');
 			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var thisId = this.id.replace("[", "\\[").replace("]", "\\]");
 			var classes = $('#' + thisId).attr('class');
@@ -379,17 +410,19 @@ var crudController = {
 			$this.after(newinput);
 			r.ajaxProcess(this, null, true, 
 				function(){
-					$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
+					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
-				null
+				function(){
+					$("#loader").fadeOut("slow");
+				}
 			);
 		});
 
 		//hide-from-list-view
 		$('.hide-from-list-view', r.fm).each(function(){
 			//ignore element under '.crud-modal'
-			if ($(this).closest('.crud-modal').length > 0) return;
+			if ($(this).closest('.modal-body').length > 0) return;
 			if ($(this).closest('td').length > 0) $(this).closest('td').remove();
 			else $(this).parent().remove();
 		});

@@ -11,20 +11,24 @@
 	<div id='repeat-errors-validation' class='alert alert-danger modal-messages' role='alert' style='padding:3px 10px 3px 10px;'>
      <h3>Errors while submiting form </h3>
     <ol>
-	<apn:forEach items="alert-controls" id="control" runat="server">
-        <li id='error_<%=Context.Items["counter"] %>_<%= control.Current.getName() %>' >
-		<% if(control.Current.getAlert().Trim().Equals("error.goto.summary")) { %>
+	<apn:forEach items="alert-controls" id="alert" runat="server">
+        <li id='error_<%=Context.Items["counter"] %>_<%= alert.Current.getName() %>' >
+		<% if(alert.Current.getAlert().Trim().Equals("error.goto.summary")) { %>
 			<apn:localize runat="server" key="theme.text.flowchange"/>
-		<% } else if (control.Current.getAlert().Trim().Equals("error.language.change")) { %>
+		<% } else if (alert.Current.getAlert().Trim().Equals("error.language.change")) { %>
 			<apn:localize runat="server" key="theme.text.languagechange"/>
 		<% } else { %>
 		<%
-            string id =control.Current.getName().Remove(0,2);
-            string label = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+			string fieldLabel = "";
+			if(!string.IsNullOrEmpty(alert.Current.getName())) {					
+				string id =alert.Current.getName().Remove(0,2);	
+				if(id.Contains("[")) { id = id.Remove(id.IndexOf("[")); }						
+				fieldLabel = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
+			}
 			int index = (int)Context.Items["loopOnErrorControls"];
 			Context.Items["loopOnErrorControls"] = ++index;
         %>
-			<a href='' onclick='$(/'#modal/').animate({scrollTop: $(/'#error_index_<%=Context.Items["loopOnErrorControls"]%>/').offset().top}, 1000); $(/'#error_index_<%=Context.Items["loopOnErrorControls"]%>/').siblings().find(/':focusable/')[0].focus(); return false;' title='Link to Error <%=control.getCount()%>'> <%=label%> - <%= control.Current.getAlert() %></a><br/>
+			<a href='' onclick='$(/'#modal/').animate({scrollTop: $(/'#error_index_<%=Context.Items["loopOnErrorControls"]%>/').offset().top}, 1000); $(/'#error_index_<%=Context.Items["loopOnErrorControls"]%>/').siblings().find(/':focusable/')[0].focus(); return false;' title='Link to Error <%=alert.getCount()%>'> <%=fieldLabel%> - <%= alert.Current.getAlert() %></a><br/>
 		<% } %>
 		<% int counter = (int)Context.Items["counter"]; Context.Items["counter"] = ++counter; %>
         </li>

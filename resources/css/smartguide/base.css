@@ -36,11 +36,6 @@ body {
     height: 40px; /* Set the fixed height of the footer here */
     background-color: #f5f5f5;
 }
-
-body > .container {
-    padding-top: 60px;
-    padding-bottom: 20px;
-}
 /* Sticky Footer */
 
 span.required {
@@ -89,23 +84,13 @@ span.required {
 }
 
 @-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
 }
-
+  
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .recap .row {
@@ -175,8 +160,29 @@ div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr[role="r
     padding-left:15px!important;
 }
 
+table.dataTable td {
+    padding: 5px;
+}
+
+.table > thead > tr > td {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+table.dataTable thead tr th, table.dataTable thead tr td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #111;
+}
+
 div.repeat:not(.grid-view) table {
-border-collapse: collapse!important;
+    border-collapse: collapse!important;
+}
+
+div.repeat table td.repeatbutton {
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .nowrap {
