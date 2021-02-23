@@ -7,9 +7,10 @@
     %>
     <a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
   </apn:ifnotcontrolvalid>
-  <div class='row <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
-    <div class='col-xs-6'><span><strong><apn:label runat="server" /></strong></span></div>
-    <div class='col-xs-6'><% if ((!control.Current.getValue().Equals(""))  && (control.Current.getValue() != null)) { %> ******* <% } %> &nbsp;</div>
+  <div class='<apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
+    <span><strong><apn:label runat="server" /></strong><br/>
+    <% if ((!control.Current.getValue().Equals(""))  && (control.Current.getValue() != null)) { %> ******* <% } %> &nbsp;
+    </span>
   </div>
 
 </apn:control>

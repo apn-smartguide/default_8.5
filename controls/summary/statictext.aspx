@@ -8,6 +8,6 @@
 		<% if (control.Current.getLabel().Trim().Length == 0) bareControl = true; %>
 		<% if (!bareControl){ %><label><span><apn:label runat="server" /></span></label><% } %>
 		<% if (control.Current.getValue().Trim().Length > 0) { %><span><apn:value runat="server" /></span><% } %>
-		</div>
+		&nbsp;</div>
 	<% } %>
 </apn:control>
