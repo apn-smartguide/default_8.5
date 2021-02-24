@@ -16,7 +16,10 @@
 		<apn:whencontrol runat="server" type="radio">
 			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int) Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<fieldset  id='div_<apn:name runat="server" />' <%=Context.Items["layout"] %> class='<%=Context.Items["no-col-layout"]%> chkbxrdio-grp form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' <apn:metadata runat="server"/> <%=Context.Items["readonly"]%> <!-- #include file="aria-live.inc" --> >
-				<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); }	%>
+				<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
+				<% if(ShowErrorsAbove) { %>
+					<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid>
+				<% } %>
 				<% if(!((string)Context.Items["layout"]).Equals("vertically")) { %><br/><% } %>
 				<% Context.Items["counter"] = 1; %>
 				<apn:forEach runat="server" id="control5" >
@@ -49,12 +52,18 @@
 					</apn:choosecontrol>
 					<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
 				</apn:forEach>
+				<% if(!ShowErrorsAbove) { %>
+					<apn:ifnotcontrolvalid runat="server"><br/><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
+				<% } %>
 			</fieldset>
   		</apn:whencontrol>
   		<apn:whencontrol runat="server" type="drop" >
             <apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group has-feedback has-search <apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> <%=Context.Items["readonly"]%><!-- #include file="aria-live.inc" --> >
 				<% ExecutePath("/controls/label.aspx"); %>
+				<% if(ShowErrorsAbove) { %>
+					<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
+				<% } %>
 				<% if (IsPdf) { %>
 					<p><%=control.Current.getSelectedLabel()%></p>
 				<% } else if (control.Current.getCSSClass().IndexOf("autocomplete") > -1) { %>
@@ -87,6 +96,9 @@
 						</apn:choosecontrol>
 					</apn:forEach>
                 </select>
+				<% } %>
+				<% if(!ShowErrorsAbove) { %>
+					<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
 				<% } %>
 			</div>
   		</apn:whencontrol>

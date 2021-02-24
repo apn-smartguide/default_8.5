@@ -588,6 +588,18 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["summary"] = value;
 		}
 	}
+
+	public bool ShowErrorsAbove {
+		get {
+			if(Context.Items["errors-above"] == null) {
+				Context.Items["errors-above"] = false;
+			}
+			return (bool)Context.Items["errors-above"];
+		}
+		set {
+			Context.Items["errors-above"] = value;
+		}
+	}
 	
 	public bool BareRender {
 		get {
