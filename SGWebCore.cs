@@ -589,18 +589,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 	
-	public bool BareRender {
-		get {
-			if(Context.Items["renderbare"] == null) {
-				Context.Items["renderbare"] = false;
-			}
-			return (bool)Context.Items["renderbare"];
-		}
-		set {
-			Context.Items["renderbare"] = value;
-		}
-	}
-
 	public bool ShowErrorsAbove {
 		get {
 			if(Context.Items["errors-above"] == null) {
