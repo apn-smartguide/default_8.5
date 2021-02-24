@@ -7,8 +7,9 @@
         %>
 		<a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
 	</apn:ifnotcontrolvalid>
-	<div class='row <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
-		<div class='col-xs-6'><span><strong><apn:label runat="server" /></strong></span></div>
-		<div class='col-xs-6'><% if(control.Current.getAttribute("value").Trim().Length > 0) { %><a target= '_blank' href='upload/do.aspx/<apn:value runat="server"/>?id=<apn:name runat="server"/>&interviewID=<apn:control runat="server" type="interview-code"><apn:value runat="server"/></apn:control>'> <apn:value runat="server"/></a> <% } %></div>
+	<div class='<apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
+		<span><strong><apn:label runat="server" /></strong><br/>
+		<% if(control.Current.getAttribute("value").Trim().Length > 0) { %><a target= '_blank' href='upload/do.aspx/<apn:value runat="server"/>?id=<apn:name runat="server"/>&interviewID=<apn:control runat="server" type="interview-code"><apn:value runat="server"/></apn:control>'> <apn:value runat="server"/></a> <% } %>
+		&nbsp;</span>
 	</div>
 </apn:control>

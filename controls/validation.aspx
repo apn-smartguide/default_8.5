@@ -4,7 +4,7 @@
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
 <% Context.Items["counter"] = 0; %>
-<% if (IsPdf) { %>
+<% if (!IsPdf) { %>
 	<apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
 	<% Context.Items["errorIndex"] = 0; %>
 	<%
@@ -26,7 +26,7 @@
 		}
 	}
 	Context.Items["alerts-count"] = 0;
-	%> 
+	%>
 	<apn:forEach id="alerts" items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
 	<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) {%>
 	<div id='alerts'><%-- do not change the div id as it is referenced in smartguide.js --%>

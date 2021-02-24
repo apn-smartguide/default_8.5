@@ -601,6 +601,30 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool ShowErrorsAbove {
+		get {
+			if(Context.Items["errors-above"] == null) {
+				Context.Items["errors-above"] = false;
+			}
+			return (bool)Context.Items["errors-above"];
+		}
+		set {
+			Context.Items["errors-above"] = value;
+		}
+	}
+	
+	public bool BareRender {
+		get {
+			if(Context.Items["renderbare"] == null) {
+				Context.Items["renderbare"] = false;
+			}
+			return (bool)Context.Items["renderbare"];
+		}
+		set {
+			Context.Items["renderbare"] = value;
+		}
+	}
+
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) { 
 		bool result = false;
