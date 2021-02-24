@@ -31,7 +31,7 @@
 			<% } %>
 			<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 		</div>
-		<div class='panel-body <% if (!(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
+		<div class='panel-body <% if (!(bool)Context.Items["hidePagination"] && !(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
 			<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
 			<% int totalPages = Convert.ToInt32(control.Current.getAttribute("totalPages")); %>
 			<% if (totalPages == 0) totalPages = totalPages + 1; %>
@@ -39,7 +39,7 @@
 			<% if (!IsPdf && !(bool)Context.Items["useDataTables"]) { %>
 			<div class='form-inline' style='padding-bottom:5px'>
 				<div class='row'>
-					<% if(!(bool)Context.Items["hideSearch"]) {%>
+					<% if(!(bool)Context.Items["hideSearch"]) { %>
 					<div class='datatable-search pull-right'>
 						<div class="form-group">
 							<label class="sr-only" for="datatable-search"><apn:localize runat="server" key="theme.text.datatable.filter" />:</label>
@@ -51,6 +51,7 @@
 						<button type="submit" class='searchBtn btn btn-sm btn-default' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 					</div>
 					<% } %>
+					<% if(!(bool)Context.Items["hidePagination"]) { %>
 					<div class='col-xs-4 col-md-8'>
 						<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span> &nbsp;&nbsp;&nbsp;
 						<apn:localize runat="server" key="theme.text.datatable.fetch" />
@@ -68,6 +69,7 @@
 						</apn:control>
 						<apn:localize runat="server" key="theme.text.datatable.entry" />
 					</div>
+					<% } %>
 				</div>
 			</div>
 			<% } %>
@@ -85,22 +87,50 @@
 							<apn:forEach runat="server" id="row">
 								<apn:forEach runat="server" id="col">
 									<apn:forEach runat="server" id="field">
-										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
-										<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-											<% ExecutePath("/controls/custom/control-label.aspx"); %>
-											<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
-											&nbsp;&nbsp;
-											<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
-												<%if ("asc".Equals(field.Current.getAttribute("sort"))) {%>
-												class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
-												<% } else if ("desc".Equals(field.Current.getAttribute("sort"))) {%>
-												class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
-												<% } else { %>
-												class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style="color:LightGrey"
-												<% } %>></span>
-											<% } %>
-										</th>
-										<% } %>
+										<apn:ChooseControl runat="server">
+											<apn:whencontrol runat="server" type="GROUP">
+												<apn:forEach runat="server" id="grow">
+													<apn:forEach runat="server" id="gcol">
+														<apn:forEach runat="server" id="gfield">
+															<% if(!gfield.Current.getAttribute("style").Equals("visibility:hidden;") && !gfield.Current.getAttribute("visible").Equals("false") && !gfield.Current.getCSSClass().Contains("hide-from-list-view") && !gfield.Current.getCSSClass().Contains("proxy")) { %>
+																<th class='<%=gcol.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+gcol.getCount()%>'>
+																	<% ExecutePath("/controls/custom/control-label.aspx"); %>
+																	<% if ("true".Equals(gfield.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
+																	&nbsp;&nbsp;
+																	<span data-sort="<%=gfield.Current.getAttribute("sort")%>" data-field-id="<%=gfield.Current.getFieldId()%>"
+																		<%if ("asc".Equals(gfield.Current.getAttribute("sort"))) {%>
+																		class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
+																		<% } else if ("desc".Equals(gfield.Current.getAttribute("sort"))) {%>
+																		class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
+																		<% } else { %>
+																		class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style="color:LightGrey"
+																		<% } %>></span>
+																	<% } %>
+																</th>
+																<% } %>
+														</apn:forEach>
+													</apn:forEach>
+												</apn:forEach>
+											</apn:whencontrol>
+											<apn:Otherwise runat="server">
+												<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
+												<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
+													<% ExecutePath("/controls/custom/control-label.aspx"); %>
+													<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
+													&nbsp;&nbsp;
+													<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
+														<%if ("asc".Equals(field.Current.getAttribute("sort"))) {%>
+														class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
+														<% } else if ("desc".Equals(field.Current.getAttribute("sort"))) {%>
+														class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
+														<% } else { %>
+														class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style="color:LightGrey"
+														<% } %>></span>
+													<% } %>
+												</th>
+												<% } %>
+											</apn:Otherwise>
+										</apn:ChooseControl>
 									</apn:forEach>
 								</apn:forEach>
 							</apn:forEach>
@@ -123,7 +153,7 @@
 							<% } %>
 							<% BareRender = true; %>
 							<% Context.Items["optionIndex"] = status.getCount(); %>
-							<% ExecutePath("/controls/repeats/col.aspx"); %>
+							<% ExecutePath("/controls/repeats/table-col.aspx"); %>
 							<% BareRender = false; %>	
 							<% if (!IsPdf) { %>
 								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
@@ -171,8 +201,7 @@
 				</tfooter>
 				<% } %>
 			</table>
-			<% if ((bool)Context.Items["hasPagination"] && !(bool)Context.Items["useDataTables"]) { %>
-			
+			<% if (!(bool)Context.Items["hidePagination"] && (bool)Context.Items["hasPagination"] && !(bool)Context.Items["useDataTables"]) { %>
 			<div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span></div>
 			<% } %>
 		</div>

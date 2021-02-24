@@ -16,14 +16,15 @@
 			<apn:whencontrol runat="server" type="UPLOAD"><% RenderTD("/controls/upload.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
 			<apn:whencontrol runat="server" type="TRIGGER"><% RenderTD("/controls/button.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
 			<apn:Otherwise runat="server">
-				<% ExecutePath("/controls/repeats/col.aspx"); %>
+				<% ExecutePath("/controls/repeats/table-col.aspx"); %>
 			</apn:Otherwise>
 	</apn:ChooseControl>
 	</apn:forEach>
 </apn:control>
 <script runat="server">
 	public void RenderTD(string ctrl, bool isVisible, string zClass) {
-		if(isVisible) Response.Write("<td class='" + zClass + "'>");
+		//if(isVisible) Response.Write("<td class='" + zClass + "'>");
+		if(isVisible) Response.Write("<td>");
 		ExecutePath(ctrl);
 		if(isVisible) Response.Write("</td>");
 	}
