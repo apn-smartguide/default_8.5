@@ -26,11 +26,7 @@
 		%>
 		<% if (Context.Items["maxlength"] == null) Context.Items["maxlength"] = ""; %>
 		<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int) Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
-<<<<<<< HEAD
-		<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
-=======
 		<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> input-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
->>>>>>> a6c29c682fdb1c195f95c7bc10569159c8a90d7d
 			<% ExecutePath("/controls/label.aspx"); %>
 			<% if(ShowErrorsAbove) { %>
 				<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
