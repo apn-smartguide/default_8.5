@@ -416,14 +416,14 @@ ul.pagination {
   float: right;
 }
 
-select.pageSize {
+/* select.pageSize {
 	width:40px !important; 
 	padding:0 10px 0 10px;
 }
 input.pageSize {
 	width:40px !important; 
 	padding:0 10px 0 10px;
-}
+} */
 
 /* Add animation to "page content" */
 .animate-bottom {

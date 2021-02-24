@@ -7,17 +7,18 @@
 	Context.Items["hiddenName"] = "";
 	string CSSClass = control.Current.getCSSClass();
 	Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
-	Context.Items["hideRowAddButton"] = control.Current.getCSSClass().Contains("hide-row-add-btn");
+	Context.Items["hideRowAddButton"] = CSSClass.Contains("hide-row-add-btn");
 	Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
 	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
+	Context.Items["useDataTables"] = (CSSClass.Contains("datatables") || CSSClass.Contains("wb-tables"));
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
-	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
-	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
+	Context.Items["isSelectable"] = "true".Equals(control.Current.getAttribute("isselectable"));
+	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination"));
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default repeat <%=control.Current.getCSSClass()%> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<% if(((string)Context.Items["hiddenName"]).Length == 0) { %>
 		<apn:control runat="server" type="repeat-index" id="repeatIndex">
 			<input name='<apn:name runat="server"/>' type="hidden" value="" />
@@ -30,8 +31,12 @@
 			<% } %>
 			<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 		</div>
-		<div class='panel-body bootpag'>
-			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
+		<div class='panel-body <% if (!(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
+			<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
+			<% int totalPages = Convert.ToInt32(control.Current.getAttribute("totalPages")); %>
+			<% if (totalPages == 0) totalPages = totalPages + 1; %>
+			<% Context.Items["totalPages"] = totalPages; %>
+			<% if (!IsPdf && !(bool)Context.Items["useDataTables"]) { %>
 			<div class='form-inline' style='padding-bottom:5px'>
 				<div class='row'>
 					<% if(!(bool)Context.Items["hideSearch"]) {%>
@@ -47,10 +52,7 @@
 					</div>
 					<% } %>
 					<div class='col-xs-4 col-md-8'>
-						<b>Page
-							<span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%>
-								/
-								<%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;
+						<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span> &nbsp;&nbsp;&nbsp;
 						<apn:localize runat="server" key="theme.text.datatable.fetch" />
 						<apn:control runat="server" type="repeat-page-limit" id="pageSize">
 							<%if (" 10 20 50 75 ".Contains(" " + pageSize.Current.getValue() + " ")) {%>
@@ -69,7 +71,7 @@
 				</div>
 			</div>
 			<% } %>
-			<table class='responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") + "'" : "")  %>>
+			<table class='responsive <%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") + "'" : "")  %>>
 				<% if ((bool)Context.Items["hasPagination"]) { %>
 				<apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control>
 				<% } %>
@@ -79,20 +81,14 @@
 				<apn:control runat="server" type="default-instance" id="defaultGroup">
 					<thead>
 						<tr id='tr_<apn:name runat="server"/>'>
-							<% if ((bool)Context.Items["isSelectable"]) { %>
-								<td></td> <!-- intentional use of td instead of th for suppressing WCAG requirement -->
-							<% } %>
+							<% if ((bool)Context.Items["isSelectable"]) { %><td></td> <!-- intentional use of td instead of th for suppressing WCAG requirement --> <% } %>
 							<apn:forEach runat="server" id="row">
 								<apn:forEach runat="server" id="col">
 									<apn:forEach runat="server" id="field">
-										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") 
-										&& !field.Current.getAttribute("visible").Equals("false") 
-										&& !field.Current.getCSSClass().Contains("hide-from-list-view")
-										&& !field.Current.getCSSClass().Contains("proxy")
-										) { %>
+										<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 										<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
 											<% ExecutePath("/controls/custom/control-label.aspx"); %>
-											<% if ("true".Equals(field.Current.getAttribute("isSortable"))) { %>
+											<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 											&nbsp;&nbsp;
 											<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
 												<%if ("asc".Equals(field.Current.getAttribute("sort"))) {%>
@@ -109,7 +105,7 @@
 								</apn:forEach>
 							</apn:forEach>
 							<% if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
-							<td></td>
+							<td data-orderable="false"></td>
 							<% } %>
 						</tr>
 					</thead>
@@ -175,8 +171,9 @@
 				</tfooter>
 				<% } %>
 			</table>
-			<% if ((bool)Context.Items["hasPagination"]) { %>
-			<div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div>
+			<% if ((bool)Context.Items["hasPagination"] && !(bool)Context.Items["useDataTables"]) { %>
+			
+			<div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span></div>
 			<% } %>
 		</div>
 	</div>

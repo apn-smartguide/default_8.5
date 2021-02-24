@@ -7,8 +7,9 @@
         %>
         <a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
     </apn:ifnotcontrolvalid>
-    <div class='row <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
-        <div class='col-xs-6'><span><strong><apn:label runat="server" /></strong></span></div>
-        <div class='col-xs-6'><apn:value runat="server" tohtml="true" /> &nbsp;</div>
+    <div class='<apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
+        <span><strong><apn:label runat="server" /></strong><br/>
+            <apn:value runat="server" tohtml="true" />&nbsp;
+        </span>
     </div>
 </apn:control>

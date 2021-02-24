@@ -12,6 +12,9 @@
 			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<fieldset id='div_<apn:name runat="server"/>' <%=Context.Items["layout"] %> <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> sg-checkbox chkbxrdio-grp form-group <apn:cssclass runat="server" /><apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
 			<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
+			<% if(ShowErrorsAbove) { %>
+				<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid>
+			<% } %>
 			<% if(!((string)Context.Items["layout"]).Equals("vertically")) { %><br/><% } %>
 			<apn:forEach id="control2" runat="server">
 				<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
@@ -43,12 +46,18 @@
 					</apn:otherwise>
 				</apn:choosecontrol>
 			</apn:forEach>
+			<% if(!ShowErrorsAbove) { %>
+				<apn:ifnotcontrolvalid runat="server"><br/><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
+			<% } %>
 			</fieldset>
 		</apn:whencontrol>
 		<apn:whencontrol runat="server" type="lbox">
 			<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1;%><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>'>Anchor to error <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 			<div id='div_<apn:name runat="server"/>' <%=Context.Items["layout"]%> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
 				<% if (!BareRender){ %><% ExecutePath("/controls/label.aspx"); %><% } %>
+				<% if(ShowErrorsAbove) { %>
+					<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
+				<% } %>
 				<% if (IsPdf) { %>
 					<p><%=control.Current.getSelectedLabel()%></p>
 				<% } else { %>
@@ -66,6 +75,9 @@
 					</apn:choosecontrol>
 				</apn:forEach>
 				</select>
+				<% } %>
+				<% if(!ShowErrorsAbove) { %>
+					<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
 				<% } %>
 			</div>
 		</apn:whencontrol>

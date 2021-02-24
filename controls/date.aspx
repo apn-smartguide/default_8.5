@@ -11,7 +11,7 @@
 <% if (control.Current.getAttribute("visible").Equals("false")) { %><!-- #include file="hidden.inc" -->
 <% } else { %>
 	<apn:ifnotcontrolvalid runat="server"><% Context.Items["errorIndex"] = (int)Context.Items["errorIndex"] + 1; %><a id='error_index_<%=Context.Items["errorIndex"]%>'></a></apn:ifnotcontrolvalid>
-	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> input-group date <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> > 
+	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group date <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> > 
 	<% ExecutePath("/controls/label.aspx"); %>
 	<%-- for html date type, format must be "yyyy-mm-dd" for value, min and max attributes. --%>
 	<%-- for min or max attribute set via data attribute; Ex.: HTML -> Min -> setting --%>
@@ -24,6 +24,9 @@
 			Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
 		}
 	%>
+	<% if(ShowErrorsAbove) { %>
+		<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
+	<% } %>
 	<% if (IsPdf) { %>
 		<p><%=Context.Items["data-value"]%></p>
 	<% } else { %>
@@ -38,6 +41,9 @@
 				<apn:label runat="server" />
 			</apn:whencontrol>
 		</apn:choosecontrol>
+	<% } %>
+	<% if(!ShowErrorsAbove) { %>
+		<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid>
 	<% } %>
 	</div>
 <% } %>

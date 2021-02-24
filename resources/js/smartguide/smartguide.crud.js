@@ -422,7 +422,7 @@ var crudController = {
 		//hide-from-list-view
 		$('.hide-from-list-view', r.fm).each(function(){
 			//ignore element under '.crud-modal'
-			if ($(this).closest('.crud-modal').length > 0) return;
+			if ($(this).closest('.modal-body').length > 0) return;
 			if ($(this).closest('td').length > 0) $(this).closest('td').remove();
 			else $(this).parent().remove();
 		});
