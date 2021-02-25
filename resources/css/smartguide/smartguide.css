@@ -189,7 +189,7 @@
   margin-left: -10px;
   margin-right: -10px;
 }
-.hide-progress-bar .progress {
+.wizard+.hide-progress-bar .progress {
   display: none;
 }
 /* Alert link */

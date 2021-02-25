@@ -36,7 +36,7 @@ Context.Items["totalSection"]  = 0;
 	<% } %>
 	<% if (!CurrentPageCSS.Contains("hide-progress-bar")) { %>
 	<div class="col-xs-12">
-		<apn:control runat="server" type="progress" id="progressBar"><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="<%= int.Parse(progressBar.Current.getValue()) %>" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: <%= int.Parse(progressBar.Current.getValue()) %>%"><%= int.Parse(progressBar.Current.getValue()) %> %</div></div></apn:control>
+		<apn:control runat="server" type="progress" id="progressBar"><div class="wizard progress"><div class="progress-bar" role="progressbar" aria-valuenow="<%= int.Parse(progressBar.Current.getValue()) %>" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: <%= int.Parse(progressBar.Current.getValue()) %>%"><%= int.Parse(progressBar.Current.getValue()) %> %</div></div></apn:control>
 	</div>
 	<% } %>
 </div>
