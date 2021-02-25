@@ -11,4 +11,5 @@
 	<span><strong><apn:label runat="server" /></strong><br/>
 		<apn:forEach id="control2" runat="server"><% if(control.Current.containsValue(control2.Current.getValue())) { %><%= control2.Current.getLabel() %><% } %></apn:forEach>
 	&nbsp;</span>
+	</div>
 </apn:control>
