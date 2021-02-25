@@ -6,7 +6,7 @@
 	var keepAliveFlag = 'True';
 	var sessionDuration = '<%= Session.Timeout %>';
 	var logoutPage = '<%= GetLogoutPage() %>';
-	var redirPage = '<%= HomeURL %>';
+	var redirPage = '<%= GetLogoutPage() %>';
 	var basePath = '<%= BasePath %>';
 	var currentLocale = '<%= CurrentLocale %>';
 	var supportedLocales = [];
