@@ -3,7 +3,11 @@
 <apn:api5 id="sg5" runat="server"/>
 <%
 	ThemesLocations = new string[]{Theme,"/.."};
-	LogoutURL = GetURLForSmartlet(SmartletName);
+	HomeURL = GetURLForSmartlet(SmartletName);
+	if(IsDevelopment) {
+		HomeURL = GetURLForSmartlet("dashboard");
+	}
+	LogoutURL = GetURLForSmartlet("logout");
 %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
