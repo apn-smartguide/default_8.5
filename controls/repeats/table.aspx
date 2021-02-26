@@ -7,11 +7,13 @@
 	Context.Items["hiddenName"] = "";
 	string CSSClass = control.Current.getCSSClass();
 	Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
+	Context.Items["hideEditButton"] = CSSClass.Contains("hidee-dit-btn");
+	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hideRowAddButton"] = CSSClass.Contains("hide-row-add-btn");
 	Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
-	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
+	Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 	Context.Items["useDataTables"] = (CSSClass.Contains("datatables") || CSSClass.Contains("wb-tables"));
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = "true".Equals(control.Current.getAttribute("isselectable"));
@@ -25,12 +27,14 @@
 			<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 		</apn:control>
 		<% } %>
+		<% if (!(bool)Context.Items["hideHeading"]) { %>
 		<div class='panel-heading'>
 			<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 				<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>
 			<% } %>
 			<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 		</div>
+		<% } %>
 		<div class='panel-body <% if (!(bool)Context.Items["hidePagination"] && !(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
 			<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
 			<% int totalPages = Convert.ToInt32(control.Current.getAttribute("totalPages")); %>
