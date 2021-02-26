@@ -59,5 +59,6 @@
 			</apn:forEach><ul>
 		</section>
 		<% } %>
+	</div>
 	<% } %>
 <% } %>

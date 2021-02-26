@@ -4,4 +4,3 @@
 		<p class="text-muted"><apn:localize runat="server" key="theme.text.copyright"/></p>
 	</div>
 </footer>
-<% ExecutePath("/layout/footer-scripts.aspx"); %>

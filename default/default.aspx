@@ -19,47 +19,47 @@
 			<%-- SmartGuide library definitions --%>
 			<span id="sglib"><% ExecutePath("/controls/sglib.aspx"); %></span><%-- required to support actions on fields, must be placed within the SmartGuide form --%>
 			<span id="sgControls"><%-- do not change the div id as it is referenced in smartguide.js --%>
-			<% ExecutePath("/layout/header.aspx"); %>
-			<div class="container" role="main">
-				<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
-				<% if (SecondaryNavigation != null && !SecondaryNavigation.getLabel().Equals("")) { %>
-				<div id="leftcol" class="col-xs-3 hidden-sm hidden-xs" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
-				<% 
-					if (SecondaryNavigation != null && !SecondaryNavigation.getLabel().Equals("")) { 
-						ExecutePath(SecondaryNavigation.getLabel());
-					} else {		
-						ExecutePath("/layout/secondary-navigation.aspx");
-					} 
-				%>
-				</div>
-				<div class="col-xs-12 col-md-9">
-				<% } else { %>
-				<div class="col-xs-12">
-				<% } %>
-					<div class="row page-title">
-						<div class="col-xs-12">
-							<h2>
-								<apn:control runat="server" type="step"><apn:label runat="server" /></apn:control>
-							</h2>
+				<% ExecutePath("/layout/header.aspx"); %>
+				<div class="container" role="main">
+					<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
+					<% if (SecondaryNavigation != null) { %>
+					<div id="leftcol" class="col-xs-3 hidden-sm hidden-xs" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
+						<% 
+						if (!SecondaryNavigation.getLabel().Equals("")) { 
+							ExecutePath(SecondaryNavigation.getLabel());
+						} else {		
+							ExecutePath("/layout/secondary-navigation.aspx");
+						} 
+						%>
+					</div>
+					<% } %>
+					<div class='col-xs-12 <% if (SecondaryNavigation != null) { %> col-md-9<% } %>'>
+						<div class="row page-title">
+							<div class="col-xs-12">
+								<h2>
+									<apn:control runat="server" type="step"><apn:label runat="server" /></apn:control>
+								</h2>
+							</div>
 						</div>
-					</div>
-					<% if (ShowWizard) { %>
-								<% ExecutePath("/controls/wizard/sections.aspx"); %>
-					<% } %>
-					<% ExecutePath("/controls/validation.aspx"); %>
-					<% ExecutePath("/layout/main.aspx"); %>
-					<%-- MAIN LOOP OVER PAGE CONTROLS --%>		
-					<% ExecutePath("/controls/controls.aspx"); %>
-					<% if (ShowWizard) { %>
-					<%-- WIZARD PREV/NEXT BUTTONS --%>
-					<div class="navigation">
-						<% ExecutePath("/controls/wizard/bottom-controls.aspx"); %>
-					</div>
-					<% } %>
-				</div>
-				<% ExecutePath("/layout/footer.aspx"); %>
-			</div>
+						<% if (ShowWizard) { %>
+							<% ExecutePath("/controls/wizard/sections.aspx"); %>
+						<% } %>
+						<% ExecutePath("/controls/validation.aspx"); %>
+						<% ExecutePath("/layout/main.aspx"); %>
+						<%-- MAIN LOOP OVER PAGE CONTROLS --%>		
+						<% ExecutePath("/controls/controls.aspx"); %>
+						<% if (ShowWizard) { %>
+						<%-- WIZARD PREV/NEXT BUTTONS --%>
+						<div class="navigation">
+							<% ExecutePath("/controls/wizard/bottom-controls.aspx"); %>
+						</div> <!-- end bottom navigation -->
+						<% } %>
+					</div> <!-- end content part -->
+					<% ExecutePath("/layout/footer.aspx"); %>
+				</div> <!-- end container -->
+			</span> <!-- end sgcontrols -->
 		</form>
+		<% ExecutePath("/layout/footer-scripts.aspx"); %>
 		<script>
 			<%=Context.Items["javascript"]%>
 			$("#loader").fadeOut("slow");
