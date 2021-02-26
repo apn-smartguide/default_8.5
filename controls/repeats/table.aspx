@@ -99,7 +99,7 @@
 														<apn:forEach runat="server" id="gfield">
 															<% if(!gfield.Current.getAttribute("style").Equals("visibility:hidden;") && !gfield.Current.getAttribute("visible").Equals("false") && !gfield.Current.getCSSClass().Contains("hide-from-list-view") && !gfield.Current.getCSSClass().Contains("proxy")) { %>
 																<th class='<%=gcol.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+gcol.getCount()%>'>
-																	<% ExecutePath("/controls/custom/control-label.aspx"); %>
+																	<span class='<apn:cssclass runat="server"/>'><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
 																	<% if ("true".Equals(gfield.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 																	&nbsp;&nbsp;
 																	<span data-sort="<%=gfield.Current.getAttribute("sort")%>" data-field-id="<%=gfield.Current.getFieldId()%>"
@@ -120,7 +120,7 @@
 											<apn:Otherwise runat="server">
 												<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 												<th class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-													<% ExecutePath("/controls/custom/control-label.aspx"); %>
+													<span class='<apn:cssclass runat="server"/>'><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
 													<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 													&nbsp;&nbsp;
 													<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
