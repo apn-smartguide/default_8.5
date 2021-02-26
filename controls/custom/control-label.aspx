@@ -6,10 +6,10 @@
 	</apn:ifcontrolrequired>
 	<% if(!Context.Items["label"].Equals(""))  { %>
 	<apn:ifnotcontrolattribute attr="tooltip" runat="server">
-		<span class='<apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> field-name'><%=GetAttribute(control.Current, "label")%></span>
+		<span class='<apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> field-name <apn:cssclass runat="server"/>'><%=GetAttribute(control.Current, "label")%></span>
 	</apn:ifnotcontrolattribute>
 	<apn:ifcontrolattribute attr="tooltip" runat="server">
-		<span class='<apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> field-name' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>'><%=GetAttribute(control.Current, "label")%></span>
+		<span class='<apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> field-name <apn:cssclass runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=GetAttribute(control.Current, "tooltip")%>'><%=GetAttribute(control.Current, "label")%></span>
 	</apn:ifcontrolattribute>
 	<% } %>
 	<% ExecutePath("/controls/help.aspx"); %>
