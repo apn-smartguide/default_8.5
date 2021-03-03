@@ -742,6 +742,11 @@ $("form[id^='smartguide_']" ).each(function() {
 					r.posted = false;
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					if (r.posted) {
+						// this is to make sure we don't interpret as an error if
+						// there is already a server side submit running
+						return;
+					}
 					r.posted = false;
 					if (console) {
 						console.log(XMLHttpRequest);
