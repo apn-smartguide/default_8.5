@@ -32,8 +32,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	private string lastModificationDate = "";
 
 	public void ClearCaches() {
-		Session["paths-dictionary"] = new Dictionary<string, string>();
-		Session["CacheBreak-dictionary"] = new Dictionary<string, string>();
+		Application["paths-dictionary"] = new Dictionary<string, string>();
 		Context.Items["api5"] = null;
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletLogger"] = null;
@@ -227,10 +226,10 @@ public partial class SGWebCore : System.Web.UI.Page
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
 	public string ResolvePath(string path) {
 		if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
-		if(Session["paths-dictionary"] == null) {
-			Session["paths-dictionary"] = new Dictionary<string, string>();
+		if(Application["paths-dictionary"] == null) {
+			Application["paths-dictionary"] = new Dictionary<string, string>();
 		}
-		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Session["paths-dictionary"];
+		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Application["paths-dictionary"];
 		
 		string filePath = "";
 		string pathParams = "";

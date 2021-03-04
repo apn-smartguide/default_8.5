@@ -387,13 +387,6 @@ fieldset .radio-inline:first-of-type, fieldset .checkbox-inline:first-of-type {
 .recap input.btn {
   margin-top: -4px;
 }
-/* Remove or comment the following 3 lines to display the label and value side-by-side in the recap */
-.recap .col-sm-6 {
-  width: 100%;
-}
-.recap .col-sm-6 span {
-  font-weight: bold;
-}
 /* Page navigation */
 .navigation {
   margin-top: 10px;

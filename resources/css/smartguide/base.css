@@ -107,6 +107,10 @@ span.required {
     font-weight: bold;
 }
 
+.recap .panel-body > .row div[class^='col-'] > div {	
+	border-bottom: 1px solid #d2d7da;
+}
+
 .modal-backdrop {
     opacity: 0.5 !important;
 }
