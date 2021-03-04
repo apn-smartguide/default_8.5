@@ -16,10 +16,12 @@ var customJS = {
 						var nextButton = $('input.next:visible').first();
 						nextButton.triggerHandler('click');
 						return false;
-					} else {
-						event.preventDefault();
-						return false;
-					}
+					} 
+					// The below will break accessibility
+					// else {
+					// 	event.preventDefault();
+					// 	return false;
+					// }
 				}
 			}
 		});
