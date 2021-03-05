@@ -612,6 +612,16 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public string GetPageTitle(string pageName) {
+		StringBuilder sb = new StringBuilder();
+		if(!CurrentPageSection.Equals("")) sb.Append(CurrentPageSection);
+		if(!pageName.Equals("")) {
+			if(!CurrentPageSection.Equals("")) sb.Append(" - ");
+			sb.Append(pageName);
+		};
+		return sb.ToString();
+	}
+
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) { 
 		bool result = false;
