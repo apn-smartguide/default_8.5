@@ -432,15 +432,24 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 
-	public string SectionPrimaryPageURL {
+	public ISmartletPage SectionPrimaryPage {
 		get {
 			if(Session["section-primary-page"] != null && CurrentPageSection.Equals(CurrentActiveSection)) {
-				return ((string)Session["section-primary-page"]);
+				return ((ISmartletPage)Session["section-primary-page"]);
 			}
-			return "";
+			return null;
 		}
 		set {
 			Session["section-primary-page"] = value;
+		}
+	}
+	
+	public string SectionPrimaryPageURL {
+		get {
+			if(SectionPrimaryPage != null && !SectionPrimaryPage.Equals("") && CurrentPageSection.Equals(CurrentActiveSection)) {
+				return GetURLForPage(SectionPrimaryPage);
+			}
+			return "#";
 		}
 	}
 
@@ -448,7 +457,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(CurrentPageCSS.Contains("section-primary-page")) {
 				CurrentActiveSection = CurrentPageSection;
-				SectionPrimaryPageURL = GetURLForPage(CurrentPage);
+				SectionPrimaryPage = CurrentPage;
 				return true;
 			} else if (CurrentPageSection != CurrentActiveSection) {
 				CurrentActiveSection = CurrentPageSection;
