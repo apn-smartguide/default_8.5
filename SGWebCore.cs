@@ -378,7 +378,11 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(Context.Items["logout-url"] == null || ((string)Context.Items["logout-url"]).Equals("")) {
 				Context.Items["logout-url"] = GetURLForSmartlet("logout");
 			}
-			return (string)Context.Items["logout-url"];
+			if(IsLogged()) {
+				return (string)Context.Items["logout-url"];
+			} else {
+				return HomeURL;
+			}
 		}
 		set {
 			Context.Items["logout-url"] = value;
