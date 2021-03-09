@@ -244,6 +244,10 @@ overflow-y: auto;
     border-width: 0px;
 }
 
+.panel-heading .btn-sm {
+    margin-top: -7px;
+}
+
 .table-td:first-child {
     padding-left: 0px;
     padding-right: 5px;
