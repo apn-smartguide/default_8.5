@@ -40,9 +40,9 @@ Array.Reverse(breadcrumbs);
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href='<%=HomeURL%>'>Home</a></li>
-			<% if(!CurrentPageSection.Equals("")) { %>
+			<%-- if(!CurrentPageSection.Equals("")) { %>
 				<li class="breadcrumb-item"><%=CurrentPageSection%></li>
-			<% } %>
+			<% } --%>
 			<% for (int i = 0; i < breadcrumbs.Length ; i++) { %>	
 				<% string pageTitle = ((ISmartletPage)breadcrumbs[i]).getTitle(); %>
 				<% string pageURL = GetURLForPage((ISmartletPage)breadcrumbs[i]); %>	            
