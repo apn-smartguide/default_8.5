@@ -39,11 +39,17 @@
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 			<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>
 		<% } %>
+		<apn:control runat="server" type="default-instance" id="header">
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl">
-			<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %>
-				<% ExecutePath("/controls/button.aspx"); %>
-			<% } %>
+			<apn:ChooseControl runat="server">
+				<apn:WhenControl type="TRIGGER" runat="server">
+				<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %>
+					<% ExecutePath("/controls/button.aspx"); %>
+				<% } %>
+				</apn:WhenControl>
+			</apn:ChooseControl>
 		</apn:forEach></apn:forEach></apn:forEach>
+		</apn:control>
 		<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	<div class='panel-body'>
@@ -132,7 +138,7 @@
 											<apn:forEach runat="server" id="col">
 											<apn:ChooseControl runat="server">
 												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
-												<apn:WhenControl type="TRIGGER" runat="server"><td><% ExecutePath("/controls/button.aspx"); %></td></apn:WhenControl>
+												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
 												<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
 												<apn:Otherwise runat="server">
 													<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
@@ -152,7 +158,7 @@
 										</apn:forEach>
 									</apn:WhenControl>
 									<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/controls.aspx"); %></td></apn:WhenControl>
-									<apn:WhenControl type="TRIGGER" runat="server"><td><% ExecutePath("/controls/button.aspx"); %></td></apn:WhenControl>
+									<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); }  %></td></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
 										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy"))  { %>
