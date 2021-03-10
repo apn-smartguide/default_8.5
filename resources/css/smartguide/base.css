@@ -295,6 +295,10 @@ overflow-y: auto;
     min-height: 20px !important;
 }
 
+.btn-link {
+    text-align: left;
+}
+
 /* xsmall button patch */
 .btn-xs {
     min-height: 15px;
