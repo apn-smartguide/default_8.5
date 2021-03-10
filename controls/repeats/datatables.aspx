@@ -541,8 +541,12 @@
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
 
-			jOptions.Add("responsive", true);
-			jOptions.Add("scrollX", true);
+			if(control.Current.getCSSClass().Contains("responsive")){
+				jOptions.Add("responsive", true);
+			}
+			if(control.Current.getCSSClass().Contains("scrollX")){
+				jOptions.Add("scrollX", true);
+			}
 			jOptions.Add("deferRender", true);
 			jOptions = getRenderMode(jOptions);
 			jOptions = getInitParameters(jOptions);
