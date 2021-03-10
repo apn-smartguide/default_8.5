@@ -29,8 +29,17 @@
 		</apn:ifcontrolattribute>
 		<apn:ifnotcontrolattribute runat="server" attr="value">
 			<apn:ifcontrolattribute runat="server" attr="label">
+				<apn:whencontrol runat="server" type="INPUT"><% ExecutePath("/controls/summary/input.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="TEXTAREA"><% ExecutePath("/controls/summary/field.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="SECRET"><% ExecutePath("/controls/summary/secret.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="DATE"><% ExecutePath("/controls/summary/date.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="radio"><% ExecutePath("/controls/summary/radio.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="check"><% ExecutePath("/controls/summary/check.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="lbox"><% ExecutePath("/controls/summary/lbox.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="drop"><% ExecutePath("/controls/summary/drop.aspx"); %></apn:whencontrol>
 				<apn:whencontrol runat="server" type="STATICTEXT"><% ExecutePath("/controls/summary/statictext.aspx"); %></apn:whencontrol>
 				<apn:whencontrol runat="server" type="IMAGE"><% ExecutePath("/controls/summary/image.aspx"); %></apn:whencontrol>
+				<apn:whencontrol runat="server" type="UPLOAD"><% ExecutePath("/controls/summary/upload.aspx"); %></apn:whencontrol>
 			</apn:ifcontrolattribute>
 		</apn:ifnotcontrolattribute>
 		<apn:WhenControl runat="server" type="TRIGGER"></apn:WhenControl>				
