@@ -6,7 +6,7 @@
 	Context.Items["no-col-layout"] = "";
 } %>
 <apn:control runat="server" id="control">
-	<% if (!control.Current.getCSSClass().Contains("hide-label")) { %>
+	<% if (!control.Current.getCSSClass().Contains("hide-label") && !control.Current.getLabel().Equals("")) { %>
 	<%-- should be contained within a <div class="form-group"> --%>
 	<legend id='lbl_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <%= ( "".Equals(control.Current.getLabel()) ? "emptyLegend":"") %>'>
 		<% ExecutePath("/controls/custom/control-label.aspx"); %>
