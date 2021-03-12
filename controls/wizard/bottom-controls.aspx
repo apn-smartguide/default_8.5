@@ -12,6 +12,26 @@
             <% } else { %>
             <apn:control type="previous" runat="server" id="previous"><button type='submit' name='<apn:name runat="server"/>' class='previous btn btn-default' <% if (!GetTooltip(previous.Current).Equals("")){ %>title='<%=GetTooltip(previous.Current)%>' aria-label='<%=GetTooltip(previous.Current)%>'<% } %>><%=GetAttribute(previous.Current, "label")%></button></apn:control>
             <% } %>
+            <apn:forEach runat="server" id="row">
+				<apn:forEach runat="server" id="col">
+					<apn:forEach runat="server" id="field">
+                        <apn:ChooseControl runat="server">
+                            <apn:WhenControl type="TRIGGER" runat="server"><% if(field.Current.getCSSClass().Contains("btn-wizard")) { ExecutePath("/controls/button.aspx");} %></apn:WhenControl>
+                            <apn:WhenControl type="GROUP" runat="server">
+                                <apn:forEach runat="server" id="grow">
+                                    <apn:forEach runat="server" id="gcol">
+                                        <apn:forEach runat="server" id="gfield">
+                                            <apn:ChooseControl runat="server">
+                                                <apn:WhenControl type="TRIGGER" runat="server"><% if(gfield.Current.getCSSClass().Contains("btn-wizard")) { ExecutePath("/controls/button.aspx");} %></apn:WhenControl>
+                                            </apn:ChooseControl>
+                                        </apn:forEach>
+                                    </apn:forEach>
+                                </apn:forEach>
+                            </apn:WhenControl>
+                        </apn:ChooseControl>
+                    </apn:forEach>
+                </apn:forEach>
+            </apn:forEach>
         </div>
         <div class='pull-right'>
             <apn:control type="summary" runat="server" id="summary"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default' <% if (!GetTooltip(summary.Current).Equals("")){ %>title='<%=GetTooltip(summary.Current)%>' aria-label='<%=GetTooltip(summary.Current)%>'<% } %>><%=GetAttribute(summary.Current, "label")%></button></apn:control>
