@@ -20,7 +20,7 @@
 				<% if(ShowErrorsAbove) { %>
 					<apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", Context.Items["errorIndex"].ToString()) %></span><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid>
 				<% } %>
-				<% if(!((string)Context.Items["layout"]).Equals("vertically")) { %><br/><% } %>
+				<% if(!((string)Context.Items["layout"]).Equals("vertically") && !control.Current.getLabel().Equals("")) { %><br/><% } %>
 				<% Context.Items["counter"] = 1; %>
 				<apn:forEach runat="server" id="control5" >
 					<apn:choosecontrol runat="server">
