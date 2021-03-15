@@ -299,6 +299,11 @@ div.repeat table td.repeatbutton {
     text-align: left;
 }
 
+.btn-breadcrumb {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
 /* xsmall button patch */
 .btn-xs {
     min-height: 15px;
