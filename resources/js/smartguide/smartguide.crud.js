@@ -424,7 +424,7 @@ var crudController = {
 			//ignore element under '.crud-modal'
 			if ($(this).closest('.modal-body').length > 0) return;
 			if ($(this).closest('td').length > 0) $(this).closest('td').remove();
-			else $(this).parent().remove();
+			else $(this).remove();
 		});
 
 	}
