@@ -199,14 +199,14 @@ div.repeat table td.repeatbutton {
     white-space: nowrap;
 }
 
-.modal-body {
-    
-/* 100% = dialog height, 120px = header + footer */
-    
-max-height: calc(100vh - 120px);
-    
-overflow-y: auto;
+.modal-xl {
+    width: 1200px;
+}
 
+.panel .repeatinstance {
+    margin: 15px;
+    border: 1px #8e8e8e solid;
+    border-radius: 3px;
 }
 
 .plain-group .panel-body {
@@ -218,7 +218,7 @@ overflow-y: auto;
 }
 
 .modal-body {
-    max-height: calc(100vh - 120px);
+    max-height: calc(100vh - 150px);
     overflow-y: auto;
 }
 
@@ -297,6 +297,11 @@ overflow-y: auto;
 
 .btn-link {
     text-align: left;
+}
+
+.btn-breadcrumb {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 /* xsmall button patch */

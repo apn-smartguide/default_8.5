@@ -48,7 +48,7 @@
 						<% ExecutePath("/layout/main.aspx"); %>
 						<%-- MAIN LOOP OVER PAGE CONTROLS --%>		
 						<% ExecutePath("/controls/controls.aspx"); %>
-						<% if (ShowWizard) { %>
+						<% if (!HideBottomNavigation) { %>
 						<%-- WIZARD PREV/NEXT BUTTONS --%>
 						<div class="navigation">
 							<% ExecutePath("/controls/wizard/bottom-controls.aspx"); %>

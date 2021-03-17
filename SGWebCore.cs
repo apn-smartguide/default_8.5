@@ -560,6 +560,14 @@ public partial class SGWebCore : System.Web.UI.Page
 			return (bool)Context.Items["hideFunelNavigation"];
 		}
 	}
+	public bool HideBottomNavigation {
+		get {
+			if(Context.Items["hideBottomNavigation"] == null) {
+				Context.Items["hideBottomNavigation"] = (bool?)CurrentPageCSS.Contains("hide-bottom-navigation");
+			}
+			return (bool)Context.Items["hideBottomNavigation"];
+		}
+	}
 
 	public bool HidePageTitle {
 		get {

@@ -199,6 +199,9 @@ $("form[id^='smartguide_']" ).each(function() {
 					
 					var $field = null;			
 					
+					//Revise for repeat of multiple level.
+					field.isUnderRepeat = (field.isUnderRepeat & field.class.indexOf("panel-heading-button") < 0);
+
 					if (field.isUnderRepeat) {				
 						$field = r._getJQField(fieldType, key+'[1]');
 					} else {
