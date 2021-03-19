@@ -456,11 +456,13 @@ $("form[id^='smartguide_']" ).each(function() {
 						
 						// fix the data event target to have the modal id instead of the whole form
 						var $modal = $field.closest('.modal');
-						modalId = $modal.attr('id');
-						var targets = $field.attr('data-eventtarget');
-						if (targets.indexOf('form') > -1) {
-							targets = targets.replace('form',modalId);
-							$field.attr('data-eventtarget', targets);
+						if ($modal.length > 0) {
+							modalId = $modal.attr('id');
+							var targets = $field.attr('data-eventtarget');
+							if (targets.indexOf('form') > -1) {
+								targets = targets.replace('form',modalId);
+								$field.attr('data-eventtarget', targets);
+							}
 						}
 
 						r.ajaxProcess(this, null, true, 
@@ -469,17 +471,15 @@ $("form[id^='smartguide_']" ).each(function() {
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 
 								// just re-show the modal after form was swapped
-								var $modal = $field.closest('.modal');
-								$('#'+$modal.attr('id')).modal('hide');
+								var modal = $field.closest('.modal');
 								$('#'+$modal.attr('id')).modal('show');
 
 								setTimeout(function() {
 									var updated = [];
 									
-									$field.off(jqEvent);
-									
 									var errorMessages = $('.alert-danger', $form).text().trim();
 									if(errorMessages == '') {								
+										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
 										var handler = r._createEventHandler(clientEvent);
@@ -709,7 +709,12 @@ $("form[id^='smartguide_']" ).each(function() {
 											//Display happens at the event handler level (ie. save_...)
 											if($('.crud-modal', responseTarget).length > 0) {
 												$('.crud-modal', responseTarget).hide(); //.show need to be handled in the callback.
-											}  
+											}
+											// handling modals
+											if(currentTarget.hasClass('modal')) {
+												currentTarget.modal('hide'); //.show need to be handled in the callback.
+											}
+											
 											$(currentTarget).after(responseTarget).remove();
 											updated.push(responseTarget);
 										}
@@ -732,7 +737,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								var targetModalAlertDiv = $('#' + modalAlertId, response);
 								$(sourceModalAlertDiv).after(targetModalAlertDiv).remove();
 							} else {
-								$('.alert:not(.alert-warning)', elmt).html('').hide();
+								//$('.alert:not(.alert-warning)', elmt).html('').hide();
 							}
 						} else {
 							// replace the alert div
