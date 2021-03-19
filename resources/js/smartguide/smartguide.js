@@ -454,11 +454,25 @@ $("form[id^='smartguide_']" ).each(function() {
 					if (isAjax) {
 						var modalId = "";
 						
+						// fix the data event target to have the modal id instead of the whole form
+						var $modal = $field.closest('.modal');
+						modalId = $modal.attr('id');
+						var targets = $field.attr('data-eventtarget');
+						if (targets.indexOf('form') > -1) {
+							targets = targets.replace('form',modalId);
+							$field.attr('data-eventtarget', targets);
+						}
+
 						r.ajaxProcess(this, null, true, 
 							function() {
 								// must remove the e_ field we added
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
-								
+
+								// just re-show the modal after form was swapped
+								var $modal = $field.closest('.modal');
+								$('#'+$modal.attr('id')).modal('hide');
+								$('#'+$modal.attr('id')).modal('show');
+
 								setTimeout(function() {
 									var updated = [];
 									
