@@ -107,7 +107,7 @@ span.required {
     font-weight: bold;
 }
 
-.recap .panel-body > .row div[class^='col-'] > div {	
+.recap .panel-body > .row div[class^='col-'] > div:not([class='row']) {	
 	border-bottom: 1px solid #d2d7da;
 }
 
