@@ -67,8 +67,8 @@
 				<% if (IsPdf) { %>
 					<p><%=control.Current.getSelectedLabel()%></p>
 				<% } else if (control.Current.getCSSClass().IndexOf("autocomplete") > -1) { %>
-				<input name="<apn:name/>" data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' type="hidden" value="<%=control.Current.getValue()%>"/>
-				<input type='text' id='<%= control.Current.getName() %>' name='<%= control.Current.getName() %>' <%=Context.Items["readonly"]%> value='<%=control.Current.getSelectedLabel()%>' <apn:metadata runat="server"/> class='<apn:cssclass runat="server"/> form-control' aria-labelledby='lbl_<apn:name runat="server"/>'/>
+				<input name='<apn:name runat="server"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' type="hidden" value="<%=control.Current.getValue()%>"/>
+				<input type='text' id='<%= control.Current.getName() %>' name='<%= "autocomplete_"+control.Current.getName() %>' <%=Context.Items["readonly"]%> value='<%=control.Current.getSelectedLabel()%>' <apn:metadata runat="server"/> class='<apn:cssclass runat="server"/> form-control' aria-labelledby='lbl_<apn:name runat="server"/>'/>
 				<datalist id='<%= control.Current.getName() %>_list'>
 					<apn:forEach runat="server" id="control7" >
 						<apn:choosecontrol runat="server">
