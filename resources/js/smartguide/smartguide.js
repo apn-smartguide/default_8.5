@@ -454,7 +454,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					if (isAjax) {
 						var modalId = "";
 						
-						// fix the data event target to have the modal id instead of the whole form
+						// fix the data event target to have the modal id instead of the whole form as its target
 						var $modal = $field.closest('.modal');
 						if ($modal.length > 0) {
 							modalId = $modal.attr('id');
@@ -470,14 +470,20 @@ $("form[id^='smartguide_']" ).each(function() {
 								// must remove the e_ field we added
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 
-								// just re-show the modal after form was swapped
-								var modal = $field.closest('.modal');
-								$('#'+$modal.attr('id')).modal('show');
+								var $container = $('form');
+								// just re-show the modal after form was swapped, if it is available
+								// need the complex selector below because the whole modal might have been swapped
+								// in the current ajaxProcess call
+								var $modal = $('[name="' + $field.attr('name') + '"]').closest('.modal');
+								if ($modal.length > 0) {
+									$('#'+$modal.attr('id')).modal('show');
+									$container = $modal;
+								}
 
 								setTimeout(function() {
 									var updated = [];
 									
-									var errorMessages = $('.alert-danger', $form).text().trim();
+									var errorMessages = $('.alert-danger', $container).text().trim();
 									if(errorMessages == '') {								
 										$field.off(jqEvent);
 										//prepare client event context
