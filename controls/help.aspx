@@ -1,6 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
-	<%-- Uncomment to use the contextualhelp/default.aspx template to display the help contents 
+	<%-- Uncomment to use the contextualhelp/default.aspx template to display the help contents
 	<% if (!control.Current.getHelp().Equals("")) { %>
 	<apn:ifhelplink runat="server"><a href='<apn:help runat="server"/>' target='_blank' class='link-help' data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.helptitle"/>'><span class='<apn:localize runat="server" key="theme.icon.help"/>' aria-hidden='true'></span> <apn:localize runat="server" key="theme.text.helplink"/></a></apn:ifhelplink>
 	<apn:ifnothelplink runat="server"><button type='submit' name='<apn:helpid runat="server"/>' value='<apn:helpid runat="server"/>' class='btn btn-link' data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.helptitle"/>' aria-label='<apn:localize runat="server" key="theme.text.helptitle"/>'><span class='<apn:localize runat="server" key="theme.icon.help"/>' aria-hidden='true'></span> <apn:localize runat="server" key="theme.text.helplink"/></button></apn:ifnothelplink>
@@ -35,6 +35,6 @@
 					</div>
 				</div>
 			</div>
-		<% } %>	
+		<% } %>
 	<% } %>
 </apn:control>

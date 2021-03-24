@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
-<% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
+<% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else { %>
 <% Context.Items["btn-group"] = true; %>
 <div class="btn-group" role="group">
@@ -14,9 +14,7 @@
 						<apn:whenControl runat="server" type="COL">
 							<apn:forEach runat="server" id="field"><%-- Each field --%>
 								<apn:chooseControl runat="server">
-									<apn:whenControl runat="server" type="TRIGGER">
-										<% ExecutePath("/controls/button.aspx"); %>
-									</apn:whenControl>
+									<apn:whenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:whenControl>
 								</apn:choosecontrol>
 							</apn:forEach>
 						</apn:whenControl>
@@ -26,7 +24,6 @@
 		</apn:chooseControl>
 	</apn:ForEach>
 </div>
-<% Context.Items["btn-group"]  = false; %>
-<% } %>  						
-</apn:control>	
-
+<% Context.Items["btn-group"] = false; %>
+<% } %>
+</apn:control>

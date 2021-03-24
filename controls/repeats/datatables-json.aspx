@@ -55,7 +55,7 @@ string selectionType = repeat.getSelectionType();
 					}
 				}
 				string inputs = "<input type='hidden' name='d_s" + repeatId + "[" + id + "]' value=''>" ;
-				ISmartletField selectControl = grp.findFieldByName(repeat.getName() + "_select"); 
+				ISmartletField selectControl = grp.findFieldByName(repeat.getName() + "_select");
                	if(selectControl != null) { 
 					selectControl.calculateAvailability();
 					if (selectControl.isAvailable()) {
@@ -71,7 +71,7 @@ string selectionType = repeat.getSelectionType();
 				<%
 			}
 			
-			ISmartletField[] fields = grp.getFields(); 
+			ISmartletField[] fields = grp.getFields();
 			for(int j=0;j<fields.Length;j++) {
 				string fieldid = fields[j].getId();
 				string label = fields[j].getLabel();

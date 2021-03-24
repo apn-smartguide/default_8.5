@@ -19,7 +19,7 @@ Context.Items["totalSection"]  = 0;
 	<div class="col-xs-12">
 		<div class='section section-count-<%= (int)Context.Items["totalSection"] + 1 %>'>
 			<ol>
-			<apn:forEach runat="server" items="sections" id="section1">			            
+			<apn:forEach runat="server" items="sections" id="section1">
 				<li>
 					<% if ((int)Context.Items["sectionIndex"] == section1.getCount()) { %>
 						<p class="current"><strong><span class="number"><%= section1.getCount() %></span><span class="text"><%=GetAttribute(section1.Current, "label")%></span></strong></p>

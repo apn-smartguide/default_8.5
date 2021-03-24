@@ -6,7 +6,7 @@
 		string tooltip = GetTooltip(control.Current);
 		if (!tooltip.Equals("")) { 
 			Context.Items["tooltip-attribute"] = "title='" + tooltip + "' aria-label='" + tooltip + "'";
-		} 
+		}
 	%>
 	<% if (control.Current.getAttribute("visible").Equals("false") || IsPdf || IsSummary) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>

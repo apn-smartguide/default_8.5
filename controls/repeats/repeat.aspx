@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 <% 
 	Context.Items["hiddenName"] = "";
-    Context.Items["isOnlyStatic"] = true ;   
+	Context.Items["isOnlyStatic"] = true ;
 	int currentLevel = -1;
 	if(Context.Items["repeat-level"] != null) {
 		currentLevel = (int)Context.Items["repeat-level"];
@@ -19,7 +19,7 @@
 } else if (control.Current.getCSSClass().IndexOf("table-render") > -1 || control.Current.getCSSClass().IndexOf("table-view") > -1) {
 	ExecutePath("/controls/repeats/table.aspx");
 } else if (control.Current.getCSSClass().IndexOf("datatables") > -1 || control.Current.getCSSClass().IndexOf("datatables-view") > -1) {
-	ExecutePath("/controls/repeats/datatables.aspx"); 	
+	ExecutePath("/controls/repeats/datatables.aspx");
 } else {
 	ExecutePath("/controls/repeats/table.aspx");
 } %>

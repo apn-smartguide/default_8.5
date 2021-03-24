@@ -8,11 +8,7 @@
 					<%  String active = (locale.Current.getValue().Equals(CurrentLocale) ? " btn-primary" : ""; %>
 					<a id='btn-lang-<%=locale.Current.getValue()%>' class='btn btn-default btn-xlarge <%=active%>' data-lang='<%=locale.Current.getValue()%>' href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>'><%=locale.Current.getValue()%></a>
 				</apn:forEach>
-				<% if ((bool)Context.Items["show-langdetect"]) { %>
-				<a data-target='#detectLanguageModal' data-toggle='modal' class='btn btn-default btn-xlarge detectLang'>
-					<span class='fas fa-microphone'></span>&nbsp;&nbsp;<span class='fas fa-long-arrow-alt-right'></span>&nbsp;&nbsp;<span class='fas fa-language'></span>
-				</a>
-				<% } %>
+				<% if ((bool)Context.Items["show-langdetect"]) { %><a data-target='#detectLanguageModal' data-toggle='modal' class='btn btn-default btn-xlarge detectLang'><span class='fas fa-microphone'></span>&nbsp;&nbsp;<span class='fas fa-long-arrow-alt-right'></span>&nbsp;&nbsp;<span class='fas fa-language'></span></a><% } %>
 			</div>
 		</div>
 	</apn:ifsmartletmultilingual>

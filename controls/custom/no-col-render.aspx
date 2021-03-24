@@ -3,7 +3,7 @@
 <% Context.Items["no-col"] = true; %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
-<% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
+<% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else if(IsSummary) { %>
 <% ExecutePath("/controls/summary/controls.aspx"); %>
 <% } else { %>
@@ -23,6 +23,5 @@
 	</apn:chooseControl>
 </apn:ForEach>
 <% } %>  
-<% Context.Items["no-col"]  = false; %>						
-</apn:control>	
-
+<% Context.Items["no-col"] = false; %>
+</apn:control>

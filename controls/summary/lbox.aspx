@@ -2,9 +2,9 @@
 <apn:control runat="server" id="control">
 	<apn:ifnotcontrolvalid runat="server">
 		<%
-        int index = (int)Context.Items["errorIndex"];
-        Context.Items["errorIndex"] = ++index;
-        %>
+		int index = (int)Context.Items["errorIndex"];
+		Context.Items["errorIndex"] = ++index;
+		%>
 		<a id='error_index_<%=Context.Items["errorIndex"]%>'></a>
 	</apn:ifnotcontrolvalid>
 	<div class='apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>

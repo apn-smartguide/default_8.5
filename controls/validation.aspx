@@ -1,5 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-<%@ Import Namespace="System.Text.RegularExpressions" %> 
+<%@ Import Namespace="System.Text.RegularExpressions" %>
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
@@ -12,8 +12,8 @@
 	ISmartletField[] fields = CurrentPage.findAllFields();
 	for(int i = 0; i < fields.Length; i++) {
 		if((fields[i].getTypeConst() == DotnetConstants.ElementType.REPEAT) && fields[i].getCSSClass().Contains("grid-view")) {
-			Context.Items["underCrudRepeat"] = true;              
-		} 
+			Context.Items["underCrudRepeat"] = true;
+		}
 		else if (IsUnderRepeat(fields[i]) && ((bool)Context.Items["underCrudRepeat"])){
 			continue;
 		} else {
@@ -40,22 +40,19 @@
 						<apn:localize runat="server" key="theme.text.flowchange"/>
 					<% } else if (alert.Current.getAlert().Trim().Equals("error.language.change")) { %>
 						<apn:localize runat="server" key="theme.text.languagechange"/>
-					<% }else if (!alert.Current.getName().Equals("")) { %>					 
+					<% } else if (!alert.Current.getName().Equals("")) { %>
 					<%
 						string fieldLabel = "";
-						if(!string.IsNullOrEmpty(alert.Current.getName())) {					
-							string id =alert.Current.getName().Remove(0,2);	
-							if(id.Contains("[")) { id = id.Remove(id.IndexOf("[")); }						
+						if(!string.IsNullOrEmpty(alert.Current.getName())) {
+							string id =alert.Current.getName().Remove(0,2);
+							if(id.Contains("[")) { id = id.Remove(id.IndexOf("[")); }
 							fieldLabel = sg.getSmartlet().getSessionSmartlet().findFieldById(id).getLabel();
 						}
-						Context.Items["counter"] = (int)Context.Items["counter"] + 1; 
+						Context.Items["counter"] = (int)Context.Items["counter"] + 1;
 					%>
 					<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= fieldLabel %> - <%= alert.Current.getAlert() %></a>
-					<% } else { %>
-						<span class="required">Page Error: <%= alert.Current.getAlert() %></span>
-					<% } %>
+					<% } else { %><span class="required">Page Error: <%= alert.Current.getAlert() %></span><% } %>
 				</li>
-				
 			</apn:forEach><ul>
 		</section>
 		<% } %>

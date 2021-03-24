@@ -26,9 +26,7 @@
 						</apn:chooseControl>
 					</apn:ForEach>
 				</apn:WhenControl>
-				<apn:otherwise runat="server">
-					<%=GetAttribute(control.Current, "label")%><apn:value runat="server"/>
-				</apn:otherwise>
+				<apn:otherwise runat="server"><%=GetAttribute(control.Current, "label")%><apn:value runat="server"/></apn:otherwise>
 			</apn:ChooseControl>
 		</span>
 	</section>

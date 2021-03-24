@@ -12,5 +12,4 @@
     <% if ((!control.Current.getValue().Equals(""))  && (control.Current.getValue() != null)) { %> ******* <% } %> &nbsp;
     </span>
   </div>
-
 </apn:control>

@@ -30,9 +30,7 @@
 		<% } %>
 		<% if (!(bool)Context.Items["hideHeading"]) { %>
 		<div class='panel-heading'>
-			<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
-				<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>
-			<% } %>
+			<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control><% } %>
 			<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 		</div>
 		<% } %>
@@ -79,12 +77,8 @@
 			</div>
 			<% } %>
 			<table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") + "'" : "")  %>>
-				<% if ((bool)Context.Items["hasPagination"]) { %>
-				<apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control>
-				<% } %>
-				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
-				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
-				<% } %>
+				<% if ((bool)Context.Items["hasPagination"]) { %><apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control><% } %>
+				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %><apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control><% } %>
 				<apn:control runat="server" type="default-instance" id="defaultGroup">
 					<thead>
 						<tr id='tr_<apn:name runat="server"/>'>
@@ -139,9 +133,7 @@
 									</apn:forEach>
 								</apn:forEach>
 							</apn:forEach>
-							<% if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
-							<td data-orderable="false"></td>
-							<% } %>
+							<% if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %><td data-orderable="false"></td><% } %>
 						</tr>
 					</thead>
 				</apn:control>
@@ -161,31 +153,16 @@
 							<% ExecutePath("/controls/repeats/table-col.aspx"); %>
 							<% BareRender = false; %>	
 							<% if (!IsPdf) { %>
-								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
-								<td class='repeatbutton nowrap'>
-								<% } %>
-									<% if (!(bool)Context.Items["hideAddButton"]) { %>
-										<% if (!(bool)Context.Items["hideRowAddButton"]) { %>
-										<apn:control type="insert" id="addbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_insert_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
-										<% } %>
-									<% } %>
-									<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
-									<apn:control type="delete" id="deletebutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
-									<% } %>
-									<% if ((bool)Context.Items["showMoveUpDownButton"]) { %>
-									<apn:control type="moveup" id="moveupbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.up"/> repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
-									<apn:control type="movedown" id="movedownbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control>
-									<% } %>
-								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %>
-								</td>
-								<% } %>
-							<% } else { %>
-								<td></td>
-							<% } %>
+								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %><td class='repeatbutton nowrap'><% } %>
+									<% if (!(bool)Context.Items["hideAddButton"]) { %><% if (!(bool)Context.Items["hideRowAddButton"]) { %><apn:control type="insert" id="addbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.add"/> repeat_table_insert_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>'' id='<apn:name runat="server"/>_<%= status.getCount()%>'' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %><% } %>
+									<% if (!(bool)Context.Items["hideDeleteButton"]) { %><apn:control type="delete" id="deletebutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %>
+									<% if ((bool)Context.Items["showMoveUpDownButton"]) { %><apn:control type="moveup" id="moveupbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.up"/> repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><apn:control type="movedown" id="movedownbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %>
+								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %></td><% } %>
+							<% } else { %><td></td><% } %>
 						</tr>
-						<%Context.Items.Remove("aria-labelledby"); %>
+						<% Context.Items.Remove("aria-labelledby"); %>
 					</apn:forEach>
-					<%Context.Items["optionIndex"] = ""; %>
+					<% Context.Items["optionIndex"] = ""; %>
 				</tbody>
 				<%
 				string tableFooterGroupName = control.Current.getCode() + "_footer";
@@ -194,15 +171,11 @@
 				<% if (tableFooterGroup != null) { %>
 				<tfooter>
 					<tr>
-						<% if ((bool)Context.Items["isSelectable"]) { %>
-						<td></td>
-						<% } %>
+						<% if ((bool)Context.Items["isSelectable"]) { %><td></td><% } %>
 						<% foreach(ISmartletField footerField in tableFooterGroup.findAllFields()) { %>
-							<% if(footerField.isAvailable()  && !footerField.getCSSClass().Contains("hide-from-list-view") && !footerField.getCSSClass().Contains("proxy")) { %> 
-							<td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' ><%=footerField.getValue()%></td>
-							<% } %>
+							<% if(footerField.isAvailable()  && !footerField.getCSSClass().Contains("hide-from-list-view") && !footerField.getCSSClass().Contains("proxy")) { %><td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' ><%=footerField.getValue()%></td><% } %>
 						<% } %>
-					</tr>	
+					</tr>
 				</tfooter>
 				<% } %>
 			</table>
