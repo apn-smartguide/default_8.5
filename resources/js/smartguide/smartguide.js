@@ -24,7 +24,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				});
 			
 				// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
-				$('button:not(data-toggle="collapse"), input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
+				$('button:not([data-toggle="collapse"]), input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
 
 				//Smartlet events
 				r._bindOrTriggerSmartletAndPageEvent();
