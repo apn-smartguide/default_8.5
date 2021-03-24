@@ -469,6 +469,14 @@ input[type="radio"].large-radio:checked::before, fieldset.large-radio label inpu
 }
 /* Large-Radio - End */
 
+/* Alerts */
+.alert > :first-child {
+    margin-left: 1.2em;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+/* Alerts End */
+
 /* JQuery-Idle-Hands */
 #jquery-idle-hands {
     display: none;
