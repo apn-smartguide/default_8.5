@@ -56,7 +56,7 @@ string selectionType = repeat.getSelectionType();
 				}
 				string inputs = "<input type='hidden' name='d_s" + repeatId + "[" + id + "]' value=''>" ;
 				ISmartletField selectControl = grp.findFieldByName(repeat.getName() + "_select");
-               	if(selectControl != null) { 
+				if(selectControl != null) { 
 					selectControl.calculateAvailability();
 					if (selectControl.isAvailable()) {
 						inputs = inputs + "<input type='"+selectionType+"' name='d_s"+repeatId+"["+id+"]' id='d_s"+repeatId+"["+id+"]' class='"+selectClass+"' style='"+selectStyle+"' value='true' "+check+">";
