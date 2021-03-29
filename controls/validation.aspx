@@ -28,7 +28,7 @@
 	Context.Items["alerts-count"] = 0;
 	%>
 	<apn:forEach id="alerts" items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
-	<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) {%>
+	<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) { %>
 	<div id='alerts'><%-- do not change the div id as it is referenced in smartguide.js --%>
 		<apn:IfRequiredControlExists runat="server"><div class='alert alert-info' role='alert'><span class='required'>*</span><apn:localize runat="server" key="theme.text.required"/></div></apn:IfRequiredControlExists>
 		<% if ((int)Context.Items["alerts-count"] > 0) { %>
