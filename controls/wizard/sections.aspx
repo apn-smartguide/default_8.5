@@ -13,6 +13,7 @@ Context.Items["totalSection"]  = 0;
 	Context.Items["totalSection"] = (int)Context.Items["totalSection"] + 1;
 %>
 </apn:forEach>
+<div class="row">
 <% if ( (int)Context.Items["totalSection"] > 1 ) { %>
 <div id="nav-step" class="wizard">
 	<% if (!CurrentPageCSS.Contains("hide-step-navigation")) { %>
@@ -44,5 +45,6 @@ Context.Items["totalSection"]  = 0;
 		<apn:control runat="server" type="progress" id="progressBar"><div class="wizard progress"><div class="progress-bar" role="progressbar" aria-valuenow="<%= int.Parse(progressBar.Current.getValue()) %>" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: <%= int.Parse(progressBar.Current.getValue()) %>%"><%= int.Parse(progressBar.Current.getValue()) %> %</div></div></apn:control>
 	</div>
 	<% } %>
+</div>
 </div>
 <% } %>
