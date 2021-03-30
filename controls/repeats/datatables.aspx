@@ -144,7 +144,7 @@
 													<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
 														<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
 															<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
-														<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>	
+														<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
 															<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
 														<% } else { %>
 															<td></td>
@@ -161,7 +161,7 @@
 									<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); }  %></td></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
-										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy"))  { %>
+										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 											<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
@@ -175,9 +175,7 @@
 														long staticvalue = 0;
 														try {
 															staticvalue = DateTime.ParseExact(trField.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks/10000000;
-														} catch(Exception e) {
-														}                       
-
+														} catch(Exception e) { }
 														Context.Items["dataOrder"] = "data-order=\""+staticvalue+"\"";
 													} else {
 														Context.Items["dataOrder"] = "";
@@ -191,7 +189,7 @@
 											<td><!-- #include file="../hidden.inc" --></td>
 										<% } %>
 									</apn:Otherwise>
-								</apn:ChooseControl>	
+								</apn:ChooseControl>
 							</apn:forEach>
 						</apn:forEach>
 					<% if (control.Current.getCSSClass().Contains("block-render")) { %></tr><% } %>

@@ -4,9 +4,7 @@
 <%
 	ThemesLocations = new string[]{Theme,"/.."};
 	HomeURL = GetURLForSmartlet(SmartletName);
-	if(IsDevelopment) {
-		HomeURL = GetURLForSmartlet("dashboard");
-	}
+	if(IsDevelopment) { HomeURL = GetURLForSmartlet("dashboard"); }
 	LogoutURL = GetURLForSmartlet("logout");
 %>
 <!DOCTYPE html>
@@ -23,36 +21,18 @@
 				<div class="container" role="main">
 					<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
 					<% if (SecondaryNavigation != null) { %>
-					<div id="leftcol" class="col-xs-3 hidden-sm hidden-xs" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
-						<% 
-						if (!SecondaryNavigation.getLabel().Equals("")) { 
-							ExecutePath(SecondaryNavigation.getLabel());
-						} else {		
-							ExecutePath("/layout/secondary-navigation.aspx");
-						} 
-						%>
-					</div>
+					<div id="leftcol" class="col-xs-3 hidden-sm hidden-xs" typeof="SiteNavigationElement" id="wb-sec" role="navigation"><% if (!SecondaryNavigation.getLabel().Equals("")) { ExecutePath(SecondaryNavigation.getLabel()); } else { ExecutePath("/layout/secondary-navigation.aspx"); } %></div>
 					<% } %>
 					<div class='col-xs-12 <% if (SecondaryNavigation != null) { %> col-md-9<% } %>'>
-						<div class="row page-title">
-							<div class="col-xs-12">
-								<h2>
-									<apn:control runat="server" type="step"><apn:label runat="server" /></apn:control>
-								</h2>
-							</div>
-						</div>
-						<% if (ShowWizard) { %>
-							<% ExecutePath("/controls/wizard/sections.aspx"); %>
-						<% } %>
+						<div class="row page-title"><div class="col-xs-12"><h2><apn:control runat="server" type="step"><apn:label runat="server" /></apn:control></h2></div></div>
+						<% if (ShowWizard) { ExecutePath("/controls/wizard/sections.aspx"); } %>
 						<% ExecutePath("/controls/validation.aspx"); %>
 						<% ExecutePath("/layout/main.aspx"); %>
-						<%-- MAIN LOOP OVER PAGE CONTROLS --%>		
+						<%-- MAIN LOOP OVER PAGE CONTROLS --%>
 						<% ExecutePath("/controls/controls.aspx"); %>
 						<% if (!HideBottomNavigation) { %>
 						<%-- WIZARD PREV/NEXT BUTTONS --%>
-						<div class="navigation">
-							<% ExecutePath("/controls/wizard/bottom-controls.aspx"); %>
-						</div> <!-- end bottom navigation -->
+						<div class="navigation"><% ExecutePath("/controls/wizard/bottom-controls.aspx"); %></div> <!-- end bottom navigation -->
 						<% } %>
 					</div> <!-- end content part -->
 					<% ExecutePath("/layout/footer.aspx"); %>

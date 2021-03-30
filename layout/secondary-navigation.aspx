@@ -9,13 +9,9 @@ for (int i = 0; i < pages.Length; i++) {
 	ISmartletPage p = pages[i];
 	if (!p.getCSSClass().Contains("hidden")) {
 		if(p == CurrentPage) { %>
-		<li class="active">
-			<a href='do.aspx?t_g<%=p.getId()%>=<%=p.getName()%>'><%=i+1%>. <%=p.getTitle()%></a>
-		</li>
+		<li class="active"><a href='do.aspx?t_g<%=p.getId()%>=<%=p.getName()%>'><%=i+1%>. <%=p.getTitle()%></a></li>
 		<% } else { %>
-		<li>
-			<a href='do.aspx?t_g<%=p.getId()%>=<%=p.getName()%>'><%=i+1%>. <%=p.getTitle()%></a>
-		</li>
+		<li><a href='do.aspx?t_g<%=p.getId()%>=<%=p.getName()%>'><%=i+1%>. <%=p.getTitle()%></a></li>
 		<% } %>
 	<% } %>
 <% } %>

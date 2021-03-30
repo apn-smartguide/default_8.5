@@ -1,5 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-<%-- WET4 Version --%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false" %>
 <% 
 	Context.Items["hiddenName"] = "";
 	Context.Items["isOnlyStatic"] = true ;
@@ -35,9 +34,7 @@
 							</apn:control>
 						</div>
 						<% } %>
-						<% if (!control.Current.getLabel().Equals("")) { %>
-						<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
-						<% } %>
+						<% if (!control.Current.getLabel().Equals("")) { %><h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2><% } %>
 					</div>
 				</apn:control>
 				<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
@@ -70,9 +67,7 @@
 					</div>
 				<% } %>
 				</div>
-				<% if ((bool)Context.Items["hasPagination"] && !control.Current.getAttribute("totalPages").Equals("")) { %>
-				<apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control>
-				<% } %>
+				<% if ((bool)Context.Items["hasPagination"] && !control.Current.getAttribute("totalPages").Equals("")) { %><apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control><% } %>
 				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
 				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
 				<% } %>
@@ -107,13 +102,8 @@
 					</div>
 				</apn:forEach>
 			</div>
-			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %>
-			<div class='pull-left'>
-				&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> /
-						<%=control.Current.getAttribute("totalPages")%></b></span>
-			</div>
-			<% } %>
+			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %><div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div><% } %>
 		</div>
-		<%Context.Items["optionIndex"] = ""; %>
+		<% Context.Items["optionIndex"] = ""; %>
 	</div>
 </apn:control>

@@ -2,9 +2,9 @@
 <%-- Do not change the div ids as they are referenced in smartguide.js --%>
 <apn:control runat="server" id="control">
 <%
-Context.Items["hiddenName"] = ""; 
+Context.Items["hiddenName"] = "";
 Context.Items["repeatCode"] = control.Current.getCode();
-Context.Items["repeat-name-" + Context.Items["repeat-level"]] = control.Current.getName(); 
+Context.Items["repeat-name-" + Context.Items["repeat-level"]] = control.Current.getName();
 // compute event targets for edit and add modals
 string repeatEventTargets = control.Current.getAttribute("eventtarget");
 // remove the current div id as it should not be processed through the modal
@@ -50,46 +50,28 @@ if(btnAdd != null) {
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
 	<div class='panel-heading clearfix'>
-		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
-			<div class='pull-right'><apn:control id="button" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div>
-		<% } %>
-		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl">
-			<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %>
-				<% ExecutePath("/controls/button.aspx"); %>
-			<% } %>
-		</apn:forEach></apn:forEach></apn:forEach>
-		<h2 class="panel-title">
-			<% ExecutePath("/controls/custom/control-label.aspx"); %>
-		</h2>
+		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="button" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
+		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { ExecutePath("/controls/button.aspx"); } %></apn:forEach></apn:forEach></apn:forEach>
+		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	</apn:control>
 	<div class='panel-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
 	<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
-    <table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
-		<% if ((bool)Context.Items["hasPagination"]) { %>
-		<apn:control type="repeat-current-page" runat="server" >
-			<input type='hidden' value='<apn:value runat="server"/>' name='<apn:name runat="server" />' class='repeatCurrentPage'/>
-		</apn:control>
-		<% } %>
+	<table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "") %>>
+		<% if ((bool)Context.Items["hasPagination"]) { %><apn:control type="repeat-current-page" runat="server" ><input type='hidden' value='<apn:value runat="server"/>' name='<apn:name runat="server" />' class='repeatCurrentPage'/></apn:control><% } %>
 		<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
-		<apn:control type="repeat-sort" runat="server" >
-			<input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort'/>
-		</apn:control>
+		<apn:control type="repeat-sort" runat="server" ><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort'/></apn:control>
 		<% } %>
 		<thead>
 			<tr id='tr_<apn:name runat="server"/>' role='row'>
-			<% if ((bool)Context.Items["isSelectable"]) { %>
-				<th class='selectBoxControl'></th>
-			<% } %>
+			<% if ((bool)Context.Items["isSelectable"]) { %><th class='selectBoxControl'></th><% } %>
 			<apn:control runat="server" type="default-instance">
 			<apn:forEach runat="server" id="row">
 				<apn:forEach runat="server" id="col">
 					<apn:forEach runat="server" id="field">
-					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %> 
+					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
-						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
-							<% ExecutePath("/controls/controls.aspx"); %>
-						</th>
+						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
 						<% } else { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(field.Current, "label") %><% } %>
@@ -99,7 +81,7 @@ if(btnAdd != null) {
 								<% if ("asc".Equals(field.Current.getAttribute("sort"))) { %>
 									class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
 								<% } else if ("desc".Equals(field.Current.getAttribute("sort"))) { %>
-									class='<apn:localize runat="server" key="theme.icon.sort-desc"/>' 
+									class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
 								<% } else { %>
 									class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style='color:LightGrey'
 								<% } %>
@@ -111,9 +93,7 @@ if(btnAdd != null) {
 				</apn:forEach>
 			</apn:forEach>
 			</apn:control>
-			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %>
-				<td data-orderable="false"></td>
-			<% } %>
+			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %><td data-orderable="false"></td><% } %>
 			</tr>
 		</thead>
 		<tbody>
@@ -131,7 +111,7 @@ if(btnAdd != null) {
 				<apn:forEach runat="server" id="row1">
 					<apn:forEach runat="server" id="col1">
 						<apn:forEach runat="server" id="field1">
-							<% if(!field1.Current.getAttribute("style").Equals("visibility:hidden;") && !field1.Current.getAttribute("visible").Equals("false") && !field1.Current.getCSSClass().Contains("hide-from-list-view") && !field1.Current.getCSSClass().Contains("proxy")) { %> 
+							<% if(!field1.Current.getAttribute("style").Equals("visibility:hidden;") && !field1.Current.getAttribute("visible").Equals("false") && !field1.Current.getCSSClass().Contains("hide-from-list-view") && !field1.Current.getCSSClass().Contains("proxy")) { %>
 								<apn:ChooseControl runat="server">
 									<apn:WhenControl type="GROUP" runat="server"><td class='<%=field1.Current.getCSSClass()%>'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server">
@@ -139,9 +119,9 @@ if(btnAdd != null) {
 											<% if (!IsPdf) { %>
 												<% if (field1.Current.getAttribute("class").Equals("button")) {%>
 													<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>><apn:value runat="server"/></button>
-												<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%> 
+												<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%>
 													<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
-												<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>  
+												<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>
 													<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
 												<% } %>
 											<% } %>
@@ -171,8 +151,7 @@ if(btnAdd != null) {
 												string dateFormat = field1.Current.getAttribute("format");
 												dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
 												staticvalue = DateTime.ParseExact(field1.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
-											} catch(Exception e) {
-											}                       
+											} catch(Exception e) { }
 										%>
 										<td data-order='<%=staticvalue%>'>
 											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
@@ -197,7 +176,7 @@ if(btnAdd != null) {
 					</apn:forEach>
 				</apn:forEach>
 				<% if (!IsPdf) { %>
-					<% if (!(bool)Context.Items["hideEditButton"] ||!(bool)Context.Items["hideDeleteButton"] ||(bool)Context.Items["showMoveUpDownButton"]) { %>	
+					<% if (!(bool)Context.Items["hideEditButton"] ||!(bool)Context.Items["hideDeleteButton"] ||(bool)Context.Items["showMoveUpDownButton"]) { %>
 					<td class='repeatbutton'>
 						<% if (!(bool)Context.Items["hideEditButton"]) { %>
 						<apn:control runat="server" type="prepare_edit_instance"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.edit"/> repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span> </apn:control>
@@ -211,12 +190,10 @@ if(btnAdd != null) {
 						<% if ((bool)Context.Items["showMoveUpDownButton"]) { %>
 						<apn:control type="moveup" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.up"/> repeat_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
 						<apn:control type="movedown" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.down"/> repeat_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
-						<% } %>				
+						<% } %>
 					</td>
 					<% } %>
-				<% } else { %>
-					<td></td>
-				<% } %> 
+				<% } else { %><td></td><% } %>
 			</tr>
 		</apn:forEach>
 		</tbody>

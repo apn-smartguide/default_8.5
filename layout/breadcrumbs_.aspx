@@ -5,14 +5,9 @@ Context.Items["currentSectionName"] = "";
 Context.Items["currentPageName"]  = "";
 Context.Items["pageIndex"]  = 1;
 Context.Items["totalPages"]  = 0;
-%>
-
-<apn:control runat="server" type="section" id="currentSection">
-<% Context.Items["currentSectionName"] = currentSection.Current.getLabel();%>
-</apn:control>
-<apn:control runat="server" type="page" id="currentPage">
-<% Context.Items["currentPageName"] = currentPage.Current.getLabel();%>
-</apn:control>
+%
+<apn:control runat="server" type="section" id="currentSection"><% Context.Items["currentSectionName"] = currentSection.Current.getLabel();%></apn:control>
+<apn:control runat="server" type="page" id="currentPage"><% Context.Items["currentPageName"] = currentPage.Current.getLabel();%></apn:control>
 <apn:forEach runat="server" items="global-navigation" id="navPage">
 <% 
 	if (navPage.Current.getLabel().Equals(Context.Items["currentPageName"])) Context.Items["pageIndex"] = navPage.getCount();
