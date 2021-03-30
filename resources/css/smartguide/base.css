@@ -479,10 +479,11 @@ input[type="radio"].large-radio:checked::before, fieldset.large-radio label inpu
 /* Large-Radio - End */
 
 /* Alerts */
-.alert, span > div.row > div[class^=col] > div.panel, span > div.row > div[class^=col] > div > div > div.panel {
+/* .alert, span > div.row > div[class^=col] > div.panel, span > div.row > div[class^=col] > div > div > div.panel {
 	margin-left: -15px;
 	margin-right: -15px;
-}
+} */
+
 .alert > :first-child {
 	margin-left: 1.2em;
 	margin-top: auto;
