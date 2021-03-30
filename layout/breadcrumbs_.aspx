@@ -22,17 +22,15 @@ Context.Items["totalPages"]  = 0;
 <% if (!CurrentPageCSS.Contains("hide-breadcrumbs")) { %>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href='<%=GetURLForSmartlet("portal-home")%>'>Home</a></li>
-			<% if(!CurrentPageSection.Equals("")) { %>
-				<li class="breadcrumb-item"><%=CurrentPageSection%></li>
-			<% } %>
+			<li class="breadcrumb-item"><a href='<%=HomeURL%>'>Home</a></li>
 			<% if ( (int)Context.Items["totalPages"] > 1 ) { %>
-			<apn:forEach runat="server" items="global-navigation" id="sgPage">	
-				<% string pageTitle = GetAttribute(sgPage.Current, "label"); %>		            
+			<apn:forEach runat="server" items="global-navigation" id="sgPage">
+				<% string pageTitle = GetAttribute(sgPage.Current, "label"); %>
+				<% string pageURL = GetURLForSmartlet(sgPage.Current.getCode()); %>
 				<% if ((int)Context.Items["pageIndex"] == sgPage.getCount()) { %>
 					<li class="breadcrumb-item active"><%= pageTitle %></li>
 				<% } else if ((int)Context.Items["pageIndex"] > sgPage.getCount()) { %>
-					<li class="breadcrumb-item"><a href='<%=GetURLForSmartlet(sgPage.Current.getCode())%>'><%= pageTitle %></a></li>
+					<li class="breadcrumb-item"><a href='<%=pageURL%>'><%= pageTitle %></a></li>
 				<% } %>
 			</li>
 			</apn:forEach>

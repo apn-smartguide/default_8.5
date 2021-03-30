@@ -1,9 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%-- WET4 Version --%>
 <% 
-    Context.Items["hiddenName"] = "";
-    Context.Items["isOnlyStatic"] = true ;
-    Context.Items["optionIndex"] = 0;
+	Context.Items["hiddenName"] = "";
+	Context.Items["isOnlyStatic"] = true ;
+	Context.Items["optionIndex"] = 0;
 %>
 <apn:control runat="server" id="control">
 <%
@@ -78,7 +78,7 @@
 				<% } %>
 				<apn:forEach id="status" runat="server">
 					<div class='panel-body repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
-						<%Context.Items["optionIndex"] = status.getCount(); %>
+						<% Context.Items["optionIndex"] = status.getCount(); %>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
 						<div class=''>
 							<% if ((bool)Context.Items["isSelectable"]) { %>

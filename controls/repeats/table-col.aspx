@@ -23,7 +23,6 @@
 </apn:control>
 <script runat="server">
 	public void RenderTD(string ctrl, bool isVisible, string zClass) {
-		//if(isVisible) Response.Write("<td class='" + zClass + "'>");
 		if(isVisible) Response.Write("<td>");
 		ExecutePath(ctrl);
 		if(isVisible) Response.Write("</td>");

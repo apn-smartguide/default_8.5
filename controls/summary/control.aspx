@@ -1,11 +1,11 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>	
 	<apn:control runat="server" id="control">	
 	<%	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
-	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) { 
+	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) {
 	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if(control.Current.getCSSClass().Contains("proxy")) { 
+	} else if(control.Current.getCSSClass().Contains("proxy")) {
 	} else { %>
 	<apn:choosecontrol runat="server">
 		<apn:whencontrol runat="server" type="ROW"><% ExecutePath("/controls/summary/row.aspx"); %></apn:whencontrol>
@@ -42,7 +42,7 @@
 				<apn:whencontrol runat="server" type="UPLOAD"><% ExecutePath("/controls/summary/upload.aspx"); %></apn:whencontrol>
 			</apn:ifcontrolattribute>
 		</apn:ifnotcontrolattribute>
-		<apn:WhenControl runat="server" type="TRIGGER"></apn:WhenControl>				
-	</apn:choosecontrol>	
+		<apn:WhenControl runat="server" type="TRIGGER"></apn:WhenControl>
+	</apn:choosecontrol>
 	<% } %>
 </apn:control>
