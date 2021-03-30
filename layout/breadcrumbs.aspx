@@ -1,6 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <% if (!IsPdf) { %>
-	<% ISmartletPage[] breadcrumbs = BuildBreadcrumbs() %>
+	<% ISmartletPage[] breadcrumbs = BuildBreadcrumbs(); %>
 	<% if (!CurrentPageCSS.Contains("hide-breadcrumbs")) { %>
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
@@ -54,6 +54,7 @@
 			}
 		}
 		ISmartletPage[] breadcrumbs = breadcrumbsList.ToArray();
-		return Array.Reverse(breadcrumbs);
+		Array.Reverse(breadcrumbs);
+		return breadcrumbs;
 	}
 </script>
