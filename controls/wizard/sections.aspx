@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../../default_8.5/SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <% 
 Context.Items["currentSectionName"]  = "";
 Context.Items["sectionIndex"]  = 1;
@@ -14,25 +14,30 @@ Context.Items["totalSection"]  = 0;
 %>
 </apn:forEach>
 <% if ( (int)Context.Items["totalSection"] > 1 ) { %>
-<div class="row">
+<div id="nav-step" class="wizard">
 	<% if (!CurrentPageCSS.Contains("hide-step-navigation")) { %>
-	<div class="col-xs-12">
-		<div class='section section-count-<%= (int)Context.Items["totalSection"] + 1 %>'>
-			<ol>
-			<apn:forEach runat="server" items="sections" id="section1">
-				<li>
-					<% if ((int)Context.Items["sectionIndex"] == section1.getCount()) { %>
-						<p class="current"><strong><span class="number"><%= section1.getCount() %></span><span class="text"><%=GetAttribute(section1.Current, "label")%></span></strong></p>
-					<% } else if ((int)Context.Items["sectionIndex"] - section1.getCount() == 1) { %>
-						<p class="before-current"><span class="number"><%= section1.getCount() %></span><span class="text"><%=GetAttribute(section1.Current, "label")%></span></p>
-					<% } else { %>
-						<p><span class="number"><%= section1.getCount() %></span><span class="text"><%=GetAttribute(section1.Current, "label")%></span></p>
-					<% } %>
-				</li>
-			</apn:forEach>
-			</ol>
+		<div class="wizard-inner">			
+			<!-- <div class='section section-count-<%= (int)Context.Items["totalSection"] + 1 %>'></div> -->
+				<ol  class="nav nav-tabs" role="tablist">
+					 <apn:forEach runat="server" items="sections" id="section1">
+						<li role="presentation">
+							<% if ((int)Context.Items["sectionIndex"] == section1.getCount()) { %>
+							<div class="connecting-line right-line current"></div>								
+							 <a href="#" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true" class="active"><strong><i><%=GetAttribute(section1.Current, "label")%></i><span class="round-tab active"><%= section1.getCount() %></span></strong></a>
+							<% } else if ((int)Context.Items["sectionIndex"] - section1.getCount() == 1) { %>								
+								<a href="#" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><strong><span class="round-tab"><%= section1.getCount() %></span><i><%=GetAttribute(section1.Current, "label")%></i></strong></a> 																
+							<% } else { %>								
+								<div class="connecting-line left-line"></div>
+								<a href="#" data-toggle="tab" aria-controls="step3" role="tab" aria-expanded="false"><strong><span class="round-tab"><%= section1.getCount() %></span><i><%=GetAttribute(section1.Current, "label")%></i></strong></a>
+								<% if ((int)Context.Items["totalSection"] != section1.getCount()) { %>
+									<div class="connecting-line right-line"></div>
+								<% } %>
+							<% } %>
+						</li>
+					</apn:forEach>
+				</ol>				
+			<!-- </div> -->
 		</div>
-	</div>
 	<% } %>
 	<% if (!CurrentPageCSS.Contains("hide-progress-bar")) { %>
 	<div class="col-xs-12">
