@@ -1,6 +1,6 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-	<apn:control runat="server" id="control">
-	<% string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
+<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>	
+	<apn:control runat="server" id="control">	
+	<%	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
 	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) {
 	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);

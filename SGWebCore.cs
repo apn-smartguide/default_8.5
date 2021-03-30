@@ -55,7 +55,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			}
 			return (API5)Context.Items["api5"];
 		}
-		set { 
+		set {
 			Context.Items["api5"] = value; 
 		}
 	}
@@ -65,7 +65,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			return GetAppSetting("com.alphinat.sgs.environment").Equals("Development");
 		}
 	}
-	
+
 	public ISmartlet Smartlet {
 		get {
 			if(Context.Items["smartlet"] == null) {
@@ -84,14 +84,13 @@ public partial class SGWebCore : System.Web.UI.Page
 	public ISmartletLogger GetLogger(string name) {
 		if(Context.Items["smartletLogger"+name] == null) {
 			if(sg.Context != null) {
-				Context.Items["smartletLogger"+name] = sg.Context.getLogger(name); 
+				Context.Items["smartletLogger"+name] = sg.Context.getLogger(name);
 			} else {
 				Context.Items["smartletLogger"+name] = null;
 			}
 		}
 		return (ISmartletLogger)Context.Items["smartletLogger"+name];
 	}
-
 
 	//// Smartlet infos Helpers ///
 	public string SmartletName {
@@ -178,9 +177,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		get { return (string[])Context.Items["theme-locations"]; }
 		set { Context.Items["theme-locations"] = value; }
 	}
-	
+
 	//// Filepaths Helpers ////
-	
 	//Will provide the runniing basePath based on the current Workspace name.
 	public string BasePath {
 		get {
@@ -214,6 +212,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["currentThemePath"] = value;
 		}
 	}
+
 	//Will return an empty string if the searched "asset" is not found at this Theme Location
 	public string GetThemePathForAsset(string themeLocation, string asset) {
 		string path = String.Concat(BasePath, themeLocation, asset);
@@ -303,7 +302,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 		return smartletUrl.ToString();
 	}
-	
+
 	public string GetURLForSmartlet(string smartletName) {
 		return GetURLForSmartlet(smartletName, "");
 	}
@@ -325,7 +324,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool IsLogged() {
 		return (!Username.Equals(""));
 	}
-	
+
 	public string Username { 
 		get {
 			return (Session["username"] != null) ? (string) Session["username"] : "";
@@ -417,7 +416,6 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetVariableByName(string key) {
-
 		string smartVal = "";
 		ISmartletVariable smartVar = Smartlet.findVariableByName(key);
 		
@@ -435,7 +433,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		return "";
 	}
 
-
 	public ISmartletPage SectionPrimaryPage {
 		get {
 			if(Session["section-primary-page"] != null && CurrentPageSection.Equals(CurrentActiveSection)) {
@@ -447,7 +444,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			Session["section-primary-page"] = value;
 		}
 	}
-	
+
 	public string SectionPrimaryPageURL {
 		get {
 			if(SectionPrimaryPage != null && !SectionPrimaryPage.Equals("") && CurrentPageSection.Equals(CurrentActiveSection)) {
@@ -469,6 +466,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			return false;
 		}
 	}
+
 	public bool IsPageMemberOfCurrentSection {
 		get {
 			return (
@@ -560,6 +558,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			return (bool)Context.Items["hideFunelNavigation"];
 		}
 	}
+
 	public bool HideBottomNavigation {
 		get {
 			if(Context.Items["hideBottomNavigation"] == null) {
@@ -586,9 +585,9 @@ public partial class SGWebCore : System.Web.UI.Page
 
 			isPdfRequest = (Request["pdf"] != null && !"".Equals(Request["pdf"]));
 			isPdfContext = (Context.Items["pdf"] != null && (
-																(Context.Items["pdf"] is String && "true".Equals((string)Context.Items["pdf"])) ||
-																(Context.Items["pdf"] is bool && (bool)Context.Items["pdf"])
-															) );
+			(Context.Items["pdf"] is String && "true".Equals((string)Context.Items["pdf"])) ||
+			(Context.Items["pdf"] is bool && (bool)Context.Items["pdf"])
+			) );
 
 			return (isPdfRequest || isPdfContext);
 		}
@@ -608,7 +607,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["summary"] = value;
 		}
 	}
-	
+
 	public bool ShowErrorsAbove {
 		get {
 			if(Context.Items["errors-above"] == null) {
@@ -620,7 +619,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			Context.Items["errors-above"] = value;
 		}
 	}
-	
+
 	public bool BareRender {
 		get {
 			if(Context.Items["renderbare"] == null) {
@@ -644,7 +643,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	//// Field Helpers ////
-	public bool IsUnderRepeat(ISmartletField f) { 
+	public bool IsUnderRepeat(ISmartletField f) {
 		bool result = false;
 		
 		while(f.getParent() != null) {
@@ -654,7 +653,7 @@ public partial class SGWebCore : System.Web.UI.Page
 				break;
 			}
 			f = f.getParent();
-		}   
+		}
 		return result;
 	}
 
@@ -721,19 +720,19 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public SessionField GetProxyButton(string key, ref string eventTargets) {
-        SessionField btn = (SessionField)FindFieldByName(key);
-        if(btn != null) {
-            ISmartletField[] targets = btn.getEventTarget();
-            if(targets != null) {
-                foreach(ISmartletField targetField in targets) {
-                    if(targetField != null) {
-                        eventTargets += targetField.getId() + ",";
-                    }
-                }
-            }
-        }
-        return btn;
-    }
+		SessionField btn = (SessionField)FindFieldByName(key);
+		if(btn != null) {
+			ISmartletField[] targets = btn.getEventTarget();
+			if(targets != null) {
+				foreach(ISmartletField targetField in targets) {
+					if(targetField != null) {
+						eventTargets += targetField.getId() + ",";
+					}
+				}
+			}
+		}
+		return btn;
+	}
 
 	//// Utilities ///
 	public void TimerTraceStart(string key) {
