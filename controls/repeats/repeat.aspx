@@ -13,7 +13,7 @@
 %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
-<% } else if (control.Current.getCSSClass().Contains("multifiles-upload")) {
+<% } else if (control.Current.getCSSClass().Contains("uploads-render") || control.Current.getCSSClass().Contains("uploads-view")) {
 	ExecutePath("/controls/repeats/uploads.aspx");
 } else if (control.Current.getCSSClass().Contains("grid-render") || control.Current.getCSSClass().Contains("grid-view")) {
 	ExecutePath("/controls/repeats/grid.aspx");

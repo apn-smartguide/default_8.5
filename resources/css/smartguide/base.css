@@ -162,12 +162,25 @@ span.required {
 	color: #bbb;
 }
 
-div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
+div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
 	display:none!important;
 }
 
-div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
+div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child {
 	padding-left:15px!important;
+}
+
+table.uploads-render > tbody > tr {
+	vertical-align: top;
+	border-bottom: 1px lightgray solid;
+}
+
+table.uploads-render > tbody > tr:last-child {
+	border-bottom: 0px;
+}
+
+div.uploads-render .panel-body {
+	padding: 0px;
 }
 
 table.dataTable td {
@@ -478,12 +491,34 @@ input[type="radio"].large-radio:checked::before, fieldset.large-radio label inpu
 }
 /* Large-Radio - End */
 
-/* Alerts */
-/* .alert, span > div.row > div[class^=col] > div.panel, span > div.row > div[class^=col] > div > div > div.panel {
-	margin-left: -15px;
-	margin-right: -15px;
-} */
+/* File Upload */
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
 
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	background: red;
+	cursor: inherit;
+	display: block;
+}
+
+input[type=file][readonly] {
+	background-color: white !important;
+	cursor: text !important;
+}
+/* File Upload */
+
+/* Alerts */
 .alert > :first-child {
 	margin-left: 1.2em;
 	margin-top: auto;

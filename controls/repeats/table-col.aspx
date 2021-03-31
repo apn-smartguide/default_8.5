@@ -4,6 +4,7 @@
 		<% Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+field.getCount(); //override aria-labelledby by table header %>
 		<% Context.Items["IsVisible"] = (!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")); %>
 		<% Context.Items["zClass"] = control.Current.getLayoutAttribute("all") ; %>
+		
 		<apn:ChooseControl runat="server">
 			<apn:whencontrol runat="server" type="INPUT"><% RenderTD("/controls/input.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
 			<apn:whencontrol runat="server" type="TEXTAREA"><% RenderTD("/controls/textarea.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
