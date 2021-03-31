@@ -51,12 +51,21 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 			<tbody>
 			<apn:forEach runat="server" id="status">
 				<tr>
-					<%-- ExecutePath("/controls/repeats/table-col.aspx"); --%>
-					<td style="border-bottom-width: 1px;"><% ExecutePath("/controls/controls.aspx"); %></td>
 					<td>
-					<apn:control runat="server" type="delete" id="button">
-						<% if (((string)Context.Items["readonly"]).Length == 0) { %><button type='submit' name='<apn:name runat="server"/>_<%= status.getCount()%>' data-eventtarget='["<%=control.Current.getName()%>"]' class='repeat_delbtn <%= Context.Items["hiddenName"] %>_<%= status.getCount()%> btn btn-danger btn-xs' aria-labelledby='lbl_<apn:name runat="server"/>' onclick='this.value=""; return true;' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button><% } %>
-					</apn:control>
+						<table>
+							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
+							<tr><td>
+								<apn:control runat="server" type="delete" id="button">
+									<button type='submit' name='<apn:name runat="server"/>_<%= status.getCount()%>' data-eventtarget='["<%=control.Current.getName()%>"]' class='repeat_delbtn <%= Context.Items["hiddenName"] %>_<%= status.getCount()%> btn btn-danger btn-sm pull-right' aria-labelledby='lbl_<apn:name runat="server"/>' onclick='this.value=""; return true;' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button>
+								</apn:control>
+								<apn:control runat="server" type="prepare_edit_instance">
+									<button type='button' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='btn btn-primary btn-sm pull-right repeat_prepare_edit_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'><span class='<apn:localize runat="server" key="theme.icon.edit"/>'></span></button>
+								</apn:control>
+								<apn:control runat="server" type="cancel_add_instance">
+									<button type='button' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' style='cursor:pointer' class='btn btn-default btn-sm pull-right repeat_cancel_btn' id='<apn:name runat="server"/>_<%= status.getCount()%>'><apn:localize runat="server" key="theme.text.cancel"/></button>
+								</apn:control>
+							</td></tr>
+						</table>
 					</td>
 				</tr>
 			</apn:forEach>
