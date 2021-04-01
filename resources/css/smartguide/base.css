@@ -166,11 +166,15 @@ div.drag-over {
 
 div.drop-popup {
 	display: none;
-	background: linear-gradient(to BOTTOM, rgba(245, 245, 245, 1) , rgba(245, 245, 245, 0));
+	background: linear-gradient(to BOTTOM, rgba(255, 255, 255, 1) , rgba(255, 255, 255, 0.5));
 	border-style: dashed;
 	border-color: #666666;
 	border-width: 2px;
+	border-radius: 4px;
 	padding: 5px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
 	z-index: 20;
 	/* Fit to parent div */
 	position: absolute; 
@@ -185,8 +189,6 @@ div.drop-popup {
 }
 div.drop-popup > p {
 	font-size: 24px;
-	font-style: bold;
-	align-content: center;
 	text-align: center;
 }
 
