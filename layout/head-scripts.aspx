@@ -2,6 +2,8 @@
 <%-- Scripts needed earlier --%>
 <script src='<%= CacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>
+	var urlCurrentPage = '/smartlets/<%=GetURLForPage(CurrentPage)%>';
+	var uploader = '<%= ResolvePath("/uploads.ashx") %>';
 	var keepAlivePage = '<%= ResolvePath("/keep-alive.aspx") %>';
 	var keepAliveFlag = 'True';
 	var sessionDuration = '<%= Session.Timeout %>';

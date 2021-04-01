@@ -157,6 +157,38 @@ span.required {
 		font-size: 24px;
 	}
 }
+
+div.drag-over {
+	background-color: black;
+	opacity: 0.5;
+}
+
+div.drop-popup {
+	display: none;
+	background: linear-gradient(to BOTTOM, rgba(245, 245, 245, 1) , rgba(245, 245, 245, 0));
+	border-style: dashed;
+	border-color: #666666;
+	border-width: 2px;
+	padding: 5px;
+	z-index: 20;
+	/* Fit to parent div */
+	position: absolute; 
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto; 
+    background-size: cover;
+    overflow: hidden;
+}
+div.drop-popup > p {
+	font-size: 24px;
+	font-style: bold;
+	align-content: center;
+	text-align: center;
+}
+
 /* Readonly */
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
 	color: #bbb;

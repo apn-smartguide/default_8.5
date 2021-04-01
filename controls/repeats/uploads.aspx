@@ -46,6 +46,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	</apn:control>
+	<div class='drop-popup'><p>Drop your files here</p></div>
 	<div class='panel-body' id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
 		<table class='<%=control.Current.getCSSClass()%>'>
 			<tbody>

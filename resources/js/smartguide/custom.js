@@ -45,6 +45,36 @@ var customJS = {
 		crudController.init(sgRef);
 		formatterController.init(sgRef);
 		keepAliveController.init(sgRef, (sessionDuration-2), sessionDuration, 30, keepAlivePage, logoutPage);
+
+		$(".uploads-render").each(function(){
+			var $this = $(this);
+
+			$this.on('dragover', function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				$('.drop-popup', $this).css('display','block');
+			});
+
+			$('.drop-popup', $this).on('dragover dragleave drop', function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				console.log(event.type);
+			
+				// layout and drop events
+				if ( event.type == 'dragover') {
+					$('.drop-popup', $this).css('display','block');
+				}
+				else {
+					$('.drop-popup', $this).css('display','none');
+				
+					if ( event.type == 'drop' ) {
+						var droppedFiles = event.originalEvent.dataTransfer.files;
+						$this.find('input[type="file"]').prop('files', droppedFiles);
+						$("form").submit();
+					}
+				}
+			});
+		});
 	}
 	, bindEvents: function (sgRef, context) {
 		// can reference objects and methods in smartguide.js
