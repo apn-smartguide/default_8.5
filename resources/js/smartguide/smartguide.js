@@ -681,6 +681,12 @@ $("form[id^='smartguide_']" ).each(function() {
 				}
 			}
 
+			if(!$(elmt).hasClass('save-blobs')){
+				$("div.blob > input[type='file']").each(function(){
+					$(this).attr('name',"");
+				})
+			}
+
 			fm.ajaxSubmit({ 
 				crossDomain: false,
 				type: 'post',
@@ -688,6 +694,14 @@ $("form[id^='smartguide_']" ).each(function() {
 				data : { isAjax : 'true' },
 				success:  function(data){
 					try {
+
+						if(!$(elmt).hasClass('save-blobs')){
+							$("div.blob > input[type='file']").each(function(){
+								var fieldid = $(this).attr('id');
+								$(this).attr('name',fieldid);
+							})
+						}
+						
 						response = data;
 						// get array of response elements
 						var responseDiv = $("#sgControls", response);
