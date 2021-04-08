@@ -19,6 +19,14 @@ body {
 	background-color: #ffffff;
 }
 
+.form-control {
+	width: 100%;
+}
+
+.has-feedback .form-control {
+	padding-right: 10px;
+}
+
 /* Sticky Footer */
 html {
 	position: relative;
