@@ -64,7 +64,7 @@ if(btnAdd != null) {
 		<% } %>
 		<thead>
 			<tr id='tr_<apn:name runat="server"/>' role='row'>
-			<% if ((bool)Context.Items["isSelectable"]) { %><th class='selectBoxControl'></th><% } %>
+			<% if ((bool)Context.Items["isSelectable"]) { %><th data-priority='1' class='selectBoxControl'></th><% } %>
 			<apn:control runat="server" type="default-instance">
 			<apn:forEach runat="server" id="row">
 				<apn:forEach runat="server" id="col">
@@ -73,7 +73,7 @@ if(btnAdd != null) {
 						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
 						<% } else { %>
-						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
+						<th data-priority='1' data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(field.Current, "label") %><% } %>
 							<% if (!field.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
 								&nbsp;&nbsp;
@@ -93,7 +93,7 @@ if(btnAdd != null) {
 				</apn:forEach>
 			</apn:forEach>
 			</apn:control>
-			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %><td data-orderable="false"></td><% } %>
+			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %><td data-priority='1' data-orderable="false"></td><% } %>
 			</tr>
 		</thead>
 		<tbody>
