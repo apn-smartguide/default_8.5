@@ -73,7 +73,7 @@ if(btnAdd != null) {
 						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
 						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
 						<% } else { %>
-						<th data-priority='1' data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
+						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(field.Current, "label") %><% } %>
 							<% if (!field.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
 								&nbsp;&nbsp;
