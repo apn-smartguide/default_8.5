@@ -172,7 +172,13 @@ $("form[id^='smartguide_']" ).each(function() {
 			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
 			// checkboxes and radio buttons
-			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
+			//$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
+			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
+				var id = $(this).attr('name'); 
+				if ($.isEmptyObject(smartletfields[id].events.onchange)) { 
+					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh); 
+				}
+			});
 
 			// listbox and dropdown
 			$('input[type=image][data-eventtarget]').off('click',r.bindThis).on('click', r.bindThis);
@@ -262,7 +268,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								}
 							}
 						} else if($field.is(":visible") || $("#div_" + key).parents('.smartmodal').length > 0) {
-							if($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0) {
+							if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0)) {
 								r._bindFieldEvent(field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
 							} else {
 								r._bindModalFieldEvent(field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
@@ -418,7 +424,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
 				$field = $('div#div_'+fieldHtmlName, r.fm);
 			} else {
-				$field = $('[name="'+fieldHtmlName+'"]', r.fm);
+				$field = $('[name="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
 				if($field.length == 0) {
 					$field = $('#'+fieldHtmlName+'', r.fm);
 				}
