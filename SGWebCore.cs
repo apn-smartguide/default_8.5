@@ -37,7 +37,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["basePath"] = null;
 		Application["coreThemePath"] = null;
 		Application["currentThemePath"] = null;
-		Application["paths-dictionary"] = null;
 		Application["home-url"] = null;
 		Application["login-url"] = null;
 		Application["logout-url"] = null;
@@ -170,6 +169,7 @@ public partial class SGWebCore : System.Web.UI.Page
             {
 				//We're changing workspace, clear the caches.
 				ClearCaches();
+				Context.Items["workspace"] = Smartlet.getWorkspace();
             }
 			return (string)Context.Items["workspace"];
 		}
