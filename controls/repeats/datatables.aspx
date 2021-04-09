@@ -72,7 +72,7 @@
 									<apn:forEach runat="server" id="thRowField">
 										<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-												<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thRowField.Current, "label")%></th>
+												<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thRowField.Current, "label")%></th>
 											<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
 												<td data-priority='1' data-sortable="false"></td>
 											<% } %>
@@ -84,16 +84,16 @@
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
 								<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
+									<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 								<% } else { %>
-									<td data-sortable="false"></td>
+									<td <apn:metadata runat="server" match="data-priority"/> data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
 							<apn:WhenControl type="HIDDEN" runat="server"><td></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-										<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
+										<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
 										<td data-priority='1' data-sortable="false"></td>
 									<% } %>
