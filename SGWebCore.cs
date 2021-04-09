@@ -32,20 +32,43 @@ public partial class SGWebCore : System.Web.UI.Page
 	private string lastModificationDate = "";
 
 	public void ClearCaches() {
+		
 		Application["paths-dictionary"] = new Dictionary<string, string>();
+		Application["basePath"] = null;
+		Application["coreThemePath"] = null;
+		Application["currentThemePath"] = null;
+		Application["paths-dictionary"] = null;
+		Application["home-url"] = null;
+		Application["login-url"] = null;
+		Application["logout-url"] = null;
+		Application["profile-url"] = null;
+
 		Context.Items["api5"] = null;
 		Context.Items["smartlet"] = null;
-		Context.Items["smartletLogger"] = null;
 		Context.Items["smartletName"] = null;
 		Context.Items["smartletCode"] = null;
+		Context.Items["currentPage"] = null;
 		Context.Items["theme"] = null;
 		Context.Items["workspace"] = null;
 		Context.Items["smartletSubject"] = null;
-		Context.Items["basePath"] = null;
-		Context.Items["coreThemePath"] = null;
-		Context.Items["currentThemePath"] = null;
-		Context.Items["logout-url"] = null;
 		Context.Items["showWizard"] = null;
+		Context.Items["hideHeader"] = null;
+		Context.Items["hideFooter"] = null;
+		Context.Items["hideBreadcrumb"] = null;
+		Context.Items["hideProgressBar"] = null;
+		Context.Items["hideStepNavigation"] = null;
+		Context.Items["hideFunelNavigation"] = null;
+		Context.Items["hideBottomNavigation"] = null;
+		Context.Items["hidePageTitle"] = null;
+		Context.Items["pdf"] = null;
+		Context.Items["summary"] = null;
+		Context.Items["errors-above"] = null;
+		Context.Items["renderbare"] = null;
+
+		Session["pages-history"] = null;
+		Session["section-primary-page"] = null;
+		Session["active-section"] = null;
+
 	}
 
 	public API5 sg {
@@ -142,7 +165,12 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
 				Context.Items["workspace"] = Smartlet.getWorkspace();
-			}
+			} 
+			else if (Context.Items["workspace"] != null && Context.Items["workspace"] != Smartlet.getWorkspace())
+            {
+				//We're changing workspace, clear the caches.
+				ClearCaches();
+            }
 			return (string)Context.Items["workspace"];
 		}
 	}
@@ -174,42 +202,42 @@ public partial class SGWebCore : System.Web.UI.Page
 	//Last theme to have a positive asset hit will be the executed asset.
 	//Asset can be any server side processed reference. (*.aspx, *.css, *.js, *.*)
 	public string[] ThemesLocations {
-		get { return (string[])Context.Items["theme-locations"]; }
-		set { Context.Items["theme-locations"] = value; }
+		get { return (string[])Application["theme-locations"]; }
+		set { Application["theme-locations"] = value; }
 	}
 
 	//// Filepaths Helpers ////
 	//Will provide the runniing basePath based on the current Workspace name.
 	public string BasePath {
 		get {
-			if (Context.Items["basePath"] == null || ((string)Context.Items["basePath"]).Equals("")) {
-				Context.Items["basePath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", Workspace, "/");
+			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
+				Application["basePath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", Workspace, "/");
 			}
-			return (string)Context.Items["basePath"];
+			return (string)Application["basePath"];
 		}
 	}
 
 	public string CoreThemePath {
 		get {
-			if (Context.Items["coreThemePath"] == null || ((string)Context.Items["coreThemePath"]).Equals("")) {
-				Context.Items["coreThemePath"] = BasePath + "Default";
+			if (Application["coreThemePath"] == null || ((string)Application["coreThemePath"]).Equals("")) {
+				Application["coreThemePath"] = BasePath + "Default";
 			}
-			return (string)Context.Items["coreThemePath"];
+			return (string)Application["coreThemePath"];
 		}
 		set {
-			Context.Items["coreThemePath"] = value;
+			Application["coreThemePath"] = value;
 		}
 	}
 
 	public string CurrentThemePath {
 		get {
-			if (Context.Items["currentThemePath"] == null || ((string)Context.Items["currentThemePath"]).Equals("")) {
-				Context.Items["currentThemePath"] = BasePath + Theme;
+			if (Application["currentThemePath"] == null || ((string)Application["currentThemePath"]).Equals("")) {
+				Application["currentThemePath"] = BasePath + Theme;
 			}
-			return (string)Context.Items["currentThemePath"];
+			return (string)Application["currentThemePath"];
 		}
 		set {
-			Context.Items["currentThemePath"] = value;
+			Application["currentThemePath"] = value;
 		}
 	}
 
@@ -313,7 +341,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string GetURLForPage(ISmartletPage page) {
 		string pageId = "t_g" + page.getId() + "=1";
-		return GetURLForSmartlet(SmartletCode, pageId);
+		return GetURLForSmartlet(page.getSmartlet().getCode(), pageId);
 	}
 
 	public string GetRequestURI() {
@@ -350,53 +378,53 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string HomeURL {
 		get {
-			if(Context.Items["home-url"] == null || ((string)Context.Items["home-url"]).Equals("")) {
-				Context.Items["home-url"] = GetURLForSmartlet("home");
+			if(Application["home-url"] == null || ((string)Application["home-url"]).Equals("")) {
+				Application["home-url"] = GetURLForSmartlet("home");
 			}
-			return (string)Context.Items["home-url"];
+			return (string)Application["home-url"];
 		}
 		set {
-			Context.Items["home-url"] = value;
+			Application["home-url"] = value;
 		}
 	}
 
 	public string LoginURL {
 		get {
-			if(Context.Items["login-url"] == null || ((string)Context.Items["login-url"]).Equals("")) {
-				Context.Items["login-url"] = GetURLForSmartlet("login");
+			if(Application["login-url"] == null || ((string)Application["login-url"]).Equals("")) {
+				Application["login-url"] = GetURLForSmartlet("login");
 			}
-			return (string)Context.Items["login-url"];
+			return (string)Application["login-url"];
 		}
 		set {
-			Context.Items["login-url"] = value;
+			Application["login-url"] = value;
 		}
 	}
 
 	public string LogoutURL {
 		get {
-			if(Context.Items["logout-url"] == null || ((string)Context.Items["logout-url"]).Equals("")) {
-				Context.Items["logout-url"] = GetURLForSmartlet("logout");
+			if(Application["logout-url"] == null || ((string)Application["logout-url"]).Equals("")) {
+				Application["logout-url"] = GetURLForSmartlet("logout");
 			}
 			if(IsLogged()) {
-				return (string)Context.Items["logout-url"];
+				return (string)Application["logout-url"];
 			} else {
 				return HomeURL;
 			}
 		}
 		set {
-			Context.Items["logout-url"] = value;
+			Application["logout-url"] = value;
 		}
 	}
 
 	public string ProfileURL {
 		get {
-			if(Context.Items["profile-url"] == null || ((string)Context.Items["profile-url"]).Equals("")) {
-				Context.Items["profile-url"] = GetURLForSmartlet("profile");
+			if(Application["profile-url"] == null || ((string)Application["profile-url"]).Equals("")) {
+				Application["profile-url"] = GetURLForSmartlet("profile");
 			}
-			return (string)Context.Items["profile-url"];
+			return (string)Application["profile-url"];
 		}
 		set {
-			Context.Items["profile-url"] = value;
+			Application["profile-url"] = value;
 		}
 	}
 
@@ -447,8 +475,30 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string SectionPrimaryPageURL {
 		get {
-			if(SectionPrimaryPage != null && !SectionPrimaryPage.Equals("") && CurrentPageSection.Equals(CurrentActiveSection)) {
-				return GetURLForPage(SectionPrimaryPage);
+			ISmartletPage page = SectionPrimaryPage;
+			if(page != null && !page.Equals("") && CurrentPageSection.Equals(CurrentActiveSection)) {
+				return GetURLForPage(page);
+			}
+			return "#";
+		}
+	}
+
+	public ISmartletPage PreviousPage {
+		get {
+			ISmartletPage[] pages = History;
+			if(pages != null && pages.Length > 1 && pages[pages.Length-2] != CurrentPage) {
+				return pages[pages.Length-2];
+			} else {
+				return null;
+			}
+		}
+	}
+
+	public string PreviousPageURL {
+		get {
+			ISmartletPage page = PreviousPage;
+			if(page != null) {
+				return GetURLForPage(page);
 			}
 			return "#";
 		}
@@ -456,12 +506,15 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public bool IsPageSectionPrimary {
 		get {
-			if(CurrentPageCSS.Contains("section-primary-page")) {
-				CurrentActiveSection = CurrentPageSection;
+			string currentPageSection = CurrentPageSection;
+			string currentActiveSection = CurrentActiveSection;
+
+			if (CurrentPageCSS.Contains("section-primary-page")) {
+				currentActiveSection = currentPageSection;
 				SectionPrimaryPage = CurrentPage;
 				return true;
-			} else if (CurrentPageSection != CurrentActiveSection) {
-				CurrentActiveSection = CurrentPageSection;
+			} else if (currentPageSection != currentActiveSection) {
+				currentActiveSection = currentPageSection;
 			}
 			return false;
 		}
@@ -469,11 +522,13 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public bool IsPageMemberOfCurrentSection {
 		get {
+			string currentPageSection = CurrentPageSection;
+			string currentActiveSection = CurrentActiveSection;
 			return (
 				!IsPageSectionPrimary && 
-				!CurrentPageSection.Equals("") && 
-				!CurrentActiveSection.Equals("") && 
-				CurrentPageSection.Equals(CurrentActiveSection)
+				!currentPageSection.Equals("") && 
+				!currentActiveSection.Equals("") &&
+				currentPageSection.Equals(currentActiveSection)
 			);
 		}
 	}
@@ -494,6 +549,91 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			return ((SessionPage)CurrentPage).getSection(CurrentLocale);
 		}
+	}
+
+	public ISmartletPage[] History {
+		get {
+			if(Session["pages-history"] != null) {
+				return (ISmartletPage[])Session["pages-history"];
+			} else {
+				return null;
+			}
+		}
+		set {
+			Session["pages-history"] = value;
+		}
+	}
+
+	public ISmartletPage[] AddPageToHistory(ISmartletPage page) {
+		List<ISmartletPage> pages = new List<ISmartletPage>();
+		ISmartletPage[] pagesInHistory = History;
+		
+		if (pagesInHistory != null && pagesInHistory.Length > 0)
+		{
+			for (int i = pagesInHistory.Length - 1; i >= 0; i--)
+			{
+				//Only keep up to ourselve if the history (to limit the size of the object)
+				if (pagesInHistory[i].getId() != page.getId())
+				{
+					pages.Add(pagesInHistory[i]);
+				}
+				else
+				{
+					break;
+				}
+			}
+
+		}
+
+		if(!pages.Contains(page))
+        {
+			pages.Insert(0,page);
+        }
+
+		pagesInHistory = pages.ToArray();
+		Array.Reverse(pagesInHistory);
+		History = pagesInHistory;
+		return pagesInHistory;
+	}
+
+	public ISmartletPage[] Breadcrumbs() {
+		//This breadcrumbs is history based.
+		ISmartletPage[] pages = Smartlet.getHistory();
+		List<ISmartletPage> breadcrumbsList = new List<ISmartletPage>();
+		string currentPageSection = CurrentPageSection;
+		ISmartletPage currentPage = CurrentPage;
+
+		//Add our currentPage to the list fist
+		breadcrumbsList.Add(currentPage);
+
+		//Read History in Reverse
+		for (int i = pages.Length - 1; i >= 0; i--) {
+			//Check if we are in a section
+			if(!currentPageSection.Equals("")) {
+				//Otherwise we only keep members of our section
+				if(currentPageSection == ((SessionPage)pages[i]).getSection(CurrentLocale)) {
+					if (pages[i] != currentPage && (pages[i] != pages[0] || i == 0)) {
+						breadcrumbsList.Add(pages[i]); 
+					} else {
+						break;
+					}
+				} else {
+					//Once we see we're no longer in the  section, we stop.
+					break;
+				}
+			//Not in a section,
+			} else {
+				if (pages[i] != currentPage && (pages[i] != pages[0] || i == 0)) {
+					breadcrumbsList.Add(pages[i]); 
+				} else {
+					//If we see ourselves in the history, we stop.
+					break;
+				}
+			}
+		}
+		ISmartletPage[] breadcrumbs = breadcrumbsList.ToArray();
+		Array.Reverse(breadcrumbs);
+		return breadcrumbs;
 	}
 
 	public bool ShowWizard {
@@ -633,10 +773,11 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetPageTitle(string pageName) {
+		string currentPageSection = CurrentPageSection;
 		StringBuilder sb = new StringBuilder();
-		if(!CurrentPageSection.Equals("")) sb.Append(CurrentPageSection);
+		if(!currentPageSection.Equals("")) sb.Append(currentPageSection);
 		if(!pageName.Equals("")) {
-			if(!CurrentPageSection.Equals("")) sb.Append(" - ");
+			if(!currentPageSection.Equals("")) sb.Append(" - ");
 			sb.Append(pageName);
 		};
 		return sb.ToString();
