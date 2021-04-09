@@ -71,9 +71,9 @@ if(btnAdd != null) {
 					<apn:forEach runat="server" id="field">
 					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
-						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
+						<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
 						<% } else { %>
-						<th data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
+						<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(field.Current, "label") %><% } %>
 							<% if (!field.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
 								&nbsp;&nbsp;

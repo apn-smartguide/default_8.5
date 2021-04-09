@@ -1,6 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <% if (!IsPdf) { %>
-	<% ISmartletPage[] breadcrumbs = BuildBreadcrumbs(); %>
+	<% ISmartletPage[] breadcrumbs = Breadcrumbs(); %>
 	<% if (!CurrentPageCSS.Contains("hide-breadcrumbs")) { %>
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
@@ -19,42 +19,3 @@
 		</nav>
 	<% } %>
 <% } %>
-<script runat="server">
-	public ISmartletPage[] BuildBreadcrumbs() {
-		//This breadcrumbs is history based.
-		ISmartletPage[] pages = Smartlet.getHistory();
-		List<ISmartletPage> breadcrumbsList = new List<ISmartletPage>();
-
-		//Add our currentPage to the list fist
-		breadcrumbsList.Add(CurrentPage);
-
-		//Read History in Reverse
-		for (int i = pages.Length - 1; i >= 0; i--) {
-			//Check if we are in a section
-			if(!CurrentPageSection.Equals("")) {
-				//Otherwise we only keep members of our section
-				if(CurrentPageSection == ((SessionPage)pages[i]).getSection(CurrentLocale)) {
-					if (pages[i] != CurrentPage && (pages[i] != pages[0] || i == 0)) {
-						breadcrumbsList.Add(pages[i]); 
-					} else {
-						break;
-					}
-				} else {
-					//Once we see we're no longer in the  section, we stop.
-					break;
-				}
-			//Not in a section,
-			} else {
-				if (pages[i] != CurrentPage && (pages[i] != pages[0] || i == 0)) {
-					breadcrumbsList.Add(pages[i]); 
-				} else {
-					//If we see ourselves in the history, we stop.
-					break;
-				}
-			}
-		}
-		ISmartletPage[] breadcrumbs = breadcrumbsList.ToArray();
-		Array.Reverse(breadcrumbs);
-		return breadcrumbs;
-	}
-</script>
