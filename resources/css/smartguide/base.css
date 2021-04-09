@@ -19,6 +19,33 @@ body {
 	background-color: #ffffff;
 }
 
+/* DataTables override - using WET version */
+table.dataTable thead .sorting {
+	background-image: none;
+}
+table.dataTable thead .sorting_asc {
+	background-image: none;
+}
+table.dataTable thead .sorting_desc {
+	background-image: none;
+}
+
+.dataTables_wrapper .dataTables_filter {
+	float:left;
+	text-align: left;
+}
+
+.dataTables_wrapper .dataTables_info {
+	clear: none ;
+	float: none;
+	padding-top: 0px;
+}
+
+.dataTables_wrapper .dataTables_length {
+	float: none;
+}
+/* DataTables */
+
 .form-control {
 	width: 100%;
 }
