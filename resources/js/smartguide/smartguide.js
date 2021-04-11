@@ -818,29 +818,6 @@ $("form[id^='smartguide_']" ).each(function() {
 	SMARTGUIDES[smartletCode].init();
 });
 
-//Prevent press enter to submit the form
-// $(document).ready(function() {
-//   $(window).keydown(function(event){
-//     if(event.keyCode == 13) {
-//         if(event.target.nodeName == 'IMG' || event.target.nodeName == 'SPAN'){
-// 			event.target.click();
-// 		}
-// 		// make sure we only overwrite behaviour when pressing enter on an input field
-// 		else if (event.target.nodeName != 'TEXTAREA' && event.target.nodeName != 'A' && event.target.nodeName != 'BUTTON' && event.target.type != "submit") {
-// 			// if we have a input with class next, and we're not in a modal, we can trigger the next button
-// 			if ($('input.next:visible').length == 1 && $(event.target).closest('.modal').length == 0) {
-// 				var nextButton = $('input.next:visible').first();
-// 				nextButton.trigger('click');
-// 				return false;
-// 			} else {
-// 				event.preventDefault();
-// 				return false;
-// 			}
-// 		}
-//     }
-//   });
-// });
-
 function getScripts(scripts, callback) {
     var progress = 0;
     scripts.forEach(function(script) { 

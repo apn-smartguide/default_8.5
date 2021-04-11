@@ -37,10 +37,9 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tinymce.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.formatters.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.uploads.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script>
 	var dataTableTranslations = {
