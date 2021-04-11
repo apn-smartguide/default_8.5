@@ -5,8 +5,9 @@ var customJS = {
 		// This section is for code that must be run once after the page is loaded
 		// It is called within the $(document).ready(function(){ of smartguide.js
 		// You can reference objects and methods contained in smartguide.js
-		// e.g.: var frm = sgRef.fm; $('#myselector', frm).addClass("myclass");
-		
+		// e.g.: $('#myselector', context).addClass("myclass");
+		var context = sgRef.fm;
+
 		var navHeight = $('.navbar').outerHeight(true) + 10;
 
 		$('#sidebar').affix({
@@ -21,26 +22,26 @@ var customJS = {
 			offset: navHeight
 		});
 
+		utilsController.init(sgRef);
 		tinymceController.init(sgRef, currentLocale);
 		WETdataTablesController.init(sgRef);
 		dataTablesController.init(sgRef);
 		crudController.init(sgRef);
-		utilsController.init(sgRef);
 		keepAliveController.init(sgRef, (sessionDuration-2), sessionDuration, 30);
 	}
 	, bindEvents: function (sgRef, context) {
 		// can reference objects and methods in smartguide.js
-		// e.g.: var frm = sgRef.fm; $('#myselector', frm).unbind('click',sgRef.bindThis).bind('click', sgRef.bindThis);
+		// e.g.: $('#myselector', context).unbind('click',sgRef.bindThis).bind('click', sgRef.bindThis);
 		if (!context) {
 			context = sgRef.fm;
 		}
 
 		for(i=0; i<context.length; i++) {
+			utilsController.bindEvents(sgRef, context[i]);
 			tinymceController.bindEvents(sgRef, "TEXTAREA.tinymce", context[i]);
 			WETdataTablesController.bindEvents(sgRef, context[i]);
 			dataTablesController.bindEvents(sgRef, context[i]);
 			crudController.bindEvents(sgRef, context[i]);
-			utilsController.bindEvents(sgRef, context[i]);
 		}
 	}
 };
