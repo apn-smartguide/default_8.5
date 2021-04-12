@@ -55,6 +55,11 @@ public partial class _Default : SGWebCore
 		Context.Items["BrowserVersion"] = browser.Version;
 		Context.Items["BrowserType"] = browser.Type;
 
+		HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+		HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+		HttpContext.Current.Response.Cache.SetNoStore();
+		HttpContext.Current.Response.Cache.SetNoServerCaching();
+
 	}
 
 	private void Page_Error(object sender, EventArgs e)
