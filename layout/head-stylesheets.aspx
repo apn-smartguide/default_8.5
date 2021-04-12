@@ -9,7 +9,8 @@
 <link href='<%= ResolvePath("/resources/img/favicon.ico")%>' rel="shortcut icon" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <![endif]-->
-<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" rel="stylesheet">
+<%--<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" rel="stylesheet">--%>
+<link href='<%= CacheBreak("/resources/css/font-awsome-5.15.3.css") %>' rel="stylesheet">
 <!-- Bootstrap CSS -->
 <link href='<%=CacheBreak("/resources/css/bootstrap.css")%>' rel="stylesheet">
 <!-- <link href='<%=CacheBreak("/resources/css/bootstrap-theme.css")%>' rel="stylesheet"> -->
