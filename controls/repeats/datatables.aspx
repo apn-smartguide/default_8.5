@@ -60,7 +60,7 @@
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
 				<tr>
-				<% if (isSelectable()) { %><th><% if(control.Current.getCSSClass().Contains("select-all") && control.Current.getAttribute("selectiontype").Equals("checkbox")) { %><input name='select_all' id='<%=control.Current.getCode()%>-select-all' onclick='event.stopPropagation()' value="1" type='checkbox' class='<%=getSelectAllCSSClass()%>'  style='<%=getSelectAllCSSStyle()%>' /><% } %></th><% } %>
+				<% if (isSelectable()) { %><th data-priority='1'><% if(control.Current.getCSSClass().Contains("select-all") && control.Current.getAttribute("selectiontype").Equals("checkbox")) { %><input name='select_all' id='<%=control.Current.getCode()%>-select-all' onclick='event.stopPropagation()' value="1" type='checkbox' class='<%=getSelectAllCSSClass()%>'  style='<%=getSelectAllCSSStyle()%>' /><% } %></th><% } %>
 				<apn:forEach runat="server" id="thRow">
 					<apn:forEach runat="server" id="thCol">
 						<apn:forEach runat="server" id="thField"> <%-- might be a row or a fied --%>
@@ -72,33 +72,33 @@
 									<apn:forEach runat="server" id="thRowField">
 										<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-												<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thRowField.Current, "label")%></th>
+												<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thRowField.Current, "label")%></th>
 											<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
-												<td data-sortable="false"></td>
+												<td data-priority='1' data-sortable="false"></td>
 											<% } %>
 										<% } else { %>
-											<td data-sortable="false"></td>
+											<td data-priority='1' data-sortable="false"></td>
 										<% } %>
 									</apn:forEach>
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
 								<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-									<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
+									<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 								<% } else { %>
-									<td data-sortable="false"></td>
+									<td <apn:metadata runat="server" match="data-priority"/> data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
 							<apn:WhenControl type="HIDDEN" runat="server"><td></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-										<th class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
+										<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
-										<td data-sortable="false"></td>
+										<td data-priority='1' data-sortable="false"></td>
 									<% } %>
 								<% } else { %>
-									<td data-sortable="false"></td>
+									<td data-priority='1' data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
 						</apn:ChooseControl>
@@ -430,6 +430,7 @@
 				}
 				if(cssClass.Contains("repeatbutton")) {
 					colClass += "repeatbutton ";
+					col.Add("responsivePriority", 1);
 				}
 				if(cssClass.Contains("nowrap")) {
 					colClass += "nowrap ";

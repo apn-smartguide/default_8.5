@@ -6,7 +6,7 @@ body.pdf {
 	margin: 15px;
 	padding: 15px;
 }
-  
+
 body.pdf .panel {
 	page-break-inside: avoid;
 }
@@ -17,6 +17,20 @@ body {
 	line-height: 1.846;
 	color: #666666;
 	background-color: #ffffff;
+}
+
+textarea.autoexpand {
+	display: block;
+	min-height: 37px;
+	height: 37px;
+}
+
+.form-control {
+	width: 100%;
+}
+
+.has-feedback .form-control {
+	padding-right: 10px;
 }
 
 /* Sticky Footer */
@@ -92,7 +106,7 @@ span.required {
 	0% { -webkit-transform: rotate(0deg); }
 	100% { -webkit-transform: rotate(360deg); }
 }
-  
+
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
@@ -116,19 +130,19 @@ span.required {
 }
 
 @media (min-width: 979px) {
-  #sidebar.affix-top {
+#sidebar.affix-top {
 	position: static;
-  	margin-top:30px;
-  }
-  
-  #sidebar.affix-bottom {
-	position: relative;
-  }
+	margin-top:30px;
+}
 
-  #sidebar.affix {
+#sidebar.affix-bottom {
+	position: relative;
+}
+
+#sidebar.affix {
 	position: fixed;
 	top:115px;
-  }
+}
 }
 
 /* Tooltip and popover */
@@ -178,14 +192,14 @@ div.drop-popup {
 	z-index: 20;
 	/* Fit to parent div */
 	position: absolute; 
-    right: 0; 
-    bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-    width: auto; 
-    height: auto; 
-    background-size: cover;
-    overflow: hidden;
+	right: 0; 
+	bottom: 0;
+	min-width: 100%; 
+	min-height: 100%;
+	width: auto; 
+	height: auto; 
+	background-size: cover;
+	overflow: hidden;
 }
 div.drop-popup > p {
 	font-size: 24px;
@@ -289,7 +303,7 @@ div.repeat table td.repeatbutton {
 }
 
 /* remove margin for panels inside panels */
-.panel .panel {
+.panel:not(.panel-borderless) .panel {
 	margin-bottom: 0px !important;
 }
 
