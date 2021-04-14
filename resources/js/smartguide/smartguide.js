@@ -175,7 +175,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			//$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
 				var id = $(this).attr('name'); 
-				if ($.isEmptyObject(smartletfields[id].events.onchange)) { 
+				if (typeof smartletfields[$.escapeSelector(id)] !== 'undefined' && $.isEmptyObject(smartletfields[$.escapeSelector(id)].events.onchange)) { 
 					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh); 
 				}
 			});
