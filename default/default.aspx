@@ -4,7 +4,7 @@
 <%
 	ThemesLocations = new string[]{Theme,"/.."};
 	HomeURL = GetURLForSmartlet(SmartletName);
-	if(IsDevelopment) { HomeURL = GetURLForSmartlet("dashboard"); }
+	if(IsDevelopment) { HomeURL = GetURLForSmartlet("login"); }
 	LogoutURL = GetURLForSmartlet("logout");
 %>
 <!DOCTYPE html>
