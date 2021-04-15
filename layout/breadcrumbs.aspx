@@ -11,7 +11,7 @@
 					<% if (i == breadcrumbs.Length - 1) { %>
 						<li class="breadcrumb-item active"><%= pageTitle %></li>
 					<% } else { %>
-						<li class="breadcrumb-item"><a href='<%=pageURL%>'><%= pageTitle %></a></li>
+						<li class="breadcrumb-item"><a href='<%=pageURL%>' class="link-as-post"><%= pageTitle %></a></li>
 					<% } %>
 				</li>
 				<% } %>
