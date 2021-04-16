@@ -731,6 +731,10 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
 						var currentID=$(elmt).attr('id');
+						var selfRefresh = $(elmt).hasClass('self-refresh');
+						if(selfRefresh) {
+							targetArr.push($.escapeSelector(currentID));
+						}
 
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr!= null) {
@@ -742,7 +746,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									break;
 								}
 								// Prevent self refresh
-								if (allowSelfRefresh||targetArr[i]!=currentID) {
+								if (allowSelfRefresh||selfRefresh||targetArr[i]!=currentID) {
 									var targetDiv = targetArr[i];
 									if(typeof targetDiv != 'undefined' && targetDiv != "") {
 										targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					

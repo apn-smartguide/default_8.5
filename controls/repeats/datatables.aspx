@@ -111,6 +111,7 @@
 			<% if(!serverSide()) { %>
 			<tbody>
 				<apn:forEach runat="server" id="trGroup">
+				<% Context.Items["optionIndex"] = trGroup.getCount(); %>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
 				<apn:forEach runat="server" id="trRow">
 					<% if (control.Current.getCSSClass().Contains("block-render")) { %><tr><% } %>
