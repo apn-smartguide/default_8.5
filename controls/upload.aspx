@@ -9,7 +9,7 @@
 		<apn:label runat="server"/> <input type='file' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' multiple title='<apn:label runat="server"/>' style='color:transparent;' onchange='submit();' />
 	</span>
 <% } else { %>
-	<apn:ifnotcontrolvalid runat="server"><% int index = (int)Context.Items["errorIndex"]; Context.Items["errorIndex"] = ++index;%><a class='<apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>' title='<apn:localize runat="server" key="theme.text.erroranchor"/>' aria-label='<apn:localize runat="server" key="theme.text.erroranchor"/>'><apn:localize runat="server" key="theme.text.erroranchor"/> <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
+	<apn:ifnotcontrolvalid runat="server"><% int index = (int)Context.Items["errorIndex"]; Context.Items["errorIndex"] = ++index;%><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=Context.Items["errorIndex"]%>' title='<apn:localize runat="server" key="theme.text.erroranchor"/>' aria-label='<apn:localize runat="server" key="theme.text.erroranchor"/>'><apn:localize runat="server" key="theme.text.erroranchor"/> <%=Context.Items["errorIndex"]%></a></apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
 	<% if(!BareRender) { %> <% ExecutePath("/controls/label.aspx"); %><% } %>
 	<% if(ShowErrorsAbove) { %>
