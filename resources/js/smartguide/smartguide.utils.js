@@ -57,6 +57,10 @@ var utilsController = {
 			$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true });
 		});
 
+		$('a[data-toggle="collapse"]').click(function () {
+			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
+		})
+
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
