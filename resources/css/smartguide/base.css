@@ -304,7 +304,7 @@ div.repeat table td.repeatbutton {
 
 /* remove margin for panels inside panels */
 .panel:not(.panel-borderless) .panel {
-	margin-bottom: 0px !important;
+	/* margin-bottom: 0px !important; */
 }
 
 .panel-borderless {
