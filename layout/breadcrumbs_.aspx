@@ -17,7 +17,7 @@ Context.Items["totalPages"]  = 0;
 <% if (!CurrentPageCSS.Contains("hide-breadcrumbs")) { %>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href='<%=HomeURL%>'>Home</a></li>
+			<li class="breadcrumb-item"><a href='<%=HomeURL%>' class="link-as-post">Home</a></li>
 			<% if ( (int)Context.Items["totalPages"] > 1 ) { %>
 			<apn:forEach runat="server" items="global-navigation" id="sgPage">
 				<% string pageTitle = GetAttribute(sgPage.Current, "label"); %>
@@ -25,7 +25,7 @@ Context.Items["totalPages"]  = 0;
 				<% if ((int)Context.Items["pageIndex"] == sgPage.getCount()) { %>
 					<li class="breadcrumb-item active"><%= pageTitle %></li>
 				<% } else if ((int)Context.Items["pageIndex"] > sgPage.getCount()) { %>
-					<li class="breadcrumb-item"><a href='<%=pageURL%>'><%= pageTitle %></a></li>
+					<li class="breadcrumb-item"><a href='<%=pageURL%>' class="link-as-post"><%= pageTitle %></a></li>
 				<% } %>
 			</li>
 			</apn:forEach>
