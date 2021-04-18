@@ -12,10 +12,19 @@
 					<% if (control.Current.getLabel() != "") { %>
 					<div class='panel-heading clearfix'>
 						<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl != null && headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %><% ExecutePath("/controls/button.aspx"); %><% } %></apn:forEach></apn:forEach></apn:forEach>
+						<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+							<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+						<% } %>
 						<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 					</div>
 					<% } %>
+					<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+					<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+					<% } %>
 					<div class='panel-body'><% ExecutePath("/controls/controls.aspx"); %></div>
+					<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+					</div>
+					<% } %>
 				</div>
 			<% } else { %>
 				<div class='panel-body'><% ExecutePath("/controls/controls.aspx"); %></div>

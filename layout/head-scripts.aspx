@@ -14,5 +14,7 @@
 	var supportedLocales = [];
 	var smartletName = '<%= SmartletCode %>';
 	var workspace = '<%= Workspace %>';
+	var iconChevronUp = '<apn:localize runat="server" key="theme.icon.chevron-up"/>';
+	var iconChevronDown = '<apn:localize runat="server" key="theme.icon.chevron-down"/>';
 	<apn:ifsmartletmultilingual runat="server"><apn:forEach runat="server" id="locale" items="languages">supportedLocales.push('<%=locale.Current.getValue()%>');</apn:forEach></apn:ifsmartletmultilingual>
 </script>

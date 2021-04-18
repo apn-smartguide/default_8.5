@@ -191,6 +191,28 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
+			$('.link-as-post').off('click').on('click',function(e){
+
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				var form = document.createElement('form');
+				form.action = $(this).attr('href');
+				form.method = 'post';
+
+				var $input = $(document.createElement('input'));
+				$input.attr('name', 'com.alphinat.sgs.anticsrftoken');
+				$input.attr('type', 'hidden');
+				$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
+
+				$(form).append($input);
+				$('body').append(form)
+				
+				form.submit();
+
+				return false;
+			});
+
 			r.bindSelectBoxRadios();
 		
 			// bind events attached to fields
@@ -709,6 +731,10 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
 						var currentID=$(elmt).attr('id');
+						var selfRefresh = $(elmt).hasClass('self-refresh');
+						if(selfRefresh) {
+							targetArr.push($.escapeSelector(currentID));
+						}
 
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr!= null) {
@@ -720,7 +746,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									break;
 								}
 								// Prevent self refresh
-								if (allowSelfRefresh||targetArr[i]!=currentID) {
+								if (allowSelfRefresh||selfRefresh||targetArr[i]!=currentID) {
 									var targetDiv = targetArr[i];
 									if(typeof targetDiv != 'undefined' && targetDiv != "") {
 										targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					

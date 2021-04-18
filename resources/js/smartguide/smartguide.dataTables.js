@@ -102,6 +102,7 @@ var dataTablesController = {
 			});
 
 			var initDataTable = function(obj) {
+				var otable;
 				if (typeof elmt == 'undefined' || !$.fn.dataTable.isDataTable(elmt)) {
 					var gridOption = {};
 					var repeatDiv = $(obj).parent().parent();
@@ -178,22 +179,27 @@ var dataTablesController = {
 					if(tempOptions != '') {
 					  	dtOptions = Object.assign(dtOptions, tempOptions);
 					}
-					var otable = $(elmt).show().DataTable(dtOptions);
-					// hook onto paging and filtering events
-					otable.on('draw.dt', function () {
-						//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
-						sgRef.bindEvents();
-					});
+					otable = $(elmt).show().DataTable(dtOptions);
+					// // hook onto paging and filtering events
+					// otable.on('draw.dt', function () {
+					// 	//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
+					// 	sgRef.bindEvents();
+					// });
 					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
 				} else {
 					var repeatDiv = $(obj).parent().parent();
-					var otable = $(elmt).DataTable();
+					otable = $(elmt).DataTable();
 					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
 				}
+				return otable;
 			}
-			
+	
 			if($(elmt).hasClass('datatables')) {
-				initDataTable(this);
+				var otable = initDataTable(this);
+				otable.on('draw.dt', function () {
+					//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
+					sgRef.bindEvents();
+				});
 			}
 			refreshTable();
 
