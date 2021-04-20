@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -33,7 +34,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public void ClearCaches() {
 		
-		Application["paths-dictionary"] = new Dictionary<string, string>();
+		Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		Application["basePath"] = null;
 		Application["coreThemePath"] = null;
 		Application["currentThemePath"] = null;
@@ -261,9 +262,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string ResolvePath(string path) {
 		if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
 		if(Application["paths-dictionary"] == null) {
-			Application["paths-dictionary"] = new Dictionary<string, string>();
+			Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		}
-		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Application["paths-dictionary"];
+		ConcurrentDictionary<string, string> pathsDictionary = (ConcurrentDictionary<string, string>) Application["paths-dictionary"];
 		
 		string filePath = "";
 		string pathParams = "";
@@ -282,7 +283,7 @@ public partial class SGWebCore : System.Web.UI.Page
 				}
 			}
 			if (!pathsDictionary.ContainsKey(key)) {
-				pathsDictionary.Add(key, filePath);
+				pathsDictionary.TryAdd(key, filePath);
 			}
 
 
