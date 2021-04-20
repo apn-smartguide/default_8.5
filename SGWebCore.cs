@@ -487,8 +487,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			ISmartletPage[] pages = History;
 			if(pages != null && pages.Length > 1 && pages[pages.Length-2] != CurrentPage) {
+				Session["previous-page"] = pages[pages.Length-2];
 				return pages[pages.Length-2];
 			} else {
+				Session["previous-page"] = null;
 				return null;
 			}
 		}
@@ -498,9 +500,12 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			ISmartletPage page = PreviousPage;
 			if(page != null) {
-				return GetURLForPage(page);
+				Session["previous-page-url"] = GetURLForPage(page);
+				return (string)Session["previous-page-url"];
+			} else {
+				Session["previous-page-url"] = "#";
+				return "#";
 			}
-			return "#";
 		}
 	}
 
