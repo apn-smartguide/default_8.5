@@ -180,7 +180,11 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
 				//using the localized ressource, the API getSubject does not support localization.
 				Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
-				if(Context.Items["smartletSubject"] == null) {
+				if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
+					//Fallback to theme subject if none specified at the Smartlet level
+					Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("theme.text.subject");
+				}
+				if(Context.Items["smartletSubject"] == null ) {
 					Context.Items["smartletSubject"] = "";
 				}
 			}
