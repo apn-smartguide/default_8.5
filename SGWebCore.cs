@@ -578,7 +578,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		
 		if (pagesInHistory != null && pagesInHistory.Length > 0)
 		{
-			for (int i = pagesInHistory.Length - 1; i >= 0; i--)
+			for (int i = 0; i < pagesInHistory.Length; i++)
 			{
 				//Only keep up to ourselve if the history (to limit the size of the object)
 				if (pagesInHistory[i].getId() != page.getId())
@@ -594,12 +594,11 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 
 		if(!pages.Contains(page))
-        {
-			pages.Insert(0,page);
-        }
+		{
+			pages.Add(page);
+		}
 
 		pagesInHistory = pages.ToArray();
-		Array.Reverse(pagesInHistory);
 		History = pagesInHistory;
 		return pagesInHistory;
 	}
