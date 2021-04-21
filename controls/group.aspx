@@ -10,6 +10,9 @@
 			<% if (!BareRender) { %>
 				<div id='div_<apn:name runat="server"/>' class='panel panel-default <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
 					<div class='panel-heading clearfix'>
+						<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+							<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+						<% } %>
 						<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl">
 							<apn:ChooseControl runat="server">
 								<apn:WhenControl type="TRIGGER" runat="server">
@@ -30,9 +33,7 @@
 								</apn:Otherwise>
 							</apn:ChooseControl>
 						</apn:forEach></apn:forEach></apn:forEach>
-						<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-							<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
-						<% } %>
+						
 						<% if (control.Current.getLabel() != "") { %>
 						<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 						<% } %>
