@@ -217,8 +217,8 @@ $("form[id^='smartguide_']" ).each(function() {
 		
 			// bind events attached to fields
 			var updatedRepeatIds = [];
+			$("#alerts").hide();
 			for (var key in smartletfields) {
-				// $("#alerts").hide();
 				var field = smartletfields[key];
 					var events = field.events;
 					if (events === null) continue;
@@ -298,9 +298,9 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 					}
-					// if(field.isRequired){
-					// 	$("#alerts").show();
-					// }
+					if(field.isRequired && $field.is(":visible")){
+						$("#alerts").show();
+					}
 			}
 
 			// reapply tooltip
