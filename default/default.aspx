@@ -26,7 +26,6 @@
 					<div class='col-xs-12 <% if (SecondaryNavigation != null) { %> col-md-9<% } %>'>
 						<div class="row page-title"><div class="col-xs-12"><h2><apn:control runat="server" type="step"><apn:label runat="server" /></apn:control></h2></div></div>
 						<% if (ShowWizard) { ExecutePath("/controls/wizard/sections.aspx"); } %>
-						<% ExecutePath("/controls/validation.aspx"); %>
 						<% ExecutePath("/layout/main.aspx"); %>
 						<%-- MAIN LOOP OVER PAGE CONTROLS --%>
 						<% ExecutePath("/controls/controls.aspx"); %>
