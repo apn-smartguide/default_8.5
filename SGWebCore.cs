@@ -282,10 +282,7 @@ public partial class SGWebCore : System.Web.UI.Page
 					filePath = themePath;
 				}
 			}
-			if (!pathsDictionary.ContainsKey(key)) {
-				pathsDictionary.TryAdd(key, filePath);
-			}
-
+			pathsDictionary.TryAdd(key, filePath);
 
 			if(filePath.Equals("")) {
 				if (Logger != null) Logger.debug(String.Concat(Theme, ": path not found for ", path));
