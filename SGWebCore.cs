@@ -784,6 +784,18 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public int ErrorIndex {
+		get {
+			if(Context.Items["errorIndex"] == null) {
+				Context.Items["errorIndex"] = 0;
+			}
+			return (int)Context.Items["errorIndex"];
+		}
+		set {
+			Context.Items["errorIndex"] = value;
+		}
+	}
+
 	public string GetPageTitle(string pageName) {
 		string currentPageSection = CurrentPageSection;
 		StringBuilder sb = new StringBuilder();

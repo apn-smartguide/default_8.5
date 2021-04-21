@@ -6,7 +6,7 @@
 <% Context.Items["counter"] = 0; %>
 <% if (!IsPdf) { %>
 	<apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
-	<% Context.Items["errorIndex"] = 0; %>
+	<% ErrorIndex = 0; %>
 	<%
 	ISmartletField f = null;
 	ISmartletField[] fields = CurrentPage.findAllFields();
