@@ -21,6 +21,9 @@
 		<div class='bootpag'>
 			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<div class="panel-heading">
+				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+					<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+				<% } %>
 				<apn:control runat="server" type="default-instance" id="defaultGroup">
 					<apn:control runat="server" type="repeat-index" id="repeatIndex">
 						<input name='<apn:name runat="server"/>' type='hidden' value='' />
@@ -71,6 +74,9 @@
 				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
 				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
 				<% } %>
+				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+				<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+				<% } %>
 				<apn:forEach id="status" runat="server">
 					<div class='panel-body repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% Context.Items["optionIndex"] = status.getCount(); %>
@@ -101,6 +107,9 @@
 						<div class=''><% ExecutePath("/controls/controls.aspx"); %></div>
 					</div>
 				</apn:forEach>
+				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+				</div>
+				<% } %>
 			</div>
 			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %><div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div><% } %>
 		</div>
