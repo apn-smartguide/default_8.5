@@ -269,7 +269,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		string filePath = "";
 		string pathParams = "";
 		
-		string key = path + String.Join("-",ThemesLocations);
+		string key = path + "-" + String.Join("-",ThemesLocations);
 
 		if(path.Contains("?")) {
 			pathParams = path.Split('?')[1];
