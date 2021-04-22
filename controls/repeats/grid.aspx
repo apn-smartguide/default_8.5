@@ -50,11 +50,17 @@ if(btnAdd != null) {
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
 	<div class='panel-heading clearfix'>
+		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="button" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { ExecutePath("/controls/button.aspx"); } %></apn:forEach></apn:forEach></apn:forEach>
 		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	</apn:control>
+	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+	<% } %>
 	<div class='panel-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
 	<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
 	<table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "") %>>
@@ -199,6 +205,9 @@ if(btnAdd != null) {
 		</tbody>
 	</table>
 	</div>
+	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
+	</div>
+	<% } %>
 	<!-- modal -->
 	<apn:forEach runat="server" id="group1">
 		<% if ("true".Equals(group1.Current.getAttribute("new-instance"))) { %>

@@ -72,7 +72,7 @@ var crudController = {
 			$this.prop('disabled', true);
 			r.ajaxProcess(this, null, true,
 				function (updatedEles) {
-					$('div#alerts', $form).hide();
+					$('#alerts', $form).hide();
 					var hasModal = false;
 					if (updatedEles && updatedEles.length > 0) {
 						for (var i = 0; i < updatedEles.length; i++) {
@@ -83,7 +83,7 @@ var crudController = {
 						//no modal in updated eles, add succesfully, close modal
 						$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
 						//show main alert
-						$('div#alerts', $form).show();
+						$('#alerts', $form).show();
 					}
 					$this.prop('disabled', false);
 					$('.hide-from-add-view', '.crud-modal' + level).parent().hide();
@@ -225,7 +225,7 @@ var crudController = {
 			btn.prop('disabled', true);
 			r.ajaxProcess(this, null, true,
 				function (updatedEles) {
-					$('div#alerts', $form).hide(); //Do not display CRUD error in main alerts section
+					$('#alerts', $form).hide(); //Do not display CRUD error in main alerts section
 					var hasModal = false;
 					if (updatedEles && updatedEles.length > 0) {
 						for (var i = 0; i < updatedEles.length; i++) {
@@ -235,7 +235,7 @@ var crudController = {
 					if (!hasModal) {
 						//no modal in updated eles, add succesfully, close modal
 						$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-						$('div#alerts', $form).show();
+						$('#alerts', $form).show();
 					}
 					btn.prop('disabled', false);
 					$('.hide-from-edit-view', '.crud-modal' + level).parent().hide();

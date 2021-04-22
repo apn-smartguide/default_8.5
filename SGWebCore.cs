@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -33,7 +34,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public void ClearCaches() {
 		
-		Application["paths-dictionary"] = new Dictionary<string, string>();
+		Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		Application["basePath"] = null;
 		Application["coreThemePath"] = null;
 		Application["currentThemePath"] = null;
@@ -180,6 +181,13 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
 				//using the localized ressource, the API getSubject does not support localization.
 				Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
+				if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
+					//Fallback to theme subject if none specified at the Smartlet level
+					Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("theme.text.subject");
+				}
+				if(Context.Items["smartletSubject"] == null ) {
+					Context.Items["smartletSubject"] = "";
+				}
 			}
 			return (string)Context.Items["smartletSubject"];
 		}
@@ -254,9 +262,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string ResolvePath(string path) {
 		if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
 		if(Application["paths-dictionary"] == null) {
-			Application["paths-dictionary"] = new Dictionary<string, string>();
+			Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		}
-		Dictionary<string, string> pathsDictionary = (Dictionary<string, string>) Application["paths-dictionary"];
+		ConcurrentDictionary<string, string> pathsDictionary = (ConcurrentDictionary<string, string>) Application["paths-dictionary"];
 		
 		string filePath = "";
 		string pathParams = "";
@@ -274,7 +282,7 @@ public partial class SGWebCore : System.Web.UI.Page
 					filePath = themePath;
 				}
 			}
-			pathsDictionary.Add(key, filePath);
+			pathsDictionary.TryAdd(key, filePath);
 
 			if(filePath.Equals("")) {
 				if (Logger != null) Logger.debug(String.Concat(Theme, ": path not found for ", path));
@@ -575,7 +583,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		
 		if (pagesInHistory != null && pagesInHistory.Length > 0)
 		{
-			for (int i = pagesInHistory.Length - 1; i >= 0; i--)
+			for (int i = 0; i < pagesInHistory.Length; i++)
 			{
 				//Only keep up to ourselve if the history (to limit the size of the object)
 				if (pagesInHistory[i].getId() != page.getId())
@@ -591,12 +599,11 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 
 		if(!pages.Contains(page))
-        {
-			pages.Insert(0,page);
-        }
+		{
+			pages.Add(page);
+		}
 
 		pagesInHistory = pages.ToArray();
-		Array.Reverse(pagesInHistory);
 		History = pagesInHistory;
 		return pagesInHistory;
 	}
@@ -774,6 +781,18 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 		set {
 			Context.Items["renderbare"] = value;
+		}
+	}
+
+	public int ErrorIndex {
+		get {
+			if(Context.Items["errorIndex"] == null) {
+				Context.Items["errorIndex"] = 0;
+			}
+			return (int)Context.Items["errorIndex"];
+		}
+		set {
+			Context.Items["errorIndex"] = value;
 		}
 	}
 

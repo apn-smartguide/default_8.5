@@ -9,15 +9,35 @@
 		<% } else { %>
 			<% if (!BareRender) { %>
 				<div id='div_<apn:name runat="server"/>' class='panel panel-default <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
-					<% if (control.Current.getLabel() != "") { %>
 					<div class='panel-heading clearfix'>
-						<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl != null && headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %><% ExecutePath("/controls/button.aspx"); %><% } %></apn:forEach></apn:forEach></apn:forEach>
 						<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 							<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
 						<% } %>
+						<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl">
+							<apn:ChooseControl runat="server">
+								<apn:WhenControl type="TRIGGER" runat="server">
+									<% 
+									if(headingControl.Current.getCSSClass().Contains("panel-heading-button")) { 
+										ExecutePath("/controls/button.aspx");
+									}
+									%>
+								</apn:WhenControl>
+								<apn:Otherwise runat="server">
+									<% 
+									Context.Items["render-proxy"] = true;
+									if(headingControl.Current.getCSSClass().Contains("panel-heading-control")) { 
+										ExecutePath("/controls/control.aspx");
+									}
+									Context.Items["render-proxy"] = false;
+									%>
+								</apn:Otherwise>
+							</apn:ChooseControl>
+						</apn:forEach></apn:forEach></apn:forEach>
+						
+						<% if (control.Current.getLabel() != "") { %>
 						<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+						<% } %>
 					</div>
-					<% } %>
 					<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 					<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 					<% } %>

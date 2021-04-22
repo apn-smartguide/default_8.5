@@ -47,7 +47,7 @@ $("form[id^='smartguide_']" ).each(function() {
 		,removeScrollLock: function(){
 			var $body = $('body');
 			var curScrollLockCount = 0;
-			if($body.attr('scrolllock-count')) curScrollLockCount = parseInt($body.attr('scrolllock-count'));			
+			if($body.attr('scrolllock-count')) curScrollLockCount = parseInt($body.attr('scrolllock-count'));
 			if(parseInt(curScrollLockCount) == 1) {
 				$body.removeClass('modal-open');
 				$body.removeAttr('scrolllock-count');
@@ -131,7 +131,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					if (typeof $body.data('_smartlet') == 'undefined') {
 						var r = SMARTGUIDES[smartletCode];
 						var smartlet = r._createSmartletContext(null, null, null);
-						$body.data('_smartlet', smartlet);						
+						$body.data('_smartlet', smartlet);
 					}
 					for(var event in events) {
 						if (!events[event].server) {
@@ -174,9 +174,9 @@ $("form[id^='smartguide_']" ).each(function() {
 			// checkboxes and radio buttons
 			//$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
-				var id = $(this).attr('name'); 
-				if (typeof smartletfields[$.escapeSelector(id)] !== 'undefined' && $.isEmptyObject(smartletfields[$.escapeSelector(id)].events.onchange)) { 
-					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh); 
+				var id = $.escapeSelector($(this).attr('name'));
+				if (typeof smartletfields[$.escapeSelector(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
+					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 				}
 			});
 
@@ -184,7 +184,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			$('input[type=image][data-eventtarget]').off('click',r.bindThis).on('click', r.bindThis);
 			$('select:has(option[data-eventtarget])').off('change',r.bindThisOption).on('change', r.bindThisOption);
 			$('.modal-close').off('click').on('click', function(e){
-				var modal = $(this).parent().parent().parent().parent();  
+				var modal = $(this).parent().parent().parent().parent();
 				r.ajaxProcess(modal, null, true, null, null, function () {
 					r.removeScrollLock();
 				});
@@ -217,6 +217,7 @@ $("form[id^='smartguide_']" ).each(function() {
 		
 			// bind events attached to fields
 			var updatedRepeatIds = [];
+			$("#alerts").hide();
 			for (var key in smartletfields) {
 				var field = smartletfields[key];
 					var events = field.events;
@@ -225,12 +226,12 @@ $("form[id^='smartguide_']" ).each(function() {
 					if (fieldType == 'repeat')
 						updatedRepeatIds.push(key);
 					
-					var $field = null;			
+					var $field = null;
 					
 					//Revise for repeat of multiple level.
 					field.isUnderRepeat = (field.isUnderRepeat & (typeof field.class !== 'undefined' && field.class.indexOf("panel-heading-button") < 0));
 
-					if (field.isUnderRepeat) {				
+					if (field.isUnderRepeat) {
 						$field = r._getJQField(fieldType, key+'[1]');
 					} else {
 						$field = r._getJQField(fieldType, key);	
@@ -289,7 +290,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									r._bindModalFieldEvent(field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 								}
 							}
-						} else if($field.is(":visible") || $("#div_" + key).parents('.smartmodal').length > 0) {
+						} else if($field.is(":visible") || $("#div_" + key).parents('.smartmodal').is(":visible")) {
 							if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0)) {
 								r._bindFieldEvent(field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
 							} else {
@@ -297,13 +298,16 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 					}
+					if(field.isRequired && $field.is(":visible")){
+						$("#alerts").show();
+					}
 			}
 
 			// reapply tooltip
 			$('[data-toggle="tooltip"]').tooltip();
 
 			// invoke custom binding methods
-			customJS.bindEvents(r, ajaxUpdates);			
+			customJS.bindEvents(r, ajaxUpdates);
 		}
 		, _createSmartletContext : function(contextField, fieldType, fieldHtmlName) {
 			var smartlet = 
@@ -363,7 +367,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							null,
 							null
 						);
-						//Clear validation errors that might have appeared						
+						//Clear validation errors that might have appeared
 						modal.modal('show');
 
 					}
@@ -400,7 +404,7 @@ $("form[id^='smartguide_']" ).each(function() {
 										validationResult = false;
 									}
 									
-									var res = true;																		
+									var res = true;
 								} catch(e) {
 									if (console) console.log(e.stack);
 								}
@@ -418,7 +422,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}); 
 						return validationResult;
-					}					
+					}
 				};
 			return smartlet;
 		}
@@ -477,7 +481,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						type: 'hidden',
 						name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
 						value: 'on'+e.type
-					}));					
+					}));
 
 					if (isAjax) {
 						var modalId = "";
@@ -485,7 +489,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						// fix the data event target to have the modal id instead of the whole form as its target
 						var $modal = $field.closest('.modal');
 						if ($modal.length > 0) {
-							modalId = $modal.attr('id');
+							modalId = $.escapeSelector($modal.attr('id'));
 							var targets = $field.attr('data-eventtarget');
 							if (targets.indexOf('form') > -1) {
 								targets = targets.replace('form',modalId);
@@ -493,7 +497,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 
-						r.ajaxProcess(this, null, true, 
+						r.ajaxProcess(this, null, true,
 							function() {
 								// must remove the e_ field we added
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
@@ -510,15 +514,13 @@ $("form[id^='smartguide_']" ).each(function() {
 
 								setTimeout(function() {
 									var updated = [];
-									
 									var errorMessages = $('.alert-danger', $container).text().trim();
-									if(errorMessages == '') {								
+									if(errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
 										var handler = r._createEventHandler(clientEvent);
 										$field.data('_smartlet', smartlet).on(jqEvent, handler);
-																						
 										$field.triggerHandler(jqEvent);
 									}
 								}, 0);
@@ -541,8 +543,8 @@ $("form[id^='smartguide_']" ).each(function() {
 					}
 
 					return false;
-				});				
-			}		
+				});
+			}
 		}
 		, _bindFieldEvent : function(contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
 			var r = SMARTGUIDES[smartletCode];
@@ -556,7 +558,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			// check if we need to bind the div_ of a repeat or group field
 			if (fieldType == 'repeat') {
 				$field = $("#div_" + fieldHtmlName);
-			} 
+			}
 			
 			//first bind client event
 			if (typeof clientEvent !== 'undefined') {
@@ -569,7 +571,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				//for init and render, directly trigger
 				if ((jqEvent == 'fieldinit' || jqEvent == 'fieldrender') && $field.is(":visible")) {
 					$field.triggerHandler(jqEvent);
-				} 
+				}
 			}
 			//then bind server event
 			if (isServer) {
@@ -681,11 +683,10 @@ $("form[id^='smartguide_']" ).each(function() {
 					// Check if we are under a datatable
 					var otable = r.dataTableInstances['div_'+dataGroup];
 					if (typeof otable !== 'undefined') {
-						$('input[type=radio][data-group]',otable.cells().nodes()).not(this).prop('checked', false)						
+						$('input[type=radio][data-group]',otable.cells().nodes()).not(this).prop('checked', false)
 					} else {
-						$('input[type=radio][data-group]',$('#div_'+dataGroup)).not(this).prop('checked', false)						
+						$('input[type=radio][data-group]',$('#div_'+dataGroup)).not(this).prop('checked', false)
 					}
-					
 				});
 			}); */
 		}		
@@ -697,7 +698,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				var targetArr = eval($(elmt).attr('data-eventtarget'));
 				if(typeof targetArr !== 'undefined' && targetArr!= null) {
 					if (targetArr.length == 1) {
-						var currentID=$(elmt).attr('id');
+						var currentID= $.escapeSelector($(elmt).attr('id'));
 						if (targetArr[0] == currentID) return;
 					}
 				}
@@ -709,7 +710,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				})
 			}
 
-			fm.ajaxSubmit({ 
+			fm.ajaxSubmit({
 				crossDomain: false,
 				type: 'post',
 				iframe:false,
@@ -719,7 +720,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						if(!$(elmt).hasClass('save-blobs')){
 							$("div.blob > input[type='file']").each(function(){
-								var fieldid = $(this).attr('id');
+								var fieldid = $.escapeSelector($(this).attr('id'));
 								$(this).attr('name',fieldid);
 							})
 						}
@@ -730,7 +731,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						var currentDiv = $("#sgControls");
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
-						var currentID=$(elmt).attr('id');
+						var currentID= $.escapeSelector($(elmt).attr('id'));
 						var selfRefresh = $(elmt).hasClass('self-refresh');
 						if(selfRefresh) {
 							targetArr.push($.escapeSelector(currentID));
@@ -749,7 +750,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								if (allowSelfRefresh||selfRefresh||targetArr[i]!=currentID) {
 									var targetDiv = targetArr[i];
 									if(typeof targetDiv != 'undefined' && targetDiv != "") {
-										targetDiv = targetDiv.replace("[","\\[").replace("]","\\]");					
+										targetDiv = $.escapeSelector(targetDiv);
 										var responseTarget = $('#div_'+targetDiv, responseDiv);
 										if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
 
@@ -776,27 +777,25 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 
 						//replace the alert modal div if necessary	
-						var modalAlertId = $('#repeat-errors-validation').attr('id');
+						var modalAlertId = $.escapeSelector($('#repeat-errors-validation').attr('id'));
 						var showErrors = false;
 						if(typeof modalAlertId === 'undefined') {
 							showErrors = true;
-							var parentId = $(elmt).parent().attr('id');							
-							modalAlertId = $('*[id*=modalAlerts]' , $('#' + parentId).closest('.smartmodal')).attr('id');
+							var parentId = $.escapeSelector($(elmt).parent().attr('id'));
+							modalAlertId = $('*[id*=modalAlerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id'));
 						}
 						if(typeof modalAlertId !== 'undefined') {
 							if(showErrors) {
 								var sourceModalAlertDiv = $('#' + modalAlertId, fm);
 								var targetModalAlertDiv = $('#' + modalAlertId, response);
 								$(sourceModalAlertDiv).after(targetModalAlertDiv).remove();
-							} else {
-								//$('.alert:not(.alert-warning)', elmt).html('').hide();
 							}
 						} else {
 							// replace the alert div
 							var sourceAlertDiv = $('#alerts', fm);
 							var targetAlertDiv = $('#alerts', response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
-						}						
+						}
 						
 						// automatically replace the SG JS div
 						var sourceSGLIBDiv = $('#sglib', fm);
@@ -805,7 +804,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						r.bindEvents(updated);
 						
-						if (elmt2 != null && !(typeof elmt2 === 'undefined')) $(elmt2).val('');	
+						if (elmt2 != null && !(typeof elmt2 === 'undefined')) $(elmt2).val('');
 						
 						if (successCallback) successCallback(updated);
 						
@@ -845,10 +844,10 @@ $("form[id^='smartguide_']" ).each(function() {
 });
 
 function getScripts(scripts, callback) {
-    var progress = 0;
-    scripts.forEach(function(script) { 
-        $.getScript(script, function () {
-            if (++progress == scripts.length) callback();
-        }); 
-    });
+	var progress = 0;
+	scripts.forEach(function(script) {
+		$.getScript(script, function () {
+			if (++progress == scripts.length) callback();
+		});
+	});
 }
