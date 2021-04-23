@@ -1,4 +1,4 @@
-var dataTablesController = { 
+var dataTablesController = {
 	init: function(sgRef) {
 		sgRef.dataTableInstances = {};
 	},
@@ -18,7 +18,7 @@ var dataTablesController = {
 					type: 'post',
 					iframe:false,
 					data : { isAjax : 'true' },
-					success:  function(data){
+					success: function(data){
 						try {
 							response = data;
 							var responseDiv = $("#sgControls", response);
@@ -128,7 +128,7 @@ var dataTablesController = {
 						"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 						"pageLength": 10,
 						"language": dataTableTranslations,
-						"autoWidth": false,								
+						"autoWidth": false,
 						"columnDefs": [
 							{ "orderDataType": "dom-text", "targets": "_all", "type": "string"},
 							{ "targets": "repeatbutton", "orderable": false , "width": "50px"}
@@ -140,10 +140,10 @@ var dataTablesController = {
 					if (gridOption['selectable']) dtOptions['order'] = [[ 0, "desc" ]];
 					if (repeatDiv.hasClass('hide-sort')) dtOptions['ordering'] = false;
 					if (!repeatDiv.hasClass('grid-view')) {
-						dtOptions['responsive'] = { 
-							"details": 
-							{ 
-								type: "inline", "display": function (row, update, render ) 
+						dtOptions['responsive'] = {
+							"details":
+							{
+								type: "inline", "display": function (row, update, render )
 								{
 									//Customer rendering the row for responsive design
 									var $rowNode = $(row.node());
@@ -173,18 +173,12 @@ var dataTablesController = {
 							} 
 						};
 					}
-					
 					//Init DataTables with Options
 					var tempOptions = eval('dtOptions_' + $(repeatDiv).attr('id'));
 					if(tempOptions != '') {
-					  	dtOptions = Object.assign(dtOptions, tempOptions);
+						dtOptions = Object.assign(dtOptions, tempOptions);
 					}
 					otable = $(elmt).show().DataTable(dtOptions);
-					// // hook onto paging and filtering events
-					// otable.on('draw.dt', function () {
-					// 	//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
-					// 	sgRef.bindEvents();
-					// });
 					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
 				} else {
 					var repeatDiv = $(obj).parent().parent();
@@ -193,52 +187,15 @@ var dataTablesController = {
 				}
 				return otable;
 			}
-	
 			if($(elmt).hasClass('datatables')) {
 				var otable = initDataTable(this);
 				otable.on('draw.dt', function () {
-					//TODO: Need to fix the below call, when executer will re-init the datatable, doubling the wrappers.
 					sgRef.bindEvents();
 				});
 			}
 			refreshTable();
-
-			// if ($(elmt).hasClass('hasPagination')) {
-			// 	//table.addClass('table responsive table-striped table-hover no-footer dtr-inline collapsed');
-			// 	//table.css('margin-bottom', 0);
-
-			// } else if(!table.hasClass('wb-tables')) {
-			// 	//no pagination, use datatable for client pagination
-			// 	try {
-			// 		initDataTable(this);
-			// 	} catch(e) {
-			// 		if (console)
-			// 			console.log(e.stack);
-			// 	}
-			// }
 		});
 
-		//Todo: Should not blindly start loader on click
-		// $('button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn, :has(span.glyphicon-indent-right, span.glyphicon-indent-left)),' +
-		// 'button:not(#session-timeout-dialog-keepalive, .repeat_cancel_edit_btn, .repeat_save_edit_btn) > span:not(.glyphicon-indent-right, .glyphicon-indent-left), ' + 
-		// 'a:not(.paginate_button), a:not(.paginate_button) > span')
-		// .click(function () {
-		// 	var id = $(this).parent().attr("id");
-			
-		// 	if(id == undefined || id.indexOf("error_") < 0) {
-		// 		var isSGPost = true;
-			
-		// 		if($(this).is('a')) {
-		// 			if($(this).attr("href").indexOf("do.aspx?") < 0) {
-		// 				isSGPost = false;
-		// 			}
-		// 		}
-		// 		if(isSGPost) {
-		// 			$("#loader").fadeIn("slow");
-		// 		}
-		// 	}
-		// });
-		
 		// rebind on wet datatable event
 		$("table:not(.wb-tables).table :checkbox :radio", context).change(function (event) {
 			// handle status of select all checkbox if available
@@ -256,17 +213,16 @@ var dataTablesController = {
 					el.indeterminate = false;
 				} else {
 					if (checkedRows > 0) {
-						// at least one check, set indeterminate 
+						// at least one check, set indeterminate
 						el.checked = true;
 						el.indeterminate = true;
 					} else {
 						// nothing checked
 						el.checked = false;
-						el.indeterminate = false;					
+						el.indeterminate = false;
 					}
 				}
 			}
-			
 			sgRef.bindEvents([$(this)]);
 		});
 
@@ -289,14 +245,13 @@ var dataTablesController = {
 		// Handle click on checkbox to set state of "Select all" control
 		$('input[type="checkbox"]', 'table:not(.wb-tables).table tbody').off('change').on('change', function(){
 			var dataTable = $(this).closest('table').DataTable();
-			
+
 			// If checkbox is not checked
 			if(!this.checked){
 				var el = $('[name=select_all]', $(this).closest('table')).get(0);
 				// If "Select all" control is checked and has 'indeterminate' property
 				if(el && el.checked && ('indeterminate' in el)){
-					// Set visual state of "Select all" control
-					// as 'indeterminate'
+					// Set visual state of "Select all" control as 'indeterminate'
 					el.indeterminate = true;
 				}
 			} else {
@@ -322,9 +277,9 @@ var dataTablesController = {
 				$("form").attr('action', originalAction);
 			}
 		});
-		
+
 		// support for selection radios for server side repeats
-		$('[type=radio][name^=d_s]').off('click').on('click', function() { 
+		$('[type=radio][name^=d_s]').off('click').on('click', function() {
 			var dataTable = $(this).closest('table').DataTable();
 
 			// unselect all, then just re-selects our instance (e.g. d_s1590340615680[5])
@@ -338,7 +293,7 @@ var dataTablesController = {
 				$('[type=radio][name^='+id+']', rows).prop('checked', false);
 			}
 			$(this).prop('checked', true);
-			
+
 			// check if we are server side, in which case we must post
 			if (dataTable.page.info().serverSide) {
 				var originalAction = $("form").attr('action');
@@ -349,4 +304,3 @@ var dataTablesController = {
 		});
 	}
 }
-		

@@ -1,9 +1,7 @@
 var crudController = {
-
 	init: function (sgRef) {
 
 	},
-
 	bindEvents: function (sgRef, context) {
 		var r = sgRef;
 		var $form = sgRef.fm;
@@ -15,8 +13,6 @@ var crudController = {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
-			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var modal = $('.crud-modal' + level, $form);
 			if(modal.length > 0) {
 				modal.modal('hide').data('modal', null).remove();
@@ -37,14 +33,8 @@ var crudController = {
 						$(cancelBtn[0]).after(newinput);
 						r.ajaxProcess(cancelBtn[0], null, true, null, null, null);
 					});
-
-					// $('.crud-modal' + level + ' .modal-content', $form).draggable({
-					// 	handle: ".modal-header"
-					// });
-
 					$('.hide-from-add-view', '.crud-modal' + level).parent().hide();
 					$('input:visible:first', '.crud-modal' + level).focus();
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				function(){
@@ -59,7 +49,7 @@ var crudController = {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
+			var repeatId = $.escapeSelector($repeat.attr('id'));
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -100,13 +90,10 @@ var crudController = {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
-			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var modal = $('.crud-modal' + level, $form);
 			if (modal.data('data') != $('input,textarea,select', modal).serialize()) {
 				//confirm discard modification
 				if (!confirm(crudModalsTranslations.discardChanges)) {
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 					$('#loader').fadeOut("slow");
 					return false;
 				}
@@ -114,10 +101,9 @@ var crudController = {
 			modal.off('hide.bs.modal');
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, 
+			r.ajaxProcess(this, null, true,
 				function(){
 					$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				function(){
@@ -130,18 +116,16 @@ var crudController = {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var level = $this.attr('data-level');
-			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var $modal = $('.crud-modal' + level, $form);
 			if($modal.length > 0) {
 				$modal.modal('hide').data('modal', null).remove();
 			}
 			var rpt = $this.attr('data-repeat-index-name');
 			var count = $this.attr('data-instance-pos');
-			$('input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']').val(count);
+			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
-			$('#' + this.id.replace("[", "\\[").replace("]", "\\]")).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
-			r.ajaxProcess(this, 'input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']', true,
+			$('#' + $.escapeSelector(this.id)).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
+			r.ajaxProcess(this, 'input[name=' + $.escapeSelector(rpt) + ']', true,
 				function () {
 					$modal = $('.crud-modal' + level, $form);
 					// Clear any validation errors that might have appeared
@@ -156,12 +140,8 @@ var crudController = {
 							r.ajaxProcess(cancelBtn[0], null, true, null, null, null);
 						});
 					}
-					// $('.crud-modal' + level + ' .modal-content', $form).draggable({
-					// 	handle: ".modal-header"
-					// });
 					$('.hide-from-edit-view', '.crud-modal' + level).parent().hide();
 					$('input:visible:first', '.crud-modal' + level).focus();
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				function(){
@@ -173,14 +153,11 @@ var crudController = {
 		$('.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var level = $this.attr('data-level');
 			var modal = $('.crud-modal' + level, $form);
 			if (modal.data('data') != $('input,textarea,select', modal).serialize()) {
 				//confirm discard modification
 				if (!confirm(crudModalsTranslations.discardChanges)) {
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 					$('#loader').fadeOut("slow");
 					return false;
 				}
@@ -191,7 +168,6 @@ var crudController = {
 			r.ajaxProcess(this, null, true, 
 				function () {
 					$('.crud-modal' + level, $form).modal('hide').data('modal', null).remove();
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
 				},
 				null,
 				function(){
@@ -206,7 +182,7 @@ var crudController = {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
+			var repeatId = $.escapeSelector($repeat.attr('id'));
 			var f = $repeat.triggerHandler('repeat:updateinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -218,7 +194,7 @@ var crudController = {
 			$this.before(newinput);
 			// handle large dataset mode if present
 			if ($(".paginationInfo", ".bootpag").length > 0) {
-				var beforeUpdate = $("#" + $repeat.attr("id").replace("[", "\\[").replace("]", "\\]") + " > .bootpag").html();
+				var beforeUpdate = $("#" + $.escapeSelector($repeat.attr("id")) + " > .bootpag").html();
 				$this.after('<div tableID="' + $repeat.attr("id") + '" style="display:none;" id="beforeUpdate">' + beforeUpdate + '</div>');
 			}
 			var btn = $this;
@@ -255,7 +231,6 @@ var crudController = {
 			//onDeleteInstance
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -265,13 +240,11 @@ var crudController = {
 			$repeat.find("table").dataTable().fnDestroy();
 			var rpt = $this.attr('data-repeat-index-name');
 			var count = $this.attr('data-instance-pos');
-			$('input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']').val(count);
+			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
-			$('#' + this.id.replace("[", "\\[").replace("]", "\\]")).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
-			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, 
-				function(){
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				},
+			$('#' + $.escapeSelector(this.id)).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
+			r.ajaxProcess(this, 'input[name=' + rpt + ']', true,
+				null,
 				null,
 				function(){
 					$("#loader").fadeOut("slow");
@@ -284,7 +257,6 @@ var crudController = {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -293,10 +265,8 @@ var crudController = {
 			}
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, 
-			function(updatedEles){
-				//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-			},
+			r.ajaxProcess(this, null, true,
+			null,
 			null,
 			function(){
 				$("#loader").fadeOut("slow");
@@ -314,18 +284,15 @@ var crudController = {
 				return false;
 			}
 
-			var thisId = $this.attr('id').replace("[", "\\[").replace("]", "\\]");
+			var thisId = $.escapeSelector($this.attr('id'));
 			var count = thisId.substring(thisId.lastIndexOf("_")+1);
-
 			var rpt = $repeat.attr('id').substring($repeat.attr('id').indexOf("_")+1);
-			$('input[name='+rpt.replace("[","\\[").replace("]","\\]")+']').val(count);
+			$('input[name='+ $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0,this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="'+basename+'" id="'+basename+'" value="'+basename+'" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, 
-			function(updatedEles){
-				//$('#'+rpt).find("table").trigger( "wb-init.wb-tables" );
-			},
+			r.ajaxProcess(this, null, true,
+			null,
 			null,
 			function(){
 				$("#loader").fadeOut("slow");
@@ -339,7 +306,6 @@ var crudController = {
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -354,10 +320,8 @@ var crudController = {
 			$('input[name=' + rpt + ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			$('#' + this.id).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
-			r.ajaxProcess(this, 'input[name=' + rpt + ']', true, 
-				function(){
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				},
+			r.ajaxProcess(this, 'input[name=' + rpt + ']', true,
+				null,
 				null,
 				function(){
 					$("#loader").fadeOut("slow");
@@ -370,21 +334,17 @@ var crudController = {
 			//onMoveUpInstance
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
-			var thisId = this.id.replace("[", "\\[").replace("]", "\\]");
+			var thisId = $.escapeSelector(this.id);
 			var classes = $('#' + thisId).attr('class');
 			var rptandid = classes.substring(classes.lastIndexOf(" "));
 			var rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
 			var count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
-			$('input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']').val(count);
+			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, 
-				function(){
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				},
+			r.ajaxProcess(this, null, true,
+				null,
 				null,
 				function(){
 					$("#loader").fadeOut("slow");
@@ -397,21 +357,17 @@ var crudController = {
 			//onMoveDownInstance
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var $repeat = $this.closest('div.repeat');
-			var repeatId = $repeat.attr('id').replace("[", "\\[").replace("]", "\\]");
-			var thisId = this.id.replace("[", "\\[").replace("]", "\\]");
+			var thisId = $.escapeSelector(this.id);
 			var classes = $('#' + thisId).attr('class');
 			var rptandid = classes.substring(classes.lastIndexOf(" "));
 			var rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
 			var count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
-			$('input[name=' + rpt.replace("[", "\\[").replace("]", "\\]") + ']').val(count);
+			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
 			$this.after(newinput);
-			r.ajaxProcess(this, null, true, 
-				function(){
-					//$('#'+repeatId).find("table").trigger( "wb-init.wb-tables" );
-				},
+			r.ajaxProcess(this, null, true,
+				null,
 				null,
 				function(){
 					$("#loader").fadeOut("slow");
@@ -426,6 +382,5 @@ var crudController = {
 			if ($(this).closest('td').length > 0) $(this).closest('td').remove();
 			else $(this).remove();
 		});
-
 	}
 }
