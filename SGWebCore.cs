@@ -313,7 +313,9 @@ public partial class SGWebCore : System.Web.UI.Page
 		filePath.Append(ResolvePath(url));
 		if(!filePath.ToString().Equals("")) {
 			try { 
-				string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
+				DateTime dt = System.IO.File.GetLastWriteTime(Server.MapPath(filePath.ToString()));
+				string filehash = Utils.hashString(dt.ToString(),"SHA-256");
+				//string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
 				filePath.Append("?cache=");
 				filePath.Append(filehash);
 			} catch (Exception e) {
