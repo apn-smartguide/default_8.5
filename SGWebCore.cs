@@ -29,8 +29,73 @@ using Alphinat.SmartGuideServer.Controls;
 
 public partial class SGWebCore : System.Web.UI.Page 
 {	
-	private string currentLocale = "";
-	private string lastModificationDate = "";
+	protected string currentLocale = "";
+	protected string lastModificationDate = "";
+	protected DateTime beginThemeProcessingTimer;
+	protected DateTime endThemeProcessingTimer;
+
+	protected void Page_Init(object sender, EventArgs e) {
+		beginThemeProcessingTimer = DateTime.UtcNow;
+	}
+	protected void Init(object sender, EventArgs e) {
+		beginThemeProcessingTimer = DateTime.UtcNow;
+
+		Context.Items["optionIndex"] = "";
+		Context.Items["javascript"] = ""; // injected javascript via designer using custom javascript control, rendered at end of page
+		
+		HttpBrowserCapabilities browser = Request.Browser;
+		Session["BrowserVersion"] = browser.Version;
+		Session["BrowserType"] = browser.Type;
+	}
+
+	protected void Load(object sender, EventArgs e) {
+		if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
+			ClearCaches();
+		}
+		
+		if(Context.Items["WebPartMode"] == null) {
+			Context.Items["WebPartMode"] = false;
+		}
+
+		if(!(bool)Context.Items["WebPartMode"]) {
+			// handling of PDF or XML generation in tag mode
+			if(Context.Items["com.alphinat.download:bytes"] != null && Context.Items["com.alphinat.download:contenttype"] != null && Context.Items["com.alphinat.download:filename"] != null) {
+				byte[] bytes = (byte[])Context.Items["com.alphinat.download:bytes"];
+				String contentType = (String)Context.Items["com.alphinat.download:contenttype"];
+				String fileName = (String)Context.Items["com.alphinat.download:filename"];
+
+				if (bytes != null) {
+					Response.ContentType = contentType;
+					Response.AddHeader("Content-Disposition","attachment; filename="+fileName);
+					Response.OutputStream.Write(bytes, 0, bytes.Length);
+					Response.OutputStream.Flush();
+					Response.OutputStream.Close();
+				}
+			}
+		}
+	}
+	protected void PreRender(object sender, EventArgs e)
+	{
+		HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+		HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+		HttpContext.Current.Response.Cache.SetNoStore();
+		HttpContext.Current.Response.Cache.SetNoServerCaching();
+	}
+
+	protected override void Render(HtmlTextWriter output) {
+		base.Render(output);
+		if(TraceExecution && beginThemeProcessingTimer != DateTime.MinValue) {
+			endThemeProcessingTimer = DateTime.UtcNow;
+			Logger.debug("execution: (" + Request.CurrentExecutionFilePath + ") " + (endThemeProcessingTimer - beginThemeProcessingTimer).TotalSeconds);
+		}
+	}
+
+	protected void Error(object sender, EventArgs e) {
+		Logger.debug("SGWebCore ERROR");
+		Exception ex = Server.GetLastError();
+		ex = ex.InnerException ?? ex;
+		Logger.debug(ExceptionInfo(ex));
+	}
 
 	public void ClearCaches() {
 		
@@ -42,8 +107,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["login-url"] = null;
 		Application["logout-url"] = null;
 		Application["profile-url"] = null;
+		Application["api5"] = null;
+		Application["is-development"] = null;
+		Application["smartletLoggerSGWebCore"] = null;
 
-		Context.Items["api5"] = null;
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
 		Context.Items["smartletCode"] = null;
@@ -73,19 +140,34 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public API5 sg {
 		get {
-			if(Context.Items["api5"] == null) {
-				Context.Items["api5"] = new API5();
+			if(Application["api5"] == null) {
+				Application["api5"] = new API5();
 			}
-			return (API5)Context.Items["api5"];
+			return (API5)Application["api5"];
 		}
 		set {
-			Context.Items["api5"] = value; 
+			Application["api5"] = value; 
 		}
 	}
 
 	public bool IsDevelopment {
 		get {
-			return GetAppSetting("com.alphinat.sgs.environment").Equals("Development");
+			if(Application["is-development"] == null) {
+				Application["is-development"] = GetAppSetting("com.alphinat.sgs.environment").Equals("Development");
+			}
+			return (bool)Application["is-development"];
+		}
+	}
+
+	public bool TraceExecution {
+		get {
+			if(Application["trace-execution"] != null) {
+				return (bool)Application["trace-execution"];
+			}
+			return false;
+		}
+		set {
+			Application["trace-execution"] = value;
 		}
 	}
 
@@ -105,14 +187,14 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public ISmartletLogger GetLogger(string name) {
-		if(Context.Items["smartletLogger"+name] == null) {
+		if(Application["smartletLogger"+name] == null) {
 			if(sg.Context != null) {
-				Context.Items["smartletLogger"+name] = sg.Context.getLogger(name);
+				Application["smartletLogger"+name] = sg.Context.getLogger(name);
 			} else {
-				Context.Items["smartletLogger"+name] = null;
+				Application["smartletLogger"+name] = null;
 			}
 		}
-		return (ISmartletLogger)Context.Items["smartletLogger"+name];
+		return (ISmartletLogger)Application["smartletLogger"+name];
 	}
 
 	//// Smartlet infos Helpers ///
@@ -167,7 +249,7 @@ public partial class SGWebCore : System.Web.UI.Page
 				Context.Items["workspace"] = Smartlet.getWorkspace();
 			} 
 			else if (Context.Items["workspace"] != null && Context.Items["workspace"] != Smartlet.getWorkspace())
-            {
+			{
 				//We're changing workspace, clear the caches.
 				ClearCaches();
 				Context.Items["workspace"] = Smartlet.getWorkspace();
@@ -260,7 +342,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
 	public string ResolvePath(string path) {
-		if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
+		//if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
 		if(Application["paths-dictionary"] == null) {
 			Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		}
@@ -292,7 +374,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 
 		if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
-		if (Logger != null) Logger.trace(String.Concat("ResolvePath end: ", filePath));
+		//if (Logger != null) Logger.trace(String.Concat("ResolvePath end: ", filePath));
 		return filePath;
 	}
 
@@ -303,7 +385,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	//This help will build a path to the asset and append a CacheBreak computed with a SHA-256 of the file content.
 	//Usage is for links to ressources that will be loaded from the front-end. (*.css, *.js)
 	public string CacheBreak(string url) {
-		if (Logger != null) Logger.trace(String.Concat("CacheBreak start: ", url));
+		//if (Logger != null) Logger.trace(String.Concat("CacheBreak start: ", url));
 		string pathParams = "";
 		if(url.Contains("?")) {
 			pathParams = url.Split('?')[1];
@@ -313,7 +395,9 @@ public partial class SGWebCore : System.Web.UI.Page
 		filePath.Append(ResolvePath(url));
 		if(!filePath.ToString().Equals("")) {
 			try { 
-				string filehash = Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
+				DateTime dt = System.IO.File.GetLastWriteTime(Server.MapPath(filePath.ToString()));
+				string filehash = Utils.hashString(dt.ToString(),"SHA-256");
+				//Utils.hashFile(Server.MapPath(filePath.ToString()), "SHA-256");
 				filePath.Append("?cache=");
 				filePath.Append(filehash);
 			} catch (Exception e) {
@@ -321,7 +405,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			}
 		}
 		if(pathParams.Length > 0) filePath.Append("?").Append(pathParams);
-		if (Logger != null) Logger.trace(String.Concat("CacheBreak end: ", filePath.ToString()));
+		//if (Logger != null) Logger.trace(String.Concat("CacheBreak end: ", filePath.ToString()));
 		return filePath.ToString();
 	}
 
@@ -443,12 +527,18 @@ public partial class SGWebCore : System.Web.UI.Page
 	//// Smartlet Features Helpers ////
 	public string CurrentPageCSS {
 		get {
-			return (string)CurrentPage.getCSSClass();
+			if(Context.Items["pageCSS"] == null) {
+				Context.Items["pageCSS"] = (string)CurrentPage.getCSSClass();
+			}
+			return (string)Context.Items["pageCSS"];
 		}
 	}
 
 	public string GetLocalizedResource(string key) {
-		return Smartlet.getLocalizedResource(key);
+		if(Application["localized-"+key] == null) {
+			Application["localized-"+key] = Smartlet.getLocalizedResource(key);
+		}
+		return (string)Application["localized-"+key];
 	}
 
 	public string GetVariableByName(string key) {
@@ -463,10 +553,15 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetAppSetting(string key) {
-		if(System.Configuration.ConfigurationManager.AppSettings[key] != null) {
-			return (string)System.Configuration.ConfigurationManager.AppSettings[key];
+		if(Application["app-setting-"+key] == null) {
+			if(System.Configuration.ConfigurationManager.AppSettings[key] != null) {
+				Application["app-setting-"+key] = (string)System.Configuration.ConfigurationManager.AppSettings[key];
+			} else {
+				Application["app-setting-"+key] = "";
+			}
 		}
-		return "";
+		
+		return (string)Application["app-setting-"+key];
 	}
 
 	public ISmartletPage SectionPrimaryPage {
@@ -907,9 +1002,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public void TimerTraceStop(string key) {
 		DateTime timerstart = (DateTime) Context.Items["timer-" + key];
 		if(timerstart != null) {
-			if (Logger != null) Logger.debug(String.Concat("Trace timer for :", key, ", duration = ", (DateTime.UtcNow - timerstart).TotalSeconds));
+			sg.Context.getLogger(key).debug(String.Concat("Trace timer for :", key, ", duration = ", (DateTime.UtcNow - timerstart).TotalSeconds));
 		} else {
-			if (Logger != null) Logger.debug(String.Concat("Missing timer start for :", key));
+			sg.Context.getLogger(key).debug(String.Concat("Missing timer start for :", key));
 		}
 	}
 
@@ -1028,5 +1123,27 @@ public partial class SGWebCore : System.Web.UI.Page
 			return "";
 		}
 		return value.Substring(adjustedPosA, posB - adjustedPosA);
+	}
+
+	public int GetLineNumber(Exception ex)
+	{
+		var lineNumber = 0;
+		const string lineSearch = ":line ";
+		var index = ex.StackTrace.LastIndexOf(lineSearch);
+		if (index != -1)
+		{
+			var lineNumberText = ex.StackTrace.Substring(index + lineSearch.Length);
+			if (int.TryParse(lineNumberText, out lineNumber)) { }
+		}
+		return lineNumber;
+	}
+
+	public string ExceptionInfo(Exception ex)
+	{
+		StackFrame stackFrame = (new StackTrace(ex, true)).GetFrame(0);
+		return string.Format("At line {0} column {1} in {2}: {3} {4}{3}{5}  ",
+			GetLineNumber(ex), stackFrame.GetFileColumnNumber(),
+			stackFrame.GetMethod(), System.Environment.NewLine, stackFrame.GetFileName(),
+			ex.Message);
 	}
 }
