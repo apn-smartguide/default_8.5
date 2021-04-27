@@ -653,7 +653,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public bool ShowWizard {
 		get {
 			if(Context.Items["showWizard"] == null) {
-				Context.Items["showWizard"] = (bool?)CurrentPageCSS.Contains("show-wizard");
+				Context.Items["showWizard"] = (bool?)CurrentPageCSS.Contains("");
 			}
 			return (bool)Context.Items["showWizard"];
 		}
