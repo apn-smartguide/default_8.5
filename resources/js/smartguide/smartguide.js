@@ -204,11 +204,15 @@ $("form[id^='smartguide_']" ).each(function() {
 				$input.attr('name', 'com.alphinat.sgs.anticsrftoken');
 				$input.attr('type', 'hidden');
 				$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
+				
+				if(this.target != "") {
+					form.target = this.target;
+				}
 
 				$(form).append($input);
 				$('body').append(form)
-				
 				form.submit();
+				$('body').remove(form);
 
 				return false;
 			});
@@ -298,7 +302,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 					}
-					if(field.isRequired && $field.is(":visible")){
+					if(field.isRequired && $field.is(":visible") || $('#errors-fdbck-frm').length > 0){
 						$("#alerts").show();
 					}
 			}
