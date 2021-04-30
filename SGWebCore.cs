@@ -32,6 +32,14 @@ public partial class SGWebCore : System.Web.UI.Page
 	private string currentLocale = "";
 	private string lastModificationDate = "";
 
+	protected void Init(object sender, EventArgs e) {	
+		
+		var env = GetEnvironment(HttpContext.Current);
+		RequestContainer rq = RequestContainer.getRequestContainer(env);
+		rq.setEnvironment(env);
+
+	}
+
 	public void ClearCaches() {
 		
 		Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
@@ -69,6 +77,21 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["section-primary-page"] = null;
 		Session["active-section"] = null;
 
+	}
+
+	public static com.alphinat.interview.si.xml.servlet.environment.Environment  GetEnvironment(HttpContext context) {
+		com.alphinat.interview.si.xml.servlet.environment.Environment env = new HttpHandlerEnvironment((java.util.Map)null, context);
+		string defaultEncodingConfig = null;
+		try {
+			defaultEncodingConfig = System.Configuration.ConfigurationManager.AppSettings["apn_parameter_encoding"];
+		} catch (Exception ex) {}
+		
+		if (defaultEncodingConfig != null && !defaultEncodingConfig.Trim().Equals("")) {
+			env.setDefaultInputEncoding(defaultEncodingConfig);
+		} else {
+			env.setDefaultInputEncoding(null);
+		}
+		return env;
 	}
 
 	public API5 sg {
