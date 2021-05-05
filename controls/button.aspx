@@ -15,7 +15,11 @@
 			<% if (control.Current.getAttribute("class").Equals("pdf-button")) { %>
 			<%-- Generate PDF using form submit, for this to be functional, need to uncomment the pdf form in default.aspx --%>
 			<%-- <button type='submit' name='<apn:name runat="server"/>' value='<apn:value runat="server"/>' <%=Context.Items["tooltip-attribute"]%> class='<apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' onclick='document.forms[/'pdf/'].elements[/'pdf/'].value=/'<apn:name runat="server"/>/'; document.forms[/'pdf/'].submit(); return false;' /> --%>
-			<a href='genpdf/do.aspx?t_<%=control.Current.getFieldId()%>=t_<%=control.Current.getFieldId()%>&cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&id=<apn:code runat="server"/>' target='_blank' data-toggle='tooltip' data-html='true' <%=Context.Items["tooltip-attribute"]%> class='<apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+				<% if(control.Current.getCSSClass().Contains("safe-pdf")) { %> <%-- must use this if CSRF enabled --%>
+					<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+				<% } else { %>
+					<a href='genpdf/do.aspx?t_<%=control.Current.getFieldId()%>=t_<%=control.Current.getFieldId()%>&cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&id=<apn:code runat="server"/>' target='_blank' data-toggle='tooltip' data-html='true' <%=Context.Items["tooltip-attribute"]%> class='<apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+				<% } %>
 			<% } %>
 			<% if (control.Current.getAttribute("class").Equals("view-xml-button")) { %>
 			<%-- GenerateXML using form submit, for this to be functional, need to uncomment the xml form in default.aspx --%>
