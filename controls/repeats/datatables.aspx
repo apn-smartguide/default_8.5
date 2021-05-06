@@ -37,7 +37,7 @@
 	</apn:control>
 	<div class='panel-heading'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 			<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>

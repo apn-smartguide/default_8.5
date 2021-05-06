@@ -22,7 +22,7 @@
 			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<div class="panel-heading">
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-					<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+					<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 				<% } %>
 				<apn:control runat="server" type="default-instance" id="defaultGroup">
 					<apn:control runat="server" type="repeat-index" id="repeatIndex">
