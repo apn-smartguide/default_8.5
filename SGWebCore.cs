@@ -988,7 +988,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetMetaDataValue(ControlInfo ctrl, string key) {
-		return (ctrl.getMetaDataValue(key).Equals("")) ? "" : ctrl.getMetaDataValue(key);
+		return (ctrl.getMetaDataValue(key) != null && !ctrl.getMetaDataValue(key).Equals("")) ? ctrl.getMetaDataValue(key) : "";
 	}
 
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
