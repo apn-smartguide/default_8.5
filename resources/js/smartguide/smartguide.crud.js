@@ -237,7 +237,6 @@ var crudController = {
 				$('#loader').fadeOut("slow");
 				return false;
 			}
-			$repeat.find("table").dataTable().fnDestroy();
 			var rpt = $this.attr('data-repeat-index-name');
 			var count = $this.attr('data-instance-pos');
 			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
@@ -284,9 +283,15 @@ var crudController = {
 				return false;
 			}
 
-			var thisId = $.escapeSelector($this.attr('id'));
-			var count = thisId.substring(thisId.lastIndexOf("_")+1);
-			var rpt = $repeat.attr('id').substring($repeat.attr('id').indexOf("_")+1);
+			var rpt = $this.attr('data-repeat-index-name');
+			var count = $this.attr('data-instance-pos');
+			if(typeof rpt === 'undefined') {
+				//revert to legacy mode
+				var thisId = $.escapeSelector($this.attr('id'));
+				count = thisId.substring(thisId.lastIndexOf("_")+1);
+				rpt = $repeat.attr('id').substring($repeat.attr('id').indexOf("_")+1);
+			}
+			
 			$('input[name='+ $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0,this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="'+basename+'" id="'+basename+'" value="'+basename+'" />';
@@ -313,10 +318,16 @@ var crudController = {
 				return false;
 			}
 
-			var classes = $('#' + this.id).attr('class');
-			var rptandid = classes.substring(classes.lastIndexOf(" "));
-			var rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
-			var count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
+			var rpt = $this.attr('data-repeat-index-name');
+			var count = $this.attr('data-instance-pos');
+			if(typeof rpt === 'undefined') {
+				//revert to legacy mode
+				var classes = $('#' + this.id).attr('class');
+				var rptandid = classes.substring(classes.lastIndexOf(" "));
+				rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
+				count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
+			}
+
 			$('input[name=' + rpt + ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			$('#' + this.id).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
@@ -334,11 +345,18 @@ var crudController = {
 			//onMoveUpInstance
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var thisId = $.escapeSelector(this.id);
-			var classes = $('#' + thisId).attr('class');
-			var rptandid = classes.substring(classes.lastIndexOf(" "));
-			var rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
-			var count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
+
+			var rpt = $this.attr('data-repeat-index-name');
+			var count = $this.attr('data-instance-pos');
+			if(typeof rpt === 'undefined') {
+				//revert to legacy mode
+				var thisId = $.escapeSelector(this.id);
+				var classes = $('#' + thisId).attr('class');
+				var rptandid = classes.substring(classes.lastIndexOf(" "));
+				rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
+				count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
+			}
+
 			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
@@ -357,11 +375,18 @@ var crudController = {
 			//onMoveDownInstance
 			$('#loader').fadeIn("slow");
 			var $this = $(this);
-			var thisId = $.escapeSelector(this.id);
-			var classes = $('#' + thisId).attr('class');
-			var rptandid = classes.substring(classes.lastIndexOf(" "));
-			var rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
-			var count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
+
+			var rpt = $this.attr('data-repeat-index-name');
+			var count = $this.attr('data-instance-pos');
+			if(typeof rpt === 'undefined') {
+				//revert to legacy mode
+				var thisId = $.escapeSelector(this.id);
+				var classes = $('#' + thisId).attr('class');
+				var rptandid = classes.substring(classes.lastIndexOf(" "));
+				rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
+				count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
+			}
+			
 			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
