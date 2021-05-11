@@ -94,8 +94,6 @@ if(btnAdd != null) {
 							<% } %>
 						</th>
 						<% } %>
-					<% } else { %>
-						<td data-priority='1' data-sortable="false"></td>
 					<% } %>
 					</apn:forEach>
 				</apn:forEach>
