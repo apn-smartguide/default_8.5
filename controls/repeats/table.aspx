@@ -112,7 +112,7 @@
 																		<% } %>></span>
 																	<% } %>
 																</th>
-																<% } %>
+															<% } %>
 														</apn:forEach>
 													</apn:forEach>
 												</apn:forEach>

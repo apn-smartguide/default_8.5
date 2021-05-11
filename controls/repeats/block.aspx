@@ -81,7 +81,7 @@
 					<div class='panel-body repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% Context.Items["optionIndex"] = status.getCount(); %>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
-						<div class=''>
+						<div class='block-controls'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
 							<div>
 								<apn:control runat="server" type="select_instance" id="sel">
