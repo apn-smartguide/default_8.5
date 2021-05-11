@@ -34,7 +34,9 @@
 			</apn:forEach>
 		</div>
 		<div class='pull-right'>
+			<% if (!CurrentPageCSS.Contains("hide-return-to-summary")) { %>
 			<apn:control type="summary" runat="server" id="summary"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default' <% if (!GetTooltip(summary.Current).Equals("")){ %>title='<%=GetTooltip(summary.Current)%>' aria-label='<%=GetTooltip(summary.Current)%>'<% } %>><%=GetAttribute(summary.Current, "label")%></button></apn:control>
+			<% } %>
 			<apn:control type="return-save" runat="server" id="save"><button type='submit' name='<apn:name runat="server"/>' class='next btn btn-primary' <% if (!GetTooltip(save.Current).Equals("")){ %>title='<%=GetTooltip(save.Current)%>' aria-label='<%=GetTooltip(save.Current)%>'<% } %>><%=GetAttribute(save.Current, "label")%></button></apn:control>
 			<apn:control type="return-cancel" runat="server" id="cancel"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default' <% if (!GetTooltip(cancel.Current).Equals("")){ %>title='<%=GetTooltip(cancel.Current)%>' aria-label='<%=GetTooltip(cancel.Current)%>'<% } %>><%=GetAttribute(cancel.Current, "label")%></button></apn:control>
 			<%
