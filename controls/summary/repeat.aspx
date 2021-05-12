@@ -17,6 +17,7 @@
 %>
 	<table width="100%">
 	<thead>
+		<apn:control runat="server" type="default-instance" id="headerGroup">
 		<tr id='tr_<apn:name runat="server"/>'>
 			<% if ((bool)Context.Items["isSelectable"]) { %><td data-priority="1"></td> <!-- intentional use of td instead of th for suppressing WCAG requirement --> <% } %>
 			<apn:forEach runat="server" id="row">
@@ -71,6 +72,7 @@
 			</apn:forEach>
 			<% if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %><td data-priority="1" data-orderable="false"></td><% } %>
 		</tr>
+		</apn:control>
 	</thead>
 	<tbody>
 		<apn:forEach id="status" runat="server">
