@@ -153,26 +153,12 @@ $("form[id^='smartguide_']" ).each(function() {
 		}
 		, bindEvents : function(ajaxUpdates) {
 			var r = SMARTGUIDES[smartletCode];
-						
-			// $('div.date[data-apnformat]', r.fm).each(function(index) {
-			// 	var format = $(this).attr('data-apnformat');
-			// 	if (format !== null) {
-			// 		// translate
-			// 		format = format.replace("mois","MMM").replace("mm","MM").replace("jj","DD").replace("aaaa","YYYY").replace("aa","YY");
-			// 	} else {
-			// 		// use default
-			// 		format = "YYYY-MM-DD";
-			// 	}
-			// 	$(this).datetimepicker({locale: currentLocale, format: format, showClear:true, calendarWeeks:false, debug:false});
-			// });
-
 			// basic bindings for field event with dependencies to other fields
 			// textboxes, textarea and password
 			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste',r.bindThis).on('keyup paste', r.bindThis);
 			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
 			// checkboxes and radio buttons
-			//$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
 				var id = $.escapeSelector($(this).attr('name'));
 				if (typeof smartletfields[$.escapeSelector(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
@@ -191,34 +177,6 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
-			$('.link-as-post').off('click').on('click',function(e){
-
-				e.preventDefault();
-				e.stopImmediatePropagation();
-
-				var form = document.createElement('form');
-				form.action = $(this).attr('href');
-				form.method = 'post';
-
-				var $input = $(document.createElement('input'));
-				$input.attr('name', 'com.alphinat.sgs.anticsrftoken');
-				$input.attr('type', 'hidden');
-				$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
-				
-				if(this.target != "") {
-					form.target = this.target;
-				}
-
-				$(form).append($input);
-				$('body').append(form)
-				form.submit();
-				$('body').remove(form);
-
-				return false;
-			});
-
-			r.bindSelectBoxRadios();
-		
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();
@@ -675,25 +633,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					$(elmt).attr('data-eventtarget', '["' + newDataEventTarget + '"]');
 				}
 			}
-		}
-		, bindSelectBoxRadios: function(){
-			var r = SMARTGUIDES[smartletCode];
-			// radio buttons in the context of select control instance on repeat
-			/*$('input[type=radio][data-group]').each(function() {
-				$(this).off('change').on('change', function() {
-					// When any radio button in the data-group is selected,
-					// then deselect all other radio buttons.
-					var dataGroup = $(this).attr('data-group');
-					// Check if we are under a datatable
-					var otable = r.dataTableInstances['div_'+dataGroup];
-					if (typeof otable !== 'undefined') {
-						$('input[type=radio][data-group]',otable.cells().nodes()).not(this).prop('checked', false)
-					} else {
-						$('input[type=radio][data-group]',$('#div_'+dataGroup)).not(this).prop('checked', false)
-					}
-				});
-			}); */
-		}		
+		}	
 		, ajaxProcess : function(elmt, elmt2, allowSelfRefresh, successCallback, errorCallback, completeCallback) {
 			var r = SMARTGUIDES[smartletCode];
 			var fm = r.fm;
@@ -830,7 +770,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						console.log(textStatus);
 						console.log(errorThrown);
 						console.log(XMLHttpRequest.responseText);
-						alert("ERROR: <code>" + XMLHttpRequest.responseText + "<code>")
+						console.log("ERROR: <code>" + XMLHttpRequest.responseText + "<code>")
 					}
 					if(errorCallback) {
 						errorCallback(XMLHttpRequest, textStatus, errorThrown);
