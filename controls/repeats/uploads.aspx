@@ -56,29 +56,46 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 						<table>
 							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
 							<tr><td>
+								<apn:control runat="server" type="insert" id="saveButton">
+									<% string deleteEventTargets = ""; %>
+									<% SessionField saveBtn = GetProxyButton(Context.Items["repeatCode"]+"_save", status.getCount()-1, ref deleteEventTargets); %>
+									<% if(saveBtn != null) { %>
+										<% if(saveBtn.isAvailable()) { %>
+											<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=saveBtn.getHtmlName()%>' class='<%=saveBtn.getCSSClass()%>' style='<%=saveBtn.getCSSStyle()%>'  data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=deleteEventTargets%>]' <% if (!GetTooltip(saveBtn).Equals("")){ %>title='<%=GetTooltip(saveBtn)%>' aria-label='<%=GetTooltip(saveBtn)%>'<% } %>><%=saveBtn.getLabel()%></button>
+										<% } %>
+									<% } else { %>
+										
+									<% } %>
+								</apn:control>
 								<apn:control runat="server" type="delete" id="button">
 									<% string deleteEventTargets = ""; %>
-									<% SessionField deleteBtn = GetProxyButton(Context.Items["repeatCode"]+"_delete", ref deleteEventTargets); %>
+									<% SessionField deleteBtn = GetProxyButton(Context.Items["repeatCode"]+"_delete", status.getCount()-1, ref deleteEventTargets); %>
 									<% if(deleteBtn != null) { %>
-										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%= deleteBtn.getName()%>_<%= status.getCount()%>' class='<%=deleteBtn.getCSSClass()%>' style='<%=deleteBtn.getCSSStyle()%>'  data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=deleteEventTargets%>]' <% if (!GetTooltip(deleteBtn).Equals("")){ %>title='<%=GetTooltip(deleteBtn)%>' aria-label='<%=GetTooltip(deleteBtn)%>'<% } %>><%=deleteBtn.getLabel()%></button>
+										<% if(deleteBtn.isAvailable()) { %>
+											<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=deleteBtn.getHtmlName()%>' class='<%=deleteBtn.getCSSClass()%>' style='<%=deleteBtn.getCSSStyle()%>'  data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=deleteEventTargets%>]' <% if (!GetTooltip(deleteBtn).Equals("")){ %>title='<%=GetTooltip(deleteBtn)%>' aria-label='<%=GetTooltip(deleteBtn)%>'<% } %>><%=deleteBtn.getLabel()%></button>
+										<% } %>
 									<% } else { %>
 										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<apn:name runat="server"/>_<%= status.getCount()%>' name='<apn:name runat="server"/>_<%= status.getCount()%>' class='repeat_del_btn btn btn-danger btn-sm pull-right' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='["<%=control.Current.getName()%>"]' aria-labelledby='lbl_<apn:name runat="server"/>' onclick='this.value=""; return true;' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button>
 									<% } %>
 								</apn:control>
 								<apn:control runat="server" type="prepare_edit_instance">
 									<% string editEventTargets = ""; %>
-									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", ref editEventTargets); %>
+									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", status.getCount()-1, ref editEventTargets); %>
 									<% if(editBtn != null) { %>
-										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%= editBtn.getName()%>_<%= status.getCount()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=editEventTargets%>]' class='<%=editBtn.getCSSClass()%>' style='<%=editBtn.getCSSStyle()%>' <% if (!GetTooltip(editBtn).Equals("")){ %>title='<%=GetTooltip(editBtn)%>' aria-label='<%=GetTooltip(editBtn)%>'<% } %>><%=editBtn.getLabel()%></button>
+										<%if (editBtn.isAvailable()) { %>
+											<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=editBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=editEventTargets%>]' class='<%=editBtn.getCSSClass()%>' style='<%=editBtn.getCSSStyle()%>' <% if (!GetTooltip(editBtn).Equals("")){ %>title='<%=GetTooltip(editBtn)%>' aria-label='<%=GetTooltip(editBtn)%>'<% } %>><%=editBtn.getLabel()%></button>
+										<% } %>
 									<% } else { %>
 										<button type='button' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<apn:name runat="server"/>_<%= status.getCount()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' class='btn btn-primary btn-sm pull-right repeat_prepare_edit_btn' style='cursor:pointer'><span class='<apn:localize runat="server" key="theme.icon.edit"/>'></span></button>
 									<% } %>
 								</apn:control>
-								<apn:control runat="server" type="cancel_add_instance">
+								<apn:control runat="server" type="delete">
 									<% string cancelEventTargets = ""; %>
-									<% SessionField cancelBtn = GetProxyButton(Context.Items["repeatCode"]+"_cancel", ref cancelEventTargets); %>
+									<% SessionField cancelBtn = GetProxyButton(Context.Items["repeatCode"]+"_cancel", status.getCount()-1, ref cancelEventTargets); %>
 									<% if(cancelBtn != null) { %>
-										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%= cancelBtn.getName()%>_<%= status.getCount()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=cancelEventTargets%>]' class='<%= Context.Items["hiddenName"] %>_<%= status.getCount()%> <%=cancelBtn.getCSSClass()%>' style='<%=cancelBtn.getCSSStyle()%>' <% if (!GetTooltip(cancelBtn).Equals("")){ %>title='<%=GetTooltip(cancelBtn)%>' aria-label='<%=GetTooltip(cancelBtn)%>'<% } %>><%=cancelBtn.getLabel()%></button>
+										<% if(cancelBtn.isAvailable()) {%>
+											<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=cancelBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=cancelEventTargets%>]' class='<%= Context.Items["hiddenName"] %>_<%= status.getCount()%> <%=cancelBtn.getCSSClass()%>' style='<%=cancelBtn.getCSSStyle()%>' <% if (!GetTooltip(cancelBtn).Equals("")){ %>title='<%=GetTooltip(cancelBtn)%>' aria-label='<%=GetTooltip(cancelBtn)%>'<% } %>><%=cancelBtn.getLabel()%></button>
+										<% } %>
 									<% } else { %>
 										<button type='button' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<apn:name runat="server"/>_<%= status.getCount()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' class='btn btn-default btn-sm pull-right repeat_cancel_btn' style='cursor:pointer' ><apn:localize runat="server" key="theme.text.cancel"/></button>
 									<% } %>

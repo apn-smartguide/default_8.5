@@ -17,6 +17,7 @@ using System.Web.UI.HtmlControls;
 
 using com.alphinat.sg;
 using com.alphinat.sg5;
+using com.alphinat.sg5.widget.repeat;
 using com.alphinat.sgs;
 using com.alphinat.sgs.smartlet;
 using com.alphinat.sgs.smartlet.api5impl;
@@ -941,6 +942,20 @@ public partial class SGWebCore : System.Web.UI.Page
 		return CurrentPage.findFieldByName(name);
 	}
 
+	public ISmartletField FindFieldByNameUnderRepeat(string name, int repeatIndex) {
+		ISmartletField fieldUnderRepeat = CurrentPage.findFieldByName(name);
+
+		ISmartletField parent = fieldUnderRepeat.getParent();
+
+		while(parent.getTypeConst() != DotnetConstants.ElementType.REPEAT) {
+			parent = parent.getParent();
+		}
+
+		ISmartletRepeat rpt = (ISmartletRepeat)parent;
+
+		return rpt.getGroups()[repeatIndex].findFieldByName(name);
+	}
+
 	public ISmartletField FindFieldById(string id) {
 
 		return CurrentPage.findFieldById(id);
@@ -1001,6 +1016,27 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public SessionField GetProxyButton(string key, ref string eventTargets) {
 		SessionField btn = (SessionField)FindFieldByName(key);
+		if(btn != null) {
+			ISmartletField[] targets = btn.getEventTarget();
+			if(targets != null) {
+				foreach(ISmartletField targetField in targets) {
+					if(targetField != null) {
+						eventTargets += targetField.getId() + ",";
+					}
+				}
+			}
+		}
+		return btn;
+	}
+
+	public SessionField GetProxyButton(string key, int repeatIndex, ref string eventTargets) {
+		SessionField btn = null;
+
+		if(repeatIndex > -1) {
+			btn = (SessionField)FindFieldByNameUnderRepeat(key, repeatIndex);
+		} else {
+			btn = (SessionField)FindFieldByName(key);
+		}
 		if(btn != null) {
 			ISmartletField[] targets = btn.getEventTarget();
 			if(targets != null) {
