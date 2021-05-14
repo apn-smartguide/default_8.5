@@ -166,9 +166,9 @@ $("form[id^='smartguide_']" ).each(function() {
 				}
 			});
 
-			// listbox and dropdown
 			$('input[type=image][data-eventtarget]').off('click',r.bindThis).on('click', r.bindThis);
 			$('select:has(option[data-eventtarget])').off('change',r.bindThisOption).on('change', r.bindThisOption);
+			
 			$('.modal-close').off('click').on('click', function(e){
 				var modal = $(this).parent().parent().parent().parent();
 				r.ajaxProcess(modal, null, true, null, null, function () {
@@ -659,7 +659,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				type: 'post',
 				iframe:false,
 				data : { isAjax : 'true' },
-				success:  function(data){
+				success:  function(data) {
 					try {
 
 						if(!$(elmt).hasClass('save-blobs')){
@@ -671,8 +671,8 @@ $("form[id^='smartguide_']" ).each(function() {
 						
 						response = data;
 						// get array of response elements
-						var responseDiv = $("#sgControls", response);
-						var currentDiv = $("#sgControls");
+						var $responseDiv = $("#sgControls", response);
+						var $currentDiv = $("#sgControls");
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
 						var currentID= $.escapeSelector($(elmt).attr('id'));
@@ -682,26 +682,21 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 
 						var updated = [];
-						if(typeof targetArr !== 'undefined' && targetArr!= null) {
-							for(var i=0;i<targetArr.length;i++) {
-								if (targetArr[i] == 'form') {
-									var responseTarget = responseDiv;
-									responseTarget = responseTarget.clone();
-									$(currentDiv).after(responseTarget).remove();
-									break;
+						if(typeof targetArr !== 'undefined' && targetArr != null) {
+							if(!targetArr.every(function(target) {
+								if (target == 'form') {
+									return false;
 								}
-								// Prevent self refresh
-								if (allowSelfRefresh||selfRefresh||targetArr[i]!=currentID) {
-									var targetDiv = targetArr[i];
-									if(typeof targetDiv != 'undefined' && targetDiv != "") {
-										targetDiv = $.escapeSelector(targetDiv);
-										var responseTarget = $('#div_'+targetDiv, responseDiv);
-										if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
+								if (allowSelfRefresh || selfRefresh || target!=currentID) {
+									if(typeof target != 'undefined' && target != "") {
+										target = $.escapeSelector(target);
+										var responseTarget = $('#div_'+target, $responseDiv);
+										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
 
 										responseTarget = responseTarget.clone();
 										if (responseTarget.length > 0) {
-											var currentTarget = $('#div_'+targetDiv, currentDiv);
-											if(currentTarget.length == 0) currentTarget = $('#'+targetDiv, currentDiv);
+											var currentTarget = $('#div_'+target, $currentDiv);
+											if(currentTarget.length == 0) currentTarget = $('#'+target, $currentDiv);
 											//Check to see if we're using a crud-modal, is so, need to hide it.
 											//Display happens at the event handler level (ie. save_...)
 											if($('.crud-modal', responseTarget).length > 0) {
@@ -716,7 +711,10 @@ $("form[id^='smartguide_']" ).each(function() {
 											updated.push(responseTarget);
 										}
 									}
+									return true;
 								}
+							})) {
+								$currentDiv.replaceWith($responseDiv.clone());
 							}
 						}
 
@@ -726,7 +724,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						if(typeof modalAlertId === 'undefined') {
 							showErrors = true;
 							var parentId = $.escapeSelector($(elmt).parent().attr('id'));
-							modalAlertId = $('*[id*=modalAlerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id'));
+							modalAlertId = $.escapeSelector($('*[id*=modal-alerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id')).attr('id'));
 						}
 						if(typeof modalAlertId !== 'undefined') {
 							if(showErrors) {
