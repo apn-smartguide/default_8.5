@@ -90,11 +90,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<% } %>
 								</apn:control>
 								<apn:control runat="server" type="delete">
-									<% string cancelEventTargets = ""; %>
+									<% string cancelEventTargets = control.Current.getName(); %>
 									<% SessionField cancelBtn = GetProxyButton(Context.Items["repeatCode"]+"_cancel", status.getCount()-1, ref cancelEventTargets); %>
 									<% if(cancelBtn != null) { %>
 										<% if(cancelBtn.isAvailable()) {%>
-											<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=cancelBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=cancelEventTargets%>]' class='<%= Context.Items["hiddenName"] %>_<%= status.getCount()%> <%=cancelBtn.getCSSClass()%>' style='<%=cancelBtn.getCSSStyle()%>' <% if (!GetTooltip(cancelBtn).Equals("")){ %>title='<%=GetTooltip(cancelBtn)%>' aria-label='<%=GetTooltip(cancelBtn)%>'<% } %>><%=cancelBtn.getLabel()%></button>
+											<button type='submit' onclick='return false;' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=cancelBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=cancelEventTargets%>]' class='<%= Context.Items["hiddenName"] %>_<%= status.getCount()%> <%=cancelBtn.getCSSClass()%>' style='<%=cancelBtn.getCSSStyle()%>' <% if (!GetTooltip(cancelBtn).Equals("")){ %>title='<%=GetTooltip(cancelBtn)%>' aria-label='<%=GetTooltip(cancelBtn)%>'<% } %>><%=cancelBtn.getLabel()%></button>
 										<% } %>
 									<% } else { %>
 										<button type='button' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<apn:name runat="server"/>_<%= status.getCount()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' class='btn btn-default btn-sm pull-right repeat_cancel_btn' style='cursor:pointer' ><apn:localize runat="server" key="theme.text.cancel"/></button>
