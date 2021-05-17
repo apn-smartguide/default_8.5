@@ -78,8 +78,8 @@
 				<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 				<% } %>
 				<apn:forEach id="status" runat="server">
+					<% Context.Items["optionIndex"] = status.getCount(); %>
 					<div class='panel-body repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
-						<% Context.Items["optionIndex"] = status.getCount(); %>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
 						<div class='block-controls'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
@@ -107,12 +107,13 @@
 						<div class=''><% ExecutePath("/controls/controls.aspx"); %></div>
 					</div>
 				</apn:forEach>
+				<% Context.Items["optionIndex"] = ""; %>
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 				</div>
 				<% } %>
 			</div>
 			<% if ((bool)Context.Items["hasPagination"] && !IsPdf) { %><div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div><% } %>
 		</div>
-		<% Context.Items["optionIndex"] = ""; %>
+		
 	</div>
 </apn:control>

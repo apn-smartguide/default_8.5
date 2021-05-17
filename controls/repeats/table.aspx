@@ -145,6 +145,7 @@
 				</apn:control>
 				<tbody>
 					<apn:forEach id="status" runat="server">
+						<% Context.Items["optionIndex"] = status.getCount(); %>
 						<tr id='tr_<apn:name runat="server"/>_<%= status.getCount()%>'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
 							<td>
@@ -155,7 +156,6 @@
 							</td>
 							<% } %>
 							<% BareRender = true; %>
-							<% Context.Items["optionIndex"] = status.getCount(); %>
 							<% ExecutePath("/controls/repeats/table-col.aspx"); %>
 							<% BareRender = false; %>	
 							<% if (!IsPdf) { %>

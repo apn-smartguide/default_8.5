@@ -203,6 +203,7 @@
 				</apn:forEach>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %></tr><% } %>
 				</apn:forEach>
+				<% Context.Items["optionIndex"] = 0; %>
 			</tbody>
 			<% } %>
 		</table>
