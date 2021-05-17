@@ -51,78 +51,63 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<table class='<%=control.Current.getCSSClass()%>'>
 			<tbody>
 			<apn:forEach runat="server" id="status">
-				<% Context.Items["optionIndex"] = status.getCount(); %>
 				<tr>
 					<td>
 						<table>
 							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
-							<tr><td class='text-right'>
-								<apn:control runat="server" type="insert">
+							<tr><td>
+								<apn:control runat="server" type="insert" id="saveButton">
 									<% string eventTargets = ""; %>
 									<% SessionField saveBtn = GetProxyButton(Context.Items["repeatCode"]+"_save", status.getCount()-1, ref eventTargets); %>
 									<% if(saveBtn != null && saveBtn.isAvailable()) { %>
-										<span 
-										id='<apn:name runat="server"/>_<%= status.getCount()%>' 
-										name='<%=saveBtn.getHtmlName()%>' 
-										role='button'
-										class='<%=saveBtn.getCSSClass()%>' 
-										style='<%=saveBtn.getCSSStyle()%>' 
-										data-eventtarget='[<%=eventTargets%>]' 
-										data-repeat-index-name='<%=Context.Items["hiddenName"]%>' 
-										data-instance-pos='<%=status.getCount()%>' 
-										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
-										title='<%=GetTooltip(saveBtn)%>'>
-											<%=saveBtn.getLabel()%>
-										</span>
+										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=saveBtn.getHtmlName()%>' class='<%=saveBtn.getCSSClass()%>' style='<%=saveBtn.getCSSStyle()%>'  data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=eventTargets%>]' <% if (!GetTooltip(saveBtn).Equals("")){ %>title='<%=GetTooltip(saveBtn)%>' aria-label='<%=GetTooltip(saveBtn)%>'<% } %>><%=saveBtn.getLabel()%></button>
 									<% } %>
 								</apn:control>
-								<apn:control runat="server" type="prepare_edit_instance">
+								<apn:control runat="server" type="delete" id="button">
 									<% string eventTargets = ""; %>
-									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", status.getCount()-1, ref eventTargets); %>
-									<% if(editBtn != null && editBtn.isAvailable()) { %>
-										<span 
-										id='<apn:name runat="server"/>_<%= status.getCount()%>' 
-										role='button'
-										class='<%=editBtn.getCSSClass()%>' 
-										style='<%=editBtn.getCSSStyle()%>'
-										data-eventtarget='[<%=eventTargets%>]' 
-										data-repeat-index-name='<%=Context.Items["hiddenName"]%>' 
-										data-instance-pos='<%= status.getCount()%>' 
-										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
-										title='<%=GetTooltip(editBtn)%>'>
-											<%=editBtn.getLabel()%>
-										</span>
-									<% } %>
-								</apn:control>
-								<apn:control runat="server" type="delete">
-									<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
 									<% SessionField deleteBtn = GetProxyButton(Context.Items["repeatCode"]+"_delete", status.getCount()-1, ref eventTargets); %>
 									<% if(deleteBtn != null && deleteBtn.isAvailable()) { %>
 										<span 
 										id='<apn:name runat="server"/>_<%= status.getCount()%>' 
+										name='<%=deleteBtn.getHtmlName()%>' 
 										role='button'
 										class='<%=deleteBtn.getCSSClass()%>' 
 										style='<%=deleteBtn.getCSSStyle()%>'
 										data-eventtarget='[<%=eventTargets%>]' 
 										data-repeat-index-name='<%=Context.Items["hiddenName"]%>' 
 										data-instance-pos='<%= status.getCount()%>' 
+										data-level='<%=Context.Items["repeat-level"]%>'  
 										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
-										title='<%=GetTooltip(deleteBtn)%>'>
+										<% if (!GetTooltip(deleteBtn).Equals("")){ %>title='<%=GetTooltip(deleteBtn)%>' aria-label='<%=GetTooltip(deleteBtn)%>'<% } %>
+										>
 											<%=deleteBtn.getLabel()%>
 										</span>
 									<% } %>
+								</apn:control>
+								<apn:control runat="server" type="prepare_edit_instance">
+									<% string editEventTargets = ""; %>
+									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", status.getCount()-1, ref editEventTargets); %>
+									<% if(editBtn != null && editBtn.isAvailable()) { %>
+										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=editBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=editEventTargets%>]' class='<%=editBtn.getCSSClass()%>' style='<%=editBtn.getCSSStyle()%>' <% if (!GetTooltip(editBtn).Equals("")){ %>title='<%=GetTooltip(editBtn)%>' aria-label='<%=GetTooltip(editBtn)%>'<% } %>><%=editBtn.getLabel()%></button>
+									<% } %>
+								</apn:control>
+								<apn:control runat="server" type="delete">
+									<% string eventTargets = control.Current.getName(); %>
 									<% SessionField cancelBtn = GetProxyButton(Context.Items["repeatCode"]+"_cancel", status.getCount()-1, ref eventTargets); %>
 									<% if(cancelBtn != null && cancelBtn.isAvailable()) { %>
 										<span 
 										id='<apn:name runat="server"/>_<%= status.getCount()%>' 
+										name='<%=cancelBtn.getHtmlName()%>' 
 										role='button'
 										class='<%=cancelBtn.getCSSClass()%>' 
 										style='<%=cancelBtn.getCSSStyle()%>'
 										data-eventtarget='[<%=eventTargets%>]' 
 										data-repeat-index-name='<%=Context.Items["hiddenName"]%>' 
 										data-instance-pos='<%= status.getCount()%>' 
+										data-level='<%=Context.Items["repeat-level"]%>'  
 										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
-										title='<%=GetTooltip(cancelBtn)%>'>
+										<% if (!GetTooltip(cancelBtn).Equals("")){ %>title='<%=GetTooltip(cancelBtn)%>' aria-label='<%=GetTooltip(cancelBtn)%>'<% } %>
+										>
 											<%=cancelBtn.getLabel()%>
 										</span>
 									<% } %>
@@ -132,7 +117,6 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 					</td>
 				</tr>
 			</apn:forEach>
-			<% Context.Items["optionIndex"] = 0; %>
 			</tbody>
 		</table>
 	</div>
