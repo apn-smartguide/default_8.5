@@ -103,6 +103,14 @@ public partial class SGWebCore : System.Web.UI.Page
 		Logger.debug(ExceptionInfo(ex));
 	}
 
+	protected void Init(object sender, EventArgs e) {	
+		
+		var env = GetEnvironment(HttpContext.Current);
+		RequestContainer rq = RequestContainer.getRequestContainer(env);
+		rq.setEnvironment(env);
+
+	}
+
 	public void ClearCaches() {
 		
 		Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
