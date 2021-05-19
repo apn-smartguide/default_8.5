@@ -24,7 +24,7 @@ var customJS = {
 
 		utilsController.init(sgRef);
 		tinymceController.init(sgRef, currentLocale);
-		WETdataTablesController.init(sgRef);
+		// WETdataTablesController.init(sgRef);
 		dataTablesController.init(sgRef);
 		crudController.init(sgRef);
 		keepAliveController.init(sgRef, (sessionDuration-2), sessionDuration, 30);
@@ -39,7 +39,7 @@ var customJS = {
 		for(i=0; i<context.length; i++) {
 			utilsController.bindEvents(sgRef, context[i]);
 			tinymceController.bindEvents(sgRef, "TEXTAREA.tinymce", context[i]);
-			WETdataTablesController.bindEvents(sgRef, context[i]);
+			// WETdataTablesController.bindEvents(sgRef, context[i]);
 			dataTablesController.bindEvents(sgRef, context[i]);
 			crudController.bindEvents(sgRef, context[i]);
 		}
