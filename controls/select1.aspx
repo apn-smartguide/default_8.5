@@ -14,44 +14,53 @@
 %>
 	<apn:choosecontrol runat="server" >
 		<apn:whencontrol runat="server" type="radio">
+		<div class="chkbxrdio-grp form-group">
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
-			<fieldset  id='div_<apn:name runat="server" />' <%=Context.Items["layout"] %> style='<apn:cssstyle runat="server"/>' class='<%=Context.Items["no-col-layout"]%> chkbxrdio-grp form-group <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' <apn:metadata runat="server"/> <%=Context.Items["readonly"]%> <!-- #include file="aria-live.inc" --> >
-				<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
-				<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex .ToString()) %></span><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
-				<% if(!((string)Context.Items["layout"]).Equals("vertically") && !control.Current.getLabel().Equals("")) { %><br/><% } %>
+			<% if (!BareRender){ ExecutePath("/controls/label.aspx"); } %>
+			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex .ToString()) %></span><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
+			<ul id='div_<apn:name runat="server" />' <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" --> >
 				<% Context.Items["counter"] = 1; %>
 				<apn:forEach runat="server" id="control5" >
-					<apn:choosecontrol runat="server">
-					<apn:whencontrol runat="server" type="optgroup">
-						<label class='optgroup'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
-						<apn:forEach runat="server" id="control6">
-							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
-								<div <%= Context.Items["readonly"] %>>
-									<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<%=GetAttribute(control6.Current, "title", true)%>'>
-							<% } else { %>
-									<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='radio-inline' title='<%=GetAttribute(control6.Current, "title", true)%>'>
-							<% } %>
-									<input type='radio' name='<%= control6.Current.getName() %>' id='<%=control6.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='deselect-off' value='<%= control6.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control6.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>'/><span><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
-									</label>
-							<% if(((string)Context.Items["layout"]).Equals("vertically")) { %></div><% } %>
-						</apn:forEach>
-					</apn:whencontrol>
-					<apn:otherwise runat="server">
-						<% if(((string)Context.Items["layout"]).Equals("vertically")) { %>
-							<div <%= Context.Items["readonly"] %>>
-								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<%=GetAttribute(control5.Current, "title", true)%>'>
-						<% } else { %>
-								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' class='radio-inline' title='<%=GetAttribute(control5.Current, "title", true)%>'>
-						<% } %>
-								<input type='radio' name='<%= control5.Current.getName() %>' id='<%=control5.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='deselect-off' value='<%= control5.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control5.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>'/><% ExecutePath("/controls/custom/control-label.aspx"); %>
+					<li>
+						<apn:choosecontrol runat="server">
+						<apn:whencontrol runat="server" type="optgroup">
+							<label class='optgroup'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
+							<apn:forEach runat="server" id="control6">
+								<% if (control.Current.getCSSClass().Contains("inline")) { %>
+								<div class="radio-inline">
+								<% } %>
+								<input type='radio' name='<%= control6.Current.getName() %>' id='<%=control6.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='deselect-off <%=control.Current.getCSSClass()%>' value='<%= control6.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control6.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>'/>
+								<% if(!control6.Current.getLabel().Equals("")) { %>
+								<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' title='<%=GetAttribute(control6.Current, "title", true)%>'>
+								<% ExecutePath("/controls/custom/control-label.aspx"); %>
 								</label>
-						<% if(((string)Context.Items["layout"]).Equals("vertically")) { %></div><% } %>
-					</apn:otherwise>
-					</apn:choosecontrol>
-					<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
+								<% } %>
+								<% if (control.Current.getCSSClass().Contains("inline")) { %>
+								</div>
+								<% } %>
+							</apn:forEach>
+						</apn:whencontrol>
+						<apn:otherwise runat="server">
+							<% if (control.Current.getCSSClass().Contains("inline")) { %>
+							<div class="radio-inline">
+							<% } %>
+							<input type='radio' name='<%= control5.Current.getName() %>' id='<%=control5.Current.getAttribute("id")%><%=Context.Items["optionIndex"]%>' class='deselect-off <%=control.Current.getCSSClass()%>' value='<%= control5.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control5.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>'/>
+							<% if(!control5.Current.getLabel().Equals("")) { %>
+							<label id='lbl_<apn:controlattribute runat="server" attr="id"/><%=Context.Items["optionIndex"]%>' for='<apn:controlattribute runat="server" attr="id" /><%=Context.Items["optionIndex"]%>' <% if(((string)Context.Items["layout"]).Equals("vertically")) { %>class='radio-inline'<% } %> title='<%=GetAttribute(control5.Current, "title", true)%>'>
+							<% ExecutePath("/controls/custom/control-label.aspx"); %>
+							</label>
+							<% } %>
+							<% if (control.Current.getCSSClass().Contains("inline")) { %>
+							</div>
+							<% } %>
+						</apn:otherwise>
+						</apn:choosecontrol>
+						<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
+					</li>
 				</apn:forEach>
-				<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><br/><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex .ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
-			</fieldset>
+			</ul>
+			<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><br/><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex .ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+		</div>
 		</apn:whencontrol>
 		<apn:whencontrol runat="server" type="drop" >
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>

@@ -13,6 +13,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
+using com.alphinat.sg;
 using com.alphinat.sg5;
 using com.alphinat.sgs;
 using com.alphinat.sgs.smartlet;
@@ -25,7 +26,6 @@ public partial class _Default : SGWebCore
 	}
 
 	protected void Page_Init(object sender, EventArgs e) {
-		TraceExecution = true;
 		base.Init(sender,e);
 	}
 
@@ -36,6 +36,7 @@ public partial class _Default : SGWebCore
 	protected override void Render(HtmlTextWriter output) {
 		base.Render(output);
 	}
+
 	private void Page_Error(object sender, EventArgs e)
 	{
 		base.Error(sender, e);

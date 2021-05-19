@@ -278,6 +278,22 @@ var dataTablesController = {
 			}
 		});
 
+		// radio buttons in the context of select control instance on repeat
+			/*$('input[type=radio][data-group]').each(function() {
+				$(this).off('change').on('change', function() {
+					// When any radio button in the data-group is selected,
+					// then deselect all other radio buttons.
+					var dataGroup = $(this).attr('data-group');
+					// Check if we are under a datatable
+					var otable = r.dataTableInstances['div_'+dataGroup];
+					if (typeof otable !== 'undefined') {
+						$('input[type=radio][data-group]',otable.cells().nodes()).not(this).prop('checked', false)
+					} else {
+						$('input[type=radio][data-group]',$('#div_'+dataGroup)).not(this).prop('checked', false)
+					}
+				});
+			}); */
+			
 		// support for selection radios for server side repeats
 		$('[type=radio][name^=d_s]').off('click').on('click', function() {
 			var dataTable = $(this).closest('table').DataTable();

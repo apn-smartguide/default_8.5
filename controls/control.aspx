@@ -3,6 +3,7 @@
 <%	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
 	bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
 	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) {
+	} else if(control.Current.getCSSClass().Contains("proxy") && !renderProxy) {
 	} else if (customControl.Equals("file")) {
 		if(!control.Current.getValue().Equals("")) {
 			//Use the controls Value if you need to dynamically switch the file loaded based on conditions
@@ -13,7 +14,6 @@
 	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if(control.Current.getCSSClass().Contains("proxy") && !renderProxy) {
 	} else { %>
 	<apn:ChooseControl runat="server">
 		<apn:WhenControl runat="server" type="SUMMARY-SECTION"><% ExecutePath("/controls/summary/summary.aspx"); %></apn:WhenControl>

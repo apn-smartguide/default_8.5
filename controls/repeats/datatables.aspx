@@ -37,7 +37,7 @@
 	</apn:control>
 	<div class='panel-heading'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %>
 			<apn:control type="insert" id="button" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></apn:control>
@@ -60,7 +60,7 @@
 		<% } %>
 	<div class='panel-body'>
 		<script>var dtOptions_div_<apn:name runat="server"/>
-		<% if (!(bool)Context.Items["is-wb-tables"]) { %>= <%=getDatatablesInitOptions()%>;<% } else { %> '';<% } %>
+		<% if (!(bool)Context.Items["is-wb-tables"]) { %>= <%=getDatatablesInitOptions()%>;<% } else { %>= '';<% } %>
 		</script>
 		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
@@ -203,6 +203,7 @@
 				</apn:forEach>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %></tr><% } %>
 				</apn:forEach>
+				<% Context.Items["optionIndex"] = 0; %>
 			</tbody>
 			<% } %>
 		</table>

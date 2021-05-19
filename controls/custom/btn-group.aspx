@@ -5,7 +5,7 @@
 <% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else { %>
 <% Context.Items["btn-group"] = true; %>
-<div class="btn-group" role="group">
+<div class="btn-group <%=control.Current.getCSSClass()%>" role="group">
 	<apn:forEach runat="server" id="row"><%-- Each row --%>
 		<apn:chooseControl runat="server">
 			<apn:whenControl runat="server" type="ROW">

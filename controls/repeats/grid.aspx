@@ -51,7 +51,7 @@ if(btnAdd != null) {
 	<apn:control runat="server" type="default-instance">
 	<div class='panel-heading clearfix'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;'><span class='toggle-icon fas <% if (control.Current.getCSSClass().Contains("open")) { %>fa-chevron-up<% } else { %>fa-chevron-down<% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="button" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { ExecutePath("/controls/button.aspx"); } %></apn:forEach></apn:forEach></apn:forEach>
@@ -104,6 +104,7 @@ if(btnAdd != null) {
 		</thead>
 		<tbody>
 		<apn:forEach id="status" runat="server">
+			<% Context.Items["optionIndex"] = status.getCount(); %>
 			<% Context.Items["isEditOrDelete"] = "true".Equals(status.Current.getAttribute("edit-instance")) || "true".Equals(status.Current.getAttribute("new-instance")); %>
 			<tr role='row' id='tr_<apn:name runat="server"/>_<%= status.getCount()%>' class='<%=((bool)Context.Items["isEditOrDelete"]? "active" : "")%>'>
 				<% if ((bool)Context.Items["isSelectable"]) { %>
@@ -202,6 +203,7 @@ if(btnAdd != null) {
 				<% } else { %><td></td><% } %>
 			</tr>
 		</apn:forEach>
+		<% Context.Items["optionIndex"] = 0; %>
 		</tbody>
 	</table>
 	</div>
