@@ -62,7 +62,7 @@ if(btnAdd != null) {
 		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 	<% } %>
 	<div class='panel-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
-	<script>var dtOptions_div_<apn:name runat="server"/> = '';</script>
+	<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%> = '';</script>
 	<table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "") %>>
 		<% if ((bool)Context.Items["hasPagination"]) { %><apn:control type="repeat-current-page" runat="server" ><input type='hidden' value='<apn:value runat="server"/>' name='<apn:name runat="server" />' class='repeatCurrentPage'/></apn:control><% } %>
 		<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
@@ -72,34 +72,85 @@ if(btnAdd != null) {
 			<tr id='tr_<apn:name runat="server"/>' role='row'>
 			<% if ((bool)Context.Items["isSelectable"]) { %><th data-priority='1' class='selectBoxControl'></th><% } %>
 			<apn:control runat="server" type="default-instance">
-			<apn:forEach runat="server" id="row">
-				<apn:forEach runat="server" id="col">
-					<apn:forEach runat="server" id="field">
-					<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
-						<% if (field.Current.getType()==1000 && !field.Current.getCSSClass().Contains("hide-column-label")) { %>
-						<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
-						<% } else { %>
-						<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!field.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
-							<% if (!field.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(field.Current, "label") %><% } %>
-							<% if (!field.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
-								&nbsp;&nbsp;
-								<span data-sort='<%=field.Current.getAttribute("sort")%>' data-field-id='<%=field.Current.getFieldId()%>' 
-								<% if ("asc".Equals(field.Current.getAttribute("sort"))) { %>
-									class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
-								<% } else if ("desc".Equals(field.Current.getAttribute("sort"))) { %>
-									class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
-								<% } else { %>
-									class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style='color:LightGrey'
+			<apn:forEach runat="server" id="thRow">
+				<apn:forEach runat="server" id="thCol">
+					<apn:forEach runat="server" id="thField">
+						<apn:ChooseControl runat="server">
+							<apn:WhenControl type="ROW" runat="server">
+								<%-- special case where SG generated a row inside a col, and not a field --%>
+								<%-- this needs to be refactored to be more generic --%>
+								<apn:forEach runat="server" id="thRowCol">
+									<apn:forEach runat="server" id="thRowField">
+										<apn:ChooseControl runat="server">
+											<apn:WhenControl type="TRIGGER" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
+											<apn:WhenControl type="HIDDEN" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
+											<apn:Otherwise runat="server">
+												<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
+													<% if (thRowField.Current.getType()==1000 && !thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
+													<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thRowField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
+													<% } else { %>
+													<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thRowField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
+														<% if (!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(thRowField.Current, "label") %><% } %>
+														<% if (!thRowField.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
+															&nbsp;&nbsp;
+															<span data-sort='<%=thRowField.Current.getAttribute("sort")%>' data-field-id='<%=thRowField.Current.getFieldId()%>' 
+															<% if ("asc".Equals(thRowField.Current.getAttribute("sort"))) { %>
+																class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
+															<% } else if ("desc".Equals(thRowField.Current.getAttribute("sort"))) { %>
+																class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
+															<% } else { %>
+																class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style='color:LightGrey'
+															<% } %>
+														<% } %>
+													</th>
+													<% } %>
+												<% } %>
+											</apn:Otherwise>
+										</apn:ChooseControl>
+									</apn:forEach>
+								</apn:forEach>
+							</apn:WhenControl>
+							<apn:whencontrol type="GROUP" runat="server">
+								<% if(!thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
+									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
+										<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
+									<% } else { %>
+										<td <apn:metadata runat="server" match="data-priority"/> data-sortable="false"></td>
+									<% } %>
 								<% } %>
-							<% } %>
-						</th>
-						<% } %>
-					<% } %>
+							</apn:whencontrol>
+							<apn:WhenControl type="TRIGGER" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
+							<apn:WhenControl type="HIDDEN" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
+							<apn:Otherwise runat="server">
+								<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
+									<% if (thField.Current.getType()==1000 && !thField.Current.getCSSClass().Contains("hide-column-label")) { %>
+									<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
+									<% } else { %>
+									<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
+										<% if (!thField.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(thField.Current, "label") %><% } %>
+										<% if (!thField.Current.getCSSClass().Contains("hide-sort") && !(bool)Context.Items["useDataTables"]) { %>
+											&nbsp;&nbsp;
+											<span data-sort='<%=thField.Current.getAttribute("sort")%>' data-field-id='<%=thField.Current.getFieldId()%>' 
+											<% if ("asc".Equals(thField.Current.getAttribute("sort"))) { %>
+												class='<apn:localize runat="server" key="theme.icon.sort-asc"/>'
+											<% } else if ("desc".Equals(thField.Current.getAttribute("sort"))) { %>
+												class='<apn:localize runat="server" key="theme.icon.sort-desc"/>'
+											<% } else { %>
+												class='<apn:localize runat="server" key="theme.icon.sort-asc"/>' style='color:LightGrey'
+											<% } %>
+										<% } %>
+									</th>
+									<% } %>
+								<% } %>
+							</apn:Otherwise>
+						</apn:ChooseControl>
 					</apn:forEach>
 				</apn:forEach>
 			</apn:forEach>
 			</apn:control>
-			<% if(!CSSClass.Contains("hide-edit-btn") || !CSSClass.Contains("hide-delete-btn")) { %><td data-priority='1' data-orderable="false"></td><% } %>
+			<% if (!IsPdf) { %>
+				<td data-priority='1' data-sortable="false"></td>
+			<% } %>
 			</tr>
 		</thead>
 		<tbody>
@@ -115,49 +166,59 @@ if(btnAdd != null) {
 					</apn:control>
 				</td>
 				<% } %>
-				<apn:forEach runat="server" id="row1">
-					<apn:forEach runat="server" id="col1">
-						<apn:forEach runat="server" id="field1">
-							<% if(!field1.Current.getAttribute("style").Equals("visibility:hidden;") && !field1.Current.getAttribute("visible").Equals("false") && !field1.Current.getCSSClass().Contains("hide-from-list-view") && !field1.Current.getCSSClass().Contains("proxy")) { %>
-								<apn:ChooseControl runat="server">
-									<apn:WhenControl type="GROUP" runat="server"><td class='<%=field1.Current.getCSSClass()%>'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
-									<apn:WhenControl type="TRIGGER" runat="server">
-										<td>
-											<% if (!IsPdf) { %>
-												<% if (field1.Current.getAttribute("class").Equals("button")) {%>
-													<button class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>><apn:value runat="server"/></button>
-												<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%>
-													<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
-												<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>
-													<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
-												<% } %>
-											<% } %>
-										</td>
-									</apn:WhenControl>
-									<% if(!field1.Current.getCSSClass().Contains("render-value")) { %>
+				<apn:forEach runat="server" id="trRow">
+					<apn:forEach runat="server" id="trCol">
+						<apn:forEach runat="server" id="trField">
+							<apn:ChooseControl runat="server">
+								<apn:WhenControl type="ROW" runat="server">
+									<%-- this needs to be refactored to be more generic --%>
+									<apn:forEach runat="server" id="trRowCol">
+										<apn:forEach runat="server" id="trRowField">
+											<apn:ChooseControl runat="server">
+												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/controls.aspx"); } %></td></apn:WhenControl>
+												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
+												<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+												<apn:Otherwise runat="server">
+													<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
+														<% if(trRowField.Current.getCSSClass().Contains("datatable-editable")) { %>
+															<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
+														<% } else { %>
+															<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trRowField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+														<% } %>
+													<% } %>
+												</apn:Otherwise>
+											</apn:ChooseControl>
+										</apn:forEach>
+									</apn:forEach>
+								</apn:WhenControl>
+								<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
+								<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); }  %></td></apn:WhenControl>
+								<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+								<% if(!trField.Current.getCSSClass().Contains("render-value")) { %>
 									<apn:whencontrol runat="server" type="SELECT">
 										<td data-order='<apn:value runat="server" tohtml="true"/>'>
 											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-											<p><%=field1.Current.getSelectedLabel()%></p>
+											<p><%=trField.Current.getSelectedLabel()%></p>
 											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 										</td>
 									</apn:whencontrol>
 									<apn:whencontrol runat="server" type="SELECT1">
 										<td data-order='<apn:value runat="server" tohtml="true"/>'>
-										<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-										<p><%=field1.Current.getSelectedLabel()%></p>
-										<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
-									</td>
+											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+											<p><%=trField.Current.getSelectedLabel()%></p>
+											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+										</td>
 									</apn:whencontrol>
-									<% } %>
-									<apn:Otherwise runat="server">
-									<% if(field1.Current.getType()==1014) { %>
+								<% } %>
+								<apn:Otherwise runat="server">
+								<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
+									<% if(trField.Current.getType()==1014) { %>
 										<%
 											long staticvalue = 0;
 											try {
-												string dateFormat = field1.Current.getAttribute("format");
+												string dateFormat = trField.Current.getAttribute("format");
 												dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
-												staticvalue = DateTime.ParseExact(field1.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
+												staticvalue = DateTime.ParseExact(trField.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
 											} catch(Exception e) { }
 										%>
 										<td data-order='<%=staticvalue%>'>
@@ -168,7 +229,7 @@ if(btnAdd != null) {
 									<% } else { %>
 										<td>
 											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-											<% if (field1.Current.getCSSClass().Contains("render-html")) { %>
+											<% if (trField.Current.getCSSClass().Contains("render-html")) { %>
 											<apn:value runat="server" />
 											<% } else { %>
 											<apn:value runat="server" tohtml="true"/>
@@ -176,9 +237,9 @@ if(btnAdd != null) {
 											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 										</td>
 									<% } %>
-									</apn:Otherwise>
-								</apn:ChooseControl>
-							<% } %>
+								<% } %>
+								</apn:Otherwise>
+							</apn:ChooseControl>
 						</apn:forEach>
 					</apn:forEach>
 				</apn:forEach>
@@ -199,8 +260,8 @@ if(btnAdd != null) {
 						<apn:control type="movedown" runat="server"><span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' style='cursor:pointer' class='<apn:localize runat="server" key="theme.icon.down"/> repeat_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
 						<% } %>
 					</td>
-					<% } %>
-				<% } else { %><td></td><% } %>
+					<% } else { %><td></td><% } %>
+				<% } %>
 			</tr>
 		</apn:forEach>
 		<% Context.Items["optionIndex"] = 0; %>
