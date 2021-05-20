@@ -462,8 +462,14 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	//// Authentication Helpers ////
-	public bool IsLogged() {
-		return (!Username.Equals(""));
+	public bool IsLogged() {		
+		if(!Username.Equals("")) {
+			return true;
+		} else {
+			Session["userid"] = "";
+			Session["roles"] = "";
+			return false;
+		}
 	}
 
 	public string Username { 
