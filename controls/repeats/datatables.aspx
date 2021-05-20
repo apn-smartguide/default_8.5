@@ -139,18 +139,42 @@
 								<apn:ChooseControl runat="server">
 									<apn:WhenControl type="ROW" runat="server">
 										<%-- this needs to be refactored to be more generic --%>
-										<apn:forEach runat="server" id="trFieldRow">
-											<apn:forEach runat="server" id="col">
+										<apn:forEach runat="server" id="trRowCol">
+											<apn:forEach runat="server" id="trRowField">
 												<apn:ChooseControl runat="server">
-													<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/controls.aspx"); %></td></apn:WhenControl>
-													<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
+													<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
+													<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
 													<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+													<% if(!trRowField.Current.getCSSClass().Contains("render-value")) { %>
+														<apn:whencontrol runat="server" type="SELECT">
+															<td data-order='<apn:value runat="server" tohtml="true"/>'>
+																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+																<p><%=trRowField.Current.getSelectedLabel()%></p>
+																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+															</td>
+														</apn:whencontrol>
+														<apn:whencontrol runat="server" type="SELECT1">
+															<td data-order='<apn:value runat="server" tohtml="true"/>'>
+																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+																<p><%=trRowField.Current.getSelectedLabel()%></p>
+																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+															</td>
+														</apn:whencontrol>
+													<% } %>
 													<apn:Otherwise runat="server">
-														<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
-															<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
+														<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
+															<% if(trRowField.Current.getCSSClass().Contains("datatable-editable")) { %>
 																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
-															<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
-																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+															<% } else if(!trRowField.Current.getCSSClass().Contains("proxy")) { %>
+																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
+																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+																<% if (trRowField.Current.getCSSClass().Contains("render-html")) { %>
+																	<apn:value runat="server"/>
+																<% } else { %>
+																	<apn:value runat="server" tohtml="true"/>
+																<% } %>
+																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+																</td>
 															<% } else { %>
 																<td></td>
 															<% } %>
@@ -162,9 +186,25 @@
 											</apn:forEach>
 										</apn:forEach>
 									</apn:WhenControl>
-									<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/controls.aspx"); %></td></apn:WhenControl>
-									<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); }  %></td></apn:WhenControl>
+									<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
+									<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+									<% if(!trField.Current.getCSSClass().Contains("render-value")) { %>
+									<apn:whencontrol runat="server" type="SELECT">
+										<td data-order='<apn:value runat="server" tohtml="true"/>'>
+											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+											<p><%=trField.Current.getSelectedLabel()%></p>
+											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+										</td>
+									</apn:whencontrol>
+									<apn:whencontrol runat="server" type="SELECT1">
+										<td data-order='<apn:value runat="server" tohtml="true"/>'>
+											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+											<p><%=trField.Current.getSelectedLabel()%></p>
+											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+										</td>
+									</apn:whencontrol>
+									<% } %>
 									<apn:Otherwise runat="server">
 										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
@@ -186,7 +226,15 @@
 														Context.Items["dataOrder"] = "";
 													}
 												%>
-												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
+													<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
+													<% if (trField.Current.getCSSClass().Contains("render-html")) { %>
+														<apn:value runat="server"/>
+													<% } else { %>
+														<apn:value runat="server" tohtml="true"/>
+													<% } %>
+													<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
+												</td>
 											<% } else { %>
 												<td></td>
 											<% } %>
