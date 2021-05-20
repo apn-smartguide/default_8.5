@@ -174,16 +174,16 @@ var dataTablesController = {
 						};
 					}
 					//Init DataTables with Options
-					var tempOptions = eval('dtOptions_' + $(repeatDiv).attr('id'));
+					var tempOptions = eval('dtOptions_' + $(repeatDiv).attr('id').replace("[","_").replace("]",""));
 					if(tempOptions != '') {
 						dtOptions = Object.assign(dtOptions, tempOptions);
 					}
 					otable = $(elmt).show().DataTable(dtOptions);
-					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
+					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
 				} else {
 					var repeatDiv = $(obj).parent().parent();
 					otable = $(elmt).DataTable();
-					sgRef.dataTableInstances[$(repeatDiv).attr('id')] = otable;
+					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
 				}
 				return otable;
 			}

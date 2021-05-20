@@ -59,9 +59,7 @@
 		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
 	<div class='panel-body'>
-		<script>var dtOptions_div_<apn:name runat="server"/>
-		<% if (!(bool)Context.Items["is-wb-tables"]) { %>= <%=getDatatablesInitOptions()%>;<% } else { %>= '';<% } %>
-		</script>
+		<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%><% if (!(bool)Context.Items["is-wb-tables"]) { %> = <%=getDatatablesInitOptions()%>;<% } else { %> = '';<% } %></script>
 		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
@@ -143,24 +141,24 @@
 										<%-- this needs to be refactored to be more generic --%>
 										<apn:forEach runat="server" id="trFieldRow">
 											<apn:forEach runat="server" id="col">
-											<apn:ChooseControl runat="server">
-												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
-												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
-												<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
-												<apn:Otherwise runat="server">
-													<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
-														<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
-															<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
-														<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
-															<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+												<apn:ChooseControl runat="server">
+													<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/controls.aspx"); %></td></apn:WhenControl>
+													<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
+													<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+													<apn:Otherwise runat="server">
+														<% if(!trFieldRow.Current.getAttribute("visible").Equals("false") && !trFieldRow.Current.getCSSClass().Contains("hide-from-list-view") && !trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
+															<% if(trFieldRow.Current.getCSSClass().Contains("datatable-editable")) { %>
+																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
+															<% } else if(!trFieldRow.Current.getCSSClass().Contains("proxy")) { %>
+																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trFieldRow.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+															<% } else { %>
+																<td></td>
+															<% } %>
 														<% } else { %>
-															<td></td>
+															<td><!-- #include file="../hidden.inc" --></td>
 														<% } %>
-													<% } else { %>
-														<td><!-- #include file="../hidden.inc" --></td>
-													<% } %>
-												</apn:Otherwise>
-											</apn:ChooseControl>
+													</apn:Otherwise>
+												</apn:ChooseControl>
 											</apn:forEach>
 										</apn:forEach>
 									</apn:WhenControl>
