@@ -73,10 +73,10 @@
 								<option value='75' <%= pageSize.Current.getValue().Equals("75") ? "selected='selected'" : "" %>>75</option>
 							</select>
 							<% } else { %>
-							<input type='text' class='form-control input-sm pageSize' value='<apn:value runat="server" />'' name=' <apn:name runat="server" />'/>
+							<input type='text' class='form-control input-sm pageSize' aria-labelledby='entries-input' value='<apn:value runat="server" />'' name=' <apn:name runat="server" />'/>
 							<% } %>
 						</apn:control>
-						<apn:localize runat="server" key="theme.text.datatable.entry" />
+						<span id='entries-input'><apn:localize runat="server" key="theme.text.datatable.entry" /></span>
 					</div>
 					<% } %>
 				</div>
