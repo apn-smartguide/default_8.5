@@ -12,12 +12,13 @@
 	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
+	Context.Items["plain-group"] = CSSClass.Contains("plain-group");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass()%>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<div class='bootpag'>
 			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<div class="panel-heading">
@@ -79,7 +80,7 @@
 				<% } %>
 				<apn:forEach id="status" runat="server">
 					<% Context.Items["optionIndex"] = status.getCount(); %>
-					<div class='panel-body repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
+					<div class='<% if ((bool)Context.Items["plain-group"]) { %>panel-borderless<% } else { %>panel-body<% } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
 						<div class='block-controls'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
