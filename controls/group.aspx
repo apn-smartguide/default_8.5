@@ -9,6 +9,7 @@
 		<% } else { %>
 			<% if (!BareRender) { %>
 				<div id='div_<apn:name runat="server"/>' class='panel panel-default <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
+				<% if (control.Current.getLabel() != "") { %>
 					<div class='panel-heading clearfix'>
 						<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 							<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
@@ -38,6 +39,7 @@
 						<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 						<% } %>
 					</div>
+					<% } %>
 					<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 					<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 					<% } %>
