@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -89,6 +90,17 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	protected override void Render(HtmlTextWriter output) {
+
+		// using (HtmlTextWriter htmlwriter = new HtmlTextWriter(new System.IO.StringWriter()))
+		// {
+		// 	base.Render(htmlwriter);
+		// 	string html = htmlwriter.InnerWriter.ToString();
+		// 	html = html.Replace("\n\r\n\r", "\n\r"); // This may be redundant
+		// 	html = html.Replace("\n\n", "\n");
+		// 	html = html.Replace("\t\n", "\n");
+		// 	output.Write(html.Trim());
+		// }
+
 		base.Render(output);
 		if(TraceExecution && beginThemeProcessingTimer != DateTime.MinValue) {
 			endThemeProcessingTimer = DateTime.UtcNow;
