@@ -194,22 +194,6 @@ if(btnAdd != null) {
 								<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 								<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); }  %></td></apn:WhenControl>
 								<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
-								<% if(!trField.Current.getCSSClass().Contains("render-value")) { %>
-									<apn:whencontrol runat="server" type="SELECT">
-										<td data-order='<apn:value runat="server" tohtml="true"/>'>
-											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-											<p><%=trField.Current.getSelectedLabel()%></p>
-											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
-										</td>
-									</apn:whencontrol>
-									<apn:whencontrol runat="server" type="SELECT1">
-										<td data-order='<apn:value runat="server" tohtml="true"/>'>
-											<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-											<p><%=trField.Current.getSelectedLabel()%></p>
-											<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
-										</td>
-									</apn:whencontrol>
-								<% } %>
 								<apn:Otherwise runat="server">
 								<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(trField.Current.getType()==1014) { %>
