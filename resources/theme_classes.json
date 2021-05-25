@@ -192,21 +192,6 @@
         "class": "btn-block",
         "en": "Makes a button span the full width of a parent",
         "fr": "Fait en sorte que le bouton prenne la pleine largeur de l'élément parent"
-      },
-      {
-        "class": "btn-toolbar-left",
-        "en": "Makes a button toolbar align to the left",
-        "fr": "Fait en sorte que la toolbar s'aligne avec la gauche"
-      },
-      {
-        "class": "btn-toolbar-center",
-        "en": "Makes a button toolbar align to the center",
-        "fr": "Fait en sorte que la toolbar s'aligne avec le centre"
-      },
-      {
-        "class": "btn-toolbar-right",
-        "en": "Makes a button toolbar align to the right",
-        "fr": "Fait en sorte que la toolbar s'aligne avec la droite"
       }
     ]
   },

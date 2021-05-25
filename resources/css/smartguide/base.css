@@ -411,20 +411,19 @@ table.uploads-render tr td {
 	background-color: #5cb85c;
 }
 
-[class*="btn-toolbar-"] {
+.btn-toolbar.text-center {
 	display: flex;
-}
-
-.btn-toolbar-left {
-	justify-content: flex-start;
-}
-
-.btn-toolbar-center {
 	justify-content: center;
 }
 
-.btn-toolbar-right {
+.btn-toolbar.text-right {
+	display: flex;
 	justify-content: flex-end;
+}
+
+.btn-toolbar.text-left {
+	display: flex;
+	justify-content: flex-start;
 }
 
 /* Buttons in a no-col span */
