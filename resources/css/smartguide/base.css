@@ -411,6 +411,22 @@ table.uploads-render tr td {
 	background-color: #5cb85c;
 }
 
+[class*="btn-toolbar-"] {
+	display: flex;
+}
+
+.btn-toolbar-left {
+	justify-content: flex-start;
+}
+
+.btn-toolbar-center {
+	justify-content: center;
+}
+
+.btn-toolbar-right {
+	justify-content: flex-end;
+}
+
 /* Buttons in a no-col span */
 .no-col button {
 	margin-left: 5px;
