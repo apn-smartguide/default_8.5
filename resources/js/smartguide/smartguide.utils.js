@@ -14,6 +14,8 @@ var utilsController = {
 				}
 			}
 		});
+
+		showSignature();
 	},
 
 	bindEvents: function (sgRef, context) {
@@ -467,7 +469,6 @@ function showSignature() {
 		console.log(err);
 	}
 	sigdiv.on("change", function (e) {
-		//var datapair = sigdiv.jSignature("getData", "image");
 		var datapair = sigdiv.jSignature("getData", "base30"); //use base30 to detect empty image
 		$("textarea", sigdiv).val("data:" + datapair[0] + "," + datapair[1]);
 		console.log($("textarea", sigdiv).val());
