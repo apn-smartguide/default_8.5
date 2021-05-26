@@ -75,8 +75,8 @@
 							<% } else { %>
 							<input type='text' class='form-control input-sm pageSize' aria-labelledby='<apn:name runat="server"/>_entries-input' value='<apn:value runat="server" />'' name=' <apn:name runat="server" />'/>
 							<% } %>
+							<span id='<apn:name runat="server"/>_entries-input'><apn:localize runat="server" key="theme.text.datatable.entry" /></span>
 						</apn:control>
-						<span id='<apn:name runat="server"/>_entries-input'><apn:localize runat="server" key="theme.text.datatable.entry" /></span>
 					</div>
 					<% } %>
 				</div>
