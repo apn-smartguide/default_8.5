@@ -1001,23 +1001,23 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetLabel(ControlInfo ctrl) {
-		return JavascriptEncode(ctrl.getLabel());
+		return ctrl.getLabel();
 	}
 
 	public string GetTooltip(ControlInfo ctrl) {
-		return JavascriptEncode(ctrl.getTooltip());
+		return ctrl.getTooltip();
 	}
 
 	public string GetTooltip(ISmartletField ctrl) {
-		return JavascriptEncode(ctrl.getTooltip());
+		return ctrl.getTooltip();
 	}
 
 	public string GetTooltip(SessionField ctrl) {
-		return JavascriptEncode(ctrl.getTooltip());
+		return ctrl.getTooltip();
 	}
 
 	public string GetAttribute(ControlInfo ctrl, string attribute) {
-		return JavascriptEncode(ctrl.getAttribute(attribute));
+		return ctrl.getAttribute(attribute);
 	}
 
 	public string GetMetaDataValue(ControlInfo ctrl, string key) {
@@ -1026,9 +1026,9 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
 		if(tohtml) {
-			return HttpUtility.HtmlEncode(JavascriptEncode(ctrl.getAttribute(attribute)));
+			return HttpUtility.HtmlEncode(ctrl.getAttribute(attribute));
 		} else {
-			return JavascriptEncode(ctrl.getAttribute(attribute));
+			return ctrl.getAttribute(attribute);
 		} 
 	}
 
