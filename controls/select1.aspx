@@ -14,11 +14,11 @@
 %>
 	<apn:choosecontrol runat="server" >
 		<apn:whencontrol runat="server" type="radio">
-		<div class="chkbxrdio-grp form-group">
+		<div id='div_<apn:name runat="server" />' class="chkbxrdio-grp form-group">
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
 			<% if (!BareRender){ ExecutePath("/controls/label.aspx"); } %>
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex .ToString()) %></span><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
-			<ul id='div_<apn:name runat="server" />' <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" --> >
+			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" --> >
 				<% Context.Items["counter"] = 1; %>
 				<apn:forEach runat="server" id="control5" >
 					<li>
