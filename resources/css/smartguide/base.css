@@ -506,7 +506,7 @@ input[type="password"] {
 
 
 .chkbxrdio-grp ul.large-checkbox li label, .chkbxrdio-grp ul.large-radio li label {
-	margin-left: 10px;
+	margin-left: 5px;
 	margin-right: 5px;
 }
 
@@ -514,7 +514,7 @@ input[type="password"] {
 .large-checkbox label, .large-radio label {
 	display: inline-block;
 	font-weight: initial;
-	margin-left: 10px;
+	margin-left: 5px;
 	margin-right: 5px;
 }
 
@@ -529,8 +529,8 @@ input[type="checkbox"].large-checkbox, input[type="radio"].large-radio {
 	border-left	   : 2px solid #aaa;
 	border-right	  : 2px solid #aaa;
 	vertical-align	: middle;
-	margin-top		: 2px;
-	padding-left	  : 2.5px;
+	margin-top		: 0px;
+	padding-left	  : 0px;
 }
 
 input[type="checkbox"].large-checkbox:hover, input[type="radio"].large-radio:hover {
