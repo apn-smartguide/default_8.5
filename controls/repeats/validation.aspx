@@ -8,7 +8,7 @@
 <apn:forEach id="index" items="alert-controls" runat="server"><% Context.Items["alert"] = true; %></apn:forEach>
 	<% if((bool)Context.Items["required"]) { %><section class='alert alert-info' role='alert'> <span>*</span> <apn:localize runat="server" key="theme.text.required"/></section><% } %>
 	<% if ((bool)Context.Items["alert"]) { %>
-	<div id='repeat-errors-validation' class='alert alert-danger modal-messages' role='alert' style='padding:3px 10px 3px 10px;'>
+	<div id='repeat-errors-validation' class='alert alert-danger modal-messages' role='alert'>
 	<h3>Errors while submiting form </h3>
 	<ol>
 	<apn:forEach items="alert-controls" id="alert" runat="server">

@@ -52,6 +52,10 @@ body {
 }
 /* Sticky Footer */
 
+#repeat-errors-validation {
+	margin: 10px;
+	padding: 5px;
+}
 span.required {
 	color: #d3080c;
 	font-weight: 700;
