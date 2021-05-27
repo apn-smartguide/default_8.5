@@ -549,6 +549,7 @@ input[type="checkbox"].large-checkbox:checked::before {
 	font-size	: 16px;
 	content	  : "\f00c";
 	color		: #555;
+	padding-left: 2.5px;
 }
 
 input[type="checkbox"].large-checkbox:indeterminate::before {
@@ -572,7 +573,7 @@ input[type="radio"].large-radio:checked::before {
 	content	 : "\f111";
 	color	   : #555;
 	/* position	 : absolute; will break if overflow: scroll*/
-	/* padding-left: 3px; */
+	padding-left: 2.5px;
 	/* padding-top : 3px; */
 }
 /* Large-Radio - End */
