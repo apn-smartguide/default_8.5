@@ -719,26 +719,13 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 
-						//replace the alert modal div if necessary	
-						var modalAlertId = $.escapeSelector($('#repeat-errors-validation').attr('id'));
-						var showErrors = false;
-						if(modalAlertId === "undefined") {
-							showErrors = true;
-							var parentId = $.escapeSelector($(elmt).parent().attr('id'));
-							modalAlertId = $.escapeSelector($('*[id*=modal-alerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id')).attr('id'));
-						}
-						if(modalAlertId !== "undefined") {
-							if(showErrors) {
-								var sourceModalAlertDiv = $('#' + modalAlertId, fm);
-								var targetModalAlertDiv = $('#' + modalAlertId, response);
-								$(sourceModalAlertDiv).after(targetModalAlertDiv).remove();
-							}
-						} else {
-							// replace the alert div
-							var sourceAlertDiv = $('#alerts', fm);
-							var targetAlertDiv = $('#alerts', response);
+						//replace all alerts returned; page & modals
+						$('[id^=alerts').each(function(){
+							var $this = $(this);
+							var sourceAlertDiv = $($.escapeSelector($this.id), fm);
+							var targetAlertDiv = $($.escapeSelector($this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
-						}
+						});
 						
 						// automatically replace the SG JS div
 						var sourceSGLIBDiv = $('#sglib', fm);
