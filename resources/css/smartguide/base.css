@@ -154,10 +154,6 @@ span.required {
 	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* First set of links in top navigation bar */
-.navbar-collapse > ul:first-of-type a {
-	text-transform: uppercase;
-}
 /* Logo */
 @media (max-width: 768px) {
 	img.logo {
