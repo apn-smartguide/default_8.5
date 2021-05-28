@@ -477,6 +477,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								setTimeout(function() {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
+									errorMessages += $('.label-danger', $container).text().trim();
 									if(errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
@@ -721,12 +722,12 @@ $("form[id^='smartguide_']" ).each(function() {
 						//replace the alert modal div if necessary	
 						var modalAlertId = $.escapeSelector($('#repeat-errors-validation').attr('id'));
 						var showErrors = false;
-						if(typeof modalAlertId === 'undefined') {
+						if(modalAlertId === "undefined") {
 							showErrors = true;
 							var parentId = $.escapeSelector($(elmt).parent().attr('id'));
 							modalAlertId = $.escapeSelector($('*[id*=modal-alerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id')).attr('id'));
 						}
-						if(typeof modalAlertId !== 'undefined') {
+						if(modalAlertId !== "undefined") {
 							if(showErrors) {
 								var sourceModalAlertDiv = $('#' + modalAlertId, fm);
 								var targetModalAlertDiv = $('#' + modalAlertId, response);
