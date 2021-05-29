@@ -5,10 +5,9 @@
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
 <% Context.Items["counter"] = 0; %>
-<% if (Context.Items["context-modal"] == null) Context.Items["context-modal"] = false; %>
 <% Context.Items["target"] = "body,html"; %>
 <% Context.Items["idsuffix"] = ""; %>
-<% if ((bool)Context.Items["context-modal"]) {
+<% if (Context.Items["context-modal"] != null) {
 	Context.Items["target"] = "#modal"; 
 	Context.Items["idsuffix"] = "_" + control.Current.getName();
 }
