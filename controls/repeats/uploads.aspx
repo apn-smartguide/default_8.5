@@ -57,6 +57,25 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 						<table>
 							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
 							<tr><td class='text-right'>
+								<apn:control runat="server" type="insert">
+									<% string eventTargets = ""; %>
+									<% SessionField saveBtn = GetProxyButton(Context.Items["repeatCode"]+"_save", status.getCount()-1, ref eventTargets); %>
+									<% if(saveBtn != null && saveBtn.isAvailable()) { %>
+										<span 
+										id='<apn:name runat="server"/>_<%= status.getCount()%>' 
+										name='<%=saveBtn.getHtmlName()%>' 
+										role='button'
+										class='<%=saveBtn.getCSSClass()%>' 
+										style='<%=saveBtn.getCSSStyle()%>' 
+										data-eventtarget='[<%=eventTargets%>]' 
+										data-repeat-index-name='<%=Context.Items["hiddenName"]%>' 
+										data-instance-pos='<%=status.getCount()%>' 
+										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
+										title='<%=GetTooltip(saveBtn)%>'>
+											<%=saveBtn.getLabel()%>
+										</span>
+									<% } %>
+								</apn:control>
 								<apn:control runat="server" type="prepare_edit_instance">
 									<% string eventTargets = ""; %>
 									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", status.getCount()-1, ref eventTargets); %>
@@ -105,25 +124,6 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
 										title='<%=GetTooltip(cancelBtn)%>'>
 											<%=cancelBtn.getLabel()%>
-										</span>
-									<% } %>
-								</apn:control>
-								<apn:control runat="server" type="insert">
-									<% string eventTargets = ""; %>
-									<% SessionField saveBtn = GetProxyButton(Context.Items["repeatCode"]+"_save", status.getCount()-1, ref eventTargets); %>
-									<% if(saveBtn != null && saveBtn.isAvailable()) { %>
-										<span 
-										id='<apn:name runat="server"/>_<%= status.getCount()%>' 
-										name='<%=saveBtn.getHtmlName()%>' 
-										role='button'
-										class='<%=saveBtn.getCSSClass()%>' 
-										style='<%=saveBtn.getCSSStyle()%>' 
-										data-eventtarget='[<%=eventTargets%>]' 
-										data-repeat-index-name='<%=Context.Items["hiddenName"]%>' 
-										data-instance-pos='<%=status.getCount()%>' 
-										aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>' 
-										title='<%=GetTooltip(saveBtn)%>'>
-											<%=saveBtn.getLabel()%>
 										</span>
 									<% } %>
 								</apn:control>
