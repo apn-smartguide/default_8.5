@@ -38,7 +38,11 @@
 	<apn:forEach id='alerts' items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
 	<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) { %>
 	<div id='alerts<%=Context.Items["idsuffix"]%>'><%-- do not change the div id as it is referenced in smartguide.js --%>
-		<apn:IfRequiredControlExists runat="server"><section class='alert alert-info' role='alert'><span class='required'>*</span><apn:localize runat="server" key="theme.text.required"/></section></apn:IfRequiredControlExists>
+		<% if (!CurrentPageCSS.Contains("hide-required-notification")) { %>
+		<apn:IfRequiredControlExists runat="server">
+			<section class='alert alert-info' role='alert'><span class='required'>*</span><apn:localize runat="server" key="theme.text.required"/></section>
+		</apn:IfRequiredControlExists>
+		<% } %>
 		<% if ((int)Context.Items["alerts-count"] > 0) { %>
 		<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
 			<h2><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
