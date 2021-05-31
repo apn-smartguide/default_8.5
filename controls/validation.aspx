@@ -1,9 +1,17 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%@ Import Namespace="System.Text.RegularExpressions" %>
+<apn:control runat="server" id="control">
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
 <% Context.Items["counter"] = 0; %>
+<% Context.Items["target"] = "body,html"; %>
+<% Context.Items["idsuffix"] = ""; %>
+<% if (Context.Items["context-modal"] != null) {
+	Context.Items["target"] = "#modal"; 
+	Context.Items["idsuffix"] = "_" + control.Current.getName();
+}
+%>
 <% if (!IsPdf) { %>
 	<apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
 	<% ErrorIndex = 0; %>
@@ -27,13 +35,11 @@
 	}
 	Context.Items["alerts-count"] = 0;
 	%>
-	<apn:forEach id="alerts" items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
+	<apn:forEach id='alerts' items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
 	<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) { %>
 	<div id='alerts<%=Context.Items["idsuffix"]%>'><%-- do not change the div id as it is referenced in smartguide.js --%>
 		<% if (!CurrentPageCSS.Contains("hide-required-notification")) { %>
-		<apn:IfRequiredControlExists runat="server">
-			<section class='alert alert-info' role='alert'><span class='required'>*</span><apn:localize runat="server" key="theme.text.required"/></section>
-		</apn:IfRequiredControlExists>
+		<apn:IfRequiredControlExists runat="server"><section class='alert alert-info' role='alert'><span class='required'>*</span><apn:localize runat="server" key="theme.text.required"/></section></apn:IfRequiredControlExists>
 		<% } %>
 		<% if ((int)Context.Items["alerts-count"] > 0) { %>
 		<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
@@ -54,7 +60,7 @@
 						}
 						Context.Items["counter"] = (int)Context.Items["counter"] + 1;
 					%>
-					<a href='' onclick="$('body,html').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= fieldLabel %> - <%= alert.Current.getAlert() %></a>
+					<a href='' onclick="$('<%=Context.Items["target"]%>').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><span class="prefix">Error <%= Context.Items["counter"] %>:</span> <%= fieldLabel %> - <%= alert.Current.getAlert() %></a>
 					<% } else { %><span class="required">Page Error: <%= alert.Current.getAlert() %></span><% } %>
 				</li>
 			</apn:forEach><ul>
@@ -63,3 +69,4 @@
 	</div>
 	<% } %>
 <% } %>
+</apn:control>

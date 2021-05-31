@@ -10,7 +10,7 @@
 <% if (textAlignmentCSSClasses.Length > 0) { %>
 	<div class='<%=textAlignmentCSSClasses%>'>
 <% } %>
-<div class="btn-group <%=btnGroupClasses%>" style='<apn:cssstyle runat="server"/>' role="group">
+<div id='div_<apn:name runat="server"/>' class="btn-group <%=btnGroupClasses%>" style='<apn:cssstyle runat="server"/>' role="group">
 	<apn:forEach runat="server" id="row"><%-- Each row --%>
 		<apn:chooseControl runat="server">
 			<apn:whenControl runat="server" type="ROW">

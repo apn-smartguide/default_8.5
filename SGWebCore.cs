@@ -963,6 +963,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public ISmartletField FindFieldByNameUnderRepeat(string name, int repeatIndex) {
 		ISmartletField fieldUnderRepeat = CurrentPage.findFieldByName(name);
 
+		if (fieldUnderRepeat == null)
+			return null;
+
 		ISmartletField parent = fieldUnderRepeat.getParent();
 
 		while(parent.getTypeConst() != DotnetConstants.ElementType.REPEAT) {

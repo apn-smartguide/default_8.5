@@ -477,6 +477,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								setTimeout(function() {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
+									errorMessages += $('.label-danger', $container).text().trim();
 									if(errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
@@ -718,26 +719,13 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 
-						//replace the alert modal div if necessary	
-						var modalAlertId = $.escapeSelector($('#repeat-errors-validation').attr('id'));
-						var showErrors = false;
-						if(typeof modalAlertId === 'undefined') {
-							showErrors = true;
-							var parentId = $.escapeSelector($(elmt).parent().attr('id'));
-							modalAlertId = $.escapeSelector($('*[id*=modal-alerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id')).attr('id'));
-						}
-						if(typeof modalAlertId !== 'undefined') {
-							if(showErrors) {
-								var sourceModalAlertDiv = $('#' + modalAlertId, fm);
-								var targetModalAlertDiv = $('#' + modalAlertId, response);
-								$(sourceModalAlertDiv).after(targetModalAlertDiv).remove();
-							}
-						} else {
-							// replace the alert div
-							var sourceAlertDiv = $('#alerts', fm);
-							var targetAlertDiv = $('#alerts', response);
+						//replace all alerts returned; page & modals
+						$('[id^=alerts').each(function(){
+							var $this = $(this);
+							var sourceAlertDiv = $($.escapeSelector($this.id), fm);
+							var targetAlertDiv = $($.escapeSelector($this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
-						}
+						});
 						
 						// automatically replace the SG JS div
 						var sourceSGLIBDiv = $('#sglib', fm);
