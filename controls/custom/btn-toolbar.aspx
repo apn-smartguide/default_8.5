@@ -5,7 +5,7 @@
 <% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else { %>
 <% Context.Items["btn-toolbar"] = true; %>
-<div id='div_<apn:name runat="server"/>' class="btn-toolbar <%=control.Current.getCSSClass()%>" style='<apn:cssstyle runat="server"/>' role="toolbar">
+<div class="btn-toolbar <%=control.Current.getCSSClass()%>" style='<apn:cssstyle runat="server"/>' role="toolbar">
 	<apn:forEach runat="server" id="row"><%-- Each row --%>
 		<apn:chooseControl runat="server">
 			<apn:whenControl runat="server" type="ROW">
