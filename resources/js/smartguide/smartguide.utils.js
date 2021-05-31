@@ -52,8 +52,6 @@ var utilsController = {
 			});
 		});
 
-		//Duet-Date Support Here
-
 		// Input masks
 		// https://github.com/RobinHerbots/Inputmask
 		$('input[data-mask]', context).each(function (index) {
