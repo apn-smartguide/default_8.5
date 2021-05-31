@@ -1071,6 +1071,16 @@ public partial class SGWebCore : System.Web.UI.Page
 		return btn;
 	}
 
+	public long GetSortableDate(ControlInfo ctrl) {
+		long staticvalue = 0;
+		try {
+			string dateFormat = ctrl.getAttribute("format");
+			dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
+			staticvalue = DateTime.ParseExact(ctrl.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
+		} catch(Exception e) { }
+		return staticvalue;
+	}
+
 	//// Utilities ///
 	public void TimerTraceStart(string key) {
 		Context.Items["timer-" + key] = DateTime.UtcNow;
