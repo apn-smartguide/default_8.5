@@ -13,7 +13,7 @@
 				</div>
 				<div class='modal-body'>
 					<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live="polite" <% } %>>
-						<div id='modal-alerts_<apn:name runat="server"/>'><% ExecutePath("/controls/repeats/validation.aspx"); %></div>
+						<div id='modal-alerts_<apn:name runat="server"/>'><% ExecutePath("/controls/validation.aspx"); %></div>
 						<% Context.Items["context-modal"] = true; %>
 						<% ExecutePath("/controls/controls.aspx"); %>
 						<% Context.Items["context-modal"] = null; %>
