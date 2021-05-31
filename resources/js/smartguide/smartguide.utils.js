@@ -4,7 +4,9 @@ var utilsController = {
 		//Prevent press enter to submit the form
 		$(window).keydown(function (event) {
 			if (event.keyCode == 13) {
-				if (event.target.nodeName != 'TEXTAREA') {
+				if (event.target.nodeName == 'INPUT' && event.target.type == "password") {
+					$('.btn-primary[data-eventtarget*='+$(event.target).attr('id')+']:visible').triggerHandler('click');
+				} else if (event.target.nodeName != 'TEXTAREA') {
 					// if we have a input with class next, and we're not in a modal, we can trigger the button
 					if ($('input.next:visible').length == 1 && $(event.target).closest('.modal').length == 0) {
 						var nextButton = $('input.next:visible').first();
