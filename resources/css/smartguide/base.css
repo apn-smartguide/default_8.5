@@ -218,6 +218,11 @@ div.drop-popup > p {
 	text-align: center;
 }
 
+.drop-info {
+	opacity: 0.75;
+	font-size: 0.8em;
+}
+
 /* Readonly */
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
 	color: #bbb;
