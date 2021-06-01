@@ -29,6 +29,10 @@ textarea.autoexpand {
 	width: 100%;
 }
 
+.form-check-label {
+	font-weight: normal;
+}
+
 .has-feedback .form-control {
 	padding-right: 10px;
 }
