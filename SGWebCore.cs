@@ -390,29 +390,47 @@ public partial class SGWebCore : System.Web.UI.Page
 			pathParams = path.Split('?')[1];
 			path = path.Split('?')[0];
 		}
+
+		Boolean found = false;
 		if (!pathsDictionary.ContainsKey(key)) {
 			foreach(string themeLocation in ThemesLocations) {
 				string themePath = GetThemePathForAsset(themeLocation, path);
 				if(themePath != "") {
 					filePath = themePath;
+					found = true;
 				}
 			}
-			pathsDictionary.TryAdd(key, filePath);
+			if(found) {
+				found = pathsDictionary.TryAdd(key, filePath);
 
-			if(filePath.Equals("")) {
-				if (Logger != null) Logger.debug(String.Concat(Theme, ": path not found for ", path));
+				if(filePath.Equals("")) {
+					if (Logger != null) Logger.debug(String.Concat(Theme, ": path not found for ", path));
+				}
 			}
 		} else {
-			pathsDictionary.TryGetValue(key, out filePath);
+			found = pathsDictionary.TryGetValue(key, out filePath);
 		}
 
-		if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
-		//if (Logger != null) Logger.trace(String.Concat("ResolvePath end: ", filePath));
-		return filePath;
+		if(found) {
+			if(pathParams.Length > 0) filePath = String.Concat(filePath, "?", pathParams);
+			if(IsDevelopment) {
+				if (Logger != null) Logger.trace(String.Concat("ResolvePath end: ", filePath));
+			}
+			return filePath;
+		} else {
+			return "";
+		}
 	}
 
 	public void ExecutePath(string path) {
-		Server.Execute(ResolvePath(path));
+		string target = ResolvePath(path);
+		if(!target.Equals("")) {
+			Server.Execute(ResolvePath(path));
+		} else {
+			if(IsDevelopment) {
+				if (Logger != null) Logger.trace(String.Concat("File not found: ", path));
+			}
+		}
 	}
 
 	//This help will build a path to the asset and append a CacheBreak computed with a SHA-256 of the file content.

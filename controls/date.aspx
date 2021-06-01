@@ -25,7 +25,7 @@
 		}
 	%>
 	<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
-	<% if (IsPdf) { %>
+	<% if (IsPdf || IsSummary) { %>
 		<p><%=Context.Items["data-value"]%></p>
 	<% } else { %>
 		<apn:choosecontrol runat="server">
