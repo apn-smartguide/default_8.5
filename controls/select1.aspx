@@ -67,7 +67,7 @@
 			<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group has-feedback has-search <apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> <%=Context.Items["readonly"]%><!-- #include file="aria-live.inc" --> >
 				<% ExecutePath("/controls/label.aspx"); %>
 				<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex .ToString()) %></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
-				<% if (IsPdf) { %><p><%=control.Current.getSelectedLabel()%></p>
+				<% if (IsPdf || IsSummary) { %><p><%=control.Current.getSelectedLabel()%></p>
 				<% } else if (control.Current.getCSSClass().IndexOf("autocomplete") > -1) { %>
 				<input name='<apn:name runat="server"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' type="hidden" value="<%=control.Current.getValue()%>"/>
 				<input type='text' id='<%= control.Current.getName() %>' name='<%= "autocomplete_"+control.Current.getName() %>' <%=Context.Items["readonly"]%> value='<%=control.Current.getSelectedLabel()%>' <apn:metadata runat="server"/> class='<apn:cssclass runat="server"/> form-control' aria-labelledby='lbl_<apn:name runat="server"/>'/>
