@@ -61,6 +61,14 @@ span.required {
 	font-weight: 700;
 }
 
+label {
+	display: block;
+}
+
+label.inline {
+	display :inline;
+}
+
 .label .label-error {
 	margin-top: 2px;
 	margin-left: 2px;
