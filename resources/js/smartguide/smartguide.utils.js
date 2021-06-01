@@ -164,7 +164,15 @@ var utilsController = {
 				setAutoHeight(this);
 			});
 		});
-		
+
+		$('.uploads-render').children('div.panel-body').find('*').on('dragover', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			$('.drop-popup').css('display','block');
+		})
+
+		console.log($('.drop-popup', '.uploads-render').children())
+
 		$(".uploads-render", context).each(function(){
 			var $this = $(this);
 
