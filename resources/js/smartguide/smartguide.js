@@ -726,6 +726,11 @@ $("form[id^='smartguide_']" ).each(function() {
 							var targetAlertDiv = $($.escapeSelector($this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
 						});
+
+						// automatically replace the SG Bottom controls
+						var sourceBottomControls = $('#sgNavButtons', fm);
+						var targetBottomControls = $('#sgNavButtons', response);
+						$(sourceBottomControls).after(targetBottomControls).remove();
 						
 						// automatically replace the SG JS div
 						var sourceSGLIBDiv = $('#sglib', fm);
