@@ -502,6 +502,15 @@ input[type="password"] {
 	display: inline-block;
 }
 
+.radio-inline-flex,
+.checkbox-inline-flex {
+	display: inline-flex;
+}
+
+.chkbxrdio-grp .radio-inline-flex > label, .chkbxrdio-grp .checkbox-inline-flex > label {
+	display: inline-flex;
+}
+
 .chkbxrdio-grp ul {
 	margin-left: 0px;
 	padding-left: 0px;
