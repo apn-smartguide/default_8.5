@@ -12,7 +12,7 @@
 	Context.Items["idsuffix"] = "_" + control.Current.getName();
 }
 %>
-<% if (!IsPdf) { %>
+<% if (!IsPdf || !IsSummary) { %>
 	<apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
 	<% ErrorIndex = 0; %>
 	<%

@@ -20,7 +20,7 @@
 		Context.Items["data-value"] = "";
 		if (control.Current.getValue() != null && !control.Current.getValue().Equals("")) {
 			DateTime dt = new DateTime();
-			try{ dt = DateTime.Parse(control.Current.getValue()); } catch(Exception e) { dt = DateTime.ParseExact(control.Current.getValue(), "dd/MM/yyyy", new CultureInfo("en-US"));}
+			try{ dt = DateTime.Parse(control.Current.getValue()); } catch(Exception e) { try {dt = DateTime.ParseExact(control.Current.getValue(), "dd/MM/yyyy", new CultureInfo("en-US"));} catch(Exception){} }
 			Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
 		}
 	%>
