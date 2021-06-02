@@ -58,7 +58,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
 							<tr><td class='text-right'>
 								<apn:control runat="server" type="prepare_edit_instance">
-									<% string eventTargets = ""; %>
+									<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
 									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", status.getCount()-1, ref eventTargets); %>
 									<% if(editBtn != null && editBtn.isAvailable()) { %>
 										<span 
