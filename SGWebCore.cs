@@ -375,7 +375,6 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//This is the main helper to use to obtain the path to the asset in function of the configured theme locations.
 	public string ResolvePath(string path) {
-		//if (Logger != null) Logger.trace(String.Concat("ResolvePath start: ", path));
 		if(Application["paths-dictionary"] == null) {
 			Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		}
@@ -428,7 +427,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			Server.Execute(ResolvePath(path));
 		} else {
 			if(IsDevelopment) {
-				if (Logger != null) Logger.trace(String.Concat("File not found: ", path));
+				if (Logger != null) Logger.error(String.Concat("File not found: ", path));
 			}
 		}
 	}
