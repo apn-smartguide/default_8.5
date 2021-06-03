@@ -3,7 +3,22 @@
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a id='error_index_<%=ErrorIndex%>'></a></apn:ifnotcontrolvalid>
 	<div class='<apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>'>
 	<span><strong><apn:label runat="server" /></strong><br/>
-		<apn:forEach id="control2" runat="server"><% if(control.Current.containsValue(control2.Current.getValue())) { %><%= control2.Current.getLabel() %><% } %></apn:forEach>
-	&nbsp;</span>
+		<apn:forEach id="option" runat='server'>
+			<apn:choosecontrol runat='server'>
+				<apn:whencontrol type="optgroup" runat='server'>
+					<apn:forEach id="option_under_group" runat='server'>
+						<% if(option_under_group.Current.getAttribute("selected").Equals("selected")) { %>
+							<apn:label runat='server'/> &nbsp;
+						<% } %>
+					</apn:forEach>
+				</apn:whencontrol>
+				<apn:otherwise runat='server'>
+					<% if (option.Current.getAttribute("selected").Equals("selected")) { %>
+						<apn:label runat='server'/> &nbsp;
+					<% } %>
+				</apn:otherwise>
+			</apn:choosecontrol>
+		</apn:forEach> &nbsp;
+	</span>
 	</div>
 </apn:control>
