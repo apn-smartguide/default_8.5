@@ -171,8 +171,6 @@ var utilsController = {
 			$('.drop-popup').css('display','block');
 		})
 
-		console.log($('.drop-popup', '.uploads-render').children())
-
 		$(".uploads-render", context).each(function(){
 			var $this = $(this);
 
