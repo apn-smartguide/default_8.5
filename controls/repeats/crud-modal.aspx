@@ -7,8 +7,8 @@
 				<% string repeatName = "repeat-name-" + Context.Items["repeat-level"]; %>
 				<% string modalBodyName = "div_" + Context.Items[repeatName] + "_" + Context.Items["modal-mode"] + "_modal_body"; %>
 				<div class='modal-body' id='<%=modalBodyName%>'>
-					<% ExecutePath("/controls/validation.aspx"); %>
 					<% Context.Items["context-modal"] = true; %>
+					<% ExecutePath("/controls/validation.aspx"); %>
 					<% ExecutePath("/controls/controls.aspx"); %>
 					<% Context.Items["context-modal"] = null; %>
 				</div>
