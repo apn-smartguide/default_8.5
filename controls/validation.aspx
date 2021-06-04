@@ -35,7 +35,48 @@
 	}
 	Context.Items["alerts-count"] = 0;
 	%>
-	<apn:forEach id='alerts' items="alert-controls" runat="server"><% Context.Items["alerts-count"] = alerts.getCount(); %></apn:forEach>
+	<apn:forEach id='alerts' items="alert-controls" runat="server">
+		<% 
+			// alerts might come from a control inside a modal, so we must check
+			// the origin of the field first
+			bool isInsideModal = false;
+			
+			string fieldId = alerts.Current.getName();
+			
+			//Logger.info("fieldId: " + fieldId);
+			
+			if (fieldId.StartsWith("d_")) fieldId = fieldId.Substring(2);
+			ISmartletField fieldInError = CurrentPage.findFieldById(fieldId);
+			if (fieldInError != null) {
+				// check if this field is under a smartmodal
+				ISmartletField parent = fieldInError;
+				do {
+					parent = parent.getParent();
+					if (parent != null && parent.getCSSClass() != null && parent.getCSSClass().Contains("smartmodal")) {
+						isInsideModal = true;
+						break;
+					}
+				} while(parent != null);
+			}
+			// if in modal
+			//Logger.info("context modal: " + Context.Items["context-modal"]);
+			//Logger.info("is inside?: " + isInsideModal);
+			
+			if (Context.Items["context-modal"] != null && isInsideModal) {
+				// increment the counter
+				int alertCounter = (int)Context.Items["alerts-count"];
+				Context.Items["alerts-count"] = ++alertCounter;
+			}
+			// if at main page
+			if (Context.Items["context-modal"] == null && !isInsideModal) {
+				// increment the counter
+				int alertCounter = (int)Context.Items["alerts-count"];
+				Context.Items["alerts-count"] = ++alertCounter;
+			}
+			
+			//Logger.info("alerts count: " + Context.Items["alerts-count"]);
+		%>
+	</apn:forEach>
 	<% if (( (int)Context.Items["alerts-count"] > 0) || ((bool)Context.Items["required"] == true)) { %>
 	<div id='alerts<%=Context.Items["idsuffix"]%>'><%-- do not change the div id as it is referenced in smartguide.js --%>
 		<% if (!CurrentPageCSS.Contains("hide-required-notification")) { %>
