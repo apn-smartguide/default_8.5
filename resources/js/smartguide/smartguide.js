@@ -731,6 +731,9 @@ $("form[id^='smartguide_']" ).each(function() {
 						var targetBottomControls = $('#sgNavButtons', response);
 						$(sourceBottomControls).after(targetBottomControls).remove();
 						
+						// Keep events bound to buttons wizard in SG Bottom controls
+						updated.push($('#sgNavButtons .btn-wizard', fm))
+						
 						// automatically replace the SG JS div
 						var sourceSGLIBDiv = $('#sglib', fm);
 						var targetSGLIBDiv = $('#sglib', response);
