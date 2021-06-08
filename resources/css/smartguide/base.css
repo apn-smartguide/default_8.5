@@ -487,6 +487,15 @@ input[type="password"] {
 	width: 100% !important;
 }
 
+.field-icon {
+	position: relative;
+	float: right;
+	margin-right: 1rem; 
+	margin-top: -2.5rem;
+	z-index: 2;
+	cursor: pointer;
+}
+
 .radio-inline,
 .checkbox-inline {
 	display: inline-block;

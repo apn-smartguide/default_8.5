@@ -177,6 +177,16 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
+			$(".toggle-password").off('click').click(function() {
+				$(this).toggleClass("fa-eye fa-eye-slash")
+				var input = $($(this).attr("toggle"));
+				if (input.attr("type") == "password") {
+					input.attr("type", "text");
+				} else {
+					input.attr("type", "password");
+				}
+			});
+
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();

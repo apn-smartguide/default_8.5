@@ -18,6 +18,9 @@
 		<apn:ifcontrolattribute runat="server" attr="prefix or suffix"></div></apn:ifcontrolattribute>
 		<% } %>
 		<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+		<% if(control.Current.getCSSClass().Contains("renderEye")) { %>
+			<span toggle="#<%= control.Current.getName() %>" class="far fa-eye field-icon toggle-password"/>
+		<% } %>
 	</div>
 	<% } %>
 </apn:control>
