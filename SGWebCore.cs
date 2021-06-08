@@ -128,6 +128,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["api5"] = null;
 		Application["is-development"] = null;
 		Application["smartletLoggerSGWebCore"] = null;
+		Application["showEnumerationErrors"] = null;
 
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
@@ -201,6 +202,16 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 		set {
 			Application["trace-execution"] = value;
+		}
+	}
+
+	public bool ShowEnumerationErrors {
+		get {
+			if(Application["showEnumerationErrors"] == null) {
+				var value = GetAppSetting("com.alphinat.sgs.themes.showEnumerationErrors").ToLower();
+				Application["showEnumerationErrors"] = value.Equals("true") || value.Length == 0;
+			}
+			return (bool)Application["showEnumerationErrors"];
 		}
 	}
 
