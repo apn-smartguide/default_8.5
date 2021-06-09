@@ -742,7 +742,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						$(sourceBottomControls).after(targetBottomControls).remove();
 						
 						// Keep events bound to buttons wizard in SG Bottom controls
-						if ($('#sgNavButtons .btn-wizard', fm).length > 0) {
+						if (updated.length > 0 && $('#sgNavButtons .btn-wizard', fm).length > 0) {
 							updated.push($('#sgNavButtons .btn-wizard', fm));
 						}
 						
