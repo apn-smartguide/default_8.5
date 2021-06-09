@@ -65,6 +65,12 @@ span.required {
 	font-weight: 700;
 }
 
+.required-input-no-label {
+	position: absolute;
+	left: 0rem;
+	top: 0.6rem;
+}
+
 label {
 	display: block;
 }

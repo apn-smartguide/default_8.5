@@ -25,6 +25,11 @@
 		<% } else { %>
 			<apn:ifcontrolattribute runat="server" attr="prefix or suffix"><div class='input-group'></apn:ifcontrolattribute>
 			<apn:ifcontrolattribute runat="server" attr="prefix"><span class='input-group-addon'><apn:controlattribute runat="server" attr="prefix" /></span></apn:ifcontrolattribute>
+			<apn:ifcontrolrequired runat="server">
+			<% if(control.Current.getAttribute("label").Equals("")) { %>
+				<span class="required required-input-no-label" title='<apn:localize runat="server" key="theme.text.required"/>'>*</span>
+			<%}%>
+			</apn:ifcontrolrequired>
 			<input type='<%=Context.Items["html5type"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:value runat="server" tohtml="true"/>' title='<%=GetAttribute(control.Current, "label")%>' placeholder='<%=GetAttribute(control.Current, "placeholder")%>' size='<apn:controlattribute runat="server" attr="size"/>' <apn:metadata runat="server" /> style='<apn:controlattribute runat="server" attr="style" /> <apn:cssstyle runat="server" />' class='form-control' <%= Context.Items["readonly"] %> <%= (Context.Items["maxlength"].Equals("") ? "" : "maxlength='" + Context.Items["maxlength"] + "'") %> <!-- #include file="aria-attributes.inc" -->/>
 			<apn:ifcontrolattribute runat="server" attr="suffix"><span class='input-group-addon'><apn:controlattribute runat="server" attr="suffix" /></span></apn:ifcontrolattribute>
 			<apn:ifcontrolattribute runat="server" attr="prefix or suffix"></div></apn:ifcontrolattribute>
