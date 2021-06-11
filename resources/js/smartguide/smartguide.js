@@ -330,7 +330,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 						return null;
 					}		
-					,openModal : function(modal) {
+					,openModal : function(modal, options) {
 						var r = SMARTGUIDES[smartletCode];
 						r.ajaxProcess(modal,null,true,
 							function() {
@@ -340,8 +340,11 @@ $("form[id^='smartguide_']" ).each(function() {
 							null
 						);
 						//Clear validation errors that might have appeared
-						modal.modal('show');
-
+						var modalOptions = {show:true};
+						if (typeof options !== 'undefined') {
+							$.extend(modalOptions, options);
+						}
+						modal.modal(modalOptions);
 					}
 					,closeModal : function(modal) {
 						var r = SMARTGUIDES[smartletCode];
