@@ -24,13 +24,14 @@ Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn")
 Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
+Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 Context.Items["useDataTables"] = (CSSClass.Contains("datatables") || CSSClass.Contains("wb-tables"));
 Context.Items["isSelectable"] = "true".Equals(control.Current.getAttribute("isselectable"));
 Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination"));
 Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
-
 Context.Items["hideEditButton"] = CSSClass.Contains("hide-edit-btn");
+Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 
 Context.Items["btnAddTitle"] = "Add";
 Context.Items["btnAddCSSClass"] = "btn btn-sm btn-primary repeat_prepare_add_btn";
@@ -43,12 +44,13 @@ if(btnAdd != null) {
 	Context.Items["btnAddStyle"] = btnAdd.getCSSStyle();
 }
 %>
-<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='panel panel-default repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name='<apn:name runat="server"/>' type='hidden' value='' />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
+	<% if (!(bool)Context.Items["hideHeading"]) { %>
 	<div class='panel-heading clearfix'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
@@ -57,6 +59,7 @@ if(btnAdd != null) {
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { ExecutePath("/controls/button.aspx"); } %></apn:forEach></apn:forEach></apn:forEach>
 		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
+	<% } %>
 	</apn:control>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>

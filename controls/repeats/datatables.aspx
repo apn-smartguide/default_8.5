@@ -15,11 +15,13 @@
 	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
+	Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["is-wb-tables"] = CSSClass.Contains("wb-tables");
+	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 
 	Context.Items["limit"] = "";
 	if("".Equals(control.Current.getMetaDataValue("data-page-length")) && !"".Equals(control.Current.getAttribute("limit"))) {
@@ -30,11 +32,12 @@
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='panel panel-default repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
+	<% if (!(bool)Context.Items["hideHeading"]) { %>
 	<div class='panel-heading'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
@@ -55,6 +58,7 @@
 		</apn:control>
 		<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
+	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
@@ -561,6 +565,9 @@
 		string datatablesInitOptions = getMetaDataValue("data-wb-tables");
 
 		if (datatablesInitOptions == null || datatablesInitOptions.Length == 0) {
+
+			var initialSearch = control.Current.getMetaDataValue("data-search");
+
 			JObject jOptions = new JObject();
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
@@ -572,6 +579,13 @@
 				jOptions.Add("scrollX", true);
 			}
 			jOptions.Add("deferRender", true);
+
+			if (!string.IsNullOrEmpty(initialSearch)){
+				jOptions.Add(new JProperty(
+					"oSearch", new JObject{new JProperty("sSearch", initialSearch)}
+				));
+			}
+			
 			jOptions = getRenderMode(jOptions);
 			jOptions = getInitParameters(jOptions);
 			jOptions = getColumnDefs(defaultGroup, jOptions, fieldNameToId);
