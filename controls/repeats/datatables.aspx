@@ -565,6 +565,9 @@
 		string datatablesInitOptions = getMetaDataValue("data-wb-tables");
 
 		if (datatablesInitOptions == null || datatablesInitOptions.Length == 0) {
+
+			var initialSearch = control.Current.getMetaDataValue("data-search");
+
 			JObject jOptions = new JObject();
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
@@ -576,6 +579,13 @@
 				jOptions.Add("scrollX", true);
 			}
 			jOptions.Add("deferRender", true);
+
+			if (!string.IsNullOrEmpty(initialSearch)){
+				jOptions.Add(new JProperty(
+					"oSearch", new JObject{new JProperty("sSearch", initialSearch)}
+				));
+			}
+			
 			jOptions = getRenderMode(jOptions);
 			jOptions = getInitParameters(jOptions);
 			jOptions = getColumnDefs(defaultGroup, jOptions, fieldNameToId);
