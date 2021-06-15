@@ -961,9 +961,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetPageTitle(string pageName) {
 		string currentPageSection = CurrentPageSection;
 		StringBuilder sb = new StringBuilder();
-		if(!currentPageSection.Equals("")) sb.Append(currentPageSection);
+		if(!currentPageSection.Equals("") && !CurrentPageCSS.Contains("hide-section-label")) sb.Append(currentPageSection);
 		if(!pageName.Equals("")) {
-			if(!currentPageSection.Equals("")) sb.Append(" - ");
+			if(!currentPageSection.Equals("") && !CurrentPageCSS.Contains("hide-section-label")) sb.Append(" - ");
 			sb.Append(pageName);
 		};
 		return sb.ToString();
