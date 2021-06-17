@@ -665,6 +665,16 @@ input[type=file][readonly] {
 }
 /* Breadcrumb end */
 
+input.autocomplete::after {
+    content: "\f0d7";
+    font-family: "Font Awesome 5 Free";
+    right: 0;
+    bottom: 4px;
+    position: absolute;
+    color: dimgrey;
+    pointer-events: none;
+}
+
 /* JQuery-Idle-Hands */
 #jquery-idle-hands {
 	display: none;
