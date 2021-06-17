@@ -101,7 +101,7 @@
 						}
 						Context.Items["counter"] = (int)Context.Items["counter"] + 1;
 					%>
-					<a href='' onclick="$('<%=Context.Items["target"]%>').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><% if (ShowEnumerationErrors){%><span class="prefix">Error <%= Context.Items["counter"] %>:</span><%}%> <%= fieldLabel %> - <%= alert.Current.getAlert() %></a>
+					<a href='' onclick="$('<%=Context.Items["target"]%>').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><% if (ShowEnumerationErrors){%><span class="prefix">Error <%= Context.Items["counter"] %>:</span><%} if (!string.IsNullOrEmpty(fieldLabel)){%> <%= fieldLabel %> - <%}%><%= alert.Current.getAlert() %></a>
 					<% } else { %><span class="required">Page Error: <%= alert.Current.getAlert() %></span><% } %>
 				</li>
 			</apn:forEach><ul>
