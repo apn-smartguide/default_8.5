@@ -181,22 +181,16 @@ var utilsController = {
 			});
 		});
 
-		$('.uploads-render').children('div.panel-body').find('*').on('dragover', function(event) {
-			event.preventDefault();
-			event.stopPropagation();
-			$('.drop-popup').css('display','block');
-		})
-
-		$(".uploads-render", context).each(function(){
+		$(".uploads-render").each(function(){
 			var $this = $(this);
 
-			$this.on('dragover', function(event) {
+			$this.find('*').on('dragover', function(event) {
 				event.preventDefault();
 				event.stopPropagation();
 				$('.drop-popup', $this).css('display','block');
 			});
 
-			$('.drop-popup', $this).on('dragover dragleave drop', function(event) {
+			$('.drop-popup', $this).find('*').on('dragover dragleave drop', function(event) {
 				event.preventDefault();
 				event.stopPropagation();
 			
