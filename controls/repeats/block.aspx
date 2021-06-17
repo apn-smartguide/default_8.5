@@ -12,15 +12,18 @@
 	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
 	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
+	Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 	Context.Items["plain-group"] = CSSClass.Contains("plain-group");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
+	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 %>
 	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<div class='bootpag'>
 			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
+				<% if (!(bool)Context.Items["hideHeading"]) { %>
 				<div class="panel-heading">
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 					<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
@@ -71,6 +74,7 @@
 					</div>
 				<% } %>
 				</div>
+				<% } %>
 				<% if ((bool)Context.Items["hasPagination"] && !control.Current.getAttribute("totalPages").Equals("")) { %><apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control><% } %>
 				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
 				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
@@ -80,9 +84,10 @@
 				<% } %>
 				<apn:forEach id="status" runat="server">
 					<% Context.Items["optionIndex"] = status.getCount(); %>
-					<div class='<% if ((bool)Context.Items["plain-group"]) { %>panel-borderless<% } else { %>panel-body<% } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
+					<div class='<% if ((bool)Context.Items["plain-group"] || (bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } else { %>panel-body<% } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
-						<div class='block-controls'>
+						<div class='row block-controls'>
+						<div class='col-xs-12'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
 							<div>
 								<apn:control runat="server" type="select_instance" id="sel">
@@ -104,10 +109,12 @@
 							</div>
 							<% } %>
 						</div>
+						</div>
 						<% } %>
-						<div class=''><% ExecutePath("/controls/controls.aspx"); %></div>
+						<div class='row block-form'><div class='col-xs-12'><% ExecutePath("/controls/controls.aspx"); %></div></div>
 					</div>
 				</apn:forEach>
+				</table>
 				<% Context.Items["optionIndex"] = ""; %>
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 				</div>

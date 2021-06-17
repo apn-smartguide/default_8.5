@@ -298,6 +298,14 @@ div.repeat table td.repeatbutton {
 	width: 1200px;
 }
 
+.block-controls {
+
+}
+
+.block-form {
+	border-bottom: 1px #8e8e8e solid ;
+}
+
 .panel .repeatinstance {
 	margin: 15px;
 	border: 1px #8e8e8e solid;
