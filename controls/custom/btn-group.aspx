@@ -1,5 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
+<% Context.Items["render-proxy"] = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false; %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
@@ -19,7 +20,9 @@
 						<apn:whenControl runat="server" type="COL">
 							<apn:forEach runat="server" id="field"><%-- Each field --%>
 								<apn:chooseControl runat="server">
+									<% if(!control.Current.getCSSClass().Contains("proxy") || (bool)Context.Items["render-proxy"]) { %>
 									<apn:whenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:whenControl>
+									< % } %>
 								</apn:choosecontrol>
 							</apn:forEach>
 						</apn:whenControl>
