@@ -10,7 +10,7 @@
 	Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
 	Context.Items["showMoveUpDownButton"] = CSSClass.Contains("show-moveupdown-btn");
 	Context.Items["hideDeleteButton"] = CSSClass.Contains("hide-delete-btn");
-	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination");
+	Context.Items["hidePagination"] = CSSClass.Contains("hide-pagination") ;
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
 	Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 	Context.Items["plain-group"] = CSSClass.Contains("plain-group");
@@ -21,8 +21,8 @@
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 %>
 	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
-		<div class='bootpag'>
-			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
+		<div class='<% if (!(bool)Context.Items["hidePagination"]) { %>bootpag<% } %>'>
+			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "") %>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<% if (!(bool)Context.Items["hideHeading"]) { %>
 				<div class="panel-heading">
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
@@ -75,7 +75,7 @@
 				<% } %>
 				</div>
 				<% } %>
-				<% if ((bool)Context.Items["hasPagination"] && !control.Current.getAttribute("totalPages").Equals("")) { %><apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control><% } %>
+				<% if ((bool)Context.Items["hasPagination"] && !control.Current.getAttribute("totalPages").Equals("") && !(bool)Context.Items["hidePagination"]) { %><apn:control type="repeat-current-page" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatCurrentPage' /></apn:control><% } %>
 				<% if ("true".Equals(control.Current.getAttribute("hasSort"))) { %>
 				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
 				<% } %>
@@ -120,7 +120,9 @@
 				</div>
 				<% } %>
 			</div>
-			<% if ((bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary) { %><div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div><% } %>
+			<% if (!(bool)Context.Items["hidePagination"] && (bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary) { %>
+				<div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span></div>
+			<% } %>
 		</div>
 		
 	</div>

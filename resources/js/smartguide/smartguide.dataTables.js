@@ -28,6 +28,7 @@ var dataTablesController = {
 							var newTable = $('table.hasPagination', repeatDiv);
 							table.empty();
 							table.html(newTable.html());
+
 							$('span.paginationInfo', table.parent()).html(paginationInfo.html());
 							
 							$.each(newTable.prop("attributes"), function() {
@@ -57,6 +58,7 @@ var dataTablesController = {
 			{
 				//has pagination
 				var currentPage = 1;
+
 				var totalPage = parseInt(table.attr('data-total-pages'));
 				if ($('input.repeatCurrentPage', table).length > 0){
 					currentPage = parseInt($('input.repeatCurrentPage', table).val()) + 1;

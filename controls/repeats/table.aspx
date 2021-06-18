@@ -21,7 +21,7 @@
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid> <% if ((bool)Context.Items["hidePagination"]) { %> hide-pagination<% } %> <% if ((bool)Context.Items["hideSearch"]) { %> hide-search<% } %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<% if(((string)Context.Items["hiddenName"]).Length == 0) { %>
 		<apn:control runat="server" type="repeat-index" id="repeatIndex">
 			<input name='<apn:name runat="server"/>' type="hidden" value="" />
@@ -185,7 +185,7 @@
 				</tfooter>
 				<% } %>
 			</table>
-			<% if (!(bool)Context.Items["hidePagination"] && (bool)Context.Items["hasPagination"] && !(bool)Context.Items["useDataTables"]) { %>
+			<% if (!(bool)Context.Items["hidePagination"] && (bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary && !(bool)Context.Items["useDataTables"]) { %>
 			<div class='pull-left'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span></div>
 			<% } %>
 		</div>
