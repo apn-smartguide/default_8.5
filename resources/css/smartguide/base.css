@@ -71,6 +71,11 @@ span.required {
 	top: 0.6rem;
 }
 
+input.tight, select.tight {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 label {
 	display: block;
 }
