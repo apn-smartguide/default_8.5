@@ -49,10 +49,23 @@
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl">
 			<apn:ChooseControl runat="server">
 				<apn:WhenControl type="TRIGGER" runat="server">
-				<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { %>
-					<% ExecutePath("/controls/button.aspx"); %>
-				<% } %>
+				<% 
+				if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) {
+					Context.Items["render-proxy"] = true;
+					ExecutePath("/controls/button.aspx");
+					Context.Items["render-proxy"] = false;
+				} 
+				%>
 				</apn:WhenControl>
+				<apn:Otherwise runat="server">
+				<% 
+				if(headingControl.Current.getCSSClass().Contains("panel-heading-control")) { 
+					Context.Items["render-proxy"] = true;
+					ExecutePath("/controls/control.aspx");
+					Context.Items["render-proxy"] = false;
+				}
+				%>
+				</apn:Otherwise>
 			</apn:ChooseControl>
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>

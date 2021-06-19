@@ -39,7 +39,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">
-					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") && !IsPdf && !IsSummary) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %>
+					<% if ((headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) && !IsPdf && !IsSummary) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %>
 				</apn:forEach>
 			</apn:forEach>
 		</apn:forEach>
