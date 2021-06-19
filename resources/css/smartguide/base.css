@@ -159,6 +159,11 @@ label.inline {
 	text-decoration: none;
 }
 
+.modal-title {
+	font-size: 18px;
+	font-weight: 700;
+}
+
 .modal-backdrop {
 	opacity: 0.5 !important;
 }
