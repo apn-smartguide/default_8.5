@@ -25,7 +25,8 @@
 					<div class='modal-content'>
 						<div class='modal-header'>
 							<a href='#' class='close' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.close"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><span aria-hidden='true'>x</span><span class='sr-only'><apn:localize runat="server" key="theme.text.close"/></span></a>
-							<h2 class='modal-title' id='helpModalLabel_<apn:helpid runat="server"/>'><apn:label runat="server"/></h2>
+							<span class='modal-title' id='helpModalLabel_<apn:helpid runat="server"/>'><apn:label runat="server"/></span>
+							<%-- todo: lookup for data-help-label in future version --%>
 						</div>
 						<div class='modal-body'>
 							<apn:ifhelplink runat="server"><iframe id='smartlet' src='<apn:help runat="server"/>' width='100%' height='400px;' frameborder='0' framespacing='0' scrolling='auto'></iframe></apn:ifhelplink>
