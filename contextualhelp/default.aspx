@@ -18,13 +18,13 @@
 			<form id="smartguide" action="do.aspx" method="post" enctype="multipart/form-data">
 				<div class="jumbotron" id="sgControls">
 				  <h1><apn:localize runat="server" key="theme.text.helplink"/></h1>
-				  <apn:forEach runat="server">										
+				  <apn:forEach runat="server">
 					<apn:choosecontrol runat="server">
-					  <apn:whencontrol runat="server" type="GROUP">																							
+					  <apn:whencontrol runat="server" type="GROUP">
 						<apn:control runat="server" id="control">
 							<p><%=GetAttribute(control.Current, "label")%></p>
 							<apn:help/>
-						</apn:control>												
+						</apn:control>
 					  </apn:whencontrol>
 					</apn:choosecontrol>
 				  </apn:forEach>

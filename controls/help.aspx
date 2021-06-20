@@ -25,13 +25,13 @@
 					<div class='modal-content'>
 						<div class='modal-header'>
 							<a href='#' class='close' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.close"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><span aria-hidden='true'>x</span><span class='sr-only'><apn:localize runat="server" key="theme.text.close"/></span></a>
-							<h2 class='modal-title' id='helpModalLabel_<apn:helpid runat="server"/>'><apn:localize runat="server" key="theme.text.helplink"/><apn:label runat="server"/></h2>
+							<h2 class='modal-title' id='helpModalLabel_<apn:helpid runat="server"/>'><apn:label runat="server"/></h2>
 						</div>
 						<div class='modal-body'>
 							<apn:ifhelplink runat="server"><iframe id='smartlet' src='<apn:help runat="server"/>' width='100%' height='400px;' frameborder='0' framespacing='0' scrolling='auto'></iframe></apn:ifhelplink>
 							<apn:ifnothelplink runat="server"><apn:help runat="server"/></apn:ifnothelplink>
 						</div>
-						<div class='modal-footer'><a href='#' class='btn btn-default' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.close"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></a></div>
+						<div class='modal-footer'><button class='btn btn-default' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.close"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></button></div>
 					</div>
 				</div>
 			</div>
