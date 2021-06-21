@@ -8,7 +8,13 @@
 		<div class='modal-dialog <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' role='document'>
 			<div class='modal-content'>
 				<div class='modal-header'>
-					<button type='button' class='close modal-close' data-dismiss='modal' aria-label='<apn:localize runat="server" key="theme.text.close"/>' title='<apn:localize runat="server" key="theme.text.close"/>' ><span aria-hidden='true' >&times;</span></button>
+					<% string eventTargets = ""; %>
+					<% SessionField button = GetProxyButton(control.Current.getCode()+"_cancel", ref eventTargets); %>
+					<% if(button != null) { %>
+						<button type='button' name='d_<%=button.getId()%>' data-eventtarget='[<%=eventTargets%>]' class='close modal-close' data-dismiss='modal' aria-label='<apn:localize runat="server" key="theme.text.close"/>' title='<apn:localize runat="server" key="theme.text.close"/>' ><span aria-hidden='true' >&times;</span></button>
+						<% } else { %>
+						<button type='button' class='close modal-close' data-dismiss='modal' aria-label='<apn:localize runat="server" key="theme.text.close"/>' title='<apn:localize runat="server" key="theme.text.close"/>' ><span aria-hidden='true' >&times;</span></button>
+					<% } %>
 					<div class='modal-title'><apn:label runat="server" /></div>
 				</div>
 				<div class='modal-body'>
