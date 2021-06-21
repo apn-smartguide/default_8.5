@@ -22,7 +22,7 @@
 								<apn:chooseControl runat="server">
 									<% if(!control.Current.getCSSClass().Contains("proxy") || (bool)Context.Items["render-proxy"]) { %>
 									<apn:whenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:whenControl>
-									< % } %>
+									<% } %>
 								</apn:choosecontrol>
 							</apn:forEach>
 						</apn:whenControl>
