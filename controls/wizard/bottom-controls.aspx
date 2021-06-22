@@ -19,10 +19,10 @@
 					<apn:forEach runat="server" id="field">
 						<apn:ChooseControl runat="server">
 							<apn:WhenControl type="TRIGGER" runat="server">
-							<div><% if (field.Current.getCSSClass().Contains("btn-wizard")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/button.aspx"); Context.Items["render-proxy"] = false;} %></div>
+							<div><% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx");} %></div>
 							</apn:WhenControl>
 							<apn:Otherwise runat="server">
-							<div><% if (field.Current.getCSSClass().Contains("btn-wizard")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false;} %></div>
+							<div><% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/custom/btn-toolbar.aspx");} %></div>
 							</apn:Otherwise>
 						</apn:ChooseControl>
 					</apn:forEach>
