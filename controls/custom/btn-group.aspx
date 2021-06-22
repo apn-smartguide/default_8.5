@@ -9,28 +9,10 @@
 <% string textAlignmentCSSClasses = GetTextAlignmentCSSClasses(control.Current.getCSSClass()); %>
 <% string btnGroupClasses = textAlignmentCSSClasses.Length > 0 ? control.Current.getCSSClass().Replace(textAlignmentCSSClasses, "") : control.Current.getCSSClass(); %>
 <% if (textAlignmentCSSClasses.Length > 0) { %>
-	<div class='<%=textAlignmentCSSClasses%>'>
+<div class='<%=textAlignmentCSSClasses%>'>
 <% } %>
 <div id='div_<apn:name runat="server"/>' class="btn-group <%=btnGroupClasses%>" style='<apn:cssstyle runat="server"/>' role="group">
-	<apn:forEach runat="server" id="row"><%-- Each row --%>
-		<apn:chooseControl runat="server">
-			<apn:whenControl runat="server" type="ROW">
-				<apn:forEach runat="server" id="col"><%-- Each col --%>
-					<apn:chooseControl runat="server">
-						<apn:whenControl runat="server" type="COL">
-							<apn:forEach runat="server" id="field"><%-- Each field --%>
-								<apn:chooseControl runat="server">
-									<% if(!control.Current.getCSSClass().Contains("proxy") || (bool)Context.Items["render-proxy"]) { %>
-									<apn:whenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:whenControl>
-									<% } %>
-								</apn:choosecontrol>
-							</apn:forEach>
-						</apn:whenControl>
-					</apn:chooseControl>
-				</apn:ForEach>
-			</apn:whenControl>
-		</apn:chooseControl>
-	</apn:ForEach>
+<% ExecutePath("/controls/custom/buttons.aspx"); %>
 </div>
 <% if (textAlignmentCSSClasses.Length > 0) { %>
 </div>
