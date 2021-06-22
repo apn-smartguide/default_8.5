@@ -70,7 +70,7 @@
 					</apn:forEach>
 				</apn:forEach>
 			</apn:forEach>
-			<% if (!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %><td data-priority="1" data-orderable="false"></td><% } %>
+			<% if ((!(bool)Context.Items["hideRowAddButton"] || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) && !IsPdf && !IsSummary) { %><td data-priority="1" data-orderable="false"></td><% } %>
 		</tr>
 		</apn:control>
 	</thead>
@@ -95,7 +95,7 @@
 						<% if (!(bool)Context.Items["hideDeleteButton"]) { %><apn:control type="delete" id="deletebutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %>
 						<% if ((bool)Context.Items["showMoveUpDownButton"]) { %><apn:control type="moveup" id="moveupbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.up"/> repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><apn:control type="movedown" id="movedownbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %>
 					<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %></td><% } %>
-				<% } else { %><td></td><% } %>
+				<% } %>
 			</tr>
 			<% Context.Items.Remove("aria-labelledby"); %>
 		</apn:forEach>

@@ -11,6 +11,28 @@ body.pdf .panel {
 	page-break-inside: avoid;
 }
 
+.recap th {
+	border-bottom: 1px solid;
+}
+
+.recap table {
+	border-spacing: 5px;
+	border-collapse: separate;
+}
+
+.recap .row {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.recap .panel-heading .panel-title {
+	font-weight: bold;
+}
+
+.recap .panel-body > .row div[class^='col-'] > div:not([class='row']) {	
+	border-bottom: 1px solid #d2d7da;
+}
+
 body {
 	font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
@@ -138,19 +160,6 @@ label.inline {
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
-}
-
-.recap .row {
-	margin-top: 5px;
-	margin-bottom: 10px;
-}
-
-.recap .panel-heading .panel-title {
-	font-weight: bold;
-}
-
-.recap .panel-body > .row div[class^='col-'] > div:not([class='row']) {	
-	border-bottom: 1px solid #d2d7da;
 }
 
 .modal-header, 
