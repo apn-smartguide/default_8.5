@@ -295,7 +295,10 @@ var dataTablesController = {
 					}
 				});
 			}); */
-			
+		
+		//To support client-side multipage selections
+		$('[type=checkbox][name^=d_s]').off('change', sgRef.bindThisAllowSelfRefresh).on('change', sgRef.bindThisAllowSelfRefresh);
+		
 		// support for selection radios for server side repeats
 		$('[type=radio][name^=d_s]').off('click').on('click', function() {
 			var dataTable = $(this).closest('table').DataTable();

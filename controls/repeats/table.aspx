@@ -143,6 +143,7 @@
 						</tr>
 					</thead>
 				</apn:control>
+				<%-- if you have a custom editable checkbox/radio and are client-side paged, add a onChange Ajax action to update server view of state --%>
 				<tbody>
 					<apn:forEach id="status" runat="server">
 						<% Context.Items["optionIndex"] = status.getCount(); %>
