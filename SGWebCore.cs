@@ -965,7 +965,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		if(!currentPageSection.Equals("") && !CurrentPageCSS.Contains("hide-section-label")) sb.Append(currentPageSection);
 		if(!pageName.Equals("")) {
 			if(!currentPageSection.Equals("") && !CurrentPageCSS.Contains("hide-section-label")) sb.Append(" - ");
-			sb.Append(pageName);
+			if(currentPageSection != pageName || CurrentPageCSS.Contains("hide-section-label")){
+				sb.Append(pageName);
+			}
+			
 		};
 		return sb.ToString();
 	}
