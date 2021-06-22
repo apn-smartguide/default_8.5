@@ -311,11 +311,11 @@ table.dataTable thead tr th, table.dataTable thead tr td {
 }
 
 div.repeat:not(.grid-view) table {
-	border-collapse: collapse!important;
+	border-collapse: collapse !important;
 }
 
 div.repeat table td.repeatbutton {
-	text-align: center;
+	text-align: right;
 	vertical-align: middle;
 	padding-left: 10px;
 	padding-right: 10px;
