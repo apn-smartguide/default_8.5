@@ -15,6 +15,7 @@
 	Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 %>
+	<div style='overflow-x: auto;'>
 	<table width="100%">
 	<thead>
 		<apn:control runat="server" type="default-instance" id="headerGroup">
@@ -102,4 +103,5 @@
 		<% Context.Items["optionIndex"] = ""; %>
 	</tbody>
 	</table>
+</div>
 </apn:control>
