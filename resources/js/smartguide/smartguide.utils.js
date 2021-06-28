@@ -246,7 +246,7 @@ var utilsController = {
 						var source = "./resources/do.aspx?file=" + smartletName + "/" + currentLocale + "/" + fieldId + suffix + ".wav";
 						audio.src = source;
 						audio.load();
-						audio.onloadeddata = () => {
+						audio.onloadeddata = function() {
 							audio.play();
 						};
 					});
@@ -267,7 +267,7 @@ var utilsController = {
 					var audio = new Audio();
 					audio.src = "/smartlets/do.aspx?t_tts=true&text=" + text;
 					audio.load();
-					audio.onloadeddata = () => {
+					audio.onloadeddata = function() {
 						audio.play();
 					}
 				});
