@@ -39,6 +39,17 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
+
+<%--<script type="text/javascript">
+	var ie = navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident/") > -1;
+	if(!ie) {
+		<% var path = "/resources/js/smartguide/smartguide.utils.tts.js";%>
+	  	document.write("<script src='<%= CacheBreak(path) %>'></scr"+"ipt>");
+	} else {
+		<% path = "/resources/js/smartguide/smartguide.utils.ttsIE.js";%>
+	  	document.write("<script src='<%= CacheBreak(path) %>'></scr"+"ipt>");
+	}
+</script>--%>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script>
