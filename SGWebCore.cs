@@ -1039,6 +1039,14 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getLabel();
 	}
 
+	public string GetLabel(ISmartletField ctrl) {
+		return ctrl.getLabel();
+	}
+
+	public string GetLabel(SessionField ctrl) {
+		return ctrl.getLabel();
+	}
+
 	public string GetTooltip(ControlInfo ctrl) {
 		return ctrl.getTooltip();
 	}
@@ -1049,6 +1057,30 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string GetTooltip(SessionField ctrl) {
 		return ctrl.getTooltip();
+	}
+
+	public string GetCSSClass(ControlInfo ctrl) {
+		return ctrl.getCSSClass();
+	}
+
+	public string GetCSSClass(ISmartletField ctrl) {
+		return ctrl.getCSSClass();
+	}
+
+	public string GetCSSClass(SessionField ctrl) {
+		return ctrl.getCSSClass();
+	}
+
+	public string GetCSSStyle(ControlInfo ctrl) {
+		return ctrl.getCSSStyle();
+	}
+
+	public string GetCSSStyle(ISmartletField ctrl) {
+		return ctrl.getCSSStyle();
+	}
+
+	public string GetCSSStyle(SessionField ctrl) {
+		return ctrl.getCSSStyle();
 	}
 
 	public string GetAttribute(ControlInfo ctrl, string attribute) {

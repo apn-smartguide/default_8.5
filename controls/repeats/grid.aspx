@@ -37,12 +37,12 @@ Context.Items["btnAddTitle"] = "Add";
 Context.Items["btnAddCSSClass"] = "btn btn-sm btn-primary repeat_prepare_add_btn";
 Context.Items["btnAddStyle"] = "";
 Context.Items["btnAddType"] = "prepare_add_instance";
-ISmartletField btnAdd = (ISmartletField)CurrentPage.findFieldByName(Context.Items["repeatCode"]  + "_add");
-if(btnAdd != null) {
-	Context.Items["btnAddTitle"] = btnAdd.getLabel();
-	Context.Items["btnAddCSSClass"] = btnAdd.getCSSClass().Replace("proxy","");
-	Context.Items["btnAddStyle"] = btnAdd.getCSSStyle();
-}
+//ISmartletField btnAdd = (ISmartletField)CurrentPage.findFieldByName(Context.Items["repeatCode"]  + "_add");
+//if(btnAdd != null) {
+//	Context.Items["btnAddTitle"] = btnAdd.getLabel();
+//	Context.Items["btnAddCSSClass"] = btnAdd.getCSSClass().Replace("proxy","");
+//	Context.Items["btnAddStyle"] = btnAdd.getCSSStyle();
+//}
 %>
 <div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
@@ -55,7 +55,19 @@ if(btnAdd != null) {
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
-		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="button" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
+		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
+			<div class='pull-right'>
+				<apn:control id="button" runat="server" type="prepare_add_instance">
+					<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
+					<% SessionField addBtn = GetProxyButton(Context.Items["repeatCode"] + "_add", ref eventTargets); %>
+					<% if(addBtn != null && addBtn.isAvailable()) { %>
+						<span data-eventtarget='[<%=eventTargets%>]' aria-controls='<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
+					<% } else { %>
+						<button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' data-level='<%=Context.Items["repeat-level"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(button.Current).Equals("")){ %>title='<%=GetTooltip(button.Current)%>' aria-label='<%=GetTooltip(button.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button>
+					<% } %>
+				</apn:control>
+			</div>
+		<% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
 		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
