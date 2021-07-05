@@ -1060,15 +1060,15 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetCSSClass(ControlInfo ctrl) {
-		return ctrl.getCSSClass();
+		return ctrl.getCSSClass().Replace("proxy","");
 	}
 
 	public string GetCSSClass(ISmartletField ctrl) {
-		return ctrl.getCSSClass();
+		return ctrl.getCSSClass().Replace("proxy","");
 	}
 
 	public string GetCSSClass(SessionField ctrl) {
-		return ctrl.getCSSClass();
+		return ctrl.getCSSClass().Replace("proxy","");
 	}
 
 	public string GetCSSStyle(ControlInfo ctrl) {
