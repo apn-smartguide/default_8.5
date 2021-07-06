@@ -1,11 +1,19 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
 <%	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
-	if (!customControl.Equals("")) {
+	bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
+	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) {
+	} else if(control.Current.getCSSClass().Contains("proxy") && !renderProxy) {
+	} else if (customControl.Equals("file")) {
+		if(!control.Current.getValue().Equals("")) {
+			//Use the controls Value if you need to dynamically switch the file loaded based on conditions
+			ExecutePath(control.Current.getValue());
+		} else if(!control.Current.getLabel().Equals("")){
+			ExecutePath(control.Current.getLabel());
+		}
+	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { 
-	} else if(control.Current.getCSSClass().Contains("proxy")) { 
 	} else { %>
 	<apn:ChooseControl runat="server">
 		<apn:WhenControl runat="server" type="SUMMARY-SECTION"><% ExecutePath("/controls/summary/summary.aspx"); %></apn:WhenControl>
@@ -25,6 +33,6 @@
 		<apn:WhenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:WhenControl>
 		<apn:WhenControl runat="server" type="SUB-SMARTLET"><% ExecutePath("/controls/subsmartlet.aspx"); %></apn:WhenControl>
 		<apn:WhenControl runat="server" type="RESULT"><% ExecutePath("/controls/result.aspx"); %></apn:WhenControl>
-	</apn:ChooseControl>	
+	</apn:ChooseControl>
 <% } %>
 </apn:control>

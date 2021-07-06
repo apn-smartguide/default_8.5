@@ -485,11 +485,6 @@
         "class": "smartmodal",
         "en": "Transforms a group into a modal dialog",
         "fr": "Transforme un groupe en dialogue modal"
-      },
-      {
-        "class": "show-wizard",
-        "en": "Display the wizard previous/next navigation buttons, display the section steps and the progress bar",
-        "fr": "Affiche les boutons de navigation precédent/suivant, la barre d'étape de sections ainsi que la barre de progression"
       }
     ]
   },

@@ -4,10 +4,9 @@
 <%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
 <apn:api5 id="sg5" runat="server"/>
 <% 
-	sg = sg5;
-	Init();
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = GetURLForSmartlet(SmartletName);
+	IsPdf = false;
 %>
 <!DOCTYPE html>
 <html lang="<%= CurrentLocale %>">
@@ -19,13 +18,13 @@
 			<form id="smartguide" action="do.aspx" method="post" enctype="multipart/form-data">
 				<div class="jumbotron" id="sgControls">
 				  <h1><apn:localize runat="server" key="theme.text.helplink"/></h1>
-				  <apn:forEach runat="server">										
+				  <apn:forEach runat="server">
 					<apn:choosecontrol runat="server">
-					  <apn:whencontrol runat="server" type="GROUP">																							
+					  <apn:whencontrol runat="server" type="GROUP">
 						<apn:control runat="server" id="control">
 							<p><%=GetAttribute(control.Current, "label")%></p>
 							<apn:help/>
-						</apn:control>												
+						</apn:control>
 					  </apn:whencontrol>
 					</apn:choosecontrol>
 				  </apn:forEach>

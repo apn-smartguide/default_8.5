@@ -1,11 +1,12 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
+<% Context.Items["no-col"] = true; %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
-<% } else if((bool)Context.Items["pdf"] && control.Current.getCSSClass().Contains("hide-pdf")) { %>
+<% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
+<% } else if(IsSummary) { %>
+<% ExecutePath("/controls/summary/controls.aspx"); %>
 <% } else { %>
-<% Context.Items["no-col"] = true; %>
-<div class="row">
 <apn:forEach runat="server" id="row">
 	<apn:chooseControl runat="server">
 		<apn:whenControl runat="server" type="ROW">
@@ -21,8 +22,6 @@
 		</apn:whenControl>
 	</apn:chooseControl>
 </apn:ForEach>
-</div>
-<% Context.Items["no-col"]  = false; %>
-<% } %>  						
-</apn:control>	
-
+<% } %>  
+<% Context.Items["no-col"] = false; %>
+</apn:control>

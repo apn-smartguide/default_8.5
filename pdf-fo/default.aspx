@@ -3,8 +3,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../default.aspx.cs" Inherits="Default" Trace="false"%>
 <%@ Assembly src="../../default_8.5/SGWebCore.cs" %>
 <%
-	sg = sg5;
-	Init();
+	IsPdf = true;
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = GetURLForSmartlet(SmartletName);
 %>
@@ -43,3 +42,4 @@
 	</fo:flow>
 </fo:page-sequence>
 </fo:root>
+<% IsPdf = false; %>

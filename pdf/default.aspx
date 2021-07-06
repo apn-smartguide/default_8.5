@@ -6,10 +6,8 @@
 <%@ Import Namespace="System.Reflection" %>
 <apn:control runat="server" id="control">
 <apn:api5 id="sg5" runat="server" />
-<% Context.Items["pdf"] = true; %>
 <%
-	sg = sg5;
-	Init();
+	IsPdf = true;
 	ThemesLocations = new string[]{"/..",Theme};
 	LogoutURL = GetURLForSmartlet(SmartletName);
 	//global style
@@ -23,17 +21,13 @@
 <% ExecutePath("/layout/head.aspx"); %>
 <body vocab="http://schema.org/" typeof="WebPage" class="pdf">
 <!-- page header -->
-<div style="<%=Context.Items["pageTitle"]%>">
-	<apn:control runat="server" type="step"><%=GetAttribute(control.Current, "label")%></apn:control>
-</div>
+<div style="<%=Context.Items["pageTitle"]%>"><apn:control runat="server" type="step"><%=GetAttribute(control.Current, "label")%></apn:control></div>
 <div id="sgControls" style="<%=Context.Items["pageContent"]%>">
-<table cellpadding="0" cellspacing="0" border="0">
-	<% ExecutePath("/layout/main.aspx"); %>
-</table>
+<table cellpadding="0" cellspacing="0" border="0"><% ExecutePath("/layout/main.aspx"); %></table>
 </div>
 <% ExecutePath("/layout/footer.aspx"); %>
 </body>
 </html>
-<% Context.Items["pdf"] = false; %>
+<% IsPdf = false; %>
 </apn:control>
 

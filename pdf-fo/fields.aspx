@@ -14,7 +14,7 @@
 				<fo:table-cell  padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:block text-align="start"><![CDATA[<apn:value runat="server"/>]]></fo:block>
 				</fo:table-cell>
-			</fo:table-row>						
+			</fo:table-row>
 			<!--<% } %>	-->
 			</Apn:control>
 		</Apn:whencontrol>
@@ -52,7 +52,7 @@
 											<fo:list-item-label end-indent="label-end()"><fo:block  font-family="ZapfDingbats">&#160;&#160;&#x25CF;</fo:block></fo:list-item-label>
 											<fo:list-item-body><fo:block><![CDATA[ <%= select1_control3.Current.getLabel() %>]]></fo:block></fo:list-item-body>
 											<!--<% } else { %>-->
-											<!-- not selected -->														
+											<!-- not selected -->
 											<fo:list-item-label end-indent="label-end()"><fo:block  font-family="ZapfDingbats">&#160;&#160;&#x274D;</fo:block></fo:list-item-label>
 											<fo:list-item-body start-indent="body-start()"><fo:block><![CDATA[ <%= select1_control3.Current.getLabel() %>]]></fo:block></fo:list-item-body>
 											<!--<% } %>-->
@@ -65,8 +65,8 @@
 										<!-- selected -->
 										<fo:list-item-label end-indent="label-end()"><fo:block  font-family="ZapfDingbats">&#x25CF;</fo:block></fo:list-item-label>
 										<fo:list-item-body start-indent="body-start()"><fo:block><![CDATA[ <%= select1_control2.Current.getLabel() %>]]></fo:block></fo:list-item-body>
-										<!--<% } else { %>--> 
-										<!-- not selected -->														
+										<!--<% } else { %>-->
+										<!-- not selected -->
 										<fo:list-item-label end-indent="label-end()"><fo:block  font-family="ZapfDingbats">&#x274D;</fo:block></fo:list-item-label>
 										<fo:list-item-body start-indent="body-start()"><fo:block><![CDATA[ <%= select1_control2.Current.getLabel() %>]]></fo:block></fo:list-item-body>
 										<!--<% } %>-->
@@ -77,7 +77,7 @@
 					</fo:list-block>
 				</fo:table-cell>
 			</fo:table-row>
-			</Apn:control>		
+			</Apn:control>
 		</Apn:whencontrol>
 		<!--==== End of SELECT1 ====-->
 		<Apn:whencontrol type="SELECT" runat="server">
@@ -105,7 +105,7 @@
 												<fo:inline font-family="ZapfDingbats">&#x2713;</fo:inline>
 												<![CDATA[ <%= select_control3.Current.getLabel() %>]]>
 											</fo:block></fo:list-item-body>
-											<!--<% } else { %>--> 
+											<!--<% } else { %>-->
 											<fo:list-item-body start-indent="body-start()"><fo:block>
 												<![CDATA[ <%= select_control3.Current.getLabel() %>]]>
 											</fo:block></fo:list-item-body>
@@ -121,7 +121,7 @@
 											<fo:inline font-family="ZapfDingbats">&#x2713;</fo:inline>
 											<![CDATA[ <%= select_control2.Current.getLabel() %>]]>
 										</fo:block></fo:list-item-body>
-										<!--<% } else { %>--> 
+										<!--<% } else { %>-->
 										<fo:list-item-body start-indent="body-start()"><fo:block>
 											<![CDATA[ <%= select_control2.Current.getLabel() %>]]>
 										</fo:block></fo:list-item-body>
@@ -133,9 +133,9 @@
 					</fo:list-block>
 				</fo:table-cell>
 			</fo:table-row>
-			</Apn:control>		
+			</Apn:control>
 		</Apn:whencontrol>
-		<!--==== End of SELECT ====-->	
+		<!--==== End of SELECT ====-->
 		<Apn:whencontrol type="STATICTEXT" runat="server">
 		<!--==== Begin of static text ===-->
 			<Apn:control id="statictext_control" runat="server">
@@ -144,10 +144,10 @@
 					<fo:block text-align="start" ><Apn:label runat="server"/></fo:block>
 					<fo:block text-align="start"><Apn:value runat="server"/></fo:block>
 				</fo:table-cell>
-			</fo:table-row>						
+			</fo:table-row>
 			</Apn:control>
-		</Apn:whencontrol>	
-		<!--==== End of static text ===-->					
+		</Apn:whencontrol>
+		<!--==== End of static text ===-->
 		<Apn:whencontrol type="TEXTAREA" runat="server">
 		<!--==== Begin of textarea ===-->
 			<Apn:control id="textarea_control" runat="server">
@@ -159,21 +159,21 @@
 			</fo:table-row>
 			</Apn:control>
 		</Apn:whencontrol>	
-		<!--==== End of textarea ===-->		
+		<!--==== End of textarea ===-->
 		<Apn:whencontrol type="IMAGE" runat="server">
 		<!--==== Begin of static image ===-->
 			<Apn:control id="image" runat="server">
 			<fo:table-row keep-together="always">
 				<fo:table-cell number-columns-spanned="2" padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:block text-align="start" ><Apn:label runat="server"/></fo:block>
-					<fo:block text-align="start"><fo:external-graphic content-height="scale-to-fit" height="2.00in"  content-width="2.00in" scaling="non-uniform" 
+					<fo:block text-align="start"><fo:external-graphic content-height="scale-to-fit" height="2.00in"  content-width="2.00in" scaling="non-uniform"
 						text-align='start' display-align='before' src='<apn:value runat="server"/>' /></fo:block>
 				</fo:table-cell>
-			</fo:table-row>						
+			</fo:table-row>
 			</Apn:control>
-		</Apn:whencontrol>	
+		</Apn:whencontrol>
 		<!--==== End of image ===-->
-		<Apn:whencontrol type="RESULT" runat="server">	
+		<Apn:whencontrol type="RESULT" runat="server">
 		<!--==== Begin of knowledge base ===-->
 			<Apn:control id="knowledge" runat="server">
 			<fo:table-row>
@@ -184,11 +184,11 @@
 							<fo:list-item>
 								<fo:list-item-label end-indent="label-end()"><fo:block  font-family="ZapfDingbats">&#x27A4;</fo:block></fo:list-item-label>
 								<fo:list-item-body start-indent="body-start()"><fo:block><![CDATA[<Apn:value runat="server"/>]]></fo:block></fo:list-item-body>
-							</fo:list-item>						
+							</fo:list-item>
 						</Apn:forEach>
 						<Apn:forEach begin="1" runat="server">
-							<Apn:choosecontrol runat="server">											
-								<Apn:whencontrol type="RESULT_REPEAT" runat="server">																					
+							<Apn:choosecontrol runat="server">
+								<Apn:whencontrol type="RESULT_REPEAT" runat="server">
 									<Apn:forEach runat="server">
 										<Apn:control runat="server">
 											<fo:list-item>
@@ -211,19 +211,19 @@
 										<fo:list-item-label end-indent="label-end()"><fo:block><![CDATA[&#160;]]></fo:block></fo:list-item-label>
 										<fo:list-item-body start-indent="body-start()"><fo:block><![CDATA[<Apn:label runat="server"/> : <Apn:value runat="server"/>]]></fo:block></fo:list-item-body>
 									</fo:list-item>
-								</Apn:otherwise> 
+								</Apn:otherwise>
 							</Apn:choosecontrol>
-						</Apn:forEach>									
+						</Apn:forEach>
 					</fo:list-block>
 				</fo:table-cell>
-			</fo:table-row>						
+			</fo:table-row>
 			</Apn:control>
-		</Apn:whencontrol>				
-		<!--==== End of knowledge base ===-->	
+		</Apn:whencontrol>
+		<!--==== End of knowledge base ===-->
 		<apn:whencontrol type="ROW" runat="server">
 		<!--==== Begin of row ===-->
 			<apn:control runat="server">
-				<apn:forEach runat="server">											
+				<apn:forEach runat="server">
 					<apn:choosecontrol runat="server">
 						<apn:whencontrol runat="server" type="COL">
 							<% ExecutePath("/pdf-fo/fields.aspx"); %>
@@ -232,7 +232,7 @@
 				</apn:forEach>
 			</apn:control>
 		</apn:whencontrol>	
-		<!--==== End of row ===-->		
+		<!--==== End of row ===-->
 		<Apn:whencontrol type="GROUP" runat="server">
 		<!--==== Begin of group ===-->
 			<Apn:control id="group" runat="server">
@@ -240,7 +240,7 @@
 				<fo:table-cell background-color="rgb(192,192,192)" number-columns-spanned="2" padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:block text-align="start" ><![CDATA[<Apn:label runat="server"/>]]></fo:block>
 				</fo:table-cell>
-			</fo:table-row>	
+			</fo:table-row>
 			<fo:table-row>
 				<fo:table-cell number-columns-spanned="2" padding="5mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:table border-collapse="collapse" height="17cm" border-color="rgb(192,192,192)" border-style="solid" border-width="0.1mm" table-layout="fixed" width="100%">
@@ -251,10 +251,10 @@
 						</fo:table-body>
 					</fo:table>
 				</fo:table-cell>
-			</fo:table-row>	
+			</fo:table-row>
 			</Apn:control>
 		</Apn:whencontrol>
-		<!--==== End of group ===-->		
+		<!--==== End of group ===-->
 		<Apn:whencontrol type="REPEAT" runat="server">
 		<!--==== Begin of repeat ===-->
 			<Apn:control id="repeat" runat="server">
@@ -262,7 +262,7 @@
 				<fo:table-cell background-color="rgb(192,192,192)" number-columns-spanned="2" padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:block text-align="start" ><![CDATA[<Apn:label runat="server"/>]]></fo:block>
 				</fo:table-cell>
-			</fo:table-row>	
+			</fo:table-row>
 			<fo:table-row>
 				<fo:table-cell number-columns-spanned="2" padding="5mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 					<fo:table border-collapse="collapse" height="17cm" border-color="rgb(192,192,192)" border-style="solid" border-width="0.1mm" table-layout="fixed">
@@ -285,13 +285,13 @@
 									<Apn:forEach runat="server"><!-- field -->
 									<fo:table-cell background-color="rgb(192,192,192)" padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 										<fo:block text-align="start" ><![CDATA[ <Apn:label runat="server"/> &#160;]]></fo:block>
-									</fo:table-cell>	
+									</fo:table-cell>
 									</Apn:forEach>
 									</Apn:forEach>
 									</Apn:forEach>
 									<!-- <% } %> -->
-								</Apn:forEach > 
-							</fo:table-row> 
+								</Apn:forEach >
+							</fo:table-row>
 						</fo:table-header>
 						<fo:table-body font-family="sans-serif" font-weight="normal" font-size="10pt">
 							<Apn:forEach runat="server">
@@ -303,7 +303,7 @@
 									<!-- begin of each group field -->
 									<fo:table-cell padding="1mm" border-before-width="0.5pt" border-after-width="0.25pt" border-start-width="0.25pt" border-end-width="0.25pt" border-color="rgb(192,192,192)" border-style="solid">
 										<fo:block text-align="start" ><![CDATA[ <Apn:value runat="server"/> &#160;]]></fo:block>
-									</fo:table-cell>	
+									</fo:table-cell>
 									<!-- end of each group field -->
 								</Apn:forEach>
 								</Apn:forEach>
@@ -314,13 +314,13 @@
 						</fo:table-body>
 					</fo:table>
 				</fo:table-cell>
-			</fo:table-row>	
+			</fo:table-row>
 			</Apn:control>
-		</Apn:whencontrol>	
-		<!--==== End of repeat ===-->	
+		</Apn:whencontrol>
+		<!--==== End of repeat ===-->
 		<Apn:whencontrol style="SUMMARY" runat="server">
-		<!--==== Begin of summary ===-->	
-			<Apn:control id="summary"  runat="server">
+		<!--==== Begin of summary ===-->
+			<Apn:control id="summary" runat="server">
 				<Apn:forEach runat="server">
 					<!-- each page -->
 					<fo:table-row>
@@ -332,9 +332,7 @@
 					<!-- end of eaach page -->
 				</Apn:forEach>
 			</Apn:control>
-		</Apn:whencontrol>	
-		<!--==== End of summary ===-->	
-		
-		
+		</Apn:whencontrol>
+		<!--==== End of summary ===-->
 	</Apn:choosecontrol>
 </Apn:forEach>

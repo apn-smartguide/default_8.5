@@ -11,9 +11,9 @@
   margin-top: 0; 
 }
 @media (min-width: 768px) {
-  .section {
+  /* .section {
     margin-bottom: 2em;
-  }
+  } */
 }
 .section ol {
   background-color: #ececec;
@@ -49,7 +49,7 @@
 .section li:first-child,
 .section li:first-child p {
   border-top-left-radius: 5px;
-  border-borrom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   padding-left: 0; 
 }
 .section li:last-child,
@@ -185,11 +185,11 @@
 /* Progress bar */
 .progress {
   height: auto;
-  margin-top: 5px;
+  /* margin-top: 5px;
   margin-left: -10px;
-  margin-right: -10px;
+  margin-right: -10px; */
 }
-.hide-progress-bar .progress {
+.wizard+.hide-progress-bar .progress {
   display: none;
 }
 /* Alert link */
@@ -204,7 +204,7 @@
 .link-help {
   display: inline-block;
   margin-top: 1px;
-  color: #000;
+  color: #000 !important;
 }
 /* Optgroup label */
 label.optgroup {
@@ -230,10 +230,6 @@ table.dataTable {
 }
 div.repeat > div.panel-heading > div:not(.modal) {
   display: inline;
-  font-size: 1.3em;
-}
-div.repeatblock > div.panel-heading > div:not(.modal) {
-  display:inline;
   font-size: 1.3em;
 }
 div.repeatinstance {
@@ -267,10 +263,15 @@ div.repeat table td.repeatbutton {
 div.repeat table td.repeatbutton > span {
   margin-right:3px;	
 }
+
 table.dataTable thead > tr > th.repeatbutton {
   padding-left: 5px;
   padding-right: 5px;
   text-align: center;
+}
+
+table.dataTable td {
+  padding: 5px;
 }
 
 div.repeat .selectBoxControl {
@@ -357,7 +358,7 @@ legend {
   font-size: inherit;
   border-bottom: none;
 }
-.radio-inline,
+/* .radio-inline,
 .checkbox-inline {
   padding-left: 25px;
 }
@@ -366,7 +367,7 @@ input+.radio-inline, input+.checkbox-inline {
 }
 fieldset .radio-inline:first-of-type, fieldset .checkbox-inline:first-of-type {
 	margin-left: 0px;
-}
+} */
 /* Knowledge base*/
 .knowledge {
   margin-bottom: 15px;
@@ -385,13 +386,6 @@ fieldset .radio-inline:first-of-type, fieldset .checkbox-inline:first-of-type {
 /* Data recap */
 .recap input.btn {
   margin-top: -4px;
-}
-/* Remove or comment the following 3 lines to display the label and value side-by-side in the recap */
-.recap .col-sm-6 {
-  width: 100%;
-}
-.recap .col-sm-6 span {
-  font-weight: bold;
 }
 /* Page navigation */
 .navigation {
@@ -415,42 +409,14 @@ ul.pagination {
   float: right;
 }
 
-select.pageSize {
+/* select.pageSize {
 	width:40px !important; 
 	padding:0 10px 0 10px;
 }
 input.pageSize {
 	width:40px !important; 
 	padding:0 10px 0 10px;
-}
-/* Center the loader */
-#loader {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-  display:none;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+} */
 
 /* Add animation to "page content" */
 .animate-bottom {

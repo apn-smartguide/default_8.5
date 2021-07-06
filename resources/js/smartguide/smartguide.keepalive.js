@@ -30,6 +30,7 @@ function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logo
 		redirPage = logoutPage;
 	}
 
+	//A 30 seconds buffer is substracted from the configured session duration, this avoid possible timing offset errors to affect the session extension.
 	if (currentLocale == 'fr' && keepAliveFlag == "True") {
 		$.sessionTimeout({
 			title: "Gestion de session",
@@ -39,11 +40,10 @@ function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logo
 			keepAliveUrl: keepAlivePage,
 			logoutUrl: logoutPage,
 			redirUrl: redirPage,
-			warnAfter:warnDelay*60*1000,
-			redirAfter: redirDelay*60*1000,
+			warnAfter:(warnDelay*60*1000),
+			redirAfter: (redirDelay*60*1000)-(30*1000),
 			keepAliveInterval: keepAliveDelay*1000,
 			ignoreUserActivity: false,
-			keepAliveInterval: 30*1000,
 			keepAlive: true,
 			countdownMessage: 'Redirection dans {timer} secondes.',
 			countdownBar: true
@@ -58,11 +58,10 @@ function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logo
 			keepAliveUrl: keepAlivePage,
 			logoutUrl: logoutPage,
 			redirUrl: redirPage,
-			warnAfter:warnDelay*60*1000,
-			redirAfter: redirDelay*60*1000,
+			warnAfter:(warnDelay*60*1000),
+			redirAfter: (redirDelay*60*1000)-(30*1000), 
 			keepAliveInterval: keepAliveDelay*1000,
 			ignoreUserActivity: false,
-			keepAliveInterval: 30*1000,
 			keepAlive: true,
 			countdownMessage: 'Redirecting in {timer} seconds.',
 			countdownBar: true
