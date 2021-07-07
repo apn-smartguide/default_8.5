@@ -503,7 +503,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	//// Authentication Helpers ////
-	public bool IsLogged() {		
+	public bool IsLogged() {
 		if(!Username.Equals("")) {
 			return true;
 		} else {
@@ -513,6 +513,21 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	// public void Logout() {
+
+	// 	Session["userid"] = "";
+	// 	Session["roles"] = "";
+
+	// 	Session.Clear();
+	// 	Session.Abandon();
+	// 	Session.RemoveAll();
+
+	// 	if (Request.Cookies["ASP.NET_SessionId"] != null)
+	// 	{
+	// 		Response.Cookies["ASP.NET_SessionId"].Value = string.Empty;
+	// 		Response.Cookies["ASP.NET_SessionId"].Expires = DateTime.Now.AddMonths(-20);
+	// 	}
+	// }
 	public string Username { 
 		get {
 			return (Session["username"] != null) ? (string) Session["username"] : "";
