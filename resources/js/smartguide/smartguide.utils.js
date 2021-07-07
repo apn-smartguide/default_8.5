@@ -209,6 +209,19 @@ var utilsController = {
 			});
 		});
 
+		$('.btn-upload').off('click').on('click', function (e) {
+			$('#loader').fadeIn("slow");
+			var $this = $(this);
+
+			r.ajaxProcess(this, null, true,
+				null,
+				null,
+				function(){
+					$("#loader").fadeOut("slow");
+				}
+			);
+		});
+
 		if (typeof tts === 'function'){
 			tts(context)
 		}
