@@ -11,7 +11,7 @@ var dataTablesController = {
 			var repeatDivId = table.closest('div.repeat').attr('id');
 
 			var loadTable = function(){
-				$('#loader').fadeIn("slow");
+				$('#loader').fadeIn("fast");
 				table.fadeTo(0, 0.2);
 				$form.ajaxSubmit({
 					crossDomain: false,
@@ -38,7 +38,7 @@ var dataTablesController = {
 						} catch(e) {
 							if (console) console.log(e.stack);
 						}
-						$('#loader').fadeOut("slow");
+						$('#loader').fadeOut("fast");
 						table.fadeTo(0, 1.0);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -48,7 +48,7 @@ var dataTablesController = {
 							console.log(textStatus);
 							console.log(errorThrown);
 						}
-						$('#loader').fadeOut("slow");
+						$('#loader').fadeOut("fast");
 						table.fadeTo(0, 1.0);
 					}
 				});

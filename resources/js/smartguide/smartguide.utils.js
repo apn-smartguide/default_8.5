@@ -210,14 +210,14 @@ var utilsController = {
 		});
 
 		$('.btn-upload').off('click').on('click', function (e) {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 
 			r.ajaxProcess(this, null, true,
 				null,
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
