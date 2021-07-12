@@ -4,9 +4,10 @@
 <%-- the following line is to remove the conflict between jquery-ui tooltip and bootstrap tooltip. bootstap will override and be default --%>
 <script>$.widget.bridge('uitooltip', $.ui.tooltip);</script>
 <!-- Boostrap -->
-<script src='<%= CacheBreak("/resources/js/bootstrap.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.bundle.min.js") %>'></script>
 <!-- Modernizr -->
-<!-- <script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script> -->
+<script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
@@ -30,26 +31,15 @@
 <script src='<%= CacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.10.21/js/jquery.datatables.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.5/js/dataTables.responsive.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
+<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tinymce.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.formatters.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
-
-<%--<script type="text/javascript">
-	var ie = navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident/") > -1;
-	if(!ie) {
-		<% var path = "/resources/js/smartguide/smartguide.utils.tts.js";%>
-	  	document.write("<script src='<%= CacheBreak(path) %>'></scr"+"ipt>");
-	} else {
-		<% path = "/resources/js/smartguide/smartguide.utils.ttsIE.js";%>
-	  	document.write("<script src='<%= CacheBreak(path) %>'></scr"+"ipt>");
-	}
-</script>--%>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script>

@@ -16,6 +16,10 @@ var customJS = {
 				bottom: navHeight
 			}
 		});
+		// $('#sidebar').css({
+		// 	"position": "sticky",
+		// 	"top": 0
+		// })
 
 		$("body").scrollspy({
 			target: '#leftCol',
