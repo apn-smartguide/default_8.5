@@ -22,7 +22,7 @@
 			<div class="container" role="main">
 				<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
 				<% if (SecondaryNavigation != null && !SecondaryNavigation.getLabel().Equals("")) { %>
-				<div id="leftcol" class="col-xs-3 hidden-sm hidden-xs" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
+				<div id="leftcol" class="col-3 d-none d-lg-flex" style="float: left;" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
 				<% 
 					if (SecondaryNavigation != null && !SecondaryNavigation.getLabel().Equals("")) { 
 						ExecutePath(SecondaryNavigation.getLabel());
@@ -31,7 +31,7 @@
 					} 
 				%>
 				</div>
-				<div class="col-xs-12 col-md-9">
+				<div class="col-12">
 				<% } else { %>
 				<div class="col-xs-12">
 				<% } %>

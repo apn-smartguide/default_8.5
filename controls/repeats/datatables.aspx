@@ -33,15 +33,15 @@
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='card <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<% if (!(bool)Context.Items["hideHeading"]) { %>
-	<div class='panel-heading'>
+	<div class='card-header'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='float-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
 			<apn:control type="insert" id="button" runat="server">
@@ -50,7 +50,7 @@
 				<% if(addBtn != null && addBtn.isAvailable()) { %>
 					<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 				<% } else { %>
-					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn pull-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span>
+					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn float-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span>
 				<% } %>
 			</apn:control>
 		<% } %>
@@ -78,13 +78,13 @@
 			</apn:ChooseControl>
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>
-		<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<h6><% ExecutePath("/controls/custom/control-label.aspx"); %></h6>
 	</div>
 	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+		<div id='div_<apn:name runat="server"/>_body' class='collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
-	<div class='panel-body'>
+	<div class='card-body'>
 		<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%><% if (!(bool)Context.Items["is-wb-tables"]) { %> = <%=getDatatablesInitOptions()%>;<% } else { %> = '';<% } %></script>
 		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
