@@ -728,6 +728,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									return true;
 								}
 							})) {
+								$("#wb-rsz").remove();
 								$currentDiv.replaceWith($responseDiv.clone());
 							}
 						}
