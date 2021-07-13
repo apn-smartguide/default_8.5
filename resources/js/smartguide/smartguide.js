@@ -155,7 +155,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			var r = SMARTGUIDES[smartletCode];
 			// basic bindings for field event with dependencies to other fields
 			// textboxes, textarea and password
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste',r.bindThis).on('keyup paste', r.bindThis);
+			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste', r.bindThisResetFocus).on('keyup paste', r.bindThisResetFocus);
 			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
 			// checkboxes and radio buttons
@@ -555,7 +555,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					// must unbind first
 					$field.off(jqEvent);
 				}
-				$field.on(jqEvent, function(e) {
+				$field.on(jqEvent, $.debounce(500, function(e) {
 					var r = SMARTGUIDES[smartletCode];
 					
 					$(this).after($('<input/>', {
@@ -575,7 +575,13 @@ $("form[id^='smartguide_']" ).each(function() {
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 							},
 							null,
-							null
+							$.debounce(500,function() {
+								if(e.type == "keyup") {
+									$("#"+fieldHtmlName).focus();
+									var value = $("#"+fieldHtmlName).val();
+									$("#"+fieldHtmlName).val("").val(value);
+								}
+							})
 						);
 					}
 					else {
@@ -592,13 +598,24 @@ $("form[id^='smartguide_']" ).each(function() {
 					}
 
 					return false;
-				});
+				}));
 			}
 		}		
 		, bindThis : function(){
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess(this, null, false, null, null, null);
+		}
+		, bindThisResetFocus : function(){
+			var r = SMARTGUIDES[smartletCode];
+			r.bindAllFieldsUnderRepeat(this);
+			r.ajaxProcess(this, null, false, null, null, 
+				function() {
+					if(this.event.keyCode != 9) {
+						this.focus();
+					}
+				}
+			);
 		}
 		, bindThisAllowSelfRefresh: function(){
 			var r = SMARTGUIDES[smartletCode];
