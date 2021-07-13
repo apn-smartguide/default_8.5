@@ -78,7 +78,9 @@
 			</apn:ChooseControl>
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>
+		<% if (control.Current.getLabel() != "") { %>
 		<h2 class='panel-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<% } %>
 	</div>
 	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
