@@ -26,7 +26,7 @@
 							<apn:ifhelplink runat="server"><iframe id='smartlet' src='<apn:help runat="server"/>' width='100%' height='400px;' frameborder='0' framespacing='0' scrolling='auto'></iframe></apn:ifhelplink>
 							<apn:ifnothelplink runat="server"><apn:help runat="server"/></apn:ifnothelplink>
 						</div>
-						<div class='modal-footer'><a href='#' class='btn btn-default' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.helptitle"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></a></div>
+						<div class='modal-footer'><a href='#' class='btn btn-secondary' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.helptitle"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></a></div>
 					</div>
 				</div>
 			</div>

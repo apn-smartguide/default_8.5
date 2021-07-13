@@ -20,9 +20,10 @@
 			<span id="sgControls"><%-- do not change the div id as it is referenced in smartguide.js --%>
 			<% ExecutePath("/layout/header.aspx"); %>
 			<div class="container" role="main">
+				<div class="row">
 				<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
 				<% if (SecondaryNavigation != null && !SecondaryNavigation.getLabel().Equals("")) { %>
-				<div id="leftcol" class="col-3 d-none d-lg-flex" style="float: left;" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
+				<div id="leftcol" class="col-3 d-none d-lg-flex" typeof="SiteNavigationElement" id="wb-sec" role="navigation">	
 				<% 
 					if (SecondaryNavigation != null && !SecondaryNavigation.getLabel().Equals("")) { 
 						ExecutePath(SecondaryNavigation.getLabel());
@@ -31,12 +32,12 @@
 					} 
 				%>
 				</div>
-				<div class="col-12">
+				<div class="col-12 col-md-9">
 				<% } else { %>
-				<div class="col-xs-12">
+				<div class="col-12">
 				<% } %>
 					<div class="row page-title">
-						<div class="col-xs-12">
+						<div class="col-12">
 							<h2>
 								<apn:control runat="server" type="step"><apn:label runat="server" /></apn:control>
 							</h2>
@@ -57,6 +58,7 @@
 					<% } %>
 				</div>
 				<% ExecutePath("/layout/footer.aspx"); %>
+				</div>
 			</div>
 		</form>
 		<script>

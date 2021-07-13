@@ -220,6 +220,9 @@ label.inline {
 	padding-bottom: 1rem;
 }
 ¨
+.smartlet-title {
+	padding: 20px 0px 10px 0px;
+}
 /* DragOver & DropZone for Multiple Uploads */
 div.drag-over {
 	background-color: black;

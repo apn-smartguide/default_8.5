@@ -68,11 +68,11 @@
 								<input id='datatable-search' type='text' class='form-control input-sm searchBox' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
 							</div>
 						</div>
-						<button type="submit" class='searchBtn btn btn-sm btn-default' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
+						<button type="submit" class='searchBtn btn btn-sm btn-secondary' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 					</div>
 					<% } %>
 					<% if(!(bool)Context.Items["hidePagination"]) { %>
-					<div class='col-xs-4 col-md-8'>
+					<div class='col-4 col-lg-8'>
 						<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span> &nbsp;&nbsp;&nbsp;
 						<apn:localize runat="server" key="theme.text.datatable.fetch" />
 						<apn:control runat="server" type="repeat-page-limit" id="pageSize">
