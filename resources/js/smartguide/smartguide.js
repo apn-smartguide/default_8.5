@@ -5,8 +5,10 @@
 if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = {};
 	
 $("form[id^='smartguide_']" ).each(function() {
+
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
 	var $form = $(this);
+
 	SMARTGUIDES[smartletCode] = {
 		fm: $('form#smartguide_'+smartletCode)
 		,posted: false
@@ -575,13 +577,14 @@ $("form[id^='smartguide_']" ).each(function() {
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 							},
 							null,
-							$.debounce(500,function() {
+								function() {
 								if(e.type == "keyup") {
-									$("#"+fieldHtmlName).focus();
-									var value = $("#"+fieldHtmlName).val();
-									$("#"+fieldHtmlName).val("").val(value);
+									var fieldInput = $("#"+fieldHtmlName);
+									var fldLength= fieldInput.val().length;
+									fieldInput.focus();
+									fieldInput[0].setSelectionRange(fldLength, fldLength);
 								}
-							})
+							}
 						);
 					}
 					else {
