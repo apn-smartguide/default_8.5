@@ -28,14 +28,14 @@ Context.Items["btnAddStyle"] = "";
 Context.Items["btnAddType"] = "prepare_add_instance";
 
 %>
-<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='panel panel-default repeat uploads-render <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='card repeat uploads-render <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name='<apn:name runat="server"/>' type='hidden' value='' />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
-	<div class='panel-heading clearfix'>
-		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %><div class='pull-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
+	<div class='card-header clearfix'>
+		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %><div class='float-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">
@@ -43,11 +43,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 				</apn:forEach>
 			</apn:forEach>
 		</apn:forEach>
-		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	</apn:control>
 	<div class='drop-popup'><p>Drop your files here</p></div>
-	<div class='panel-body' id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
+	<div class='card-body' id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
 		<table class='<%=control.Current.getCSSClass()%>'>
 			<tbody>
 			<apn:forEach runat="server" id="status">

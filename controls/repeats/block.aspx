@@ -23,9 +23,9 @@
 %>
 	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<div class='<% if (!(bool)Context.Items["hidePagination"]) { %>bootpag<% } %>'>
-			<div class='panel panel-default responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "") %>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
+			<div class='card responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "") %>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<% if (!(bool)Context.Items["hideHeading"]) { %>
-				<div class="panel-heading">
+				<div class="card-header">
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 					<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 				<% } %>
@@ -36,19 +36,19 @@
 					</apn:control>
 					<div class=''>
 						<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
-						<div class='pull-right'>
+						<div class='float-right'>
 							<apn:control runat="server" type="insert" id="button">
 								<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
 								<% SessionField addBtn = GetProxyButton(Context.Items["repeatCode"] + "_add", ref eventTargets); %>
 								<% if(addBtn != null && addBtn.isAvailable()) { %>
 									<span data-eventtarget='[<%=eventTargets%>]' aria-controls='<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 								<% } else { %>
-									<span data-eventtarget='["<%=control.Current.getName()%>"]' aria-controls='div_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.text.add"/>' aria-label='<apn:localize runat="server" key="theme.text.add"/>' class='<apn:localize runat="server" key="theme.icon.add"/> repeat_block_add_btn pull-right' id='<apn:name runat="server"/>'></span>
+									<span data-eventtarget='["<%=control.Current.getName()%>"]' aria-controls='div_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.text.add"/>' aria-label='<apn:localize runat="server" key="theme.text.add"/>' class='<apn:localize runat="server" key="theme.icon.add"/> repeat_block_add_btn float-right' id='<apn:name runat="server"/>'></span>
 								<% } %>
 							</apn:control>
 						</div>
 						<% } %>
-						<% if (!control.Current.getLabel().Equals("")) { %><h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2><% } %>
+						<% if (!control.Current.getLabel().Equals("")) { %><h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2><% } %>
 					</div>
 				</apn:control>
 				<% if ((bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary) { %>
@@ -87,11 +87,11 @@
 				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
 				<% } %>
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-				<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+				<div id='div_<apn:name runat="server"/>_body' class='collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 				<% } %>
 				<apn:forEach id="status" runat="server">
 					<% Context.Items["optionIndex"] = status.getCount(); %>
-					<div class='<% if ((bool)Context.Items["plain-group"] || (bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } else { %>panel-body<% } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
+					<div class='<% if ((bool)Context.Items["plain-group"] || (bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } else { %>card-body<% } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
 						<div class='row block-controls'>
 						<div class='col-12'>
@@ -105,7 +105,7 @@
 							</div>
 							<% } %>
 							<% if ((!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) && !IsPdf && !IsSummary) { %>
-							<div class='pull-right'>
+							<div class='float-right'>
 								<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
 								<apn:control runat="server" type="delete"><span title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='div_<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' class='<apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
 								<% } %>

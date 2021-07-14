@@ -44,19 +44,19 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 //	Context.Items["btnAddStyle"] = btnAdd.getCSSStyle();
 //}
 %>
-<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='card <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name='<apn:name runat="server"/>' type='hidden' value='' />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
 	<% if (!(bool)Context.Items["hideHeading"]) { %>
-	<div class='panel-heading clearfix'>
+	<div class='card-header clearfix'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
-			<div class='pull-right'>
+			<div class='float-right'>
 				<apn:control id="button" runat="server" type="prepare_add_instance">
 					<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
 					<% SessionField addBtn = GetProxyButton(Context.Items["repeatCode"] + "_add", ref eventTargets); %>
@@ -69,14 +69,14 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 			</div>
 		<% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
-		<h2 class="panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	<% } %>
 	</apn:control>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+		<div id='div_<apn:name runat="server"/>_body' class='collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 	<% } %>
-	<div class='panel-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
+	<div class='card-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
 	<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%> = '';</script>
 	<table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "") %>>
 		<% if ((bool)Context.Items["hasPagination"]) { %><apn:control type="repeat-current-page" runat="server" ><input type='hidden' value='<apn:value runat="server"/>' name='<apn:name runat="server" />' class='repeatCurrentPage'/></apn:control><% } %>

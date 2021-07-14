@@ -10,17 +10,6 @@ var customJS = {
 
 		var navHeight = $('.navbar').outerHeight(true) + 10;
 
-		$('#sidebar').affix({
-			offset: {
-				top: 20,
-				bottom: navHeight
-			}
-		});
-		// $('#sidebar').css({
-		// 	"position": "sticky",
-		// 	"top": 0
-		// })
-
 		$("body").scrollspy({
 			target: '#leftCol',
 			offset: navHeight

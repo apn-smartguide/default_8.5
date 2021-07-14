@@ -219,10 +219,12 @@ label.inline {
 .page-title {
 	padding-bottom: 1rem;
 }
-¨
+
 .smartlet-title {
-	padding: 20px 0px 10px 0px;
+	padding-top: 1.25rem;
+	padding-bottom: 0.625rem;
 }
+
 /* DragOver & DropZone for Multiple Uploads */
 div.drag-over {
 	background-color: black;
@@ -380,7 +382,7 @@ div.repeat table td.repeatbutton {
 	margin-bottom: 0px !important;
 }
 
-.panel-borderless .panel-heading {
+.panel-borderless .card-header {
 	background: #fff;
 	border-width: 0px;
 }
