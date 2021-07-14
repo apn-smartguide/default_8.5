@@ -557,66 +557,86 @@ $("form[id^='smartguide_']" ).each(function() {
 					// must unbind first
 					$field.off(jqEvent);
 				}
-				$field.on(jqEvent, $.debounce(1500, function(e) {
-					var r = SMARTGUIDES[smartletCode];
-					var ogType = this.type;
-					var fldLength= $(this).val().length;
-					if(this.type != 'text' && this.type != 'password') {
-						this.type = 'text'; //workaround support for selectionRange not supported on all types.
-					}
-					var curPos = $(this).caret();
-					if(curPos <= 0) {
-						curPos = fldLength;
-					}
 
-					$(this).after($('<input/>', {
-						type: 'hidden',
-						name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
-						value: 'on'+e.type
-					}));
-					// for select, or static text, set event target
-					if (!$(this).attr('data-eventtarget') && $('*[data-eventtarget]', this)){
-						$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
-					}
+				var typingTimer;                //timer identifier
+				var doneTypingInterval = 1000;  //time in ms, 0.5 second for example
 
-					if (isAjax) {
-						r.ajaxProcess(this, null, true, 
-							function() {
-								// must remove the e_ field we added
-								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
-							},
-							null,
-							function() {
-								if(e.type == "keyup") {
-									var fieldInput = $("#"+fieldHtmlName);
-									if(fieldInput[0].type != 'text' && fieldInput[0].type != 'password') {
-										fieldInput[0].type = 'text'; //workaround support for selectionRange not supported on all types.
+				$field.on(jqEvent, 
+					function(e) {
+						var r = SMARTGUIDES[smartletCode];
+
+						console.log("clearTimeout");
+						clearTimeout(typingTimer);
+						
+						$(this).after($('<input/>', {
+							type: 'hidden',
+							name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
+							value: 'on'+e.type
+						}));
+						// for select, or static text, set event target
+						if (!$(this).attr('data-eventtarget') && $('*[data-eventtarget]', this)){
+							$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
+						}
+
+						typingTimer = setTimeout(doneTyping.bind(null, e, r, isAjax, this, fieldHtmlName), doneTypingInterval);
+						
+						function doneTyping (e, r, isAjax, field, fieldHtmlName) {
+
+							var ogType = field.type;
+						
+							if(field.type != 'text' && field.type != 'password'){
+								field.type = 'text'; //workaround support for selectionRange not supported on all types.
+							}
+							var curPos = $(field).caret();
+
+
+							console.log("done typing");
+							//user is "finished typing," do something
+							if (isAjax) {
+								r.ajaxProcess(field, null, true, 
+									function() {
+										// must remove the e_ field we added
+										$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+									},
+									null,
+
+									function() {
+										if(e.type == "keyup") {
+											var fieldInput = $("#"+fieldHtmlName);
+											if(fieldInput[0].type != 'text' && fieldInput[0].type != 'password') {
+												fieldInput[0].type = 'text'; //workaround support for selectionRange not supported on all types.
+											}
+											var fldLength= fieldInput.val().length;
+											if(curPos <=0 && fldLength > 0) {
+												curPos = fldLength
+											}
+											if(e.keyCode != 9){
+												fieldInput[0].setSelectionRange(curPos, curPos)
+											} else if(fldLength > 0) {
+												fieldInput[0].setSelectionRange(fldLength, fldLength);
+											}
+											fieldInput[0].type = ogType;
+											fieldInput.focus();
+										}
 									}
-									if(e.keyCode != 9){
-										fieldInput[0].setSelectionRange(curPos, curPos)
-									} else if (fldLength > 0) {
-										fieldInput[0].setSelectionRange(fldLength, fldLength);
-									}
-									fieldInput[0].type = ogType;
-									fieldInput.focus();
+								);
+							} else {
+								if (!$(field).hasClass("always-enabled")) {
+									r._doubleClickHandler(e);
+								} else {
+									r.fm.submit();
+								}
+								
+								// must remove the e_ field we added is the button is always enabled, like when triggering a file download
+								if ($(field).hasClass("always-enabled")) {
+									$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 								}
 							}
-						);
-					} else {
-						if (!$(this).hasClass("always-enabled")) {
-							r._doubleClickHandler(e);
-						} else {
-							r.fm.submit();
-						}
-						
-						// must remove the e_ field we added is the button is always enabled, like when triggering a file download
-						if ($(this).hasClass("always-enabled")) {
-							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+							field.type = ogType;
+							return false;
 						}
 					}
-					this.type = ogType;
-					return false;
-				}));
+				);
 			}
 		}		
 		, bindThis : function(){
