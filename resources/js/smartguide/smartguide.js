@@ -557,9 +557,18 @@ $("form[id^='smartguide_']" ).each(function() {
 					// must unbind first
 					$field.off(jqEvent);
 				}
-				$field.on(jqEvent, $.debounce(1000, function(e) {
+				$field.on(jqEvent, $.debounce(1500, function(e) {
 					var r = SMARTGUIDES[smartletCode];
-					
+					var ogType = this.type;
+					var fldLength= $(this).val().length;
+					if(this.type != 'text' && this.type != 'password') {
+						this.type = 'text'; //workaround support for selectionRange not supported on all types.
+					}
+					var curPos = $(this).caret();
+					if(curPos <= 0) {
+						curPos = fldLength;
+					}
+
 					$(this).after($('<input/>', {
 						type: 'hidden',
 						name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
@@ -577,20 +586,23 @@ $("form[id^='smartguide_']" ).each(function() {
 								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 							},
 							null,
-								function() {
+							function() {
 								if(e.type == "keyup") {
 									var fieldInput = $("#"+fieldHtmlName);
-									var fldLength= fieldInput.val().length;
-									fieldInput.focus();
-									var ogType = fieldInput[0].type;
-									fieldInput[0].type = 'text'; //workaround support for selectionRange not supported on all types.
-									fieldInput[0].setSelectionRange(fldLength, fldLength);
+									if(fieldInput[0].type != 'text' && fieldInput[0].type != 'password') {
+										fieldInput[0].type = 'text'; //workaround support for selectionRange not supported on all types.
+									}
+									if(e.keyCode != 9){
+										fieldInput[0].setSelectionRange(curPos, curPos)
+									} else if (fldLength > 0) {
+										fieldInput[0].setSelectionRange(fldLength, fldLength);
+									}
 									fieldInput[0].type = ogType;
+									fieldInput.focus();
 								}
 							}
 						);
-					}
-					else {
+					} else {
 						if (!$(this).hasClass("always-enabled")) {
 							r._doubleClickHandler(e);
 						} else {
@@ -602,7 +614,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 						}
 					}
-
+					this.type = ogType;
 					return false;
 				}));
 			}
