@@ -180,11 +180,7 @@
 															<% } else if(!trRowField.Current.getCSSClass().Contains("proxy")) { %>
 																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-																<% if (trRowField.Current.getCSSClass().Contains("render-html")) { %>
-																	<apn:value runat="server"/>
-																<% } else { %>
-																	<apn:value runat="server" tohtml="true"/>
-																<% } %>
+																<apn:value runat="server"/>
 																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 																</td>
 															<% } else { %>
@@ -206,7 +202,6 @@
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 											<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
-												<%-- if you need to output html formatted content, add the render-html class --%>
 												<%-- check type and format if applicable --%>
 												<%
 													string type = trField.Current.getMetaDataValue("type");
@@ -224,11 +219,7 @@
 												%>
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
 													<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-													<% if (trField.Current.getCSSClass().Contains("render-html")) { %>
-														<apn:value runat="server"/>
-													<% } else { %>
-														<apn:value runat="server" tohtml="true"/>
-													<% } %>
+													<apn:value runat="server"/>
 													<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 												</td>
 											<% } else { %>

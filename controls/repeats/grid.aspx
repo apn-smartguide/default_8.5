@@ -198,11 +198,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 													<% if(trRowField.Current.getCSSClass().Contains("datatable-editable") && (!IsSummary && !IsPdf)) { %>
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 													<% } else if(trRowField.Current.getType() == 1014 /*date*/ ) { %>
-														<td data-order='<%=GetSortableDate(trField.Current)%>'><apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute><apn:value runat="server" tohtml="true"/><apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute></td>
+														<td data-order='<%=GetSortableDate(trField.Current)%>'><apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute><apn:value runat="server"/><apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute></td>
 													<% } else if(trRowField.Current.getType() == 1006 /*select*/ || trRowField.Current.getType() == 1007 /*select1*/ ) { %>
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=trRowField.Current.getSelectedLabel()%></td>
 													<% } else { %>
-														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trRowField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:value runat="server"/></td>
 													<% } %>
 												<% } %>
 												</apn:Otherwise>
@@ -218,11 +218,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<% if(trField.Current.getCSSClass().Contains("datatable-editable") && (!IsSummary && !IsPdf)) { %>
 										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 									<% } else if(trField.Current.getType() == 1014 /*date*/) { %>
-										<td data-order='<%=GetSortableDate(trField.Current)%>'><apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute><apn:value runat="server" tohtml="true"/><apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute></td>
+										<td data-order='<%=GetSortableDate(trField.Current)%>'><apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute><apn:value runat="server"/><apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute></td>
 									<% } else if(trField.Current.getType() == 1006 /*select*/ || trField.Current.getType() == 1007 /*select1*/ ) { %>
 										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=trField.Current.getSelectedLabel()%></td>
 									<% } else { %>
-										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if (trField.Current.getCSSClass().Contains("render-html")) { %><apn:value runat="server"/><% } else { %><apn:value runat="server" tohtml="true"/><% } %></td>
+										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:value runat="server"/></td>
 									<% } %>
 								<% } %>
 								</apn:Otherwise>

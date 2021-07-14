@@ -7,7 +7,7 @@
 	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; }
 %>
 <% if(control.Current.getAttribute("style").Contains("visibility:hidden;") && GetMetaDataValue(control.Current, "unsafe").Equals("true")) { %>
-	<div id='div_<apn:name runat="server"/>' <!-- #include file="aria-live.inc" --> ><input type='hidden' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:value runat="server" tohtml="true"/>' <apn:metadata runat="server" /> /></div>
+	<div id='div_<apn:name runat="server"/>' <!-- #include file="aria-live.inc" --> ><input type='hidden' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:value runat="server"/>' <apn:metadata runat="server" /> /></div>
 <% } else if(control.Current.getAttribute("style").Contains("visibility:hidden;") || control.Current.getAttribute("visible").Equals("false")) { %>
 	<!-- #include file="hidden.inc" -->
 <% } else { %>
@@ -21,7 +21,7 @@
 		<% ExecutePath("/controls/label.aspx"); %>
 		<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 		<% if(IsPdf || IsSummary) { %>
-			<p><apn:value runat="server" tohtml="true"/></p>
+			<p><apn:value runat="server"/></p>
 		<% } else { %>
 			<apn:ifcontrolattribute runat="server" attr="prefix or suffix"><div class='input-group'></apn:ifcontrolattribute>
 			<apn:ifcontrolattribute runat="server" attr="prefix"><span class='input-group-addon'><apn:controlattribute runat="server" attr="prefix" /></span></apn:ifcontrolattribute>
