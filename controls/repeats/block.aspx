@@ -21,7 +21,7 @@
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat mt-2 mb-2 <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<div class='<% if (!(bool)Context.Items["hidePagination"]) { %>bootpag<% } %>'>
 			<div class='card responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "") %>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<% if (!(bool)Context.Items["hideHeading"]) { %>
@@ -48,12 +48,12 @@
 							</apn:control>
 						</div>
 						<% } %>
-						<% if (!control.Current.getLabel().Equals("")) { %><h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2><% } %>
+						<% if (!control.Current.getLabel().Equals("")) { %><h5 class="mb-0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5><% } %>
 					</div>
 				</apn:control>
 				<% if ((bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary) { %>
 					<div class='container form-inline' style='padding:10px'>
-						<div class='row'>
+						<div class='row' style="width: 100%;">
 							<div class='col-6'>
 								<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;<apn:localize runat="server" key="theme.text.datatable.fetch" />
 								<apn:control runat="server" type="repeat-page-limit" id="pageSize">
@@ -72,9 +72,12 @@
 							</div>
 							<div class='col-6'>
 								<% if(!(bool)Context.Items["hideSearch"]) {%>
-								<apn:localize runat="server" key="theme.text.datatable.filter" />:
-								<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='form-control input-sm searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
-								<span class='searchBtn'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></span>
+								<div class="input-group input-group-sm mb-3">
+									<div class="input-group-prepend"><span class="input-group-text"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span></div>
+									<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='form-control searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
+									<span class='searchBtn'></span>
+									<button type="submit" class='searchBtn btn btn-sm btn-secondary' title='<apn:localize runat="server" key="theme.icon.search"/>' aria-label='<apn:localize runat="server" key="theme.icon.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></button>
+								</div>
 								<% } %>
 							</div>
 						</div>

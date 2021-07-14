@@ -69,7 +69,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 			</div>
 		<% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
-		<h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<h5 class="mt-1 mb-1"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 	</div>
 	<% } %>
 	</apn:control>

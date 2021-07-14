@@ -341,7 +341,7 @@ div.repeat table td.repeatbutton {
 	border-bottom: 1px #8e8e8e solid ;
 }
 
-.panel .repeatinstance {
+.card .repeatinstance {
 	margin: 15px;
 	border: 1px #8e8e8e solid;
 	border-radius: 3px;
