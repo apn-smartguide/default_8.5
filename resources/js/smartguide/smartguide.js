@@ -557,7 +557,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					// must unbind first
 					$field.off(jqEvent);
 				}
-				$field.on(jqEvent, $.debounce(500, function(e) {
+				$field.on(jqEvent, $.debounce(1000, function(e) {
 					var r = SMARTGUIDES[smartletCode];
 					
 					$(this).after($('<input/>', {
@@ -582,7 +582,10 @@ $("form[id^='smartguide_']" ).each(function() {
 									var fieldInput = $("#"+fieldHtmlName);
 									var fldLength= fieldInput.val().length;
 									fieldInput.focus();
+									var ogType = fieldInput[0].type;
+									fieldInput[0].type = 'text'; //workaround support for selectionRange not supported on all types.
 									fieldInput[0].setSelectionRange(fldLength, fldLength);
+									fieldInput[0].type = ogType;
 								}
 							}
 						);
