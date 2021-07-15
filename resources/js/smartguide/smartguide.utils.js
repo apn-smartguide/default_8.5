@@ -29,7 +29,7 @@ var utilsController = {
 		//Init Formatters
 		reformatAllFieldTypes();
 
-		$('[data-toggle="tooltip"]').tooltip({container: 'body'});
+		$('[data-toggle="tooltip"]').tooltip({container: 'body', placement: 'auto'});
 
 		//make help window dragable, JQuery UI Draggable
 		$('.modal-dialog', context).draggable({

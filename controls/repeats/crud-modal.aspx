@@ -25,12 +25,12 @@
 			<% if(Context.Items["modal-mode"].Equals("add")) { %>
 			<apn:control runat="server" type="cancel_add_instance">
 			<%-- issue with cancel close not aborting --%>
-			<!-- <button type='button'class='close repeat_cancel_add_btn mfp-close ' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' data-eventtarget='["<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>"]' data-dismiss='modal' aria-label='Close' title="Close: Middle screen overlay (escape key)">×<span class="<apn:localize runat="server" key="theme.class.error-link"/>"> Close: Middle screen overlay (escape key)</span></button> -->
+			<%-- <button type='button'class='close repeat_cancel_add_btn mfp-close ' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' data-eventtarget='["<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>"]' data-dismiss='modal' aria-label='Close' title="Close: Middle screen overlay (escape key)">×<span class="<apn:localize runat="server" key="theme.class.error-link"/>"> Close: Middle screen overlay (escape key)</span></button> --%>
 			</apn:control>
 			<% } else { %>
 			<apn:control runat="server" type="cancel_edit_instance">
 			<%-- issue with cancel close not aborting --%>
-			<!-- <button type='button'class='close repeat_cancel_add_btn mfp-close ' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' data-eventtarget='["<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>"]' data-dismiss='modal' aria-label='Close' title="Close: Middle screen overlay (escape key)">×<span class="<apn:localize runat="server" key="theme.class.error-link"/>"> Close: Middle screen overlay (escape key)</span></button> -->
+			<%-- <button type='button'class='close repeat_cancel_add_btn mfp-close ' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' data-eventtarget='["<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>"]' data-dismiss='modal' aria-label='Close' title="Close: Middle screen overlay (escape key)">×<span class="<apn:localize runat="server" key="theme.class.error-link"/>"> Close: Middle screen overlay (escape key)</span></button> --%>
 			</apn:control>	
 			<% } %>
 		</section>
