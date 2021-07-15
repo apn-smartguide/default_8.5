@@ -558,15 +558,19 @@ $("form[id^='smartguide_']" ).each(function() {
 					$field.off(jqEvent);
 				}
 
-				var typingTimer;                //timer identifier
-				var doneTypingInterval = 1000;  //time in ms, 0.5 second for example
-
+				var processTimer; //timer identifier
+			
 				$field.on(jqEvent, 
 					function(e) {
 						var r = SMARTGUIDES[smartletCode];
 
+						var doneInterval = 0;  //time in ms
+						if(jqEvent == "keyup" || jqEvent == "keydown") {
+							doneInterval = 1000;
+						}
+
 						console.log("clearTimeout");
-						clearTimeout(typingTimer);
+						clearTimeout(processTimer);
 						
 						$(this).after($('<input/>', {
 							type: 'hidden',
@@ -578,20 +582,18 @@ $("form[id^='smartguide_']" ).each(function() {
 							$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
 						}
 
-						typingTimer = setTimeout(doneTyping.bind(null, e, r, isAjax, this, fieldHtmlName), doneTypingInterval);
+						processTimer = setTimeout(processAjax.bind(null, e, r, isAjax, this, fieldHtmlName), doneInterval);
 						
-						function doneTyping (e, r, isAjax, field, fieldHtmlName) {
+						function processAjax (e, r, isAjax, field, fieldHtmlName) {
 
 							var ogType = field.type;
 						
-							if(field.type != 'text' && field.type != 'password'){
+							if(field.tagName == "INPUT" && (field.type != 'text' && field.type != 'password')){
 								field.type = 'text'; //workaround support for selectionRange not supported on all types.
 							}
 							var curPos = $(field).caret();
 
-
-							console.log("done typing");
-							//user is "finished typing," do something
+							console.log("interval elapsed");
 							if (isAjax) {
 								r.ajaxProcess(field, null, true, 
 									function() {
@@ -633,8 +635,9 @@ $("form[id^='smartguide_']" ).each(function() {
 								}
 							}
 							field.type = ogType;
-							return false;
+							
 						}
+						return false;
 					}
 				);
 			}
