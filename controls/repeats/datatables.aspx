@@ -78,7 +78,7 @@
 			</apn:ChooseControl>
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>
-		<h6><% ExecutePath("/controls/custom/control-label.aspx"); %></h6>
+		<h5 class="mt-1 mb-1"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 	</div>
 	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>

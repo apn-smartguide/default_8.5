@@ -60,7 +60,7 @@
 			<div class='form-inline' style='padding-bottom:5px'>
 				<div class='row' style="width: 100%;">
 					<% if(!(bool)Context.Items["hideSearch"]) { %>
-						<div class="col-12 col-lg-6">
+						<div class="col-12 col-lg-5">
 							<div class="input-group input-group-sm mb-3">
 								<div class="input-group-prepend"><span class="input-group-text"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span></div>
 								<input id='datatable-search' type='text' class='form-control' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
@@ -69,7 +69,7 @@
 						</div>
 					<% } %>
 					<% if(!(bool)Context.Items["hidePagination"]) { %>
-						<div class='col-12 col-lg-4 mb-3 mb-lg-0 ml-auto'>
+						<div class='col-12 col-lg-7 mb-3 mb-lg-0 text-lg-right'>
 							<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1 %> / <%= Context.Items["totalPages"] %></b></span> &nbsp;&nbsp;&nbsp;
 							<apn:localize runat="server" key="theme.text.datatable.fetch" />
 							<apn:control runat="server" type="repeat-page-limit" id="pageSize">
@@ -81,7 +81,7 @@
 									<option value='75' <%= pageSize.Current.getValue().Equals("75") ? "selected='selected'" : "" %>>75</option>
 								</select>
 								<% } else { %>
-								<input type='text' class='form-control input-sm pageSize' aria-labelledby='<apn:name runat="server"/>_entries-input' value='<apn:value runat="server" />'' name=' <apn:name runat="server" />'/>
+								<input type='text' class='form-control form-control-sm pageSize' aria-labelledby='<apn:name runat="server"/>_entries-input' value='<apn:value runat="server" />'' name=' <apn:name runat="server" />'/>
 								<% } %>
 								<span id='<apn:name runat="server"/>_entries-input'><apn:localize runat="server" key="theme.text.datatable.entry" /></span>
 							</apn:control>
