@@ -15,17 +15,17 @@
 		<% } else { %>
 			<span  data-toggle='modal' data-target='#div_<apn:helpid runat="server"/>' onclick='return false;'>
 			<a href='#'' class='link-help' data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.helptitle"/>' arial-label='<apn:localize runat="server" key="theme.text.helptitle"/>'>
-				<apn:ifnotcontrolvalid runat="server"><span class='has-error glyphicon glyphicon-question-sign'></span></apn:ifnotcontrolvalid>
-				<apn:ifcontrolvalid runat="server"><span class='glyphicon glyphicon-question-sign'></span></apn:ifcontrolvalid>
+				<apn:ifnotcontrolvalid runat="server"><span class='has-error fa fa-question-circle'></span></apn:ifnotcontrolvalid>
+				<apn:ifcontrolvalid runat="server"><span class='fa fa-question-circle'></span></apn:ifcontrolvalid>
 			</a>
 			</span>
 			<!-- Modal -->
 			<div class='modal fade' id='div_<apn:helpid runat="server"/>' tabindex='-1' role='dialog' aria-labelledby='helpModalLabel_<apn:helpid runat="server"/>' aria-hidden='true'>
-				<div class='modal-dialog'>
+				<div class='modal-dialog modal-lg'>
 					<div class='modal-content'>
 						<div class='modal-header'>
-							<a href='#' class='close' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.close"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><span aria-hidden='true'>x</span><span class='sr-only'><apn:localize runat="server" key="theme.text.close"/></span></a>
 							<span class='modal-title' id='helpModalLabel_<apn:helpid runat="server"/>'><apn:label runat="server"/></span>
+							<a href='#' class='close' data-dismiss='modal' onclick='return false;' title='<apn:localize runat="server" key="theme.text.close"/>' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><span aria-hidden='true'>x</span><span class='sr-only'><apn:localize runat="server" key="theme.text.close"/></span></a>
 							<%-- todo: lookup for data-help-label in future version --%>
 						</div>
 						<div class='modal-body'>

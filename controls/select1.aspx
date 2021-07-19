@@ -71,7 +71,7 @@
 						</apn:choosecontrol>
 					</apn:forEach>
 				</datalist>
-				<%--<span class="combo-dropdown glyphicon glyphicon-chevron-down form-control-feedback"></span>--%>
+				<%--<span class="combo-dropdown fa fa-chevron-down form-control-feedback"></span>--%>
 				<% } else { %>
 				<select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control input-sm' aria-labelledby='lbl_<apn:name runat="server"/>' style='<%= (control.Current.getAttribute("style") + " " + control.Current.getCSSStyle()) %>' size='1' <apn:metadata runat="server"/><%=Context.Items["readonly"]%> >
 					<apn:forEach runat="server" id="control4" >
