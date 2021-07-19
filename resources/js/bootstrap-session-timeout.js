@@ -56,18 +56,18 @@
                 '<p>' + opt.countdownMessage.replace(/{timer}/g, '<span class="countdown-holder"></span>') + '</p>' : '';
             var coundownBarHtml = opt.countdownBar ?
                 '<div class="progress"> \
-                  <div class="progress-bar progress-bar-striped countdown-bar active" role="progressbar" style="min-width: 15px; width: 100%;"> \
-                    <span class="countdown-holder"></span> \
-                  </div> \
+                    <div class="progress-bar progress-bar-striped countdown-bar active" role="progressbar" style="min-width: 15px; width: 100%;"> \
+                        <span class="countdown-holder"></span> \
+                    </div> \
                 </div>' : '';
 
             // Create timeout warning dialog
             $('body').append('<div class="modal fade" id="session-timeout-dialog"> \
-              <div class="modal-dialog"> \
+              <div class="modal-dialog modal-lg" style="width: 90%"> \
                 <div class="modal-content"> \
                   <div class="modal-header"> \
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> \
                     <strong class="modal-title">' + opt.title + '</strong> \
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> \
                   </div> \
                   <div class="modal-body"> \
                     <p>' + opt.message + '</p> \
