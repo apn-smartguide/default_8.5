@@ -294,8 +294,9 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
 				Context.Items["workspace"] = Smartlet.getWorkspace();
-			} else if (Context.Items["workspace"] != null && (string)Context.Items["workspace"] != Smartlet.getWorkspace()) {
+			} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
 				//We're changing workspace, clear the caches.
+				Logger.debug("<<<< SGWebCore:Workspace: Changing Workspace, Cleared Caches >>>>")
 				ClearCaches();
 				Context.Items["workspace"] = Smartlet.getWorkspace();
             }
