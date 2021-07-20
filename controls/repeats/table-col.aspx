@@ -22,6 +22,8 @@
 </apn:control>
 <script runat="server">
 	public void RenderTD(string ctrl, bool isVisible, string zClass) {
+		// remove col-*-* from classes because they are no longer needed in tables(<td> <tr>) and messes up the col alignment on edge
+		zClass = Regex.Replace(zClass, "\\bcol-\\w+-\\d+", "");
 		if(isVisible) Response.Write("<td class='"+ zClass +"'>");
 		ExecutePath(ctrl);
 		if(isVisible) Response.Write("</td>");
