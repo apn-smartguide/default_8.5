@@ -497,7 +497,7 @@
 	}
 
 	// Sort options via the data-attribute: Datatable -> sorts -> [value]
-	// e.g. "order": ["name", "asc"], or "order": [["name", "asc"], ["product_url", "asc"]]
+	// e.g. {"order": ["name", "asc"]}, or {"order": [["name", "asc"], ["product_url", "asc"]]}
 	// It is possible to set multiple sort by default.
 	// Special consideration, setting a sort on the "select" column will force the display of the sorting widgets.
 	// Use the field name as identifier with a desired direction [asc|desc]
