@@ -566,9 +566,9 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var doneInterval = 0;  //time in ms
 						if(jqEvent == "keyup" || jqEvent == "keydown") {
-							doneInterval = 500;
+							doneInterval = 450;
 						}
-
+						console.log("event:" + jqEvent);
 						console.log("clearTimeout");
 						clearTimeout(processTimer);
 						
@@ -586,6 +586,8 @@ $("form[id^='smartguide_']" ).each(function() {
 						
 						function processAjax (e, r, isAjax, field, fieldHtmlName) {
 
+							console.log("clearTimeout from processAjax");
+							clearTimeout(processTimer);
 							var ogType = field.type;
 							var curRange = null;
 							if(field.tagName == "INPUT" && (field.type == 'text' || field.type == 'password') && ($(field).attr('type') != 'email') && ($(field).attr('type') != 'number')){
@@ -606,9 +608,10 @@ $("form[id^='smartguide_']" ).each(function() {
 											var fieldInput = $("#"+fieldHtmlName);
 											var fldLength= fieldInput.val().length;
 											if(fieldInput[0].tagName == "INPUT" && (fieldInput[0].type == 'text' || fieldInput[0].type == 'password') && (fieldInput.attr('type') != 'email') && (fieldInput.attr('type') != 'number')) {
+												console.log(e.keyCode);
 												if(curRange.length > 0) {
 													fieldInput.range(curRange.start, curRange.end);
-												}else if(curRange.length <=0 && fldLength > 0) {
+												} else if(curRange.length <=0 && fldLength > 0) {
 													fieldInput.range(fldLength,fldLength);
 												} else {
 													fieldInput.range(0,fldLength);
