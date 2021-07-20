@@ -568,8 +568,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						if(jqEvent == "keyup" || jqEvent == "keydown") {
 							doneInterval = 500; //0.5s 
 						}
-						console.log("event:" + jqEvent);
-						console.log("clearTimeout");
+
 						clearTimeout(processTimer);
 						
 						$(this).after($('<input/>', {
@@ -585,16 +584,12 @@ $("form[id^='smartguide_']" ).each(function() {
 						processTimer = setTimeout(processAjax.bind(null, e, r, isAjax, this, fieldHtmlName), doneInterval);
 						
 						function processAjax (e, r, isAjax, field, fieldHtmlName) {
-
-							console.log("clearTimeout from processAjax");
 							clearTimeout(processTimer);
 							var ogType = field.type;
 							var curRange = null;
 							if(field.tagName == "INPUT" && (field.type == 'text' || field.type == 'password') && ($(field).attr('type') != 'email') && ($(field).attr('type') != 'number')){
 								curRange = $(field).range();
 							}
-
-							console.log("interval elapsed");
 							if (isAjax) {
 								r.ajaxProcess(field, null, true, 
 									function() {
