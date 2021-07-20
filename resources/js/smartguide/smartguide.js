@@ -179,16 +179,6 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
-			$(".toggle-password").off('click').click(function() {
-				$(this).toggleClass("fa-eye fa-eye-slash")
-				var input = $($(this).attr("toggle"));
-				if (input.attr("type") == "password") {
-					input.attr("type", "text");
-				} else {
-					input.attr("type", "password");
-				}
-			});
-
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();
@@ -597,7 +587,6 @@ $("form[id^='smartguide_']" ).each(function() {
 										$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 									},
 									null,
-
 									function() {
 										if(e.type == "keyup") {
 											var fieldInput = $("#"+fieldHtmlName);
@@ -629,9 +618,8 @@ $("form[id^='smartguide_']" ).each(function() {
 								}
 							}
 							field.type = ogType;
-							
+							return false;
 						}
-						return false;
 					}
 				);
 			}

@@ -488,6 +488,19 @@ table.uploads-render tr td {
 	justify-content: flex-start;
 }
 
+.field-icon {
+	position: relative;
+	float: right;
+	margin-right: 1rem; 
+	margin-top: -2.5rem;
+	z-index: 2;
+	cursor: pointer;
+}
+
+::-ms-reveal {
+    display: none;
+}
+
 /* Buttons in a no-col span */
 .no-col button {
 	margin-left: 5px;

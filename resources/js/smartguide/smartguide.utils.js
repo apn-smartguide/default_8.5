@@ -36,6 +36,16 @@ var utilsController = {
 			handle: ".modal-header"
 		});
 
+		$(".toggle-password").off('click').click(function() {
+			$(this).toggleClass("fa-eye fa-eye-slash")
+			var input = $($(this).attr("toggle"));
+			if (input.attr("type") == "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+		});
+
 		// Devbridge autocomplete dropdowns
 		// https://github.com/devbridge/jQuery-Autocomplete
 		$('input.autocomplete', context).each(function () {
