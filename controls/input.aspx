@@ -6,9 +6,7 @@
 	if (control.Current.getAttribute("html5type").Length > 0) { Context.Items["html5type"] = control.Current.getAttribute("html5type"); }
 	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; }
 %>
-<% if(control.Current.getAttribute("style").Contains("visibility:hidden;") && GetMetaDataValue(control.Current, "unsafe").Equals("true")) { %>
-	<div id='div_<apn:name runat="server"/>' <!-- #include file="aria-live.inc" --> ><input type='hidden' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<apn:value runat="server"/>' <apn:metadata runat="server" /> /></div>
-<% } else if(control.Current.getAttribute("style").Contains("visibility:hidden;") || control.Current.getAttribute("visible").Equals("false")) { %>
+<% if(control.Current.getAttribute("style").Contains("visibility:hidden;") || control.Current.getAttribute("visible").Equals("false")) { %>
 	<!-- #include file="hidden.inc" -->
 <% } else { %>
 	<%
