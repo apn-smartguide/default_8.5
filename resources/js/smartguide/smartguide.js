@@ -566,7 +566,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var doneInterval = 0;  //time in ms
 						if(jqEvent == "keyup" || jqEvent == "keydown") {
-							doneInterval = 1000;
+							doneInterval = 500;
 						}
 
 						console.log("clearTimeout");
@@ -587,11 +587,10 @@ $("form[id^='smartguide_']" ).each(function() {
 						function processAjax (e, r, isAjax, field, fieldHtmlName) {
 
 							var ogType = field.type;
-						
-							if(field.tagName == "INPUT" && (field.type != 'text' && field.type != 'password')){
-								field.type = 'text'; //workaround support for selectionRange not supported on all types.
+							var curRange = null;
+							if(field.tagName == "INPUT" && (field.type == 'text' || field.type == 'password') && ($(field).attr('type') != 'email') && ($(field).attr('type') != 'number')){
+								curRange = $(field).range();
 							}
-							var curPos = $(field).caret();
 
 							console.log("interval elapsed");
 							if (isAjax) {
@@ -605,20 +604,17 @@ $("form[id^='smartguide_']" ).each(function() {
 									function() {
 										if(e.type == "keyup") {
 											var fieldInput = $("#"+fieldHtmlName);
-											if(fieldInput[0].type != 'text' && fieldInput[0].type != 'password') {
-												fieldInput[0].type = 'text'; //workaround support for selectionRange not supported on all types.
-											}
 											var fldLength= fieldInput.val().length;
-											if(curPos <=0 && fldLength > 0) {
-												curPos = fldLength
+											if(fieldInput[0].tagName == "INPUT" && (fieldInput[0].type == 'text' || fieldInput[0].type == 'password') && (fieldInput.attr('type') != 'email') && (fieldInput.attr('type') != 'number')) {
+												if(curRange.length > 0) {
+													fieldInput.range(curRange.start, curRange.end);
+												}else if(curRange.length <=0 && fldLength > 0) {
+													fieldInput.range(fldLength,fldLength);
+												} else {
+													fieldInput.range(0,fldLength);
+												} 
+												fieldInput.focus();
 											}
-											if(e.keyCode != 9){
-												fieldInput[0].setSelectionRange(curPos, curPos)
-											} else if(fldLength > 0) {
-												fieldInput[0].setSelectionRange(fldLength, fldLength);
-											}
-											fieldInput[0].type = ogType;
-											fieldInput.focus();
 										}
 									}
 								);

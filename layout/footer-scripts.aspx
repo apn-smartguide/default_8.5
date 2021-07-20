@@ -11,7 +11,7 @@
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/inputmask/jquery.inputmask.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/jquery.caret.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/jquery.caret-1.5.2.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.ba-throttle-debounce.js") %>'></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
