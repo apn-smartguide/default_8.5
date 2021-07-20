@@ -566,7 +566,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var doneInterval = 0;  //time in ms
 						if(jqEvent == "keyup" || jqEvent == "keydown") {
-							doneInterval = 450;
+							doneInterval = 500; //0.5s 
 						}
 						console.log("event:" + jqEvent);
 						console.log("clearTimeout");
