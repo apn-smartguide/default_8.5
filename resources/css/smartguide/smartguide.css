@@ -390,6 +390,7 @@ fieldset .radio-inline:first-of-type, fieldset .checkbox-inline:first-of-type {
 /* Page navigation */
 .navigation {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 .navigation .col-xs-6 {
   text-align: center;
