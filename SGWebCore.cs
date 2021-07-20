@@ -119,6 +119,8 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public void ClearCaches() {
 		
+		Logger.debug("<<<< SGWebCore: Clearing Caches >>>>");
+
 		Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		Application["basePath"] = null;
 		Application["coreThemePath"] = null;
@@ -292,9 +294,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
 				Context.Items["workspace"] = Smartlet.getWorkspace();
-			} 
-			else if (Context.Items["workspace"] != null && Context.Items["workspace"] != Smartlet.getWorkspace())
-			{
+			} else if (Context.Items["workspace"] != null && (string)Context.Items["workspace"] != Smartlet.getWorkspace()) {
 				//We're changing workspace, clear the caches.
 				ClearCaches();
 				Context.Items["workspace"] = Smartlet.getWorkspace();
@@ -507,6 +507,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		if(!Username.Equals("")) {
 			return true;
 		} else {
+			Logger.debug("<<<< SGWebCore:IsLogged: Cleared [userid, roles] >>>>");
 			Session["userid"] = "";
 			Session["roles"] = "";
 			return false;
