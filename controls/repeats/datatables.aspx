@@ -154,9 +154,11 @@
 									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName((string)Context.Items["repeat-name"] + "_select"); %>
 									<% if(selectControl != null) { %>
 										<% if (selectControl.isAvailable()) { %>
+										<label class="sr-only" for='<apn:name runat="server"/>'>Select this row</label>
 										<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 										<% } %>
 									<% } else { %>
+									<label class="sr-only" for='<apn:name runat="server"/>'>Select this row</label>
 									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 									<% } %>
 								</apn:control>
