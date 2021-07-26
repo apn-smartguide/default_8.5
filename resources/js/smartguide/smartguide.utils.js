@@ -26,6 +26,13 @@ var utilsController = {
 			context = sgRef.fm;
 		}
 
+		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+		if(isIE11) {
+			$('[type=date]').each(function() {
+				this.type = 'text';
+			});
+		}
+
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -54,28 +61,30 @@ var utilsController = {
 			});
 		});
 
-		// Input masks
-		// https://github.com/RobinHerbots/Inputmask
-		$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
-			var $this = $(this);
-			
-			var dataMaskRaw = $this.attr('data-mask-raw');
-			if (typeof dataMaskRaw !== 'undefined') {
-				$this.inputmask(JSON.parse(dataMaskRaw));
-			} else {
-				var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
-				var dataMask = $this.attr('data-mask');
-				if (typeof dataMask !== 'undefined') {
-					$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
-				}
-				var dataMaskOptions = $this.attr('data-mask-options');
-				if (typeof dataMaskOptions !== 'undefined') {
-					$.extend(options, JSON.parse(dataMaskOptions));
-				}			
+		if(!isIE11) {
+			// Input masks
+			// https://github.com/RobinHerbots/Inputmask
+			$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
+				var $this = $(this);
 				
-				$this.inputmask(options);
-			}
-		});
+				var dataMaskRaw = $this.attr('data-mask-raw');
+				if (typeof dataMaskRaw !== 'undefined') {
+					$this.inputmask(JSON.parse(dataMaskRaw));
+				} else {
+					var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
+					var dataMask = $this.attr('data-mask');
+					if (typeof dataMask !== 'undefined') {
+						$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
+					}
+					var dataMaskOptions = $this.attr('data-mask-options');
+					if (typeof dataMaskOptions !== 'undefined') {
+						$.extend(options, JSON.parse(dataMaskOptions));
+					}			
+					
+					$this.inputmask(options);
+				}
+			});
+		}
 
 		$('a[data-toggle="collapse"]').click(function () {
 			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
