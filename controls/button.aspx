@@ -1,6 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
 	<% Context.Items["render-proxy"] = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false; %>
+	<% Context.Items["btn-wizard"] = (Context.Items["btn-wizard"] != null) ? (bool)Context.Items["btn-wizard"] : false; %>
 	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? "disabled" : ""; %>
 	<% Context.Items["aria-label"] = ""; %>
 	<%
@@ -16,7 +17,7 @@
 			Context.Items["tooltip-attribute"] = "title='" + tooltip + "'";
 		}
 	%>
-	<% if (control.Current.getCSSClass().Contains("proxy") && !(bool)Context.Items["render-proxy"]) { %>
+	<% if ((control.Current.getCSSClass().Contains("proxy") && !(bool)Context.Items["render-proxy"]) || (control.Current.getCSSClass().Contains("btn-wizard") && !(bool)Context.Items["btn-wizard"])) { %>
 	<% } else if (control.Current.getAttribute("visible").Equals("false") || IsPdf || IsSummary) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else if (control.Current.getAttribute("class").Equals("view-xml-button") || control.Current.getAttribute("class").Equals("pdf-button")) { %>

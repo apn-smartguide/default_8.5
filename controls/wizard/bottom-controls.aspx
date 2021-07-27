@@ -26,20 +26,24 @@
 			<% if (!CurrentPageCSS.Contains("hide-return-to-summary")) { %>
 				<apn:control type="summary" runat="server" id="summary"><button type='submit' name='<apn:name runat="server"/>' class='btn btn-default pull-right' <% if (!GetTooltip(summary.Current).Equals("")){ %>title='<%=GetTooltip(summary.Current)%>' aria-label='<%=GetTooltip(summary.Current)%>'<% } %>><%=GetAttribute(summary.Current, "label")%></button></apn:control>
 			<% } %>
+			
 			<apn:forEach runat="server" id="row">
 				<apn:forEach runat="server" id="col">
 					<apn:forEach runat="server" id="field">
 						<apn:ChooseControl runat="server">
+							<% Context.Items["btn-wizard"] = true; // render btn-wizard if you see any, but don't render proxies in here. %>
 							<apn:WhenControl type="TRIGGER" runat="server">
 							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx");} %>
 							</apn:WhenControl>
 							<apn:Otherwise runat="server">
 							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/custom/buttons.aspx");} %>
 							</apn:Otherwise>
+							<% Context.Items["btn-wizard"] = false; %>
 						</apn:ChooseControl>
 					</apn:forEach>
 				</apn:forEach>
 			</apn:forEach>
+			
 		</div>
 	</div>
 </div>
