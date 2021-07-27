@@ -6,7 +6,9 @@
 	<!-- #include file="hidden.inc" -->
 <% } else if (control.Current.getCSSClass().Contains("multiple") && !IsSummary) { %>
 	<span class='<apn:cssclass runat="server"/>' id='div_<apn:name runat="server"/>' >
-		<apn:label runat="server"/> <input type='file' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' multiple title='<apn:label runat="server"/>' style='color:transparent;' onchange='submit();' />
+		<label for='<apn:name runat="server"/>'>
+			<apn:label runat="server"/> <input type='file' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' multiple title='<apn:label runat="server"/>' style='color:transparent;' onchange='submit();' />
+		</label>
 	</span>
 <% } else { %>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>' title='<apn:localize runat="server" key="theme.text.erroranchor"/>' aria-label='<apn:localize runat="server" key="theme.text.erroranchor"/>'><apn:localize runat="server" key="theme.text.erroranchor"/> <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
