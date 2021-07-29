@@ -20,7 +20,7 @@
 	<% if(IsPdf) { %>
 		<p><apn:value runat="server"/></p>
 	<% } else { %>
-		<% if(control.Current.getAttribute("value").Trim().Length==0) { %>
+		<% if(control.Current.getAttribute("value").Trim().Length==0 && !IsSummary) { %>
 			<input type='file' <% if (control.Current.getCSSClass().Contains("multiple")) { %>multiple onchange='submit();'<% } %> class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <%=(string)Context.Items["readonly"]%> style='<apn:cssstyle runat="server"/>' title='<%=GetAttribute(control.Current, "title", true)%>' <apn:metadata runat="server"/> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" -->/>
 		<% } else { %>
 			<div>
