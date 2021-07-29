@@ -104,9 +104,20 @@ var utilsController = {
 			$(this).parent().toggleClass('open');
 		});
 
-		$('a[data-toggle="collapse"]').click(function () {
+		$('a[data-toggle="collapse"]').on('click', function () {
 			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
-		})
+			if(!$(this).closest('.panel').find('.panel-collapse.collapse').hasClass('in')) {
+				var $this = $(this)
+				setTimeout(function(){
+				var $thisWbTable = $(".wb-tables",$this.closest('.panel'));
+				var thisClone = $thisWbTable.clone();
+				thisClone.appendTo($thisWbTable.parent().parent());
+				$thisWbTable.parent().remove();
+				var table = thisClone.DataTable();
+				table.responsive.recalc().columns.adjust();
+				},50);
+			}
+		});
 
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
@@ -116,7 +127,7 @@ var utilsController = {
 
 			//In case it's not SG control, but still participage to conditional visibility
 			if(typeof $this.attr("data-eventtarget") !== 'undefined') {
-				$this.unbind('change').bind('blur', sgRef.bindThisAllowSelfRefresh);
+				$this.off('change').on('blur', sgRef.bindThisAllowSelfRefresh);
 			}
 
 			if (type.indexOf('date') > -1)
@@ -124,8 +135,8 @@ var utilsController = {
 			
 			//remove onblur for input, instead, using onchange
 			if(type.indexOf('text') && typeof $this.attr("data-eventtarget") !== 'undefined') {
-				$this.unbind('keyup paste').unbind('blur')
-				.unbind('change',sgRef.bindThisAllowSelfRefresh).bind('change', sgRef.bindThisAllowSelfRefresh);
+				$this.off('keyup paste').off('blur')
+				.off('change',sgRef.bindThisAllowSelfRefresh).on('change', sgRef.bindThisAllowSelfRefresh);
 			}
 
 			var format = $this.attr('data-apnformat');
