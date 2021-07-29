@@ -96,6 +96,14 @@ var utilsController = {
 			});
 		}
 
+		//For multi-level support
+		$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
+			event.preventDefault();
+			event.stopPropagation();
+			$(this).parent().siblings().removeClass('open');
+			$(this).parent().toggleClass('open');
+		});
+
 		$('a[data-toggle="collapse"]').click(function () {
 			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
 		})
