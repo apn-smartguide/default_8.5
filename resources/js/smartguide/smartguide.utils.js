@@ -251,7 +251,7 @@ var utilsController = {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 
-			r.ajaxProcess(this, null, true,
+			sgRef.ajaxProcess(this, null, true,
 				null,
 				null,
 				function(){
