@@ -6,7 +6,6 @@
 <!-- Boostrap -->
 <script src='<%= CacheBreak("/resources/js/bootstrap.min.js") %>'></script>
 <!-- Modernizr -->
-<!-- <script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script> -->
 <script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
