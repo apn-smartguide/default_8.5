@@ -14,7 +14,7 @@
 			<% if (!BareRender){ ExecutePath("/controls/label.aspx"); } %>
 			<% Context.Items["label"] = control.Current.getLabel(); %>
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
-			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /><apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
+			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
 			<% Context.Items["index"] = 1; %>
 			<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
 			<apn:forEach id="control2" runat="server">
@@ -26,9 +26,11 @@
 								<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 								<% Context.Items["id"] = control3.Current.getAttribute("id") + "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"]; %>
 								<% if (!control3.Current.getLabel().Equals("")) { Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"]; } %>
-								<% string c3label = control3.Current.getLabel(); if (c3label.Equals("")) c3label = (string)Context.Items["label"]; %>
-								<input type='checkbox' name='<%=control3.Current.getName() %>' title='<%=c3label%>' id='<%=Context.Items["id"]%>' class='<%=control.Current.getCSSClass()%> form-check-input' value='<%= control3.Current.getHTMLValue() %>' <apn:metadata runat="server" /> aria-labelledby='<%= Context.Items["aria-labelledby"]%>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> <%= control.Current.containsValue(control3.Current.getValue()) ? " checked='checked'" : "" %> />
-								<% if(!control3.Current.getLabel().Equals("")) { %><label class="form-check-label" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=GetAttribute(control3.Current, "title", true)%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label><% } %>
+								<% string c3label = control3.Current.getLabel(); %>
+								<% if (c3label.Equals("")) c3label = (string)Context.Items["label"]; %>
+								<input type='checkbox' name='<%=control3.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=c3label%>' class='<%=control.Current.getCSSClass()%> form-check-input' value='<%= control3.Current.getHTMLValue() %>' <% if (control.Current.isRequired()) {%> required <% } %><apn:metadata runat="server" /> <%= control.Current.containsValue(control3.Current.getValue()) ? " checked='checked'" : "" %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> aria-labelledby='<%= Context.Items["aria-labelledby"]%>' />
+								<% if (!control3.Current.getLabel().Equals("")) { %><label class="form-check-label" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=GetAttribute(control3.Current, "title", true)%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label><% } %>
+								<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
 								<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
 							</apn:forEach>
 						</apn:whencontrol>
@@ -36,9 +38,11 @@
 							<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 							<% Context.Items["id"] = control2.Current.getAttribute("id") + "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"]; %>
 							<% if (!control2.Current.getLabel().Equals("")) { Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"]; } %>
-							<% string c2label = control2.Current.getLabel(); if (c2label.Equals("")) c2label = (string)Context.Items["label"]; %>
-							<% if(control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span> <% } %><input <%=Context.Items["readonly"]%> type='checkbox' name='<%=control2.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=c2label%>' class='<%=control.Current.getCSSClass()%> form-check-input' aria-labelledby='<%= Context.Items["aria-labelledby"]%>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %>  value='<%= control2.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control2.Current.getValue()) ? " checked='checked'" : "" %> /><% if(control.Current.getLabel().Equals("") && control.Current.isRequired()) { %></span><% } %>
-							<% if(!control2.Current.getLabel().Equals("")) { %><label class="form-check-label" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=GetAttribute(control2.Current, "title", true)%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label><% } %>
+							<% string c2label = control2.Current.getLabel(); %>
+							<% if (c2label.Equals("")) c2label = (string)Context.Items["label"]; %>
+							<input type='checkbox' name='<%=control2.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=c2label%>' class='<%=control.Current.getCSSClass()%> form-check-input' value='<%= control2.Current.getHTMLValue() %>' <% if (control.Current.isRequired()) {%> required <% } %> <apn:metadata runat="server" /> <%= control.Current.containsValue(control2.Current.getValue()) ? " checked='checked'" : "" %> <%=Context.Items["readonly"]%><% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='<%= Context.Items["aria-labelledby"]%>' />
+							<% if (!control2.Current.getLabel().Equals("")) { %><label class="form-check-label" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=GetAttribute(control2.Current, "title", true)%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label><% } %>
+							<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
 							<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
 						</apn:otherwise>
 					</apn:choosecontrol>
@@ -47,7 +51,7 @@
 			</apn:forEach>
 			</ul>
 			<% Context.Items["label"] = ""; %>
-			<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+			<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 		</div>
 		</apn:whencontrol>
 		<apn:whencontrol runat="server" type="lbox">

@@ -659,7 +659,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .large input[type=checkbox]+label, .large input[type=radio]+label {
-	display: inline-block;
+	display: inline;
 	line-height: 2;
 	width: auto;
 	font-size: inherit;
