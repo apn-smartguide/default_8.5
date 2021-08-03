@@ -121,16 +121,16 @@
 									<td <apn:metadata runat="server" match="data-priority"/> data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
-							<apn:WhenControl type="HIDDEN" runat="server"><td></td></apn:WhenControl>
+							<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
-										<td data-priority='1' data-sortable="false"></td>
+										<td class="hide" data-priority='1' data-sortable="false"></td>
 									<% } %>
 								<% } else { %>
-									<td data-priority='1' data-sortable="false"></td>
+									<td class="hide" data-priority='1' data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
 						</apn:ChooseControl>
@@ -186,10 +186,10 @@
 																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 																</td>
 															<% } else { %>
-																<td></td>
+																<td class="hide"></td>
 															<% } %>
 														<% } else { %>
-															<td><!-- #include file="../hidden.inc" --></td>
+															<td class="hide"><!-- #include file="../hidden.inc" --></td>
 														<% } %>
 													</apn:Otherwise>
 												</apn:ChooseControl>

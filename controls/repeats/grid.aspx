@@ -98,7 +98,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<apn:forEach runat="server" id="thRowField">
 										<apn:ChooseControl runat="server">
 											<apn:WhenControl type="TRIGGER" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
-											<apn:WhenControl type="HIDDEN" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
+											<apn:WhenControl type="HIDDEN" runat="server"><td class="hide" data-priority='1' data-sortable="false"></td></apn:WhenControl>
 											<apn:Otherwise runat="server">
 												<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 													<% if (thRowField.Current.getType()==1000 && !thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
@@ -135,7 +135,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 								<% } %>
 							</apn:whencontrol>
 							<apn:WhenControl type="TRIGGER" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
-							<apn:WhenControl type="HIDDEN" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
+							<apn:WhenControl type="HIDDEN" runat="server"><td class="hide" data-priority='1' data-sortable="false"></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if (thField.Current.getType()==1000 && !thField.Current.getCSSClass().Contains("hide-column-label")) { %>
