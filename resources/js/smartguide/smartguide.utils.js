@@ -228,7 +228,7 @@ var utilsController = {
 				$('.drop-popup', $this).css('display','block');
 			});
 
-			$('.drop-popup', $this).find('*').on('dragover dragleave drop', function(event) {
+			$('.drop-popup', $this).on('dragover dragleave drop', function(event) {
 				event.preventDefault();
 				event.stopPropagation();
 			
