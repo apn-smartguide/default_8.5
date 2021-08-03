@@ -247,6 +247,13 @@ var utilsController = {
 			});
 		});
 
+		//Disable required field html client-side validation
+		$('.no-validate').on('click', function(){
+			$('input, select').each(function() {
+				$(this).removeAttr('required');
+			});
+		});
+
 		$('.btn-upload').off('click').on('click', function (e) {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
