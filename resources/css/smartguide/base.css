@@ -515,6 +515,11 @@ table.uploads-render tr td {
 /* Buttons - end */
 
 /* Radio & Checkbox - Adjust + Inline */
+legend {
+	font-size: 14px;
+	font-weight: bold;
+}
+
 .checkbox {
 	margin-top : 5px;
 	margin-left: 15px;
