@@ -160,7 +160,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["active-section"] = null;
 
 	}
-	 public static com.alphinat.interview.si.xml.servlet.environment.Environment  GetEnvironment(HttpContext context) {
+	public static com.alphinat.interview.si.xml.servlet.environment.Environment GetEnvironment(HttpContext context) {
 		com.alphinat.interview.si.xml.servlet.environment.Environment env = new HttpHandlerEnvironment((java.util.Map)null, context);
 		string defaultEncodingConfig = null;
 		try {
