@@ -30,6 +30,7 @@ var utilsController = {
 		if(isIE11) {
 			$('[type=date]').each(function() {
 				this.type = 'text';
+				$(this).datepicker('destroy');
 			});
 		}
 
@@ -71,7 +72,7 @@ var utilsController = {
 			});
 		});
 
-		if(!isIE11) {
+		//if(!isIE11) {
 			// Input masks
 			// https://github.com/RobinHerbots/Inputmask
 			$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
@@ -94,7 +95,7 @@ var utilsController = {
 					$this.inputmask(options);
 				}
 			});
-		}
+		//}
 
 		//For multi-level support
 		$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
@@ -104,18 +105,15 @@ var utilsController = {
 			$(this).parent().toggleClass('open');
 		});
 
-		$('a[data-toggle="collapse"]').on('click', function () {
-			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
-			if(!$(this).closest('.panel').find('.panel-collapse.collapse').hasClass('in')) {
-				var $this = $(this)
-				setTimeout(function(){
-				var $thisWbTable = $(".wb-tables",$this.closest('.panel'));
-				var thisClone = $thisWbTable.clone();
-				thisClone.appendTo($thisWbTable.parent().parent());
-				$thisWbTable.parent().remove();
-				var table = thisClone.DataTable();
-				table.responsive.recalc().columns.adjust();
-				},50);
+		$('.panel-collapse.collapse').on("shown.bs.collapse", function() {
+			var dt = $(".wb-tables",$(this).closest('.panel'));
+			if(typeof dt !== 'undefined') {
+				//dt.DataTable().responsive.recalc().columns.adjust().draw();
+				window.dispatchEvent(new Event('resize'));
+				setTimeout(function() {
+					sgRef.bindEvents([dt]);
+				}, 50);
+				
 			}
 		});
 
@@ -249,6 +247,7 @@ var utilsController = {
 
 		//Disable required field html client-side validation
 		$('.no-validate').on('click', function(){
+			$('form').prop('novalidate', true);
 			$('input, select').each(function() {
 				$(this).removeAttr('required');
 			});

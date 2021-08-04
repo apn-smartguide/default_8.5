@@ -88,7 +88,7 @@
 		<% } %>
 	<div class='panel-body'>
 		<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%><% if (!(bool)Context.Items["is-wb-tables"]) { %> = <%=getDatatablesInitOptions()%>;<% } else { %> = '';<% } %></script>
-		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
+		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />; width:100%;' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
 				<tr>
@@ -127,10 +127,10 @@
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
-										<td class="hide" data-priority='1' data-sortable="false"></td>
+										<td data-priority='1' data-sortable="false"></td>
 									<% } %>
 								<% } else { %>
-									<td class="hide" data-priority='1' data-sortable="false"></td>
+									<td data-priority='1' data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
 						</apn:ChooseControl>
@@ -225,10 +225,10 @@
 													<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 												</td>
 											<% } else { %>
-												<td></td>
+												<td class="hide"></td>
 											<% } %>
 										<% } else { %>
-											<td><!-- #include file="../hidden.inc" --></td>
+											<td class="hide"><!-- #include file="../hidden.inc" --></td>
 										<% } %>
 									</apn:Otherwise>
 								</apn:ChooseControl>
