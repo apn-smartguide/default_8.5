@@ -57,6 +57,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["BrowserType"] = browser.Type;
 	}
 
+	public bool IsIE() {
+		return (((string)Session["BrowserType"]).Contains("IE") || ((string)Session["BrowserType"]).Contains("InternetExplorer"));
+	}
+
 	protected void Load(object sender, EventArgs e) {
 		if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
 			ClearCaches();

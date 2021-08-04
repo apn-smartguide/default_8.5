@@ -27,13 +27,7 @@ var utilsController = {
 		}
 
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-		if(isIE11) {
-			$('[type=date]').each(function() {
-				this.type = 'text';
-				$(this).datepicker('destroy');
-			});
-		}
-
+		
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -117,6 +111,7 @@ var utilsController = {
 			}
 		});
 
+		if(!isIE11) {
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
@@ -172,6 +167,7 @@ var utilsController = {
 				e.stopPropagation();
 			});
 		});	
+		}
 
 		$('.link-as-post').off('click').on('click',function(e){
 			e.preventDefault();
