@@ -165,7 +165,9 @@ public partial class SGWebCore : System.Web.UI.Page
 		string defaultEncodingConfig = null;
 		try {
 			defaultEncodingConfig = System.Configuration.ConfigurationManager.AppSettings["apn_parameter_encoding"];
-		} catch (Exception ex) {}
+		} catch (Exception ex) {
+			//If we can't get the apn_parameter_encoding with default to null below.
+		}
 		
 		if (defaultEncodingConfig != null && !defaultEncodingConfig.Trim().Equals("")) {
 			env.setDefaultInputEncoding(defaultEncodingConfig);
