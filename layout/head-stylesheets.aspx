@@ -16,8 +16,6 @@
 <!-- <link href='<%=CacheBreak("/resources/css/bootstrap-theme.css")%>' rel="stylesheet"> -->
 <!-- dataTables.net -->
 <link href='<%=CacheBreak("/resources/plugins/dataTables/datatables.min.css")%>' rel="stylesheet">
-<link href='<%=CacheBreak("/resources/plugins/dataTables/Responsive-2.2.5/css/responsive.datatables.min.css")%>' rel="stylesheet">
-<link href='<%=CacheBreak("/resources/plugins/dataTables/Select-1.3.1/css/select.dataTables.min.css")%>' rel="stylesheet">
 <!-- Date widget support -->
 <link href='<%=CacheBreak("/resources/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css")%>' rel="stylesheet">
 <!-- Autocomplete support -->

@@ -5,6 +5,7 @@
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <%@ Import Namespace="Newtonsoft.Json" %>
 <%@ Import Namespace="Newtonsoft.Json.Linq" %>
+<%@ Import Namespace="System.Text" %>
 <apn:control runat="server" id="control">
 <%
 	Context.Items["hiddenName"] = "";
@@ -88,7 +89,7 @@
 		<% } %>
 	<div class='panel-body'>
 		<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%><% if (!(bool)Context.Items["is-wb-tables"]) { %> = <%=getDatatablesInitOptions()%>;<% } else { %> = '';<% } %></script>
-		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />; width:100%;' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
+		<table class='<% =control.Current.getCSSClass().Replace("collapsible","") %>' style='<apn:cssStyle runat="server" />; width:100%;' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
 				<tr>
@@ -589,6 +590,8 @@
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
 
+			
+
 			if(control.Current.getCSSClass().Contains("responsive")){
 				jOptions.Add("responsive", true);
 			}
@@ -607,6 +610,18 @@
 			jOptions = getInitParameters(jOptions);
 			jOptions = getColumnDefs(defaultGroup, jOptions, fieldNameToId);
 			jOptions = getSorts(defaultGroup, jOptions, fieldNameToId);
+
+			StringBuilder sb = new StringBuilder("<").Append("\"top\"").Append("fil").Append(">").Append("rt").Append("<").Append("\"bottom\"").Append("p").Append(">").Append("<").Append("\"clear\"").Append(">");
+
+			jOptions.Add(
+				new JProperty("defaults", 
+					new JObject{
+						new JProperty("dom", 
+							new JValue(sb.ToString())
+						)
+					}
+				)
+			);
 
 			datatablesInitOptions = jOptions.ToString();
 		}
