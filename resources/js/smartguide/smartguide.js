@@ -130,7 +130,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				var events = smartletfields['page'].events;
 				if (events !== null) {
 					// make sure the smartlet object is available on the body for page events
-					if (typeof $body.data('_smartlet') == 'undefined') {
+					if (typeof $body.data('_smartlet') === 'undefined') {
 						var r = SMARTGUIDES[smartletCode];
 						var smartlet = r._createSmartletContext(null, null, null);
 						$body.data('_smartlet', smartlet);
@@ -543,7 +543,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			}
 			//then bind server event
 			if (isServer) {
-				if (typeof clientEvent == 'undefined') {
+				if (typeof clientEvent === 'undefined') {
 					// must unbind first
 					$field.off(jqEvent);
 				}
@@ -735,14 +735,17 @@ $("form[id^='smartguide_']" ).each(function() {
 							targetArr.push($.escapeSelector(currentID));
 						}
 
+						var targetFormFlag = false;
+
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
 							if(!targetArr.every(function(target) {
 								if (target == 'form') {
+									targetFormFlag = true;
 									return false;
 								}
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
-									if(typeof target != 'undefined' && target != "") {
+									if(typeof target !== 'undefined' && target != "") {
 										target = $.escapeSelector(target);
 										var responseTarget = $('#div_'+target, $responseDiv);
 										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
@@ -768,8 +771,10 @@ $("form[id^='smartguide_']" ).each(function() {
 									return true;
 								}
 							})) {
-								$("#wb-rsz").remove();
-								$currentDiv.replaceWith($responseDiv.clone());
+								if (!targetFormFlag) {
+									$("#wb-rsz").remove();
+									$currentDiv.replaceWith($responseDiv.clone());
+								}
 							}
 						}
 

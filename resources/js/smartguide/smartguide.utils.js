@@ -116,7 +116,7 @@ var utilsController = {
 					//Bind SG object shown when expanding the panel
 					//sgRef.bindEvents([dt]);
 				//});
-				sgRef.bindEvents([dt]);
+				if(typeof dt !== "undefined" && dt.length > 0) sgRef.bindEvents([dt]);
 			})
 		);
 		
