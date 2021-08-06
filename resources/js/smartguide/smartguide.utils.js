@@ -99,6 +99,7 @@ var utilsController = {
 			$(this).parent().toggleClass('open');
 		});
 
+		//WIP: initialize non wb-tables datatables using the dtOptions js config
 		// $('.datatables:not[.wb-tables]').each(function(){
 		// 	var id = $(this).attr("id").replace("_body", "");
 		// 	var options = eval("dtOptions_" + id);
@@ -108,10 +109,11 @@ var utilsController = {
 		$(window).on("resize",
 			$.debounce(150, function(){
 				var dt = $(".datatables", $('.panel-collapse.collapse').closest('.panel'));
-				//dt.trigger( "wb-init.wb-tables" );
+				//The below code should detect display of a datatables row when it's expanded in responsive mode and bind the sg controls in it.
+				//At this time, touching dt.dataTable() (or any of the datatables api access methods) will re-init the datatable and double the controls displayed (search/items per page/and collapsed content of rows in responsive)
 				//dt.dataTable().api().on('responsive-display', function (e, datatable, row, showHide, update) {
-				//console.log( 'Details for row '+row.index()+' '+(showHide ? 'shown' : 'hidden') );
-				// 	//Bind SG object shown when expanding the panel
+					//console.log( 'Details for row '+row.index()+' '+(showHide ? 'shown' : 'hidden') );
+					//Bind SG object shown when expanding the panel
 					//sgRef.bindEvents([dt]);
 				//});
 				sgRef.bindEvents([dt]);
