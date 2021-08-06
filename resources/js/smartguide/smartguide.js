@@ -581,6 +581,10 @@ $("form[id^='smartguide_']" ).each(function() {
 								curRange = $(field).range();
 							}
 							if (isAjax) {
+								if(field.tagName == "BUTTON") {
+									$("#loader").fadeIn("slow");
+								}
+
 								r.ajaxProcess(field, null, true, 
 									function() {
 										// must remove the e_ field we added
@@ -602,6 +606,9 @@ $("form[id^='smartguide_']" ).each(function() {
 												} 
 												fieldInput.focus();
 											}
+										}
+										if(field.tagName == "BUTTON") {
+											$("#loader").fadeOut("slow");
 										}
 									}
 								);
@@ -739,7 +746,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
-							if(!targetArr.every(function(target) {
+							if(!targetArr.forEach(function(target) {
 								if (target == 'form') {
 									targetFormFlag = true;
 									return false;

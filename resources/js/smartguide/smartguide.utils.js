@@ -108,15 +108,17 @@ var utilsController = {
 
 		$(window).on("resize",
 			$.debounce(150, function(){
-				var dt = $(".datatables", $('.panel-collapse.collapse').closest('.panel'));
-				//The below code should detect display of a datatables row when it's expanded in responsive mode and bind the sg controls in it.
-				//At this time, touching dt.dataTable() (or any of the datatables api access methods) will re-init the datatable and double the controls displayed (search/items per page/and collapsed content of rows in responsive)
-				//dt.dataTable().api().on('responsive-display', function (e, datatable, row, showHide, update) {
-					//console.log( 'Details for row '+row.index()+' '+(showHide ? 'shown' : 'hidden') );
-					//Bind SG object shown when expanding the panel
-					//sgRef.bindEvents([dt]);
-				//});
-				if(typeof dt !== "undefined" && dt.length > 0) sgRef.bindEvents([dt]);
+				$(".datatables", $('.panel-collapse.collapse')).each(function(){
+					var dt = $(this).closest('.panel');
+					//The below code should detect display of a datatables row when it's expanded in responsive mode and bind the sg controls in it.
+					//At this time, touching dt.dataTable() (or any of the datatables api access methods) will re-init the datatable and double the controls displayed (search/items per page/and collapsed content of rows in responsive)
+					//dt.dataTable().api().on('responsive-display', function (e, datatable, row, showHide, update) {
+						//console.log( 'Details for row '+row.index()+' '+(showHide ? 'shown' : 'hidden') );
+						//Bind SG object shown when expanding the panel
+						//sgRef.bindEvents([dt]);
+					//});
+					if(typeof dt !== "undefined" && dt.length > 0) sgRef.bindEvents([dt]);
+				});
 			})
 		);
 		
