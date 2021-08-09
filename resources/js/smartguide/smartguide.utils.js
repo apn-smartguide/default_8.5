@@ -264,19 +264,6 @@ var utilsController = {
 			});
 		});
 
-		$('.btn-upload').off('click').on('click', function (e) {
-			$('#loader').fadeIn("fast");
-			var $this = $(this);
-
-			sgRef.ajaxProcess(this, null, true,
-				null,
-				null,
-				function(){
-					$("#loader").fadeOut("fast");
-				}
-			);
-		});
-
 		if (typeof tts === 'function'){
 			tts(context)
 		}
