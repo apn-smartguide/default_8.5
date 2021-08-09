@@ -419,6 +419,9 @@ $("form[id^='smartguide_']" ).each(function() {
 			} else {
 				$field = $('[name="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
 				if($field.length == 0) {
+					$field = $('#div_'+fieldHtmlName+'', r.fm);
+				}
+				if($field.length == 0) {
 					$field = $('#'+fieldHtmlName+'', r.fm);
 				}
 			}
@@ -742,12 +745,11 @@ $("form[id^='smartguide_']" ).each(function() {
 							targetArr.push($.escapeSelector(currentID));
 						}
 
-						var targetFormFlag = false;
-
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
 							if(targetArr.includes("form")) {
 								$currentDiv.replaceWith($responseDiv.clone());
+								//updated.push($responseDiv);
 							} 
 							else if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
