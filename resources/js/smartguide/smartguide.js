@@ -581,7 +581,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								curRange = $(field).range();
 							}
 							if (isAjax) {
-								if(field.tagName == "BUTTON") {
+								if(field.tagName == "BUTTON" && e.type == "click") {
 									$("#loader").fadeIn("slow");
 								}
 
@@ -607,7 +607,7 @@ $("form[id^='smartguide_']" ).each(function() {
 												fieldInput.focus();
 											}
 										}
-										if(field.tagName == "BUTTON") {
+										if(field.tagName == "BUTTON" && e.type == "click") {
 											$("#loader").fadeOut("slow");
 										}
 									}
@@ -746,11 +746,10 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
-							if(!targetArr.forEach(function(target) {
-								if (target == 'form') {
-									targetFormFlag = true;
-									return false;
-								}
+							if(targetArr.includes("form")) {
+								$currentDiv.replaceWith($responseDiv.clone());
+							} 
+							else if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
 									if(typeof target !== 'undefined' && target != "") {
 										target = $.escapeSelector(target);
@@ -778,10 +777,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									return true;
 								}
 							})) {
-								if (!targetFormFlag) {
-									$("#wb-rsz").remove();
-									$currentDiv.replaceWith($responseDiv.clone());
-								}
+								$("#wb-rsz").remove();
 							}
 						}
 
