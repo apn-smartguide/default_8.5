@@ -748,8 +748,10 @@ $("form[id^='smartguide_']" ).each(function() {
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
 							if(targetArr.includes("form")) {
-								$currentDiv.replaceWith($responseDiv.clone());
-								//updated.push($responseDiv);
+								var responseTarget = $responseDiv;
+								responseTarget = responseTarget.clone();
+								$currentDiv.after(responseTarget).remove();
+								updated.push(responseTarget);
 							} 
 							else if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {

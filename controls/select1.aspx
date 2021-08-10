@@ -74,17 +74,26 @@
 					<apn:forEach runat="server" id="control7" >
 						<apn:choosecontrol runat="server">
 							<apn:whencontrol type="optgroup" runat="server"></apn:whencontrol>
-							<apn:otherwise runat="server"><option value='<%= control7.Current.getHTMLValue() %>' ><%=GetAttribute(control7.Current, "label")%></option></apn:otherwise>
+							<apn:otherwise runat="server">
+								<option value='<%= control7.Current.getHTMLValue() %>' ><%=GetAttribute(control7.Current, "label")%></option>
+							</apn:otherwise>
 						</apn:choosecontrol>
 					</apn:forEach>
 				</datalist>
-				<%--<span class="combo-dropdown glyphicon glyphicon-chevron-down form-control-feedback"></span>--%>
 				<% } else { %>
 				<select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' class='<apn:cssclass runat="server"/> form-control input-sm' aria-labelledby='lbl_<apn:name runat="server"/>' style='<%= (control.Current.getAttribute("style") + " " + control.Current.getCSSStyle()) %>' size='1' <apn:metadata runat="server"/><%=Context.Items["readonly"]%> >
 					<apn:forEach runat="server" id="control4" >
 						<apn:choosecontrol runat="server">
-						<apn:whencontrol runat="server" type="optgroup" ><optgroup label='<%=GetAttribute(control4.Current, "label")%>' title='<%=GetAttribute(control4.Current, "title", true)%>'><apn:forEach runat="server" id="control2" ><option value='<%= control2.Current.getHTMLValue() %>' title='<%= control2.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control2.Current.getValue()) ? " selected='selected'" : "" %> > <%=GetAttribute(control2.Current, "label")%></option></apn:forEach></optgroup></apn:whencontrol>
-						<apn:otherwise ><option value='<%= control4.Current.getHTMLValue() %>' title='<%= control4.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control4.Current.getValue()) ? " selected='selected'" : "" %> ><%=GetAttribute(control4.Current, "label")%></option></apn:otherwise>
+							<apn:whencontrol runat="server" type="optgroup" >
+								<optgroup label='<%=GetAttribute(control4.Current, "label")%>' title='<%=GetAttribute(control4.Current, "title", true)%>'>
+									<apn:forEach runat="server" id="control2" >
+										<option value='<%= control2.Current.getHTMLValue() %>' title='<%= control2.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control2.Current.getValue()) ? " selected='selected'" : "" %> > <%=GetAttribute(control2.Current, "label")%></option>
+									</apn:forEach>
+								</optgroup>
+							</apn:whencontrol>
+							<apn:otherwise runat="server">
+								<option value='<%= control4.Current.getHTMLValue() %>' title='<%= control4.Current.getAttribute("title") %>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %><%= control.Current.containsValue(control4.Current.getValue()) ? " selected='selected'" : "" %> ><%=GetAttribute(control4.Current, "label")%></option>
+							</apn:otherwise>
 						</apn:choosecontrol>
 					</apn:forEach>
 				</select>
