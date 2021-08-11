@@ -13,7 +13,7 @@
 			<apn:ifnothelplink runat="server"><apn:help runat="server"/></apn:ifnothelplink>
 			</details>
 		<% } else { %>
-			<a href='#'' class='link-help' title='<apn:localize runat="server" key="theme.text.helptitle"/>' aria-label='<apn:localize runat="server" key="theme.text.helptitle"/>' data-toggle='modal' data-target='#div_<apn:helpid runat="server"/>' onclick='return false;'><span class='<apn:localize runat="server" key="theme.icon.help"/>' aria-hidden='true'></span> <apn:localize runat="server" key="theme.text.helplink"/></a>
+			<a href='#' class='link-help' title='<apn:localize runat="server" key="theme.text.helptitle"/>' aria-label='<apn:localize runat="server" key="theme.text.helptitle"/>' data-toggle='modal' data-target='#div_<apn:helpid runat="server"/>' onclick='return false;'><span class='<apn:localize runat="server" key="theme.icon.help"/>' aria-hidden='true'></span> <apn:localize runat="server" key="theme.text.helplink"/></a>
 			<!-- Modal -->
 			<div class='modal fade' id='div_<apn:helpid runat="server"/>' tabindex='-1' role='dialog' aria-labelledby='helpModalLabel_<apn:helpid runat="server"/>' aria-hidden='true'>
 				<div class='modal-dialog'>

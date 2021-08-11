@@ -27,12 +27,12 @@
                 <value description="Method to set the configuration dynamically be using a settings field on the page." id="G1" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-wb-tables&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
             </attribute>
             <attribute description="" id="G46" name="select-all-class">
-                <value description="" id="G1" name="hide-sort large-checkbox" value="hide-sort large-checkbox"/>
+                <value description="" id="G1" name="hide-sort large" value="hide-sort large"/>
             </attribute>
             <attribute description="" id="G47" name="select-all-style"/>
             <attribute description="" id="G48" name="select-class">
-                <value description="" id="G1" name="large-checkbox" value="large-checkbox"/>
-                <value description="" id="G2" name="large-radio" value="large-radio"/>
+                <value description="" id="G1" name="large-checkbox" value="large"/>
+                <value description="" id="G2" name="large-radio" value="large"/>
             </attribute>
             <attribute description="" id="G49" name="select-style"/>
             <attribute description="" id="G50" name="data-priority">

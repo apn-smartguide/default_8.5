@@ -40,7 +40,7 @@
 		<% ExecutePath("/layout/scripts.aspx"); %>
 		<script>
 			<%=Context.Items["javascript"]%>
-			$("#loader").fadeOut("slow");
+			$("#loader").fadeOut("fast");
 		</script>
 	</body>
 </html>

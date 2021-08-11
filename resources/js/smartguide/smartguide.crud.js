@@ -10,7 +10,7 @@ var crudController = {
 		// https://wet-boew.github.io/v4.0-ci/demos/overlay/overlay-en.html
 
 		$('.repeat_prepare_add_btn', $form).off('click').on('click', function () {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var modal = $('.crud-modal' + level, $form);
@@ -38,14 +38,14 @@ var crudController = {
 				},
 				null,
 				function(){
-					$('#loader').fadeOut("slow");
+					$('#loader').fadeOut("fast");
 				}
 			);
 		});
 		// repeat save added instance
 		$('.repeat_save_add_btn', $form).off('click').on('click', function (e) {
 			//onAddInstance
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -53,7 +53,7 @@ var crudController = {
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
-				$('#loader').fadeOut("slow");
+				$('#loader').fadeOut("fast");
 				return false;
 			}
 			$('.crud-modal' + level, $form).off('hide.bs.modal');
@@ -81,20 +81,20 @@ var crudController = {
 				},
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
 		//cancel add
 		$('.repeat_cancel_add_btn', $form).off('click').on('click', function () {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var modal = $('.crud-modal' + level, $form);
 			if (modal.data('data') != $('input,textarea,select', modal).serialize()) {
 				//confirm discard modification
 				if (!confirm(crudModalsTranslations.discardChanges)) {
-					$('#loader').fadeOut("slow");
+					$('#loader').fadeOut("fast");
 					return false;
 				}
 			}
@@ -107,13 +107,13 @@ var crudController = {
 				},
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
 		//repeat prepare edit instance
 		$('.repeat_prepare_edit_btn', $form).off('click').on('click', function () {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $modal = $('.crud-modal' + level, $form);
@@ -145,20 +145,20 @@ var crudController = {
 				},
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
 		//Cancel edit repeat
 		$('.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var modal = $('.crud-modal' + level, $form);
 			if (modal.data('data') != $('input,textarea,select', modal).serialize()) {
 				//confirm discard modification
 				if (!confirm(crudModalsTranslations.discardChanges)) {
-					$('#loader').fadeOut("slow");
+					$('#loader').fadeOut("fast");
 					return false;
 				}
 			}
@@ -171,14 +171,14 @@ var crudController = {
 				},
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
 		//Save edit instance
 		$('.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
 			//onUpdateInstance
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
@@ -186,7 +186,7 @@ var crudController = {
 			var f = $repeat.triggerHandler('repeat:updateinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
-				$("#loader").fadeOut("slow");
+				$("#loader").fadeOut("fast");
 				return false;
 			}
 			$('.crud-modal' + level, $form).off('hide.bs.modal');
@@ -219,7 +219,7 @@ var crudController = {
 				},
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
@@ -227,14 +227,14 @@ var crudController = {
 		//Delete instance
 		$('.repeat_del_btn').off('click').on('click', function (e) {
 			if (!confirm(crudModalsTranslations.deleteRow)) return false;
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			//onDeleteInstance
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
-				$('#loader').fadeOut("slow");
+				$('#loader').fadeOut("fast");
 				return false;
 			}
 			var rpt = $this.attr('data-repeat-index-name');
@@ -246,20 +246,20 @@ var crudController = {
 				null,
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
 
 		/**** Non CRUD table/group mode ****/
 		$('.repeat_table_add_btn, .repeat_block_add_btn').off('click').on('click', function (e) {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
-				$('#loader').fadeIn("slow");
+				$('#loader').fadeIn("fast");
 				return false;
 			}
 			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value="' + this.id + '" />';
@@ -268,18 +268,18 @@ var crudController = {
 			null,
 			null,
 			function(){
-				$("#loader").fadeOut("slow");
+				$("#loader").fadeOut("fast");
 			});
 		});
 
 		$('.repeat_table_insert_btn, .repeat_block_insert_btn').off('click').on('click', function(e) {
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
-				$('#loader').fadeIn("slow");
+				$('#loader').fadeIn("fast");
 				return false;
 			}
 
@@ -300,7 +300,7 @@ var crudController = {
 			null,
 			null,
 			function(){
-				$("#loader").fadeOut("slow");
+				$("#loader").fadeOut("fast");
 			});
 		});
 
@@ -308,13 +308,13 @@ var crudController = {
 		$('.repeat_table_del_btn, .repeat_block_del_btn').off('click').on('click', function (e) {
 			//onDeleteInstance
 			if (!confirm(crudModalsTranslations.deleteRow))  return false;
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
 			var f = $repeat.triggerHandler('repeat:deleteinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
-				$('#loader').fadeOut("slow");
+				$('#loader').fadeOut("fast");
 				return false;
 			}
 
@@ -335,7 +335,7 @@ var crudController = {
 				null,
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
@@ -343,7 +343,7 @@ var crudController = {
 		//Move up
 		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn').off('click').on('click', function (e) {
 			//onMoveUpInstance
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 
 			var rpt = $this.attr('data-repeat-index-name');
@@ -365,7 +365,7 @@ var crudController = {
 				null,
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});
@@ -373,7 +373,7 @@ var crudController = {
 		//Move down
 		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn').off('click').on('click', function (e) {
 			//onMoveDownInstance
-			$('#loader').fadeIn("slow");
+			$('#loader').fadeIn("fast");
 			var $this = $(this);
 
 			var rpt = $this.attr('data-repeat-index-name');
@@ -395,7 +395,7 @@ var crudController = {
 				null,
 				null,
 				function(){
-					$("#loader").fadeOut("slow");
+					$("#loader").fadeOut("fast");
 				}
 			);
 		});

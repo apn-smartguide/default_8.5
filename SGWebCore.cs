@@ -57,6 +57,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["BrowserType"] = browser.Type;
 	}
 
+	public bool IsIE() {
+		return (((string)Session["BrowserType"]).Contains("IE") || ((string)Session["BrowserType"]).Contains("InternetExplorer"));
+	}
+
 	protected void Load(object sender, EventArgs e) {
 		if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
 			ClearCaches();
@@ -119,6 +123,8 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public void ClearCaches() {
 		
+		Logger.debug("<<<< SGWebCore: Clearing Caches >>>>");
+
 		Application["paths-dictionary"] = new ConcurrentDictionary<string, string>();
 		Application["basePath"] = null;
 		Application["coreThemePath"] = null;
@@ -158,12 +164,14 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["active-section"] = null;
 
 	}
-	 public static com.alphinat.interview.si.xml.servlet.environment.Environment  GetEnvironment(HttpContext context) {
+	public static com.alphinat.interview.si.xml.servlet.environment.Environment GetEnvironment(HttpContext context) {
 		com.alphinat.interview.si.xml.servlet.environment.Environment env = new HttpHandlerEnvironment((java.util.Map)null, context);
 		string defaultEncodingConfig = null;
 		try {
 			defaultEncodingConfig = System.Configuration.ConfigurationManager.AppSettings["apn_parameter_encoding"];
-		} catch (Exception ex) {}
+		} catch (Exception ex) {
+			//If we can't get the apn_parameter_encoding with default to null below.
+		}
 		
 		if (defaultEncodingConfig != null && !defaultEncodingConfig.Trim().Equals("")) {
 			env.setDefaultInputEncoding(defaultEncodingConfig);
@@ -292,10 +300,9 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
 				Context.Items["workspace"] = Smartlet.getWorkspace();
-			} 
-			else if (Context.Items["workspace"] != null && Context.Items["workspace"] != Smartlet.getWorkspace())
-			{
+			} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
 				//We're changing workspace, clear the caches.
+				Logger.debug("<<<< SGWebCore:Workspace: Changing Workspace, Cleared Caches >>>>");
 				ClearCaches();
 				Context.Items["workspace"] = Smartlet.getWorkspace();
             }
@@ -503,16 +510,32 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	//// Authentication Helpers ////
-	public bool IsLogged() {		
+	public bool IsLogged() {
 		if(!Username.Equals("")) {
 			return true;
 		} else {
+			Logger.debug("<<<< SGWebCore:IsLogged: Cleared [userid, roles] >>>>");
 			Session["userid"] = "";
 			Session["roles"] = "";
 			return false;
 		}
 	}
 
+	// public void Logout() {
+
+	// 	Session["userid"] = "";
+	// 	Session["roles"] = "";
+
+	// 	Session.Clear();
+	// 	Session.Abandon();
+	// 	Session.RemoveAll();
+
+	// 	if (Request.Cookies["ASP.NET_SessionId"] != null)
+	// 	{
+	// 		Response.Cookies["ASP.NET_SessionId"].Value = string.Empty;
+	// 		Response.Cookies["ASP.NET_SessionId"].Expires = DateTime.Now.AddMonths(-20);
+	// 	}
+	// }
 	public string Username { 
 		get {
 			return (Session["username"] != null) ? (string) Session["username"] : "";

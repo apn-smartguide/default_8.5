@@ -5,6 +5,7 @@
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <%@ Import Namespace="Newtonsoft.Json" %>
 <%@ Import Namespace="Newtonsoft.Json.Linq" %>
+<%@ Import Namespace="System.Text" %>
 <apn:control runat="server" id="control">
 <%
 	Context.Items["hiddenName"] = "";
@@ -78,7 +79,9 @@
 			</apn:ChooseControl>
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>
-		<h5 class="mt-1 mb-1"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+		<% if (control.Current.getLabel() != "") { %>
+			<h5 class="mt-1 mb-1"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+		<% } %>
 	</div>
 	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
@@ -86,7 +89,7 @@
 		<% } %>
 	<div class='card-body'>
 		<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%><% if (!(bool)Context.Items["is-wb-tables"]) { %> = <%=getDatatablesInitOptions()%>;<% } else { %> = '';<% } %></script>
-		<table class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
+		<table class='<% =control.Current.getCSSClass().Replace("collapsible","") %>' style='<apn:cssStyle runat="server" />; width:100%;' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
 				<tr>
@@ -119,7 +122,7 @@
 									<td <apn:metadata runat="server" match="data-priority"/> data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
-							<apn:WhenControl type="HIDDEN" runat="server"><td></td></apn:WhenControl>
+							<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
@@ -152,9 +155,11 @@
 									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName((string)Context.Items["repeat-name"] + "_select"); %>
 									<% if(selectControl != null) { %>
 										<% if (selectControl.isAvailable()) { %>
+										<label class="sr-only" for='<apn:name runat="server"/>'>Select this row</label>
 										<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 										<% } %>
 									<% } else { %>
+									<label class="sr-only" for='<apn:name runat="server"/>'>Select this row</label>
 									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 									<% } %>
 								</apn:control>
@@ -170,7 +175,7 @@
 												<apn:ChooseControl runat="server">
 													<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 													<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
-													<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+													<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 													<apn:Otherwise runat="server">
 														<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
 															<% if(trRowField.Current.getCSSClass().Contains("datatable-editable")) { %>
@@ -178,18 +183,14 @@
 															<% } else if(!trRowField.Current.getCSSClass().Contains("proxy")) { %>
 																<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'>
 																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-																<% if (trRowField.Current.getCSSClass().Contains("render-html")) { %>
-																	<apn:value runat="server"/>
-																<% } else { %>
-																	<apn:value runat="server" tohtml="true"/>
-																<% } %>
+																<apn:value runat="server"/>
 																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 																</td>
 															<% } else { %>
-																<td></td>
+																<td class="hide"></td>
 															<% } %>
 														<% } else { %>
-															<td><!-- #include file="../hidden.inc" --></td>
+															<td class="hide"><!-- #include file="../hidden.inc" --></td>
 														<% } %>
 													</apn:Otherwise>
 												</apn:ChooseControl>
@@ -198,13 +199,12 @@
 									</apn:WhenControl>
 									<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
-									<apn:WhenControl type="HIDDEN" runat="server"><td><!-- #include file="../hidden.inc" --></td></apn:WhenControl>
+									<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
 										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 											<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
-												<%-- if you need to output html formatted content, add the render-html class --%>
 												<%-- check type and format if applicable --%>
 												<%
 													string type = trField.Current.getMetaDataValue("type");
@@ -222,18 +222,14 @@
 												%>
 												<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
 													<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
-													<% if (trField.Current.getCSSClass().Contains("render-html")) { %>
-														<apn:value runat="server"/>
-													<% } else { %>
-														<apn:value runat="server" tohtml="true"/>
-													<% } %>
+													<apn:value runat="server"/>
 													<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 												</td>
 											<% } else { %>
-												<td></td>
+												<td class="hide"></td>
 											<% } %>
 										<% } else { %>
-											<td><!-- #include file="../hidden.inc" --></td>
+											<td class="hide"><!-- #include file="../hidden.inc" --></td>
 										<% } %>
 									</apn:Otherwise>
 								</apn:ChooseControl>
@@ -504,7 +500,7 @@
 	}
 
 	// Sort options via the data-attribute: Datatable -> sorts -> [value]
-	// e.g. "order": ["name", "asc"], or "order": [["name", "asc"], ["product_url", "asc"]]
+	// e.g. {"order": ["name", "asc"]}, or {"order": [["name", "asc"], ["product_url", "asc"]]}
 	// It is possible to set multiple sort by default.
 	// Special consideration, setting a sort on the "select" column will force the display of the sorting widgets.
 	// Use the field name as identifier with a desired direction [asc|desc]
@@ -594,6 +590,8 @@
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
 
+			
+
 			if(control.Current.getCSSClass().Contains("responsive")){
 				jOptions.Add("responsive", true);
 			}
@@ -612,6 +610,18 @@
 			jOptions = getInitParameters(jOptions);
 			jOptions = getColumnDefs(defaultGroup, jOptions, fieldNameToId);
 			jOptions = getSorts(defaultGroup, jOptions, fieldNameToId);
+
+			StringBuilder sb = new StringBuilder("<").Append("\"top\"").Append("fil").Append(">").Append("rt").Append("<").Append("\"bottom\"").Append("p").Append(">").Append("<").Append("\"clear\"").Append(">");
+
+			jOptions.Add(
+				new JProperty("defaults", 
+					new JObject{
+						new JProperty("dom", 
+							new JValue(sb.ToString())
+						)
+					}
+				)
+			);
 
 			datatablesInitOptions = jOptions.ToString();
 		}

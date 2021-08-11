@@ -5,8 +5,10 @@
 if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = {};
 	
 $("form[id^='smartguide_']" ).each(function() {
+
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
 	var $form = $(this);
+
 	SMARTGUIDES[smartletCode] = {
 		fm: $('form#smartguide_'+smartletCode)
 		,posted: false
@@ -128,7 +130,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				var events = smartletfields['page'].events;
 				if (events !== null) {
 					// make sure the smartlet object is available on the body for page events
-					if (typeof $body.data('_smartlet') == 'undefined') {
+					if (typeof $body.data('_smartlet') === 'undefined') {
 						var r = SMARTGUIDES[smartletCode];
 						var smartlet = r._createSmartletContext(null, null, null);
 						$body.data('_smartlet', smartlet);
@@ -155,7 +157,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			var r = SMARTGUIDES[smartletCode];
 			// basic bindings for field event with dependencies to other fields
 			// textboxes, textarea and password
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste',r.bindThis).on('keyup paste', r.bindThis);
+			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste', r.bindThisResetFocus).on('keyup paste', r.bindThisResetFocus);
 			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
 			// checkboxes and radio buttons
@@ -175,16 +177,6 @@ $("form[id^='smartguide_']" ).each(function() {
 					r.removeScrollLock();
 				});
 				modal.modal('hide');
-			});
-
-			$(".toggle-password").off('click').click(function() {
-				$(this).toggleClass("fa-eye fa-eye-slash")
-				var input = $($(this).attr("toggle"));
-				if (input.attr("type") == "password") {
-					input.attr("type", "text");
-				} else {
-					input.attr("type", "password");
-				}
 			});
 
 			// bind events attached to fields
@@ -427,6 +419,9 @@ $("form[id^='smartguide_']" ).each(function() {
 			} else {
 				$field = $('[name="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
 				if($field.length == 0) {
+					$field = $('#div_'+fieldHtmlName+'', r.fm);
+				}
+				if($field.length == 0) {
 					$field = $('#'+fieldHtmlName+'', r.fm);
 				}
 			}
@@ -551,54 +546,109 @@ $("form[id^='smartguide_']" ).each(function() {
 			}
 			//then bind server event
 			if (isServer) {
-				if (typeof clientEvent == 'undefined') {
+				if (typeof clientEvent === 'undefined') {
 					// must unbind first
 					$field.off(jqEvent);
 				}
-				$field.on(jqEvent, function(e) {
-					var r = SMARTGUIDES[smartletCode];
-					
-					$(this).after($('<input/>', {
-						type: 'hidden',
-						name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
-						value: 'on'+e.type
-					}));
-					// for select, or static text, set event target
-					if (!$(this).attr('data-eventtarget') && $('*[data-eventtarget]', this)){
-						$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
-					}
 
-					if (isAjax) {
-						r.ajaxProcess(this, null, true, 
-							function() {
-								// must remove the e_ field we added
-								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
-							},
-							null,
-							null
-						);
-					}
-					else {
-						if (!$(this).hasClass("always-enabled")) {
-							r._doubleClickHandler(e);
-						} else {
-							r.fm.submit();
+				var processTimer; //timer identifier
+			
+				$field.on(jqEvent, 
+					function(e) {
+						var r = SMARTGUIDES[smartletCode];
+
+						var doneInterval = 0;  //time in ms
+						if(jqEvent == "keyup" || jqEvent == "keydown") {
+							doneInterval = 500; //0.5s 
 						}
+
+						clearTimeout(processTimer);
 						
-						// must remove the e_ field we added is the button is always enabled, like when triggering a file download
-						if ($(this).hasClass("always-enabled")) {
-							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+						$(this).after($('<input/>', {
+							type: 'hidden',
+							name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
+							value: 'on'+e.type
+						}));
+						// for select, or static text, set event target
+						if (!$(this).attr('data-eventtarget') && $('*[data-eventtarget]', this)){
+							$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
+						}
+
+						processTimer = setTimeout(processAjax.bind(null, e, r, isAjax, this, fieldHtmlName), doneInterval);
+						
+						function processAjax (e, r, isAjax, field, fieldHtmlName) {
+							clearTimeout(processTimer);
+							var ogType = field.type;
+							var curRange = null;
+							if(field.tagName == "INPUT" && (field.type == 'text' || field.type == 'password') && ($(field).attr('type') != 'email') && ($(field).attr('type') != 'number')){
+								curRange = $(field).range();
+							}
+							if (isAjax) {
+								if(field.tagName == "BUTTON" && e.type == "click") {
+									$("#loader").fadeIn("slow");
+								}
+
+								r.ajaxProcess(field, null, true, 
+									function() {
+										// must remove the e_ field we added
+										$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+									},
+									null,
+									function() {
+										if(e.type == "keyup") {
+											var fieldInput = $("#"+fieldHtmlName);
+											var fldLength= fieldInput.val().length;
+											if(fieldInput[0].tagName == "INPUT" && (fieldInput[0].type == 'text' || fieldInput[0].type == 'password') && (fieldInput.attr('type') != 'email') && (fieldInput.attr('type') != 'number')) {
+												console.log(e.keyCode);
+												if(curRange.length > 0) {
+													fieldInput.range(curRange.start, curRange.end);
+												} else if(curRange.length <=0 && fldLength > 0) {
+													fieldInput.range(fldLength,fldLength);
+												} else {
+													fieldInput.range(0,fldLength);
+												} 
+												fieldInput.focus();
+											}
+										}
+										if(field.tagName == "BUTTON" && e.type == "click") {
+											$("#loader").fadeOut("slow");
+										}
+									}
+								);
+							} else {
+								if (!$(field).hasClass("always-enabled")) {
+									r._doubleClickHandler(e);
+								} else {
+									r.fm.submit();
+								}
+								
+								// must remove the e_ field we added is the button is always enabled, like when triggering a file download
+								if ($(field).hasClass("always-enabled")) {
+									$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+								}
+							}
+							field.type = ogType;
+							return false;
 						}
 					}
-
-					return false;
-				});
+				);
 			}
 		}		
 		, bindThis : function(){
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess(this, null, false, null, null, null);
+		}
+		, bindThisResetFocus : function(){
+			var r = SMARTGUIDES[smartletCode];
+			r.bindAllFieldsUnderRepeat(this);
+			r.ajaxProcess(this, null, false, null, null, 
+				function() {
+					if(this.event.keyCode != 9) {
+						this.focus();
+					}
+				}
+			);
 		}
 		, bindThisAllowSelfRefresh: function(){
 			var r = SMARTGUIDES[smartletCode];
@@ -697,12 +747,15 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
-							if(!targetArr.every(function(target) {
-								if (target == 'form') {
-									return false;
-								}
+							if(targetArr.includes("form")) {
+								var responseTarget = $responseDiv;
+								responseTarget = responseTarget.clone();
+								$currentDiv.after(responseTarget).remove();
+								updated.push(responseTarget);
+							} 
+							else if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
-									if(typeof target != 'undefined' && target != "") {
+									if(typeof target !== 'undefined' && target != "") {
 										target = $.escapeSelector(target);
 										var responseTarget = $('#div_'+target, $responseDiv);
 										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
@@ -728,7 +781,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									return true;
 								}
 							})) {
-								$currentDiv.replaceWith($responseDiv.clone());
+								$("#wb-rsz").remove();
 							}
 						}
 

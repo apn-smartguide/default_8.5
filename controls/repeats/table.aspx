@@ -45,7 +45,9 @@
 					<% } %>
 				</apn:control>
 			<% } %>
-			<h5 class="mb-0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+			<% if (control.Current.getLabel() != "") { %>
+				<h5 class="mb-0 panel-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+			<% } %>
 		</div>
 		<% } %>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>

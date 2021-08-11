@@ -7,11 +7,12 @@
 <script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.bundle.min.js") %>'></script>
 <!-- Modernizr -->
-<script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/inputmask/jquery.inputmask.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/jquery.caret-1.5.2.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/jquery.ba-throttle-debounce.js") %>'></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src='<%= CacheBreak("/resources/js/html5shiv.min.js") %>'></script>
@@ -31,9 +32,8 @@
 <script src='<%= CacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.10.21/js/jquery.datatables.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.5/js/dataTables.responsive.min.js") %>'></script>
-<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+<script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tinymce.js") %>'></script>
