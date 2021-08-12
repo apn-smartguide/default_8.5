@@ -106,7 +106,7 @@ var utilsController = {
 		// 	$('table', $(this)).DataTable(options)
 		// });
 		
-		$('.panel-collapse.collapse').on("shown.bs.collapse", function() {
+		$('.panel-collapse.collapse').off("shown.bs.collapse").on("shown.bs.collapse", function() {
 			window.dispatchEvent(new Event('resize'));
 			setTimeout(() => {
 				$(".datatables", $(this)).each(function(){
@@ -120,7 +120,7 @@ var utilsController = {
 					//});
 					if(typeof dt !== "undefined" && dt.length > 0) sgRef.bindEvents([dt]);
 				});
-			}, 150);
+			}, 0);
 			
 		});
 		
