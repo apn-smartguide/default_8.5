@@ -564,7 +564,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						clearTimeout(processTimer);
 						
-						$(this).after($('<input/>', {
+						$(this).before($('<input/>', {
 							type: 'hidden',
 							name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
 							value: 'on'+e.type
