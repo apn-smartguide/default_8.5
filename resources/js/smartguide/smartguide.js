@@ -246,7 +246,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							var numberOfGroups = smartletfields[rptId].numberOfGroups;
 
 							for(var i=0;i<numberOfGroups;i++) {
-								var fieldHtmlName = key + "\\[" + (i+1) + "\\]";
+								var fieldHtmlName = key + "[" + (i+1) + "]";
 								var jqField = r._getJQField(fieldType, fieldHtmlName);
 								if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf("btn-modal") < 0) {
 									r._bindFieldEvent(field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
@@ -414,6 +414,7 @@ $("form[id^='smartguide_']" ).each(function() {
 		, _getJQField: function (fieldType, fieldHtmlName){
 			var r = SMARTGUIDES[smartletCode];
 			var $field;
+			fieldHtmlName = $.escapeSelector(fieldHtmlName);
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
 				$field = $('div#div_'+fieldHtmlName, r.fm);
 			} else {

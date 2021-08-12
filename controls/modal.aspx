@@ -11,7 +11,7 @@
 					<% string eventTargets = ""; %>
 					<% SessionField button = GetProxyButton(control.Current.getCode()+"_cancel", ref eventTargets); %>
 					<% if(button != null) { %>
-						<button type='button' name='d_<%=button.getId()%>' data-eventtarget='[<%=eventTargets%>]' class='close modal-close' data-dismiss='modal' aria-label='<apn:localize runat="server" key="theme.text.close"/>' title='<apn:localize runat="server" key="theme.text.close"/>' ><span aria-hidden='true' >&times;</span></button>
+						<button type='button' name='d_<%=button.getId()%>' data-eventtarget='[<%=eventTargets%>]' class='btn-modal close modal-close' data-dismiss='modal' aria-label='<apn:localize runat="server" key="theme.text.close"/>' title='<apn:localize runat="server" key="theme.text.close"/>' ><span aria-hidden='true' >&times;</span></button>
 						<% } else { %>
 						<button type='button' class='close modal-close' data-dismiss='modal' aria-label='<apn:localize runat="server" key="theme.text.close"/>' title='<apn:localize runat="server" key="theme.text.close"/>' ><span aria-hidden='true' >&times;</span></button>
 					<% } %>
