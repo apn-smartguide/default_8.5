@@ -196,7 +196,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					field.isUnderRepeat = (field.isUnderRepeat & (typeof field.class !== 'undefined' && field.class.indexOf("panel-heading-button") < 0));
 
 					if (field.isUnderRepeat) {
-						$fields = r._getJQField(fieldType, key+'[1]');
+						$fields = r._getJQField(fieldType, key, true);
 					} else {
 						$fields = r._getJQField(fieldType, key);	
 					}
@@ -252,9 +252,9 @@ $("form[id^='smartguide_']" ).each(function() {
 									var fieldHtmlName = key + "[" + (i+1) + "]";
 									var jqField = r._getJQField(fieldType, fieldHtmlName);
 									if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf("btn-modal") < 0) {
-										r._bindFieldEvent($field, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+										r._bindFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 									} else {
-										r._bindModalFieldEvent($field, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+										r._bindModalFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 									}
 								}
 							} else if($field.is(":visible") || isInModal) {
@@ -416,21 +416,30 @@ $("form[id^='smartguide_']" ).each(function() {
 				};
 			return handler;
 		}
-		, _getJQField: function (fieldType, fieldHtmlName){
+		, _getJQField: function (fieldType, fieldHtmlName, isSubstringSelector){
+			if (typeof isSubstringSelector === 'undefined') {
+				isSubstringSelector = false;
+			}
+			var sub = "";
+			if (isSubstringSelector) {
+				sub = "^";
+			}
 			var r = SMARTGUIDES[smartletCode];
 			var $field;
 			fieldHtmlName = $.escapeSelector(fieldHtmlName);
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
-				$field = $('div#div_'+fieldHtmlName, r.fm);
+				$field = $('div[id'+sub+'=div_'+fieldHtmlName + ']', r.fm);
 			} else {
-				$field = $('[name="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
+				$field = $('[name'+sub+'="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
 				if($field.length == 0) {
-					$field = $('#div_'+fieldHtmlName+'', r.fm);
+					$field = $('[id'+sub+'=div_'+fieldHtmlName+']', r.fm);
 				}
 				if($field.length == 0) {
-					$field = $('#'+fieldHtmlName+'', r.fm);
+					$field = $('[id'+sub+'='+fieldHtmlName+']', r.fm);
 				}
 			}
+			if (isSubstringSelector && $field.length > 0)
+				return $field.first();
 			return $field;
 		}
 		, _bindModalFieldEvent : function($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
