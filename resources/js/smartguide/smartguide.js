@@ -266,7 +266,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 
-						if(field.isRequired && $field.is(":visible") || $('#errors-fdbck-frm').length > 0){
+						if(field.isRequired && $field.is(":visible") && !isInModal || $('#errors-fdbck-frm').length > 0){
 							$("#alerts").show();
 						}
 					});
