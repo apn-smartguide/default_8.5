@@ -756,7 +756,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
 						var currentID= $.escapeSelector($(elmt).attr('id'));
 						var selfRefresh = $(elmt).hasClass('self-refresh');
-						if(selfRefresh) {
+						if(selfRefresh && typeof targetArr !== 'undefined' && targetArr != null) {
 							targetArr.push($.escapeSelector(currentID));
 						}
 
