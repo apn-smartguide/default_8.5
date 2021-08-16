@@ -257,7 +257,7 @@ $("form[id^='smartguide_']" ).each(function() {
 										r._bindModalFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 									}
 								}
-							} else if($field.is(":visible") || isInModal) {
+							} else if($field.is(":visible") || fieldType === 'button' || isInModal) {
 								if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0)) {
 									r._bindFieldEvent($field, field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
 								} else {
