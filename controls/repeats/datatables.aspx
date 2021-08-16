@@ -155,12 +155,13 @@
 									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName((string)Context.Items["repeat-name"] + "_select"); %>
 									<% if(selectControl != null) { %>
 										<% if (selectControl.isAvailable()) { %>
-										<label class="sr-only" for='<apn:name runat="server"/>'>Select this row</label>
-										<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+										<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input  <%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+										<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=getSelectLabel()%>'><span class='field-name <% if(getSelectCSSClass().Contains("hide-label")) {%>sr-only<% } %>'><%=getSelectLabel()%></span></label>
 										<% } %>
 									<% } else { %>
-									<label class="sr-only" for='<apn:name runat="server"/>'>Select this row</label>
-									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+									
+									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input <%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+									<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=getSelectLabel()%>'><span class='field-name <% if(getSelectCSSClass().Contains("hide-label")) {%>sr-only<% } %>'><%=getSelectLabel()%></span></label>
 									<% } %>
 								</apn:control>
 							</td>
@@ -291,6 +292,9 @@
 	// Get the Select CSS Style to apply from data-attribute: Datatable -> select-style -> [value]
 	public string getSelectCSSStyle() { return getMetaDataValue("select-style"); }
 	// ** End Styling Bloc **//
+
+	// Get the Select Label to use from data-attribute: Datatable -> select-label -> [value]
+	public string getSelectLabel() { return getMetaDataValue("select-label"); }
 
 	public bool isSelectable() {
 		return control.Current.getAttribute("isselectable").Equals("true");

@@ -105,10 +105,11 @@ var utilsController = {
 		// 	var options = eval("dtOptions_" + id);
 		// 	$('table', $(this)).DataTable(options)
 		// });
-
-		$(window).on("resize",
-			$.debounce(150, function(){
-				$(".datatables", $('.panel-collapse.collapse')).each(function(){
+		
+		$('.panel-collapse.collapse').off("shown.bs.collapse").on("shown.bs.collapse", function() {
+			window.dispatchEvent(new Event('resize'));
+			setTimeout(() => {
+				$(".datatables", $(this)).each(function(){
 					var dt = $(this).closest('.panel');
 					//The below code should detect display of a datatables row when it's expanded in responsive mode and bind the sg controls in it.
 					//At this time, touching dt.dataTable() (or any of the datatables api access methods) will re-init the datatable and double the controls displayed (search/items per page/and collapsed content of rows in responsive)
@@ -119,11 +120,8 @@ var utilsController = {
 					//});
 					if(typeof dt !== "undefined" && dt.length > 0) sgRef.bindEvents([dt]);
 				});
-			})
-		);
-		
-		$('.panel-collapse.collapse').on("shown.bs.collapse", function() {
-			window.dispatchEvent(new Event('resize'));
+			}, 0);
+			
 		});
 		
 		if(!isIE11) {

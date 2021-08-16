@@ -1129,7 +1129,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(targets != null) {
 				foreach(ISmartletField targetField in targets) {
 					if(targetField != null) {
-						eventTargets += targetField.getId() + ",";
+						eventTargets += "\"" + targetField.getHtmlName() + "\",";
 					}
 				}
 			}
@@ -1150,7 +1150,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(targets != null) {
 				foreach(ISmartletField targetField in targets) {
 					if(targetField != null) {
-						eventTargets += targetField.getId() + ",";
+						eventTargets += "\"" + targetField.getHtmlName() + "\",";
 					}
 				}
 			}
