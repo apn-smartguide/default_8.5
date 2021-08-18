@@ -818,7 +818,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 						
 						// automatically replace the SG JS div
-						var sourceSGLIBDiv = $('#sglib', fm);
+						var sourceSGLIBDiv = $('#sglib');
 						var targetSGLIBDiv = $('#sglib', response);
 						$(sourceSGLIBDiv).after(targetSGLIBDiv).remove(); 
 
