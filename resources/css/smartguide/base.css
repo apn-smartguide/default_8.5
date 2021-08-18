@@ -345,6 +345,7 @@ div.repeat table td.repeatbutton {
 	margin: 15px;
 	border: 1px #8e8e8e solid;
 	border-radius: 3px;
+	padding-bottom: 0px;
 }
 
 .plain-group .panel-body {
@@ -673,7 +674,7 @@ input[type=checkbox].large:checked+label::before, input[type=radio].large:checke
 
 input[type=checkbox].large+label, input[type=radio].large+label {
 	display: inline;
-	line-height: 2;
+	line-height: 2.2;
 	width: auto;
 	font-size: inherit;
 }
