@@ -110,7 +110,7 @@ var dataTablesController = {
 					var repeatDiv = $(obj).parent().parent();
 					if (repeatDiv.hasClass('hide-search')) gridOption['hide-search'] = true;
 					if (repeatDiv.hasClass('hide-pagination')) gridOption['hide-pagination'] = true;
-					if (repeatDiv.hasClass('grid-view')) gridOption['standard-search'] = true;
+					//if (repeatDiv.hasClass('grid-view')) gridOption['standard-search'] = true;
 					if (repeatDiv.hasClass('selectable')) gridOption['selectable'] = true;
 					var dtOptions = {
 						"stateSave": true,

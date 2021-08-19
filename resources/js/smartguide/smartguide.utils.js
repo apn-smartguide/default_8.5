@@ -106,6 +106,10 @@ var utilsController = {
 		// 	$('table', $(this)).DataTable(options)
 		// });
 		
+		$('a[data-toggle="collapse"]').off("click").on("click",function () {
+			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
+		});
+
 		$('.panel-collapse.collapse').off("shown.bs.collapse").on("shown.bs.collapse", function() {
 			window.dispatchEvent(new Event('resize'));
 			setTimeout(() => {

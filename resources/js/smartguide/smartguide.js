@@ -2,8 +2,8 @@
 	js file for each form, stored in SMARTGUIDES global variable
 */
 
-if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = {};
-	
+if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = [];
+
 $("form[id^='smartguide_']" ).each(function() {
 
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
@@ -14,29 +14,27 @@ $("form[id^='smartguide_']" ).each(function() {
 		,posted: false
 		,init: function(){
 			// This section is for code that must be run once after the page is loaded
-			$(document).ready(function(){
-				var r = SMARTGUIDES[smartletCode];
-				
-				//init tooltip
-				$('[data-toggle="tooltip"]').tooltip();
-				
-				//make help window dragable, JQuery UI Draggable
-				$('.modal-dialog', r.fm).draggable({
-					handle: ".modal-header"
-				});
+			var r = SMARTGUIDES[smartletCode];
 			
-				// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
-				$('button:not([data-toggle="collapse"]), input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
-
-				//Smartlet events
-				r._bindOrTriggerSmartletAndPageEvent();
-				
-				// invoke custom init methods
-				customJS.init(r);
-				
-				// call the main bind events function
-				r.bindEvents(); 
+			//init tooltip
+			$('[data-toggle="tooltip"]').tooltip();
+			
+			//make help window dragable, JQuery UI Draggable
+			$('.modal-dialog', r.fm).draggable({
+				handle: ".modal-header"
 			});
+		
+			// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
+			$('button:not([data-toggle="collapse"]), input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
+
+			//Smartlet events
+			r._bindOrTriggerSmartletAndPageEvent();
+			
+			// invoke custom init methods
+			customJS.init(r);
+			
+			// call the main bind events function
+			r.bindEvents(); 
 		}
 		,addScrollLock: function() {
 			var $body = $('body');
@@ -601,6 +599,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							if (isAjax) {
 								if(field.tagName == "BUTTON" && e.type == "click") {
 									$("#loader").fadeIn("slow");
+									$(field).tooltip("destroy");
 								}
 
 								r.ajaxProcess(field, null, true, 
@@ -824,6 +823,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						r.bindEvents(updated);
 						
+						$('.tooltip').remove(); //Remove any lagging tooltips, they will be recreated.
 						if (elmt2 != null && !(typeof elmt2 === 'undefined')) $(elmt2).val('');
 						
 						if (successCallback) successCallback(updated);
@@ -860,7 +860,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			}); 
 		}
 	};
-	SMARTGUIDES[smartletCode].init();
+	//SMARTGUIDES[smartletCode].init();
 });
 
 function getScripts(scripts, callback) {
