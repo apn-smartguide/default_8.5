@@ -39,6 +39,14 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
+<script type="text/javascript">
+	//Manually start SmartGuide
+	$(document).ready(function(){
+		for(let i=0; i < SMARTGUIDES.length; i++){
+			SMARTGUIDES[i].init();
+		} 
+	});
+</script>
 
 <%--<script type="text/javascript">
 	var ie = navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident/") > -1;
