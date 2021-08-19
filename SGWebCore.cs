@@ -1082,16 +1082,16 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getTooltip();
 	}
 
-	public string GetCSSClass(ControlInfo ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(ControlInfo ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
 
-	public string GetCSSClass(ISmartletField ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(ISmartletField ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
 
-	public string GetCSSClass(SessionField ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(SessionField ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
 
 	public string GetCSSStyle(ControlInfo ctrl) {
@@ -1120,6 +1120,26 @@ public partial class SGWebCore : System.Web.UI.Page
 		} else {
 			return ctrl.getAttribute(attribute);
 		} 
+	}
+
+	public string RemoveBehaviourFlags(string value) {
+		return value.Replace("proxy","")
+		.Replace("hide-column-label","")
+		.Replace("hide-label","")
+		.Replace("hide-sort","")
+		.Replace("plain-group","")
+		.Replace("collapsible","")
+		.Replace("open","")
+		.Replace("table-render","")
+		.Replace("table-view","")
+		.Replace("grid-render","")
+		.Replace("grid-view","")
+		.Replace("block-render","")
+		.Replace("block-view","")
+		/* .Replace("datatables","") */
+		.Replace("datatables-view","")
+		.Replace("datatable-editable","")
+		.Replace("select-all","");
 	}
 
 	public SessionField GetProxyButton(string key, ref string eventTargets) {
