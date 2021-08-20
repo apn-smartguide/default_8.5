@@ -428,7 +428,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			var $field;
 			fieldHtmlName = $.escapeSelector(fieldHtmlName);
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
-				$field = $('div[id'+sub+'=div_'+fieldHtmlName + ']', r.fm);
+				$field = $('div#div_'+fieldHtmlName, r.fm);
 			} else {
 				$field = $('[name'+sub+'="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
 				if($field.length == 0) {
