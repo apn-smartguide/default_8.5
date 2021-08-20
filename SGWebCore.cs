@@ -1069,6 +1069,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetLabel(SessionField ctrl) {
 		return ctrl.getLabel();
 	}
+	public string GetLabel(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetLabel(ctrl.Current);
+	}
 
 	public string GetTooltip(ControlInfo ctrl) {
 		return ctrl.getTooltip();
@@ -1082,6 +1085,11 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getTooltip();
 	}
 
+	public string GetTooltip(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetTooltip(ctrl.Current);
+	}
+
+
 	public string GetCleanCSSClass(ControlInfo ctrl) {
 		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
@@ -1092,6 +1100,9 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string GetCleanCSSClass(SessionField ctrl) {
 		return RemoveBehaviourFlags(ctrl.getCSSClass());
+	}
+	public string GetCleanCSSClass(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetCleanCSSClass(ctrl.Current);
 	}
 
 	public string GetCSSStyle(ControlInfo ctrl) {
@@ -1105,21 +1116,31 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetCSSStyle(SessionField ctrl) {
 		return ctrl.getCSSStyle();
 	}
-
-	public string GetAttribute(ControlInfo ctrl, string attribute) {
-		return ctrl.getAttribute(attribute);
+	public string GetCSSStyle(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetCSSStyle(ctrl.Current);
 	}
 
 	public string GetMetaDataValue(ControlInfo ctrl, string key) {
 		return (ctrl.getMetaDataValue(key) != null && !ctrl.getMetaDataValue(key).Equals("")) ? ctrl.getMetaDataValue(key) : "";
 	}
-
+	public string GetMetaDataValue(Alphinat.SmartGuideServer.Controls.Control ctrl, string key) {
+		return GetMetaDataValue(ctrl.Current, key);
+	}
+	public string GetAttribute(ControlInfo ctrl, string attribute) {
+		return ctrl.getAttribute(attribute);
+	}
+	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute) {
+		return GetAttribute(ctrl.Current, attribute);
+	}
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
 		if(tohtml) {
 			return HttpUtility.HtmlEncode(ctrl.getAttribute(attribute));
 		} else {
 			return ctrl.getAttribute(attribute);
 		} 
+	}
+	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute, bool tohtml) {
+		return GetAttribute(ctrl.Current, attribute, tohtml);
 	}
 
 	public string RemoveBehaviourFlags(string value) {
@@ -1186,6 +1207,10 @@ public partial class SGWebCore : System.Web.UI.Page
 			staticvalue = DateTime.ParseExact(ctrl.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
 		} catch(Exception e) { }
 		return staticvalue;
+	}
+
+	public long GetSortableDate(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetSortableDate(ctrl.Current);
 	}
 
 	//// Utilities ///
