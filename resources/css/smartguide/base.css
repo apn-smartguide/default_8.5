@@ -333,8 +333,10 @@ div.repeat table td.repeatbutton {
 	width: 1200px;
 }
 
-.block-controls {
-
+.row.block-controls {
+	margin-top: -15px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 .block-form {

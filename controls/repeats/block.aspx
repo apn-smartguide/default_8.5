@@ -99,7 +99,8 @@
 							<div>
 								<apn:control runat="server" type="select_instance" id="sel">
 									<input type='hidden' name='<apn:name runat="server"/>' value='' />
-									<input type='<%=Context.Items["selectionType"]%>' data-group='<%=control.Current.getName()%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='true' <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+									<input type='<%=Context.Items["selectionType"]%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input <%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value='true' <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
+									<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=getSelectLabel()%>'><span class='field-name <% if(getSelectCSSClass().Contains("hide-label")) {%>sr-only<% } %>'><%=getSelectLabel()%></span></label>
 								</apn:control>
 								<%= status.getCount()%>.
 							</div>
@@ -134,3 +135,30 @@
 		
 	</div>
 </apn:control>
+<script runat="server" lang="c#">
+// Helper method to get a MetaDataValue for this DataTable, will return empty string or value, but not null.
+	public string getMetaDataValue(string meta) {
+		return (control.Current.getMetaDataValue(meta).Equals("")) ? "" : control.Current.getMetaDataValue(meta);
+	}
+
+	// ** Start Styling Bloc **//
+	// Get the Select All CSS Class to apply from data-attribute: Datatable -> select-all-class -> [value]
+	public string getSelectAllCSSClass() { return getMetaDataValue("select-all-class"); }
+
+	// Get the Select All CSS Style to apply from data-attribute: Datatable -> select-all-style -> [value]
+	public string getSelectAllCSSStyle() { return getMetaDataValue("select-all-style"); }
+	 
+	// Get the Select CSS Class to apply from data-attribute: Datatable -> select-class -> [value]
+	public string getSelectCSSClass() { return getMetaDataValue("select-class"); }
+
+	// Get the Select CSS Style to apply from data-attribute: Datatable -> select-style -> [value]
+	public string getSelectCSSStyle() { return getMetaDataValue("select-style"); }
+	// ** End Styling Bloc **//
+
+	// Get the Select Label to use from data-attribute: Datatable -> select-label -> [value]
+	public string getSelectLabel() { return getMetaDataValue("select-label"); }
+
+	public bool isSelectable() {
+		return control.Current.getAttribute("isselectable").Equals("true");
+	}
+</script>
