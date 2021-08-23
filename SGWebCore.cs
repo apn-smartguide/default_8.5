@@ -1089,7 +1089,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		return GetTooltip(ctrl.Current);
 	}
 
-
 	public string GetCleanCSSClass(ControlInfo ctrl) {
 		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
@@ -1101,6 +1100,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetCleanCSSClass(SessionField ctrl) {
 		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
+
 	public string GetCleanCSSClass(Alphinat.SmartGuideServer.Controls.Control ctrl) {
 		return GetCleanCSSClass(ctrl.Current);
 	}
@@ -1116,6 +1116,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetCSSStyle(SessionField ctrl) {
 		return ctrl.getCSSStyle();
 	}
+
 	public string GetCSSStyle(Alphinat.SmartGuideServer.Controls.Control ctrl) {
 		return GetCSSStyle(ctrl.Current);
 	}
@@ -1123,15 +1124,19 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetMetaDataValue(ControlInfo ctrl, string key) {
 		return (ctrl.getMetaDataValue(key) != null && !ctrl.getMetaDataValue(key).Equals("")) ? ctrl.getMetaDataValue(key) : "";
 	}
+
 	public string GetMetaDataValue(Alphinat.SmartGuideServer.Controls.Control ctrl, string key) {
 		return GetMetaDataValue(ctrl.Current, key);
 	}
+
 	public string GetAttribute(ControlInfo ctrl, string attribute) {
 		return ctrl.getAttribute(attribute);
 	}
+
 	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute) {
 		return GetAttribute(ctrl.Current, attribute);
 	}
+
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
 		if(tohtml) {
 			return HttpUtility.HtmlEncode(ctrl.getAttribute(attribute));
@@ -1139,15 +1144,18 @@ public partial class SGWebCore : System.Web.UI.Page
 			return ctrl.getAttribute(attribute);
 		} 
 	}
+
 	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute, bool tohtml) {
 		return GetAttribute(ctrl.Current, attribute, tohtml);
 	}
 
 	public string RemoveBehaviourFlags(string value) {
-		return value.Replace("proxy","")
+
+		string result = value.Replace("proxy","")
 		.Replace("hide-column-label","")
 		.Replace("hide-label","")
 		.Replace("hide-sort","")
+		.Replace("nonsearchable", "")
 		.Replace("plain-group","")
 		.Replace("collapsible","")
 		.Replace("open","")
@@ -1157,10 +1165,11 @@ public partial class SGWebCore : System.Web.UI.Page
 		.Replace("grid-view","")
 		.Replace("block-render","")
 		.Replace("block-view","")
-		/* .Replace("datatables","") */
 		.Replace("datatables-view","")
 		.Replace("datatable-editable","")
 		.Replace("select-all","");
+
+		return result;
 	}
 
 	public SessionField GetProxyButton(string key, ref string eventTargets) {
