@@ -185,15 +185,15 @@
 										<apn:forEach runat="server" id="trRowCol">
 											<apn:forEach runat="server" id="trRowField">
 												<apn:ChooseControl runat="server">
-													<apn:WhenControl type="GROUP" runat="server"><td class='<%=GetCleanCSSClass(trRowField.Current)%>' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
+													<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 													<apn:WhenControl type="TRIGGER" runat="server"><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { %><td><% ExecutePath("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 													<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 													<apn:Otherwise runat="server">
 														<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
 															<% if(trRowField.Current.getCSSClass().Contains("datatable-editable")) { %>
-																<td class='<%=GetCleanCSSClass(trRowField.Current)%>' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
+																<td style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 															<% } else if(!trRowField.Current.getCSSClass().Contains("proxy")) { %>
-																<td class='<%=GetCleanCSSClass(trRowField.Current)%>' style='<apn:cssStyle runat="server" />'>
+																<td style='<apn:cssStyle runat="server" />'>
 																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 																<apn:value runat="server"/>
 																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
@@ -209,13 +209,13 @@
 											</apn:forEach>
 										</apn:forEach>
 									</apn:WhenControl>
-									<apn:WhenControl type="GROUP" runat="server"><td class='<%=GetCleanCSSClass(trField.Current)%>' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
+									<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server"><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %><td><% ExecutePath("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
 										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
-												<td class='<%=GetCleanCSSClass(trField.Current)%>' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
+												<td style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 											<% } else if(!trField.Current.getCSSClass().Contains("proxy")) { %>
 												<%-- check type and format if applicable --%>
 												<%
@@ -232,7 +232,7 @@
 														Context.Items["dataOrder"] = "";
 													}
 												%>
-												<td class='<%=GetCleanCSSClass(trField.Current)%>' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
+												<td style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
 													<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 													<apn:value runat="server"/>
 													<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
@@ -414,6 +414,8 @@
 			if(!selectAllCSSClass.Equals("")) {
 				if (selectAllCSSClass.Contains("hide-sort")) {
 					col.Add("orderable", false);
+				} else {
+					col.Add("orderable", true);
 				}
 				if (selectAllCSSClass.Contains("nonsearchable")) {
 					col.Add("searchable", false);
@@ -421,7 +423,7 @@
 				if (selectAllCSSClass.Contains("hide-from-list-view")) {
 					col.Add("visible", false);
 				}
-				col.Add("className", selectAllCSSClass.Replace("hide-sort","").Replace("nonsearchable","").Replace("hide-from-list-view",""));
+				col.Add("className", RemoveBehaviourFlags(selectAllCSSClass));
 			}
 
 			columns.Add(col);
@@ -462,6 +464,8 @@
 			}
 			if (cssClass.Contains("nonsearchable")) {
 				col.Add("searchable", false);
+			} else {
+				col.Add("searchable", true);
 			}
 
 			//https://datatables.net/reference/option/columns.type
