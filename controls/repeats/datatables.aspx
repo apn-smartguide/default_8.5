@@ -474,7 +474,9 @@
 				if (fields[i].getTypeConst() == 80000 || cssStyle.Contains("visibility:hidden;") || cssStyle.Contains("display:none;") || cssClass.Contains("hide-from-list-view")) {
 					col.Add("visible", false);
 				} else {
-					col.Add("autoWidth", true);
+					if(!fields[i].getCSSWidth().Equals("")) {
+						col.Add("width", fields[i].getCSSWidth());
+					}
 				}
 
 				if(cssClass.Contains("repeatbutton") || fields[i].getTypeConst() == 190000) {
@@ -587,6 +589,7 @@
 			JObject jOptions = new JObject();
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
+			jOptions.Add("autoWidth", true);
 
 			if(control.Current.getCSSClass().Contains("responsive")){
 				jOptions.Add("responsive", true);
