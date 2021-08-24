@@ -262,7 +262,7 @@ div.drop-popup > p {
 
 /* Readonly */
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-	color: #bbb;
+	color: #545454;
 }
 
 div.repeat:not(.grid-view) table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
