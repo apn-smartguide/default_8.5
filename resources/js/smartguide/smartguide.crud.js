@@ -49,7 +49,7 @@ var crudController = {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $.escapeSelector($repeat.attr('id'));
+			var repeatId = CSS.escape($repeat.attr('id'));
 			var f = $repeat.triggerHandler('repeat:addinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -122,10 +122,10 @@ var crudController = {
 			}
 			var rpt = $this.attr('data-repeat-index-name');
 			var count = $this.attr('data-instance-pos');
-			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
+			$('input[name=' + CSS.escape(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
-			$('#' + $.escapeSelector(this.id)).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
-			r.ajaxProcess(this, 'input[name=' + $.escapeSelector(rpt) + ']', true,
+			$('#' + CSS.escape(this.id)).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
+			r.ajaxProcess(this, 'input[name=' + CSS.escape(rpt) + ']', true,
 				function () {
 					$modal = $('.crud-modal' + level, $form);
 					// Clear any validation errors that might have appeared
@@ -182,7 +182,7 @@ var crudController = {
 			var $this = $(this);
 			var level = $this.attr('data-level');
 			var $repeat = $this.closest('div.repeat');
-			var repeatId = $.escapeSelector($repeat.attr('id'));
+			var repeatId = CSS.escape($repeat.attr('id'));
 			var f = $repeat.triggerHandler('repeat:updateinstance');
 			if (typeof f !== 'undefined' && f === false) {
 				e.stopImmediatePropagation();
@@ -194,7 +194,7 @@ var crudController = {
 			$this.before(newinput);
 			// handle large dataset mode if present
 			if ($(".paginationInfo", ".bootpag").length > 0) {
-				var beforeUpdate = $("#" + $.escapeSelector($repeat.attr("id")) + " > .bootpag").html();
+				var beforeUpdate = $("#" + CSS.escape($repeat.attr("id")) + " > .bootpag").html();
 				$this.after('<div tableID="' + $repeat.attr("id") + '" style="display:none;" id="beforeUpdate">' + beforeUpdate + '</div>');
 			}
 			var btn = $this;
@@ -239,9 +239,9 @@ var crudController = {
 			}
 			var rpt = $this.attr('data-repeat-index-name');
 			var count = $this.attr('data-instance-pos');
-			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
+			$('input[name=' + CSS.escape(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
-			$('#' + $.escapeSelector(this.id)).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
+			$('#' + CSS.escape(this.id)).after('<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />');
 			r.ajaxProcess(this, 'input[name=' + rpt + ']', true,
 				null,
 				null,
@@ -287,12 +287,12 @@ var crudController = {
 			var count = $this.attr('data-instance-pos');
 			if(typeof rpt === 'undefined') {
 				//revert to legacy mode
-				var thisId = $.escapeSelector($this.attr('id'));
+				var thisId = CSS.escape($this.attr('id'));
 				count = thisId.substring(thisId.lastIndexOf("_")+1);
 				rpt = $repeat.attr('id').substring($repeat.attr('id').indexOf("_")+1);
 			}
 			
-			$('input[name='+ $.escapeSelector(rpt)+ ']').val(count);
+			$('input[name='+ CSS.escape(rpt)+ ']').val(count);
 			var basename = this.id.substring(0,this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="'+basename+'" id="'+basename+'" value="'+basename+'" />';
 			$this.after(newinput);
@@ -350,14 +350,14 @@ var crudController = {
 			var count = $this.attr('data-instance-pos');
 			if(typeof rpt === 'undefined') {
 				//revert to legacy mode
-				var thisId = $.escapeSelector(this.id);
+				var thisId = CSS.escape(this.id);
 				var classes = $('#' + thisId).attr('class');
 				var rptandid = classes.substring(classes.lastIndexOf(" "));
 				rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
 				count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
 			}
 
-			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
+			$('input[name=' + CSS.escape(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
 			$this.after(newinput);
@@ -380,14 +380,14 @@ var crudController = {
 			var count = $this.attr('data-instance-pos');
 			if(typeof rpt === 'undefined') {
 				//revert to legacy mode
-				var thisId = $.escapeSelector(this.id);
+				var thisId = CSS.escape(this.id);
 				var classes = $('#' + thisId).attr('class');
 				var rptandid = classes.substring(classes.lastIndexOf(" "));
 				rpt = rptandid.substring(0, rptandid.lastIndexOf("_"));
 				count = rptandid.substring(rptandid.lastIndexOf("_") + 1);
 			}
 			
-			$('input[name=' + $.escapeSelector(rpt)+ ']').val(count);
+			$('input[name=' + CSS.escape(rpt)+ ']').val(count);
 			var basename = this.id.substring(0, this.id.lastIndexOf("_"));
 			var newinput = '<input type="hidden" name="' + basename + '" id="' + basename + '" value="' + basename + '" />';
 			$this.after(newinput);

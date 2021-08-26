@@ -181,11 +181,11 @@ var dataTablesController = {
 						dtOptions = Object.assign(dtOptions, tempOptions);
 					}
 					otable = $(elmt).show().DataTable(dtOptions);
-					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
+					sgRef.dataTableInstances[CSS.escape($(repeatDiv).attr('id'))] = otable;
 				} else {
 					var repeatDiv = $(obj).parent().parent();
 					otable = $(elmt).DataTable();
-					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
+					sgRef.dataTableInstances[CSS.escape($(repeatDiv).attr('id'))] = otable;
 				}
 				return otable;
 			}

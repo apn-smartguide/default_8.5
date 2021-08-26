@@ -160,8 +160,8 @@ $("form[id^='smartguide_']" ).each(function() {
 
 			// checkboxes and radio buttons
 			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
-				var id = $.escapeSelector($(this).attr('name'));
-				if (typeof smartletfields[$.escapeSelector(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
+				var id = CSS.escape($(this).attr('name'));
+				if (typeof smartletfields[CSS.escape(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
 					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 				}
 			});
@@ -429,7 +429,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			}
 			var r = SMARTGUIDES[smartletCode];
 			var $field;
-			fieldHtmlName = $.escapeSelector(fieldHtmlName);
+			fieldHtmlName = CSS.escape(fieldHtmlName);
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
 				$field = $('div[id'+sub+'=div_'+fieldHtmlName + ']', r.fm);
 			} else {
@@ -477,7 +477,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						// fix the data event target to have the modal id instead of the whole form as its target
 						var $modal = $field.closest('.modal');
 						if ($modal.length > 0) {
-							modalId = $.escapeSelector($modal.attr('id'));
+							modalId = CSS.escape($modal.attr('id'));
 							var targets = $field.attr('data-eventtarget');
 							if (targets.indexOf('form') > -1) {
 								targets = targets.replace('form',modalId);
@@ -725,7 +725,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				var targetArr = eval($(elmt).attr('data-eventtarget'));
 				if(typeof targetArr !== 'undefined' && targetArr!= null) {
 					if (targetArr.length == 1) {
-						var currentID= $.escapeSelector($(elmt).attr('id'));
+						var currentID= CSS.escape($(elmt).attr('id'));
 						if (targetArr[0] == currentID) return;
 					}
 				}
@@ -747,7 +747,7 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						if(!$(elmt).hasClass('save-blobs')){
 							$("div.blob > input[type='file']").each(function(){
-								var fieldid = $.escapeSelector($(this).attr('id'));
+								var fieldid = CSS.escape($(this).attr('id'));
 								$(this).attr('name',fieldid);
 							})
 						}
@@ -758,10 +758,10 @@ $("form[id^='smartguide_']" ).each(function() {
 						var $currentDiv = $("#sgControls");
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
-						var currentID= $.escapeSelector($(elmt).attr('id'));
+						var currentID= CSS.escape($(elmt).attr('id'));
 						var selfRefresh = $(elmt).hasClass('self-refresh');
 						if(selfRefresh && typeof targetArr !== 'undefined' && targetArr != null) {
-							targetArr.push($.escapeSelector(currentID));
+							targetArr.push(CSS.escape(currentID));
 						}
 
 						var updated = [];
@@ -775,7 +775,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							else if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
 									if(typeof target !== 'undefined' && target != "") {
-										target = $.escapeSelector(target);
+										target = CSS.escape(target);
 										var responseTarget = $('#div_'+target, $responseDiv);
 										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
 
@@ -806,8 +806,8 @@ $("form[id^='smartguide_']" ).each(function() {
 
 						//replace all alerts returned; page & modals
 						$('[id^=alerts').each(function(){
-							var sourceAlertDiv = $('#'+$.escapeSelector(this.id), fm);
-							var targetAlertDiv = $('#'+$.escapeSelector(this.id), response);
+							var sourceAlertDiv = $('#'+CSS.escape(this.id), fm);
+							var targetAlertDiv = $('#'+CSS.escape(this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
 						});
 
