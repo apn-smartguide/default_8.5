@@ -151,7 +151,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			$body.triggerHandler('smartlet:page_enter');
 			$body.triggerHandler('page:render');
 		}
-		, bindEvents : function(ajaxUpdates) {
+		, bindEvents : function(ajaxUpdates, rebindInitiator) {
 			var r = SMARTGUIDES[smartletCode];
 			// basic bindings for field event with dependencies to other fields
 			// textboxes, textarea and password
@@ -273,8 +273,9 @@ $("form[id^='smartguide_']" ).each(function() {
 			// reapply tooltip
 			$('[data-toggle="tooltip"]').tooltip();
 
+			
 			// invoke custom binding methods
-			customJS.bindEvents(r, ajaxUpdates);
+			customJS.bindEvents(r, ajaxUpdates, rebindInitiator);
 		}
 		, _createSmartletContext : function(contextField, fieldType, fieldHtmlName) {
 			var smartlet = 
