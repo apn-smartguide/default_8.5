@@ -182,11 +182,15 @@ $("form[id^='smartguide_']" ).each(function() {
 			$("#alerts").hide();
 			for (var key in smartletfields) {
 				var field = smartletfields[key];
+				var fieldType = field.type;
+				if (fieldType == 'repeat')
+					updatedRepeatIds.push(key);
+			}
+			for (var key in smartletfields) {
+				var field = smartletfields[key];
 					var events = field.events;
 					if (events === null) continue;
 					var fieldType = field.type;
-					if (fieldType == 'repeat')
-						updatedRepeatIds.push(key);
 					
 					var $fields = null;
 					
