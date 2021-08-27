@@ -112,7 +112,7 @@ var utilsController = {
 
 		$('.panel-collapse.collapse').off("shown.bs.collapse").on("shown.bs.collapse", function() {
 			window.dispatchEvent(new Event('resize'));
-			setTimeout(() => {
+			setTimeout(function(){
 				$(".datatables", $(this)).each(function(){
 					var dt = $(this).closest('.panel');
 					//The below code should detect display of a datatables row when it's expanded in responsive mode and bind the sg controls in it.

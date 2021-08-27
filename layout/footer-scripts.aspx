@@ -19,6 +19,7 @@
 <![endif]-->
 <script src='<%= CacheBreak("/resources/js/getUserMedia-polyfill.js") %>'></script>
 <!-- Additional -->
+<script src='<%= CacheBreak("/resources/js/css.escape.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/moment.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/fr.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/en-ca.js") %>'></script>
