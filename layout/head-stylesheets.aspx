@@ -17,6 +17,7 @@
 <!-- dataTables.net -->
 <link href='<%=CacheBreak("/resources/plugins/dataTables/datatables.min.css")%>' rel="stylesheet">
 <!-- Date widget support -->
+<link href='<%= CacheBreak("/resources/plugins/jquery-timepicker/jquery.timepicker.css") %>' rel="stylesheet">
 <link href='<%=CacheBreak("/resources/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css")%>' rel="stylesheet">
 <!-- Autocomplete support -->
 <link href='<%=CacheBreak("/resources/css/jquery.autocomplete.css")%>' rel="stylesheet">

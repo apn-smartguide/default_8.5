@@ -359,6 +359,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public string CoreThemePath {
 		get {
 			if (Application["coreThemePath"] == null || ((string)Application["coreThemePath"]).Equals("")) {
@@ -371,6 +372,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public string CurrentThemePath {
 		get {
 			if (Application["currentThemePath"] == null || ((string)Application["currentThemePath"]).Equals("")) {
@@ -834,6 +836,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		return breadcrumbs;
 	}
 
+	//deprecated
+
 	public bool ShowWizard {
 		get {
 			if(Context.Items["showWizard"] == null) {
@@ -888,6 +892,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public bool HideFunelNavigation {
 		get {
 			if(Context.Items["hideFunelNavigation"] == null) {
