@@ -21,7 +21,7 @@
 		<p><apn:value runat="server"/></p>
 	<% } else { %>
 		<% if(control.Current.getAttribute("value").Trim().Length==0 && !IsSummary) { %>
-			<input type='file' <% if (control.Current.getCSSClass().Contains("multiple")) { %>multiple onchange='submit();'<% } %> class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <%=(string)Context.Items["readonly"]%> style='<apn:cssstyle runat="server"/>' title='<%=GetAttribute(control.Current, "title", true)%>' <apn:metadata runat="server"/> <apn:ifcontrolrequired runat="server">required</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" -->/>
+			<input type='file' <% if (control.Current.getCSSClass().Contains("multiple")) { %>multiple onchange='submit();'<% } %> class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <%=(string)Context.Items["readonly"]%> style='<apn:cssstyle runat="server"/>' title='<%=GetAttribute(control.Current, "title", true)%>' <apn:metadata runat="server"/> <apn:ifcontrolrequired runat="server">aria-required="true"</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" -->/>
 		<% } else { %>
 			<div>
 				<a target='_blank' href='upload/do.aspx/<apn:value runat="server"/>?id=<apn:name runat="server"/>&interviewID=<apn:control runat="server" type="interview-code"><apn:value runat="server"/></apn:control>' title='<apn:localize runat="server" key="theme.text.upload"/>' aria-label='<apn:localize runat="server" key="theme.text.upload"/>'> <apn:value runat="server"/></a>

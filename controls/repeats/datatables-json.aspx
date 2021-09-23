@@ -77,6 +77,8 @@ string selectionType = repeat.getSelectionType();
 				string label = fields[j].getLabel();
 				string value = "";
 				string tooltip = JavascriptEncode(fields[j].getTooltip());
+				bool unsafeMeta = !String.IsNullOrEmpty(fields[j].getNonLocalizedMetaData("unsafe"));
+				bool addtoresults = true;
 
 				string tooltipStr = "";
 				if(!tooltip.Equals("")) {
@@ -86,9 +88,13 @@ string selectionType = repeat.getSelectionType();
 				fields[j].calculateAvailability();
 				if (!fields[j].isAvailable() || fields[j].getCSSClass().Contains("proxy") ) {
 					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
+					addtoresults = false;
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getMetaData("target") + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
+					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
+				} else if (fields[j].getTypeConst() == 80000) {
+					// hidden fields
+					if (unsafeMeta) { value = fields[j].getString(); }
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
 					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
@@ -99,7 +105,7 @@ string selectionType = repeat.getSelectionType();
 							tooltipStr = " title='" + tooltip + "' aria-label='" + tooltip + "'";
 						}
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
@@ -111,10 +117,10 @@ string selectionType = repeat.getSelectionType();
 				}
 				// escape sensitive chars
 				value = HttpUtility.JavaScriptStringEncode(value);
-			%>
-			<% if (j>0) Response.Write(","); %>
-				"<%=fields[j].getName()%>":"<%=value%>"
-			<% } %>
+			
+				if (j>0 && addtoresults) Response.Write(",");
+				if (addtoresults) Response.Write("\"" + fields[j].getName() + "\":\"" + value + "\"");
+			} %>
 		}
 <% } %>
 	]

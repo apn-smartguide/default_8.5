@@ -110,7 +110,7 @@ var dataTablesController = {
 					var repeatDiv = $(obj).parent().parent();
 					if (repeatDiv.hasClass('hide-search')) gridOption['hide-search'] = true;
 					if (repeatDiv.hasClass('hide-pagination')) gridOption['hide-pagination'] = true;
-					if (repeatDiv.hasClass('grid-view')) gridOption['standard-search'] = true;
+					//if (repeatDiv.hasClass('grid-view')) gridOption['standard-search'] = true;
 					if (repeatDiv.hasClass('selectable')) gridOption['selectable'] = true;
 					var dtOptions = {
 						"stateSave": true,
@@ -181,11 +181,11 @@ var dataTablesController = {
 						dtOptions = Object.assign(dtOptions, tempOptions);
 					}
 					otable = $(elmt).show().DataTable(dtOptions);
-					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
+					sgRef.dataTableInstances[CSS.escape($(repeatDiv).attr('id'))] = otable;
 				} else {
 					var repeatDiv = $(obj).parent().parent();
 					otable = $(elmt).DataTable();
-					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
+					sgRef.dataTableInstances[CSS.escape($(repeatDiv).attr('id'))] = otable;
 				}
 				return otable;
 			}

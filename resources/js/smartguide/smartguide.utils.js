@@ -27,12 +27,7 @@ var utilsController = {
 		}
 
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-		if(isIE11) {
-			$('[type=date]').each(function() {
-				this.type = 'text';
-			});
-		}
-
+		
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -104,21 +99,36 @@ var utilsController = {
 			$(this).parent().toggleClass('open');
 		});
 
-		$('a[data-toggle="collapse"]').on('click', function () {
+		//WIP: initialize non wb-tables datatables using the dtOptions js config
+		// $('.datatables:not[.wb-tables]').each(function(){
+		// 	var id = $(this).attr("id").replace("_body", "");
+		// 	var options = eval("dtOptions_" + id);
+		// 	$('table', $(this)).DataTable(options)
+		// });
+		
+		$('a[data-toggle="collapse"]').off("click").on("click",function () {
 			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
-			if(!$(this).closest('.panel').find('.panel-collapse.collapse').hasClass('in')) {
-				var $this = $(this)
-				setTimeout(function(){
-				var $thisWbTable = $(".wb-tables",$this.closest('.panel'));
-				var thisClone = $thisWbTable.clone();
-				thisClone.appendTo($thisWbTable.parent().parent());
-				$thisWbTable.parent().remove();
-				var table = thisClone.DataTable();
-				table.responsive.recalc().columns.adjust();
-				},50);
-			}
 		});
 
+		$('.panel-collapse.collapse').off("shown.bs.collapse").on("shown.bs.collapse", function() {
+			window.dispatchEvent(new Event('resize'));
+			setTimeout(function(){
+				$(".datatables", $(this)).each(function(){
+					var dt = $(this).closest('.panel');
+					//The below code should detect display of a datatables row when it's expanded in responsive mode and bind the sg controls in it.
+					//At this time, touching dt.dataTable() (or any of the datatables api access methods) will re-init the datatable and double the controls displayed (search/items per page/and collapsed content of rows in responsive)
+					//dt.dataTable().api().on('responsive-display', function (e, datatable, row, showHide, update) {
+						//console.log( 'Details for row '+row.index()+' '+(showHide ? 'shown' : 'hidden') );
+						//Bind SG object shown when expanding the panel
+						//sgRef.bindEvents([dt]);
+					//});
+					if(typeof dt !== "undefined" && dt.length > 0) sgRef.bindEvents([dt]);
+				});
+			}, 0);
+			
+		});
+		
+		if(!isIE11) {
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
@@ -174,6 +184,7 @@ var utilsController = {
 				e.stopPropagation();
 			});
 		});	
+		}
 
 		$('.link-as-post').off('click').on('click',function(e){
 			e.preventDefault();
@@ -249,22 +260,10 @@ var utilsController = {
 
 		//Disable required field html client-side validation
 		$('.no-validate').on('click', function(){
+			$('form').prop('novalidate', true);
 			$('input, select').each(function() {
 				$(this).removeAttr('required');
 			});
-		});
-
-		$('.btn-upload').off('click').on('click', function (e) {
-			$('#loader').fadeIn("fast");
-			var $this = $(this);
-
-			sgRef.ajaxProcess(this, null, true,
-				null,
-				null,
-				function(){
-					$("#loader").fadeOut("fast");
-				}
-			);
 		});
 
 		if (typeof tts === 'function'){
