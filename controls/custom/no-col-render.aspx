@@ -1,6 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <apn:control runat="server" id="control">
 <% Context.Items["no-col"] = true; %>
+<% Context.Items["no-col-layout"] = ""; %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
@@ -13,7 +14,7 @@
 			<apn:forEach runat="server" id="col">
 				<apn:chooseControl runat="server">
 					<apn:whenControl runat="server" type="COL">
-						<% Context.Items["no-col-layout"] = col.Current.getLayoutAttribute("all"); %>
+						<% if((bool)Context.Items["no-col"]) { Context.Items["no-col-layout"] = col.Current.getLayoutAttribute("all");}  %>
 						<apn:forEach runat="server" id="field"><% ExecutePath("/controls/control.aspx"); %></apn:forEach>
 						<% Context.Items["no-col-layout"] = ""; %>
 					</apn:whenControl>

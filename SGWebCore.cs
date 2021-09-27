@@ -57,6 +57,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["BrowserType"] = browser.Type;
 	}
 
+	public bool IsIE() {
+		return (((string)Session["BrowserType"]).Contains("IE") || ((string)Session["BrowserType"]).Contains("InternetExplorer"));
+	}
+
 	protected void Load(object sender, EventArgs e) {
 		if(Request.QueryString["cache"] != null && Request.QueryString["cache"].Equals("reset")){
 			ClearCaches();
@@ -160,12 +164,14 @@ public partial class SGWebCore : System.Web.UI.Page
 		Session["active-section"] = null;
 
 	}
-	 public static com.alphinat.interview.si.xml.servlet.environment.Environment  GetEnvironment(HttpContext context) {
+	public static com.alphinat.interview.si.xml.servlet.environment.Environment GetEnvironment(HttpContext context) {
 		com.alphinat.interview.si.xml.servlet.environment.Environment env = new HttpHandlerEnvironment((java.util.Map)null, context);
 		string defaultEncodingConfig = null;
 		try {
 			defaultEncodingConfig = System.Configuration.ConfigurationManager.AppSettings["apn_parameter_encoding"];
-		} catch (Exception ex) {}
+		} catch (Exception ex) {
+			//If we can't get the apn_parameter_encoding with default to null below.
+		}
 		
 		if (defaultEncodingConfig != null && !defaultEncodingConfig.Trim().Equals("")) {
 			env.setDefaultInputEncoding(defaultEncodingConfig);
@@ -353,6 +359,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public string CoreThemePath {
 		get {
 			if (Application["coreThemePath"] == null || ((string)Application["coreThemePath"]).Equals("")) {
@@ -365,6 +372,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public string CurrentThemePath {
 		get {
 			if (Application["currentThemePath"] == null || ((string)Application["currentThemePath"]).Equals("")) {
@@ -828,6 +836,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		return breadcrumbs;
 	}
 
+	//deprecated
+
 	public bool ShowWizard {
 		get {
 			if(Context.Items["showWizard"] == null) {
@@ -882,6 +892,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public bool HideFunelNavigation {
 		get {
 			if(Context.Items["hideFunelNavigation"] == null) {
@@ -1063,6 +1074,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetLabel(SessionField ctrl) {
 		return ctrl.getLabel();
 	}
+	public string GetLabel(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetLabel(ctrl.Current);
+	}
 
 	public string GetTooltip(ControlInfo ctrl) {
 		return ctrl.getTooltip();
@@ -1076,16 +1090,24 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getTooltip();
 	}
 
-	public string GetCSSClass(ControlInfo ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetTooltip(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetTooltip(ctrl.Current);
 	}
 
-	public string GetCSSClass(ISmartletField ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(ControlInfo ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
 
-	public string GetCSSClass(SessionField ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(ISmartletField ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
+	}
+
+	public string GetCleanCSSClass(SessionField ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
+	}
+
+	public string GetCleanCSSClass(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetCleanCSSClass(ctrl.Current);
 	}
 
 	public string GetCSSStyle(ControlInfo ctrl) {
@@ -1100,12 +1122,24 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getCSSStyle();
 	}
 
-	public string GetAttribute(ControlInfo ctrl, string attribute) {
-		return ctrl.getAttribute(attribute);
+	public string GetCSSStyle(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetCSSStyle(ctrl.Current);
 	}
 
 	public string GetMetaDataValue(ControlInfo ctrl, string key) {
 		return (ctrl.getMetaDataValue(key) != null && !ctrl.getMetaDataValue(key).Equals("")) ? ctrl.getMetaDataValue(key) : "";
+	}
+
+	public string GetMetaDataValue(Alphinat.SmartGuideServer.Controls.Control ctrl, string key) {
+		return GetMetaDataValue(ctrl.Current, key);
+	}
+
+	public string GetAttribute(ControlInfo ctrl, string attribute) {
+		return ctrl.getAttribute(attribute);
+	}
+
+	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute) {
+		return GetAttribute(ctrl.Current, attribute);
 	}
 
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
@@ -1116,6 +1150,33 @@ public partial class SGWebCore : System.Web.UI.Page
 		} 
 	}
 
+	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute, bool tohtml) {
+		return GetAttribute(ctrl.Current, attribute, tohtml);
+	}
+
+	public string RemoveBehaviourFlags(string value) {
+
+		string result = value.Replace("proxy","")
+		.Replace("hide-column-label","")
+		.Replace("hide-label","")
+		.Replace("hide-sort","")
+		.Replace("nonsearchable", "")
+		.Replace("plain-group","")
+		.Replace("collapsible","")
+		.Replace("open","")
+		.Replace("table-render","")
+		.Replace("table-view","")
+		.Replace("grid-render","")
+		.Replace("grid-view","")
+		.Replace("block-render","")
+		.Replace("block-view","")
+		.Replace("datatables-view","")
+		.Replace("datatable-editable","")
+		.Replace("select-all","");
+
+		return result;
+	}
+
 	public SessionField GetProxyButton(string key, ref string eventTargets) {
 		SessionField btn = (SessionField)FindFieldByName(key);
 		if(btn != null) {
@@ -1123,7 +1184,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(targets != null) {
 				foreach(ISmartletField targetField in targets) {
 					if(targetField != null) {
-						eventTargets += targetField.getId() + ",";
+						eventTargets += "\"" + targetField.getHtmlName() + "\",";
 					}
 				}
 			}
@@ -1144,7 +1205,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if(targets != null) {
 				foreach(ISmartletField targetField in targets) {
 					if(targetField != null) {
-						eventTargets += targetField.getId() + ",";
+						eventTargets += "\"" + targetField.getHtmlName() + "\",";
 					}
 				}
 			}
@@ -1160,6 +1221,10 @@ public partial class SGWebCore : System.Web.UI.Page
 			staticvalue = DateTime.ParseExact(ctrl.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
 		} catch(Exception e) { }
 		return staticvalue;
+	}
+
+	public long GetSortableDate(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetSortableDate(ctrl.Current);
 	}
 
 	//// Utilities ///

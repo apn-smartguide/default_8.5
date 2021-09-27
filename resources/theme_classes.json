@@ -286,14 +286,9 @@
         "fr": "Retire le cadre d'un groupe"
       },
       {
-        "class": "large-checkbox",
-        "en": "Display the checkbox control in larger format",
-        "fr": "Affiche le checkbox en plus grand format "
-      },
-      {
-        "class": "large-radio",
-        "en": "Display the radio button control in larger format",
-        "fr": "Affiche le control radio en plus grand format "
+        "class": "large",
+        "en": "Display the checkbox or radio control in larger format",
+        "fr": "Affiche le checkbox ou radio en plus grand format "
       }
     ]
   },

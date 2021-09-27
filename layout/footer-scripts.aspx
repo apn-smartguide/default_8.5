@@ -6,8 +6,8 @@
 <!-- Boostrap -->
 <script src='<%= CacheBreak("/resources/js/bootstrap.min.js") %>'></script>
 <!-- Modernizr -->
-<!-- <script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script> -->
 <script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery-timepicker/jquery.timepicker.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/inputmask/jquery.inputmask.min.js") %>'></script>
@@ -20,6 +20,7 @@
 <![endif]-->
 <script src='<%= CacheBreak("/resources/js/getUserMedia-polyfill.js") %>'></script>
 <!-- Additional -->
+<script src='<%= CacheBreak("/resources/js/css.escape.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/moment.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/fr.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/en-ca.js") %>'></script>
@@ -32,8 +33,7 @@
 <script src='<%= CacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.10.21/js/jquery.datatables.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.5/js/dataTables.responsive.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
@@ -41,6 +41,14 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
+<script type="text/javascript">
+	//Manually start SmartGuide
+	$(document).ready(function(){
+		for(let i=0; i < SMARTGUIDES.length; i++){
+			SMARTGUIDES[i].init();
+		} 
+	});
+</script>
 
 <%--<script type="text/javascript">
 	var ie = navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident/") > -1;
