@@ -35,6 +35,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			
 			// call the main bind events function
 			r.bindEvents(); 
+			console.log("Smartguide Initialized");
 		}
 		,addScrollLock: function() {
 			var $body = $('body');
@@ -280,6 +281,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			
 			// invoke custom binding methods
 			customJS.bindEvents(r, ajaxUpdates, rebindInitiator);
+			console.log("SmartGuide BindEvents Complete");
 		}
 		, _createSmartletContext : function(contextField, fieldType, fieldHtmlName) {
 			var smartlet = 
