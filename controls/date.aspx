@@ -17,10 +17,24 @@
 	<%-- For the setting place a hidden field named like the date-input + "-max" or "-min", note format is yyyy-mm-dd --%>
 	<% 
 		Context.Items["data-value"] = "";
+		
 		if (control.Current.getValue() != null && !control.Current.getValue().Equals("")) {
-			DateTime dt = new DateTime();
-			try{ dt = DateTime.Parse(control.Current.getValue()); } catch(Exception e) { try {dt = DateTime.ParseExact(control.Current.getValue(), "dd/MM/yyyy", new CultureInfo("en-US"));} catch(Exception){} }
+			DateTime dt;
+
+			String format = control.Current.getAttribute("format");
+			if(!format.Equals("")){
+				format = format.Replace("mois","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
+			} else {
+				 format = "yyyy-MM-dd";
+			}
+
+			DateTime.TryParseExact(control.Current.getValue(), format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+			if (dt == null) {
+				DateTime.TryParse(control.Current.getValue(), out dt); 
+			}
+
 			Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
+			//WARNING!! the system receiving the returned date, need to convert to its desire format from yyyy-MM-dd, this is not automated.
 		}
 
 		if(IsIE()){
