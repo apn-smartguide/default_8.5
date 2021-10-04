@@ -23,21 +23,30 @@
 
 			String format = control.Current.getAttribute("format");
 			if(!format.Equals("")){
-				format = format.Replace("mois","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
+				format = format.Replace("mois","MM").Replace("month","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
 			} else {
 				 format = "yyyy-MM-dd";
 			}
 
-			DateTime.TryParseExact(control.Current.getValue(), format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
-			if (dt == null) {
-				DateTime.TryParse(control.Current.getValue(), out dt); 
+			Boolean result = DateTime.TryParseExact(control.Current.getValue(), format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+			//If this failed, try again without specifying the culture.
+			if(!result) {
+				result = DateTime.TryParse(control.Current.getValue(), out dt); 
 			}
-
-			Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
+			
+			if(result) {
+				Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
+			} else {
+				//Could not parse the date, return provided value as-is; may produce unexpected results and error when using HTML5 dates.
+				Context.Items["data-value"] = control.Current.getValue();
+			}
 			//WARNING!! the system receiving the returned date, need to convert to its desire format from yyyy-MM-dd, this is not automated.
 		}
 
 		if(IsIE()){
+			//IE has poor support for html5 dates, falling back to text. You can use the placeholder to inform of desired format.
+			//data-mask also not supported.
+			
 			Context.Items["html5type"] = "text";
 		}
 	%>
