@@ -19,8 +19,11 @@ public partial class KeepAlive : System.Web.UI.Page, IRequiresSessionState
 
 	public static void VerifySession()
 	{
+		Configuration config = WebConfigurationManager.OpenWebConfiguration("~/Web.Config");
+		SessionStateSection section = (SessionStateSection)config.GetSection("system.web/sessionState");
+
 		//string test = (string)HttpContext.Current.Session["test"];
-		HttpCookie aspnetCookie = HttpContext.Current.Request.Cookies["ASP.NET_SessionId"];
+		HttpCookie aspnetCookie = HttpContext.Current.Request.Cookies[section.CookieName];
 		HttpCookie smartProfileAuthCookie = HttpContext.Current.Request.Cookies["SmartProfileAuthCookie"];
 
 		HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -36,10 +39,10 @@ public partial class KeepAlive : System.Web.UI.Page, IRequiresSessionState
 			}
 			if (aspnetCookie != null && !aspnetCookie.Value.Equals(""))
 			{
-				Configuration config = WebConfigurationManager.OpenWebConfiguration("~/Web.Config");
-				SessionStateSection section = (SessionStateSection)config.GetSection("system.web/sessionState");
 				int timeout = (int)section.Timeout.TotalMinutes;
 				aspnetCookie.Expires = DateTime.UtcNow.AddMinutes(timeout);
+				aspnetCookie.Secure = HttpContext.Current.Request.IsSecureConnection;
+				aspnetCookie.SameSite = SameSiteMode.Strict;
 				HttpContext.Current.Response.Cookies.Add(aspnetCookie);
 				//HttpContext.Current.Response.Write("{test:" + test + "},{session:alive},{session-id:" + aspnetCookie.Value + "},{session-expires:" + aspnetCookie.Expires + "}" + ",{timeout:" + timeout + "}");
 				HttpContext.Current.Response.Write("{session:alive}");
