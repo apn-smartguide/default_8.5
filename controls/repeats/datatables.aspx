@@ -221,7 +221,7 @@
 												<%
 													string type = trField.Current.getMetaDataValue("type");
 													if ("date".Equals(type)) {
-														Context.Items["dataOrder"] = "data-order=\""+ GetSortableDate(trFieldRow.Current) +"\"";
+														Context.Items["dataOrder"] = "data-order=\""+ GetSortableDate(trField.Current) +"\"";
 													}
 												%>
 												<td style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
