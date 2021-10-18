@@ -34,7 +34,7 @@
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='repeat panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
@@ -221,15 +221,7 @@
 												<%
 													string type = trField.Current.getMetaDataValue("type");
 													if ("date".Equals(type)) {
-														// check format and extract number of "ticks" to use for sort
-														string dateFormat = trField.Current.getMetaDataValue("format");
-														long staticvalue = 0;
-														try {
-															staticvalue = DateTime.ParseExact(trField.Current.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks/10000000;
-														} catch(Exception e) { }
-														Context.Items["dataOrder"] = "data-order=\""+staticvalue+"\"";
-													} else {
-														Context.Items["dataOrder"] = "";
+														Context.Items["dataOrder"] = "data-order=\""+ GetSortableDate(trField.Current) +"\"";
 													}
 												%>
 												<td style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>

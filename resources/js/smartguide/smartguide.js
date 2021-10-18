@@ -11,6 +11,8 @@ $("form[id^='smartguide_']" ).each(function() {
 
 	SMARTGUIDES[smartletCode] = {
 		fm: $('form#smartguide_'+smartletCode)
+		,_customEventTargets: []
+		,_customEventTargetsEnabled: true
 		,posted: false
 		,init: function(){
 			// This section is for code that must be run once after the page is loaded
@@ -35,6 +37,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			
 			// call the main bind events function
 			r.bindEvents(); 
+			console.log("Smartguide Initialized");
 		}
 		,addScrollLock: function() {
 			var $body = $('body');
@@ -280,6 +283,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			
 			// invoke custom binding methods
 			customJS.bindEvents(r, ajaxUpdates, rebindInitiator);
+			console.log("SmartGuide BindEvents Complete");
 		}
 		, _createSmartletContext : function(contextField, fieldType, fieldHtmlName) {
 			var smartlet = 
@@ -329,7 +333,22 @@ $("form[id^='smartguide_']" ).each(function() {
 							}
 						}
 						return null;
-					}		
+					}
+					,addCustomEventTarget: function (eventTarget) {
+						var r = SMARTGUIDES[smartletCode];
+						var target = "";
+						if (eventTarget === "undefined") target = "d_" + _fieldObj.id;
+						if (eventTarget !== "undefined") target = "d_" + eventTarget;
+						if (r._customEventTargets.indexOf(target) == -1) r._customEventTargets.push(target);
+					}
+					,addFormEventTarget: function() {
+						var r = SMARTGUIDES[smartletCode];
+						r._customEventTargets.push("form");
+					}
+					,customEventTargetsEnabled: function (enabled) {
+						var r = SMARTGUIDES[smartletCode];
+						r._customEventTargetsEnabled = enabled;
+					}
 					,openModal : function(modal, options) {
 						var r = SMARTGUIDES[smartletCode];
 						r.ajaxProcess(modal,null,true,
@@ -758,6 +777,11 @@ $("form[id^='smartguide_']" ).each(function() {
 						var $currentDiv = $("#sgControls");
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
+						if (r._customEventTargets.length > 0 && r._customEventTargetsEnabled) {
+							for (var i = 0; i < r._customEventTargets.length; i++) {
+								if (targetArr.indexOf(r._customEventTargets[i]) <= 0) targetArr.push(r._customEventTargets[i]);
+							}
+						}
 						var currentID= CSS.escape($(elmt).attr('id'));
 						var selfRefresh = $(elmt).hasClass('self-refresh');
 						if(selfRefresh && typeof targetArr !== 'undefined' && targetArr != null) {

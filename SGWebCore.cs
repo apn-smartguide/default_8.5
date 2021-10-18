@@ -1214,12 +1214,27 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public long GetSortableDate(ControlInfo ctrl) {
+
 		long staticvalue = 0;
-		try {
-			string dateFormat = ctrl.getAttribute("format");
-			dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
-			staticvalue = DateTime.ParseExact(ctrl.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
-		} catch(Exception e) { }
+		DateTime dt;
+
+		String format = ctrl.getAttribute("format");
+		if(!format.Equals("")){
+			format = format.Replace("mois","MM").Replace("month","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
+		} else {
+			 format = "yyyy-MM-dd";
+		}
+
+		Boolean result = DateTime.TryParseExact(ctrl.getValue(), format, System.Globalization.CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+		//If this failed, try again without specifying the culture.
+		if(!result) {
+			result = DateTime.TryParse(ctrl.getValue(), out dt); 
+		}
+
+		if(result) {
+			staticvalue = dt.Ticks;
+		}
+
 		return staticvalue;
 	}
 

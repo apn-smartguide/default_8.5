@@ -11,7 +11,6 @@
 				<apn:forEach runat="server" id="row">
 					<apn:chooseControl runat="server">
 						<apn:whenControl runat="server" type="ROW">
-							<p>
 							<apn:forEach runat="server" id="col">
 								<apn:chooseControl runat="server">
 									<apn:whenControl runat="server" type="COL">
@@ -21,7 +20,6 @@
 									</apn:whenControl>
 								</apn:chooseControl>
 							</apn:ForEach>
-							<p>
 						</apn:whenControl>
 					</apn:chooseControl>
 				</apn:ForEach>

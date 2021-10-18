@@ -22,8 +22,7 @@
 <!-- Additional -->
 <script src='<%= CacheBreak("/resources/js/css.escape.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/moment.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/moment/fr.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/moment/en-ca.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/moment/locale.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/tinymce/tinymce.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/js-cookie.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jSignature.min.js") %>'></script>
@@ -41,28 +40,15 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
 <script type="text/javascript">
 	//Manually start SmartGuide
 	$(document).ready(function(){
-		for(let i=0; i < SMARTGUIDES.length; i++){
-			SMARTGUIDES[i].init();
-		} 
+		for(let smartlet in SMARTGUIDES){
+			SMARTGUIDES[smartlet].init();
+		}
 	});
-</script>
-
-<%--<script type="text/javascript">
-	var ie = navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident/") > -1;
-	if(!ie) {
-		<% var path = "/resources/js/smartguide/smartguide.utils.tts.js";%>
-	  	document.write("<script src='<%= CacheBreak(path) %>'></scr"+"ipt>");
-	} else {
-		<% path = "/resources/js/smartguide/smartguide.utils.ttsIE.js";%>
-	  	document.write("<script src='<%= CacheBreak(path) %>'></scr"+"ipt>");
-	}
-</script>--%>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
-<script>
 	var dataTableTranslations = {
 		'zeroRecords': '<apn:localize runat="server" key="theme.text.datatable.zeroRecords"/>',
 		'infoEmpty': '<apn:localize runat="server" key="theme.text.datatable.infoEmpty"/>',

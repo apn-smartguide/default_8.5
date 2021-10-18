@@ -16,7 +16,6 @@
 			<% Context.Items["hide-option-label"] = control.Current.getCSSClass().Contains("hide-option-label"); %>
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
 			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
-			<% Context.Items["index"] = 1; %>
 			<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
 			<apn:forEach id="control2" runat="server">
 				<li>
@@ -26,7 +25,7 @@
 							<apn:forEach id="control3" runat="server">
 								<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 								<% 
-									Context.Items["id"] = control3.Current.getAttribute("id") + "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"]; %>
+									Context.Items["id"] = control3.Current.getAttribute("id") + Context.Items["optionIndex"];
 									Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 									if (!control3.Current.getLabel().Equals("")) { Context.Items["label"] = control3.Current.getLabel(); }
 								%>
@@ -39,7 +38,7 @@
 						<apn:otherwise runat="server">
 							<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 							<% 
-								Context.Items["id"] = control2.Current.getAttribute("id") + "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"]; 
+								Context.Items["id"] = control2.Current.getAttribute("id") + Context.Items["optionIndex"]; 
 								Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 								if (!control2.Current.getLabel().Equals("")) { Context.Items["label"] = control2.Current.getLabel(); }
 							%>
@@ -49,7 +48,6 @@
 							<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
 						</apn:otherwise>
 					</apn:choosecontrol>
-					<% Context.Items["counter"] = (int)Context.Items["counter"] + 1; %>
 				</li>
 			</apn:forEach>
 			</ul>
