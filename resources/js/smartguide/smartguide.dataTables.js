@@ -1,8 +1,18 @@
 var dataTablesController = {
+	ajax_counter: 0,
 	init: function(sgRef) {
 		sgRef.dataTableInstances = {};
 	},
-	
+	preDTAjaxCall: function(e) {
+		dataTablesController.ajax_counter++;
+		$(this).spinner({disabled : true});
+	}, 
+	postDTAjaxCall: function(e) {
+		dataTablesController.ajax_counter--;
+		if (dataTablesController.ajax_counter == 0) {
+			$(this).spinner({disabled : false});
+		}
+	},
 	bindEvents : function(sgRef, context) {
 		var $form = sgRef.fm;
 
@@ -322,6 +332,31 @@ var dataTablesController = {
 				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: $(this).attr('id') }}); 
 				$("form").attr('action', originalAction);
 			}
+		});
+		
+		// Listen on datatable ajax call events
+		$('.datatables').each(function() {
+			var input_filter_value;
+			var input_filter_timeout=null;
+
+			var table = $(this).DataTable();
+			// check if we are server side, if not exit
+			if (table.ajax.url() == null) return;
+
+			table.off('preXhr.dt', dataTablesController.preDTAjaxCall).on('preXhr.dt', dataTablesController.preDTAjaxCall);
+			table.off('xhr.dt', dataTablesController.postDTAjaxCall).on('xhr.dt', dataTablesController.postDTAjaxCall);
+
+			var search_input = $('.dataTables_filter input', $(this).closest('.dataTables_wrapper'));
+			search_input.unbind();
+			search_input.keyup( function (e) {
+				var table = $('table', $(this).closest('.dataTables_wrapper')).DataTable();
+				$('table', $(this).closest('.dataTables_wrapper')).spinner({disabled : true});
+				input_filter_value=this.value;
+				clearTimeout(input_filter_timeout);
+				input_filter_timeout=setTimeout(function(){
+					table.search(input_filter_value).draw();
+				}, 800);
+			});			
 		});
 	}
 }

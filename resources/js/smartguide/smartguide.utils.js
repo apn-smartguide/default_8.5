@@ -137,7 +137,7 @@ var utilsController = {
 
 			//In case it's not SG control, but still participage to conditional visibility
 			if(typeof $this.attr("data-eventtarget") !== 'undefined') {
-				$this.off('change').on('blur', sgRef.bindThisAllowSelfRefresh);
+				$this.off('blur', sgRef.bindThisAllowSelfRefresh).on('blur', sgRef.bindThisAllowSelfRefresh);
 			}
 
 			if (type.indexOf('date') > -1)
