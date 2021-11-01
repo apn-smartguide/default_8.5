@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a href="#" class="navbar-brand">SmartGuide</a>
-			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+			<button class="sg navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>

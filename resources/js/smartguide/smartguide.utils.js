@@ -25,6 +25,10 @@ var utilsController = {
 		if (!context) {
 			context = sgRef.fm;
 		}
+		
+		if(!isDateSupported()) {
+			$("[type=date]").attr("type","text");
+		}
 
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 		
@@ -66,7 +70,7 @@ var utilsController = {
 			});
 		});
 
-		if(!isIE11) {
+		//if(!isIE11) {
 			// Input masks
 			// https://github.com/RobinHerbots/Inputmask
 			$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
@@ -89,7 +93,7 @@ var utilsController = {
 					$this.inputmask(options);
 				}
 			});
-		}
+		//}
 
 		//For multi-level support
 		$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
@@ -98,13 +102,6 @@ var utilsController = {
 			$(this).parent().siblings().removeClass('open');
 			$(this).parent().toggleClass('open');
 		});
-
-		//WIP: initialize non wb-tables datatables using the dtOptions js config
-		// $('.datatables:not[.wb-tables]').each(function(){
-		// 	var id = $(this).attr("id").replace("_body", "");
-		// 	var options = eval("dtOptions_" + id);
-		// 	$('table', $(this)).DataTable(options)
-		// });
 		
 		$('a[data-toggle="collapse"]').off("click").on("click",function () {
 			$(this).find('span.toggle-icon').toggleClass('fas fa-chevron-up fas fa-chevron-down');
@@ -128,7 +125,7 @@ var utilsController = {
 			
 		});
 		
-		if(!isIE11) {
+		//if(!isIE11) {
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
@@ -156,35 +153,38 @@ var utilsController = {
 			
 			var readonly = $this.prop('readonly');
 			
-			var dtOptions = {
-				format: format
-				,autoclose: true
-				,enableOnReadonly: !readonly
-				,language: currentLocale
-				,orientation: 'bottom auto'
-				,assumeNearbyYear: true // this is for 2-year dates; assumes by default margin of 20 years; see online docs
-			};
-			// Check extra options through data attributes
-			var minDate = $this.attr('data-mindate')
-			if (minDate) {
-				dtOptions.startDate = minDate;
+			//Requires Jquery.datepicker
+			if(typeof $this.datepicker !== 'undefined') {
+				var dtOptions = {
+					format: format
+					,autoclose: true
+					,enableOnReadonly: !readonly
+					,language: currentLocale
+					,orientation: 'bottom auto'
+					,assumeNearbyYear: true // this is for 2-year dates; assumes by default margin of 20 years; see online docs
+				};
+				// Check extra options through data attributes
+				var minDate = $this.attr('data-mindate')
+				if (minDate) {
+					dtOptions.startDate = minDate;
+				}
+				var maxDate = $this.attr('data-maxdate')
+				if (maxDate) {
+					dtOptions.endDate = maxDate;
+				}
+				
+				$this.datepicker(dtOptions).on("show", function(e){
+					//prevent conflict with crud modal
+					e.preventDefault();
+					e.stopPropagation();
+				}).on("hide", function(e){
+					//prevent conflict with crud modal
+					e.preventDefault();
+					e.stopPropagation();
+				});
 			}
-			var maxDate = $this.attr('data-maxdate')
-			if (maxDate) {
-				dtOptions.endDate = maxDate;
-			}
-			
-			$this.datepicker(dtOptions).on("show", function(e){
-				//prevent conflict with crud modal
-				e.preventDefault();
-				e.stopPropagation();
-			}).on("hide", function(e){
-				//prevent conflict with crud modal
-				e.preventDefault();
-				e.stopPropagation();
-			});
-		});	
-		}
+		});
+		//}
 
 		$('.link-as-post').off('click').on('click',function(e){
 			e.preventDefault();
@@ -302,6 +302,14 @@ if (typeof Object.assign !== 'function') {
 	configurable: true
 	});
 }
+
+var isDateSupported = function () {
+	var input = document.createElement('input');
+	var value = 'a';
+	input.setAttribute('type', 'date');
+	input.setAttribute('value', value);
+	return (input.value !== value);
+};
 
 function formatCurrency(n) {
 	var res = Number(n.replace(/,/g, '').replace(/ /g, '')).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");

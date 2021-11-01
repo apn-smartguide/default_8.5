@@ -25,7 +25,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			});
 		
 			// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
-			$('button:not([data-toggle="collapse"]), input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
+			$('button[class*="sg"]:not([data-toggle="collapse"]), input[type="button"][class*="sg"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
 
 			//Smartlet events
 			r._bindOrTriggerSmartletAndPageEvent();
@@ -196,6 +196,8 @@ $("form[id^='smartguide_']" ).each(function() {
 					
 					//Revise for repeat of multiple level.
 					field.isUnderRepeat = (field.isUnderRepeat & (typeof field.class !== 'undefined' && field.class.indexOf("panel-heading-button") < 0));
+					//Only usefull for button type at this time.
+					var isSmartGuideField = (typeof field.class !== 'undefined' && field.class.indexOf("sg") < 0);
 
 					if (field.isUnderRepeat) {
 						$fields = r._getJQField(fieldType, key, true);
@@ -205,6 +207,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					
 					$fields.each(function() {
 						$field = $(this);
+
 						var isInModal = $field.parents('.smartmodal').is(":visible");
 						if ($field != null && typeof ajaxUpdates !== 'undefined' && ajaxUpdates!=null && ajaxUpdates.length >0){ //Ajax submit, only bind events for updated elements
 							var updated = false;
@@ -253,14 +256,14 @@ $("form[id^='smartguide_']" ).each(function() {
 								for(var i=0;i<numberOfGroups;i++) {
 									var fieldHtmlName = key + "[" + (i+1) + "]";
 									var jqField = r._getJQField(fieldType, fieldHtmlName);
-									if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf("btn-modal") < 0) {
+									if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf('btn-modal') < 0) {
 										r._bindFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 									} else {
 										r._bindModalFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 									}
 								}
-							} else if($field.is(":visible") || fieldType === 'button' || isInModal) {
-								if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0)) {
+							} else if($field.is(":visible") || (fieldType === 'button' && isSmartGuideField) || isInModal) {
+								if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf('btn-modal') < 0)) {
 									r._bindFieldEvent($field, field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
 								} else {
 									r._bindModalFieldEvent($field, field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);

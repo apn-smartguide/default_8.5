@@ -35,7 +35,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
 	<div class='panel-heading clearfix'>
-		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
+		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='sg <%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">
@@ -60,7 +60,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<% string eventTargets = ""; %>
 									<% SessionField saveBtn = GetProxyButton(Context.Items["repeatCode"]+"_save", status.getCount()-1, ref eventTargets); %>
 									<% if(saveBtn != null && saveBtn.isAvailable()) { %>
-										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=saveBtn.getHtmlName()%>' class='<%=saveBtn.getCSSClass()%>' style='<%=saveBtn.getCSSStyle()%>'  data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=eventTargets%>]' <% if (!GetTooltip(saveBtn).Equals("")){ %>title='<%=GetTooltip(saveBtn)%>' aria-label='<%=GetTooltip(saveBtn)%>'<% } %>><%=saveBtn.getLabel()%></button>
+										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=saveBtn.getHtmlName()%>' class='sg <%=saveBtn.getCSSClass()%>' style='<%=saveBtn.getCSSStyle()%>'  data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-eventtarget='[<%=eventTargets%>]' <% if (!GetTooltip(saveBtn).Equals("")){ %>title='<%=GetTooltip(saveBtn)%>' aria-label='<%=GetTooltip(saveBtn)%>'<% } %>><%=saveBtn.getLabel()%></button>
 									<% } %>
 								</apn:control>
 								<apn:control runat="server" type="delete" id="button">
@@ -88,7 +88,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<% string editEventTargets = ""; %>
 									<% SessionField editBtn = GetProxyButton(Context.Items["repeatCode"]+"_edit", status.getCount()-1, ref editEventTargets); %>
 									<% if(editBtn != null && editBtn.isAvailable()) { %>
-										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=editBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=editEventTargets%>]' class='<%=editBtn.getCSSClass()%>' style='<%=editBtn.getCSSStyle()%>' <% if (!GetTooltip(editBtn).Equals("")){ %>title='<%=GetTooltip(editBtn)%>' aria-label='<%=GetTooltip(editBtn)%>'<% } %>><%=editBtn.getLabel()%></button>
+										<button type='submit' id='<apn:name runat="server"/>_<%= status.getCount()%>' name='<%=editBtn.getHtmlName()%>' data-repeat-index-name='<%=Context.Items["hiddenName"]%>' data-instance-pos='<%= status.getCount()%>' data-level='<%=Context.Items["repeat-level"]%>' data-eventtarget='[<%=editEventTargets%>]' class='sg <%=editBtn.getCSSClass()%>' style='<%=editBtn.getCSSStyle()%>' <% if (!GetTooltip(editBtn).Equals("")){ %>title='<%=GetTooltip(editBtn)%>' aria-label='<%=GetTooltip(editBtn)%>'<% } %>><%=editBtn.getLabel()%></button>
 									<% } %>
 								</apn:control>
 								<apn:control runat="server" type="delete">
