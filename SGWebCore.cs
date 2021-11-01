@@ -1213,7 +1213,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		return btn;
 	}
 
-	public long GetSortableDate(ControlInfo ctrl) {
+public long GetSortableDate(ControlInfo ctrl) {
 
 		long staticvalue = 0;
 		DateTime dt;
@@ -1236,6 +1236,20 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 
 		return staticvalue;
+	}
+
+	public string GetHTMLDate(ControlInfo ctrl) {
+		
+		if (ctrl.getValue() != null && !ctrl.getValue().Equals("")) {
+			DateTime dt = new DateTime();
+			String format = ctrl.getAttribute("format");
+			Boolean result = DateTime.TryParseExact(ctrl.getValue(), format, System.Globalization.CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+			if(!result) {
+				result = DateTime.TryParse(ctrl.getValue(), out dt); 
+			}
+			return dt.ToString("yyyy-MM-dd");
+		}
+		return "";
 	}
 
 	public long GetSortableDate(Alphinat.SmartGuideServer.Controls.Control ctrl) {

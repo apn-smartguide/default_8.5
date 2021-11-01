@@ -11,46 +11,14 @@
 <% if (control.Current.getAttribute("visible").Equals("false")) { %><!-- #include file="hidden.inc" -->
 <% } else { %>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a id='error_index_<%=ErrorIndex%>'></a></apn:ifnotcontrolvalid>
+	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
 	<% ExecutePath("/controls/label.aspx"); %>
 	<%-- for html date type, format must be "yyyy-mm-dd" for value, min and max attributes. --%>
 	<%-- for min or max attribute set via data attribute; Ex.: HTML -> Min -> setting --%>
 	<%-- For the setting place a hidden field named like the date-input + "-max" or "-min", note format is yyyy-mm-dd --%>
 	<% 
-	Context.Items["data-value"] = "";
-		
-	if (control.Current.getValue() != null && !control.Current.getValue().Equals("")) {
-		DateTime dt;
-
-		String format = control.Current.getAttribute("format");
-		if(!format.Equals("")){
-			format = format.Replace("mois","MM").Replace("month","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
-		} else {
-			 format = "yyyy-MM-dd";
-		}
-
-		Boolean result = DateTime.TryParseExact(control.Current.getValue(), format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
-		//If this failed, try again without specifying the culture.
-		if(!result) {
-			result = DateTime.TryParse(control.Current.getValue(), out dt); 
-		}
-		
-		if(result) {
-			Context.Items["data-value"] = dt.ToString("yyyy-MM-dd");
-		} else {
-			//Could not parse the date, return provided value as-is; may produce unexpected results and error when using HTML5 dates.
-			Context.Items["data-value"] = control.Current.getValue();
-		}
-		//WARNING!! the system receiving the returned date, need to convert to its desire format from yyyy-MM-dd, this is not automated.
-	}
-
-	if(IsIE()){
-		//IE has poor support for html5 dates, falling back to text. You can use the placeholder to inform of desired format.
-		//data-mask also not supported.
-		
-		Context.Items["html5type"] = "text";
-	}
+		Context.Items["data-value"] = GetHTMLDate(control.Current);
 	%>
-	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <% if(!IsIE()) { %>date<% }%> <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
 	<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 	<% if (IsPdf || IsSummary) { %>
 		<p><%=Context.Items["data-value"]%></p>
