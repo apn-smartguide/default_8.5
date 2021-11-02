@@ -353,9 +353,17 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string BasePath {
 		get {
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
-				Application["basePath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", Workspace, "/");
+				Application["basePath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", SmartGuideDomain, Workspace, "/");
 			}
 			return (string)Application["basePath"];
+		}
+	}
+
+	public string SmartGuideDomain {
+		get {
+			string domain = Smartlet.getDomain().Replace("default","");
+			if(!domain.Equals("")) domain = domain + "/";
+			return domain;
 		}
 	}
 
