@@ -1,16 +1,16 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <!-- JQuery -->
-<script src='<%= CacheBreak("/resources/js/ui/jquery-ui.min.js") %>'></script>
-<%-- the following line is to remove the conflict between jquery-ui tooltip and bootstrap tooltip. bootstap will override and be default --%>
-<script>$.widget.bridge('uitooltip', $.ui.tooltip);</script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery.form.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery.bootpag.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery.autocomplete.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/inputmask/jquery.inputmask.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery.caret-1.5.2.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery.ba-throttle-debounce.js") %>'></script>
 <!-- Boostrap -->
 <script src='<%= CacheBreak("/resources/js/bootstrap.min.js") %>'></script>
 <!-- Modernizr -->
 <!-- <script src='<%= CacheBreak("/resources/js/modernizr-custom.js") %>'></script> -->
-<script src='<%= CacheBreak("/resources/js/jquery.form.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/jquery.bootpag.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/jquery.autocomplete.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/inputmask/jquery.inputmask.min.js") %>'></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src='<%= CacheBreak("/resources/js/html5shiv.min.js") %>'></script>
@@ -24,10 +24,6 @@
 <script src='<%= CacheBreak("/resources/plugins/tinymce/tinymce.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/js-cookie.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jSignature.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.en-CA.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.fr.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/bootstrap-datetimepicker.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap-session-timeout.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.10.21/js/jquery.datatables.min.js") %>'></script>

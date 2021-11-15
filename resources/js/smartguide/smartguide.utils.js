@@ -22,6 +22,9 @@ var utilsController = {
 			context = sgRef.fm;
 		}
 
+		if(!isDateSupported()) {
+			$("[type=date]").attr("type","text");
+		}
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -88,6 +91,8 @@ var utilsController = {
 			
 			var readonly = $this.prop('readonly');
 			
+			//Requires Jquery.datepicker
+			if(typeof $this.datepicker !== 'undefined') {
 			var dtOptions = {
 				format: format
 				,autoclose: true
@@ -115,6 +120,7 @@ var utilsController = {
 				e.preventDefault();
 				e.stopPropagation();
 			});
+			}
 		});	
 
 		//Support for auto-expandable textarea
@@ -297,6 +303,14 @@ var utilsController = {
 
 	}
 }
+
+var isDateSupported = function () {
+	var input = document.createElement('input');
+	var value = 'a';
+	input.setAttribute('type', 'date');
+	input.setAttribute('value', value);
+	return (input.value !== value);
+};
 
 function formatCurrency(n) {
 	var res = Number(n.replace(/,/g, '').replace(/ /g, '')).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
