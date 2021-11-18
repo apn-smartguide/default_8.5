@@ -3,7 +3,7 @@
 // The text supporting this will have the tts class, audio files will have been generated for the containing field using it's SG identifier.
 // If we can't find the SG identifier, we'll silently log it.
 function tts(context){
-    console.log("getscript")
+    console.log("tts enabled")
     $(".tts", context).each(function () {
         var fieldId = "";
         //1st check if we are on a SG Field directly.
@@ -11,17 +11,34 @@ function tts(context){
             fieldId = $(this).attr("id").substring(6);
         } else {
             // Try to find the parent SG Field
-            var parentObj = $(this).parents("[id^='div_d_']")[0];
+            var parentObj = $(this).parents("[id^='d_']")[0];
             if (typeof parentObj != "undefined") {
                 fieldId = $(parentObj).attr("id").substring(6);
-            }
+            } else {
+				var parentObj = $(this).parents("[id^='div_d_']")[0];
+				if (typeof parentObj != "undefined") {
+					fieldId = $(parentObj).attr("id").substring(6);
+				}	
+			}
         }
 
         //We found a fieldId, let's bind the click
         if (fieldId.length > 0) {
-            var $playObj = $($(this).find("span.tts-play"));
+            var $playObj = $(this);
             $playObj.each(function () {
                 $player = $(this);
+				$player.off('hover').hover(function() {
+					$(".tts-icon",this).attr("style", 'display:content;');
+				},function(){
+					$(".tts-icon",this).attr("style", 'display:none;');
+				});
+
+				// $player.mouseover(function(){
+				// 	$player.find(".tts-icon").show();
+				// });
+				// $player.mouseleave(function(){
+				// 	$player.find(".tts-icon").hide();
+				// });
                 var suffix = "_value";
                 var prefix = "";
                 if ($player.parents("label").length > 0 || $player.parents(".panel-title").length > 0) {

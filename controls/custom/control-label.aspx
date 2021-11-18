@@ -7,6 +7,6 @@
 	<apn:ifcontrolattribute attr="tooltip" runat="server"><span class='field-name <apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> <apn:cssclass runat="server"/>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"] + GetMetaDataValue(control.Current, "label-suffix")%></span></apn:ifcontrolattribute>
 	<% } %>
 	<% ExecutePath("/controls/help.aspx"); %>
-	<% if (control.Current.getCSSClass().IndexOf("tts") > -1 || (Context.Items["tts-option"] != null && (bool)Context.Items["tts-option"])) { %><span class='<apn:localize runat="server" key="theme.icon.play"/>' /><% } %>
+	<% if (control.Current.getCSSClass().IndexOf("tts") > -1 || (Context.Items["tts-option"] != null && (bool)Context.Items["tts-option"])) { %><span class='tts-play <apn:localize runat="server" key="theme.icon.play"/>' /><% } %>
 	<% Context.Items["label"] = ""; %>
 </apn:control>
