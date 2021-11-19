@@ -2,39 +2,39 @@
 	js file for each form, stored in SMARTGUIDES global variable
 */
 
-if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = {};
-	
+if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = [];
+
 $("form[id^='smartguide_']" ).each(function() {
+
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
 	var $form = $(this);
+
 	SMARTGUIDES[smartletCode] = {
 		fm: $('form#smartguide_'+smartletCode)
 		,posted: false
 		,init: function(){
 			// This section is for code that must be run once after the page is loaded
-			$(document).ready(function(){
-				var r = SMARTGUIDES[smartletCode];
-				
-				//init tooltip
-				$('[data-toggle="tooltip"]').tooltip();
-				
-				//make help window dragable, JQuery UI Draggable
-				$('.modal-dialog', r.fm).draggable({
-					handle: ".modal-header"
-				});
+			var r = SMARTGUIDES[smartletCode];
 			
-				// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
-				$('button:not([data-toggle="collapse"]), input[type="button"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
-
-				//Smartlet events
-				r._bindOrTriggerSmartletAndPageEvent();
-				
-				// invoke custom init methods
-				customJS.init(r);
-				
-				// call the main bind events function
-				r.bindEvents(); 
+			//init tooltip
+			$('[data-toggle="tooltip"]').tooltip();
+			
+			//make help window dragable, JQuery UI Draggable
+			$('.modal-dialog', r.fm).draggable({
+				handle: ".modal-header"
 			});
+		
+			// Disable buttons after submitting the SMARTGUIDE form to prevent double submissions
+			$('button[class*="sg"]:not([data-toggle="collapse"]), input[type="button"][class*="sg"], input[type="submit"], input[type="image"]', r.fm).off('click').on('click', r._baseDoubleClickHandler);
+
+			//Smartlet events
+			r._bindOrTriggerSmartletAndPageEvent();
+			
+			// invoke custom init methods
+			customJS.init(r);
+			
+			// call the main bind events function
+			r.bindEvents(); 
 		}
 		,addScrollLock: function() {
 			var $body = $('body');
@@ -128,7 +128,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				var events = smartletfields['page'].events;
 				if (events !== null) {
 					// make sure the smartlet object is available on the body for page events
-					if (typeof $body.data('_smartlet') == 'undefined') {
+					if (typeof $body.data('_smartlet') === 'undefined') {
 						var r = SMARTGUIDES[smartletCode];
 						var smartlet = r._createSmartletContext(null, null, null);
 						$body.data('_smartlet', smartlet);
@@ -151,38 +151,24 @@ $("form[id^='smartguide_']" ).each(function() {
 			$body.triggerHandler('smartlet:page_enter');
 			$body.triggerHandler('page:render');
 		}
-		, bindEvents : function(ajaxUpdates) {
+		, bindEvents : function(ajaxUpdates, rebindInitiator) {
 			var r = SMARTGUIDES[smartletCode];
-						
-			// $('div.date[data-apnformat]', r.fm).each(function(index) {
-			// 	var format = $(this).attr('data-apnformat');
-			// 	if (format !== null) {
-			// 		// translate
-			// 		format = format.replace("mois","MMM").replace("mm","MM").replace("jj","DD").replace("aaaa","YYYY").replace("aa","YY");
-			// 	} else {
-			// 		// use default
-			// 		format = "YYYY-MM-DD";
-			// 	}
-			// 	$(this).datetimepicker({locale: currentLocale, format: format, showClear:true, calendarWeeks:false, debug:false});
-			// });
-
 			// basic bindings for field event with dependencies to other fields
 			// textboxes, textarea and password
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste',r.bindThis).on('keyup paste', r.bindThis);
+			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste', r.bindThisResetFocus).on('keyup paste', r.bindThisResetFocus);
 			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
 			// checkboxes and radio buttons
-			//$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
-				var id = $.escapeSelector($(this).attr('name'));
-				if (typeof smartletfields[$.escapeSelector(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
+				var id = CSS.escape($(this).attr('name'));
+				if (typeof smartletfields[CSS.escape(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
 					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 				}
 			});
 
-			// listbox and dropdown
 			$('input[type=image][data-eventtarget]').off('click',r.bindThis).on('click', r.bindThis);
 			$('select:has(option[data-eventtarget])').off('change',r.bindThisOption).on('change', r.bindThisOption);
+			
 			$('.modal-close').off('click').on('click', function(e){
 				var modal = $(this).parent().parent().parent().parent();
 				r.ajaxProcess(modal, null, true, null, null, function () {
@@ -191,57 +177,39 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
-			$('.link-as-post').off('click').on('click',function(e){
-
-				e.preventDefault();
-				e.stopImmediatePropagation();
-
-				var form = document.createElement('form');
-				form.action = $(this).attr('href');
-				form.method = 'post';
-
-				var $input = $(document.createElement('input'));
-				$input.attr('name', 'com.alphinat.sgs.anticsrftoken');
-				$input.attr('type', 'hidden');
-				$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
-				
-				if(this.target != "") {
-					form.target = this.target;
-				}
-
-				$(form).append($input);
-				$('body').append(form)
-				form.submit();
-				$('body').remove(form);
-
-				return false;
-			});
-
-			r.bindSelectBoxRadios();
-		
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();
 			for (var key in smartletfields) {
 				var field = smartletfields[key];
+				var fieldType = field.type;
+				if (fieldType == 'repeat')
+					updatedRepeatIds.push(key);
+			}
+			for (var key in smartletfields) {
+				var field = smartletfields[key];
 					var events = field.events;
 					if (events === null) continue;
 					var fieldType = field.type;
-					if (fieldType == 'repeat')
-						updatedRepeatIds.push(key);
 					
-					var $field = null;
+					var $fields = null;
 					
 					//Revise for repeat of multiple level.
 					field.isUnderRepeat = (field.isUnderRepeat & (typeof field.class !== 'undefined' && field.class.indexOf("panel-heading-button") < 0));
+					//Only usefull for button type at this time.
+					var isSmartGuideField = (typeof field.class !== 'undefined' && field.class.indexOf("sg") < 0);
 
 					if (field.isUnderRepeat) {
-						$field = r._getJQField(fieldType, key+'[1]');
+						$fields = r._getJQField(fieldType, key, true);
 					} else {
-						$field = r._getJQField(fieldType, key);	
+						$fields = r._getJQField(fieldType, key);	
 					}
 					
-					if ($field != null && typeof ajaxUpdates !== 'undefined' && ajaxUpdates!=null && ajaxUpdates.length >0){ //Ajax submit, only bind events for updated elements
+					$fields.each(function() {
+						$field = $(this);
+
+						var isInModal = $field.parents('.smartmodal').is(":visible");
+						if ($field != null && typeof ajaxUpdates !== 'undefined' && ajaxUpdates!=null && ajaxUpdates.length >0){ //Ajax submit, only bind events for updated elements
 							var updated = false;
 							
 							if(field.isUnderRepeat) {
@@ -250,7 +218,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								for(var i=0;i<numberOfGroups;i++) {
 									$field = r._getJQField(fieldType, key + "[" + (i+1) + "]");
 									for (var j=0; j < ajaxUpdates.length; j++){
-										if (ajaxUpdates[j].is($field[0]) || $.contains(ajaxUpdates[j][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
+										if ($(ajaxUpdates[j]).is($field[0]) || $.contains(ajaxUpdates[j][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
 											updated = true;
 											break;
 										}
@@ -258,60 +226,63 @@ $("form[id^='smartguide_']" ).each(function() {
 								}
 							} else {
 								for (var i=0; i < ajaxUpdates.length; i++){
-									if (ajaxUpdates[i].is($field[0]) || $.contains(ajaxUpdates[i][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
+									if ($(ajaxUpdates[i]).is($field[0]) || $.contains(ajaxUpdates[i][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
 										updated = true;
 										break;
 									}
 								}
 							}
-							if (!updated) continue;
+							if (!updated && !isInModal) return;
 						}
 				
-					for(var event in events) {
-						var jqEvent = event.toLowerCase();
-						// bind repeat events for add/delete/update instance
-						if (fieldType === 'repeat') {
-							if (jqEvent === 'onupdateinstance' || jqEvent === 'ondeleteinstance' || jqEvent === 'onaddinstance'){
-								var repeatDiv = $('div#div_' + key, r.fm);
-								var smartlet = r._createSmartletContext(field, fieldType, key);
-								var handler = r._createEventHandler(events[event].client);
-								repeatDiv.data('_smartlet', smartlet).on('repeat:' + jqEvent.substring(2), handler);
-								continue;
-							}
-						}	
-						// check if we are under repeat, in which case we must bind each instance of that field
-						if (field.isUnderRepeat) {
-							// get number of instances to bind
-							var rptId = field.repeatId;
-							var numberOfGroups = smartletfields[rptId].numberOfGroups;
+						for(var event in events) {
+							var jqEvent = event.toLowerCase();
+							// bind repeat events for add/delete/update instance
+							if (fieldType === 'repeat') {
+								if (jqEvent === 'onupdateinstance' || jqEvent === 'ondeleteinstance' || jqEvent === 'onaddinstance'){
+									var repeatDiv = $('div#div_' + key, r.fm);
+									var smartlet = r._createSmartletContext(field, fieldType, key);
+									var handler = r._createEventHandler(events[event].client);
+									repeatDiv.data('_smartlet', smartlet).on('repeat:' + jqEvent.substring(2), handler);
+									continue;
+								}
+							}	
+							// check if we are under repeat, in which case we must bind each instance of that field
+							if (field.isUnderRepeat) {
+								// get number of instances to bind
+								var rptId = field.repeatId;
+								var numberOfGroups = smartletfields[rptId].numberOfGroups;
 
-							for(var i=0;i<numberOfGroups;i++) {
-								var fieldHtmlName = key + "\\[" + (i+1) + "\\]";
-								var jqField = r._getJQField(fieldType, fieldHtmlName);
-								if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf("btn-modal") < 0) {
-									r._bindFieldEvent(field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+								for(var i=0;i<numberOfGroups;i++) {
+									var fieldHtmlName = key + "[" + (i+1) + "]";
+									var jqField = r._getJQField(fieldType, fieldHtmlName);
+									if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf('btn-modal') < 0) {
+										r._bindFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+									} else {
+										r._bindModalFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+									}
+								}
+							} else if($field.is(":visible") || (fieldType === 'button' && isSmartGuideField) || isInModal) {
+								if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf('btn-modal') < 0)) {
+									r._bindFieldEvent($field, field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
 								} else {
-									r._bindModalFieldEvent(field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+									r._bindModalFieldEvent($field, field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
 								}
 							}
-						} else if($field.is(":visible") || $("#div_" + key).parents('.smartmodal').is(":visible")) {
-							if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf("btn-modal") < 0)) {
-								r._bindFieldEvent(field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
-							} else {
-								r._bindModalFieldEvent(field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
-							}
 						}
-					}
-					if(field.isRequired && $field.is(":visible") || $('#errors-fdbck-frm').length > 0){
-						$("#alerts").show();
-					}
+
+						if(field.isRequired && $field.is(":visible") && !isInModal || $('#errors-fdbck-frm').length > 0){
+							$("#alerts").show();
+						}
+					});
 			}
 
 			// reapply tooltip
 			$('[data-toggle="tooltip"]').tooltip();
 
+			
 			// invoke custom binding methods
-			customJS.bindEvents(r, ajaxUpdates);
+			customJS.bindEvents(r, ajaxUpdates, rebindInitiator);
 		}
 		, _createSmartletContext : function(contextField, fieldType, fieldHtmlName) {
 			var smartlet = 
@@ -362,7 +333,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 						return null;
 					}		
-					,openModal : function(modal) {
+					,openModal : function(modal, options) {
 						var r = SMARTGUIDES[smartletCode];
 						r.ajaxProcess(modal,null,true,
 							function() {
@@ -372,8 +343,11 @@ $("form[id^='smartguide_']" ).each(function() {
 							null
 						);
 						//Clear validation errors that might have appeared
-						modal.modal('show');
-
+						var modalOptions = {show:true};
+						if (typeof options !== 'undefined') {
+							$.extend(modalOptions, options);
+						}
+						modal.modal(modalOptions);
 					}
 					,closeModal : function(modal) {
 						var r = SMARTGUIDES[smartletCode];
@@ -448,27 +422,40 @@ $("form[id^='smartguide_']" ).each(function() {
 				};
 			return handler;
 		}
-		, _getJQField: function (fieldType, fieldHtmlName){
+		, _getJQField: function (fieldType, fieldHtmlName, isSubstringSelector){
+			if (typeof isSubstringSelector === 'undefined') {
+				isSubstringSelector = false;
+			}
+			var sub = "";
+			if (isSubstringSelector) {
+				sub = "^";
+			}
 			var r = SMARTGUIDES[smartletCode];
 			var $field;
+			fieldHtmlName = CSS.escape(fieldHtmlName);
 			if (fieldType === 'staticText' || fieldType === 'staticImg'){
-				$field = $('div#div_'+fieldHtmlName, r.fm);
+				$field = $('div[id'+sub+'=div_'+fieldHtmlName + ']', r.fm);
 			} else {
-				$field = $('[name="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
+				$field = $('[name'+sub+'="'+fieldHtmlName+'"]:not([type="hidden"])', r.fm);
 				if($field.length == 0) {
-					$field = $('#'+fieldHtmlName+'', r.fm);
+					$field = $('[id'+sub+'=div_'+fieldHtmlName+']', r.fm);
+				}
+				if($field.length == 0) {
+					$field = $('[id'+sub+'='+fieldHtmlName+']', r.fm);
 				}
 			}
+			if (isSubstringSelector && $field.length > 0)
+				return $field.first();
 			return $field;
 		}
-		, _bindModalFieldEvent : function(contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
+		, _bindModalFieldEvent : function($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
 			var r = SMARTGUIDES[smartletCode];
 			var jqEvent = event.toLowerCase();
 			if (jqEvent.indexOf("on") == 0) {
 				jqEvent = jqEvent.substring(2);
 			}
 			
-			var $field = r._getJQField(fieldType, fieldHtmlName);
+			//var $field = r._getJQField(fieldType, fieldHtmlName);
 			
 			// check if we need to bind the div_ of a repeat or group field
 			if (fieldType == 'repeat') {
@@ -493,7 +480,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						// fix the data event target to have the modal id instead of the whole form as its target
 						var $modal = $field.closest('.modal');
 						if ($modal.length > 0) {
-							modalId = $.escapeSelector($modal.attr('id'));
+							modalId = CSS.escape($modal.attr('id'));
 							var targets = $field.attr('data-eventtarget');
 							if (targets.indexOf('form') > -1) {
 								targets = targets.replace('form',modalId);
@@ -519,6 +506,7 @@ $("form[id^='smartguide_']" ).each(function() {
 								setTimeout(function() {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
+									errorMessages += $('.label-danger', $container).text().trim();
 									if(errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
@@ -550,14 +538,14 @@ $("form[id^='smartguide_']" ).each(function() {
 				});
 			}
 		}
-		, _bindFieldEvent : function(contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
+		, _bindFieldEvent : function($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
 			var r = SMARTGUIDES[smartletCode];
 			var jqEvent = event.toLowerCase();
 			if (jqEvent.indexOf("on") == 0) {
 				jqEvent = jqEvent.substring(2);
 			}
 			
-			var $field = r._getJQField(fieldType, fieldHtmlName);
+			//var $field = r._getJQField(fieldType, fieldHtmlName);
 			
 			// check if we need to bind the div_ of a repeat or group field
 			if (fieldType == 'repeat') {
@@ -579,54 +567,110 @@ $("form[id^='smartguide_']" ).each(function() {
 			}
 			//then bind server event
 			if (isServer) {
-				if (typeof clientEvent == 'undefined') {
+				if (typeof clientEvent === 'undefined') {
 					// must unbind first
 					$field.off(jqEvent);
 				}
-				$field.on(jqEvent, function(e) {
-					var r = SMARTGUIDES[smartletCode];
-					
-					$(this).after($('<input/>', {
-						type: 'hidden',
-						name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
-						value: 'on'+e.type
-					}));
-					// for select, or static text, set event target
-					if (!$(this).attr('data-eventtarget') && $('*[data-eventtarget]', this)){
-						$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
-					}
 
-					if (isAjax) {
-						r.ajaxProcess(this, null, true, 
-							function() {
-								// must remove the e_ field we added
-								$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
-							},
-							null,
-							null
-						);
-					}
-					else {
-						if (!$(this).hasClass("always-enabled")) {
-							r._doubleClickHandler(e);
-						} else {
-							r.fm.submit();
+				var processTimer; //timer identifier
+			
+				$field.on(jqEvent, 
+					function(e) {
+						var r = SMARTGUIDES[smartletCode];
+
+						var doneInterval = 0;  //time in ms
+						if(jqEvent == "keyup" || jqEvent == "keydown") {
+							doneInterval = 500; //0.5s 
 						}
+
+						clearTimeout(processTimer);
 						
-						// must remove the e_ field we added is the button is always enabled, like when triggering a file download
-						if ($(this).hasClass("always-enabled")) {
-							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+						$(this).before($('<input/>', {
+							type: 'hidden',
+							name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
+							value: 'on'+e.type
+						}));
+						// for select, or static text, set event target
+						if (!$(this).attr('data-eventtarget') && $('*[data-eventtarget]', this)){
+							$(this).attr('data-eventtarget', $('*[data-eventtarget]', this).attr('data-eventtarget'));
+						}
+
+						processTimer = setTimeout(processAjax.bind(null, e, r, isAjax, this, fieldHtmlName), doneInterval);
+						
+						function processAjax (e, r, isAjax, field, fieldHtmlName) {
+							clearTimeout(processTimer);
+							var ogType = field.type;
+							var curRange = null;
+							if(field.tagName == "INPUT" && (field.type == 'text' || field.type == 'password') && ($(field).attr('type') != 'email') && ($(field).attr('type') != 'number')){
+								curRange = $(field).range();
+							}
+							if (isAjax) {
+								if(field.tagName == "BUTTON" && e.type == "click") {
+									$("#loader").fadeIn("slow");
+									$(field).tooltip("destroy");
+								}
+
+								r.ajaxProcess(field, null, true, 
+									function() {
+										// must remove the e_ field we added
+										$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+									},
+									null,
+									function() {
+										if(e.type == "keyup") {
+											var fieldInput = $("#"+fieldHtmlName);
+											var fldLength= fieldInput.val().length;
+											if(fieldInput[0].tagName == "INPUT" && (fieldInput[0].type == 'text' || fieldInput[0].type == 'password') && (fieldInput.attr('type') != 'email') && (fieldInput.attr('type') != 'number')) {
+												console.log(e.keyCode);
+												if(curRange.length > 0) {
+													fieldInput.range(curRange.start, curRange.end);
+												} else if(curRange.length <=0 && fldLength > 0) {
+													fieldInput.range(fldLength,fldLength);
+												} else {
+													fieldInput.range(0,fldLength);
+												} 
+												fieldInput.focus();
+											}
+										}
+										if(field.tagName == "BUTTON" && e.type == "click") {
+											$("#loader").fadeOut("slow");
+										}
+									}
+								);
+							} else {
+								if (!$(field).hasClass("always-enabled")) {
+									r._doubleClickHandler(e);
+								} else {
+									r.fm.submit();
+								}
+								
+								// must remove the e_ field we added is the button is always enabled, like when triggering a file download
+								if ($(field).hasClass("always-enabled")) {
+									$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
+								}
+							}
+							field.type = ogType;
+							return false;
 						}
 					}
-
-					return false;
-				});
+				);
 			}
 		}		
 		, bindThis : function(){
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess(this, null, false, null, null, null);
+		}
+		, bindThisResetFocus : function(){
+			var r = SMARTGUIDES[smartletCode];
+			r.bindAllFieldsUnderRepeat(this);
+			r.ajaxProcess(this, null, false, null, null, 
+				function() {
+					if(this.event.keyCode != 9) {
+						this.focus();
+					}
+				}
+			);
 		}
 		, bindThisAllowSelfRefresh: function(){
 			var r = SMARTGUIDES[smartletCode];
@@ -675,25 +719,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					$(elmt).attr('data-eventtarget', '["' + newDataEventTarget + '"]');
 				}
 			}
-		}
-		, bindSelectBoxRadios: function(){
-			var r = SMARTGUIDES[smartletCode];
-			// radio buttons in the context of select control instance on repeat
-			/*$('input[type=radio][data-group]').each(function() {
-				$(this).off('change').on('change', function() {
-					// When any radio button in the data-group is selected,
-					// then deselect all other radio buttons.
-					var dataGroup = $(this).attr('data-group');
-					// Check if we are under a datatable
-					var otable = r.dataTableInstances['div_'+dataGroup];
-					if (typeof otable !== 'undefined') {
-						$('input[type=radio][data-group]',otable.cells().nodes()).not(this).prop('checked', false)
-					} else {
-						$('input[type=radio][data-group]',$('#div_'+dataGroup)).not(this).prop('checked', false)
-					}
-				});
-			}); */
-		}		
+		}	
 		, ajaxProcess : function(elmt, elmt2, allowSelfRefresh, successCallback, errorCallback, completeCallback) {
 			var r = SMARTGUIDES[smartletCode];
 			var fm = r.fm;
@@ -702,7 +728,7 @@ $("form[id^='smartguide_']" ).each(function() {
 				var targetArr = eval($(elmt).attr('data-eventtarget'));
 				if(typeof targetArr !== 'undefined' && targetArr!= null) {
 					if (targetArr.length == 1) {
-						var currentID= $.escapeSelector($(elmt).attr('id'));
+						var currentID= CSS.escape($(elmt).attr('id'));
 						if (targetArr[0] == currentID) return;
 					}
 				}
@@ -719,49 +745,47 @@ $("form[id^='smartguide_']" ).each(function() {
 				type: 'post',
 				iframe:false,
 				data : { isAjax : 'true' },
-				success:  function(data){
+				success:  function(data) {
 					try {
 
 						if(!$(elmt).hasClass('save-blobs')){
 							$("div.blob > input[type='file']").each(function(){
-								var fieldid = $.escapeSelector($(this).attr('id'));
+								var fieldid = CSS.escape($(this).attr('id'));
 								$(this).attr('name',fieldid);
 							})
 						}
 						
 						response = data;
 						// get array of response elements
-						var responseDiv = $("#sgControls", response);
-						var currentDiv = $("#sgControls");
+						var $responseDiv = $("#sgControls", response);
+						var $currentDiv = $("#sgControls");
 
 						var targetArr = eval($(elmt).attr('data-eventtarget'));
-						var currentID= $.escapeSelector($(elmt).attr('id'));
+						var currentID= CSS.escape($(elmt).attr('id'));
 						var selfRefresh = $(elmt).hasClass('self-refresh');
-						if(selfRefresh) {
-							targetArr.push($.escapeSelector(currentID));
+						if(selfRefresh && typeof targetArr !== 'undefined' && targetArr != null) {
+							targetArr.push(CSS.escape(currentID));
 						}
 
 						var updated = [];
-						if(typeof targetArr !== 'undefined' && targetArr!= null) {
-							for(var i=0;i<targetArr.length;i++) {
-								if (targetArr[i] == 'form') {
-									var responseTarget = responseDiv;
-									responseTarget = responseTarget.clone();
-									$(currentDiv).after(responseTarget).remove();
-									break;
-								}
-								// Prevent self refresh
-								if (allowSelfRefresh||selfRefresh||targetArr[i]!=currentID) {
-									var targetDiv = targetArr[i];
-									if(typeof targetDiv != 'undefined' && targetDiv != "") {
-										targetDiv = $.escapeSelector(targetDiv);
-										var responseTarget = $('#div_'+targetDiv, responseDiv);
-										if(responseTarget.length == 0) responseTarget = $('#'+targetDiv, responseDiv);
+						if(typeof targetArr !== 'undefined' && targetArr != null) {
+							if(targetArr.includes("form")) {
+								var responseTarget = $responseDiv;
+								responseTarget = responseTarget.clone();
+								$currentDiv.after(responseTarget).remove();
+								updated.push(responseTarget);
+							} 
+							else if(!targetArr.forEach(function(target) {
+								if (allowSelfRefresh || selfRefresh || target!=currentID) {
+									if(typeof target !== 'undefined' && target != "") {
+										target = CSS.escape(target);
+										var responseTarget = $('#div_'+target, $responseDiv);
+										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
 
 										responseTarget = responseTarget.clone();
 										if (responseTarget.length > 0) {
-											var currentTarget = $('#div_'+targetDiv, currentDiv);
-											if(currentTarget.length == 0) currentTarget = $('#'+targetDiv, currentDiv);
+											var currentTarget = $('#div_'+target, $currentDiv);
+											if(currentTarget.length == 0) currentTarget = $('#'+target, $currentDiv);
 											//Check to see if we're using a crud-modal, is so, need to hide it.
 											//Display happens at the event handler level (ie. save_...)
 											if($('.crud-modal', responseTarget).length > 0) {
@@ -776,38 +800,38 @@ $("form[id^='smartguide_']" ).each(function() {
 											updated.push(responseTarget);
 										}
 									}
+									return true;
 								}
+							})) {
+								$("#wb-rsz").remove();
 							}
 						}
 
-						//replace the alert modal div if necessary	
-						var modalAlertId = $.escapeSelector($('#repeat-errors-validation').attr('id'));
-						var showErrors = false;
-						if(typeof modalAlertId === 'undefined') {
-							showErrors = true;
-							var parentId = $.escapeSelector($(elmt).parent().attr('id'));
-							modalAlertId = $('*[id*=modalAlerts]' , $.escapeSelector($('#' + parentId).closest('.smartmodal')).attr('id'));
-						}
-						if(typeof modalAlertId !== 'undefined') {
-							if(showErrors) {
-								var sourceModalAlertDiv = $('#' + modalAlertId, fm);
-								var targetModalAlertDiv = $('#' + modalAlertId, response);
-								$(sourceModalAlertDiv).after(targetModalAlertDiv).remove();
-							}
-						} else {
-							// replace the alert div
-							var sourceAlertDiv = $('#alerts', fm);
-							var targetAlertDiv = $('#alerts', response);
+						//replace all alerts returned; page & modals
+						$('[id^=alerts').each(function(){
+							var sourceAlertDiv = $('#'+CSS.escape(this.id), fm);
+							var targetAlertDiv = $('#'+CSS.escape(this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
+						});
+
+						// automatically replace the SG Bottom controls
+						var sourceBottomControls = $('#sgNavButtons', fm);
+						var targetBottomControls = $('#sgNavButtons', response);
+						$(sourceBottomControls).after(targetBottomControls).remove();
+						
+						// Keep events bound to buttons wizard in SG Bottom controls
+						if (updated.length > 0 && $('#sgNavButtons .btn-wizard', fm).length > 0) {
+							updated.push($('#sgNavButtons .btn-wizard', fm));
 						}
 						
 						// automatically replace the SG JS div
-						var sourceSGLIBDiv = $('#sglib', fm);
+						var sourceSGLIBDiv = $('#sglib');
 						var targetSGLIBDiv = $('#sglib', response);
-						$(sourceSGLIBDiv).after(targetSGLIBDiv).remove();
+						$(sourceSGLIBDiv).after(targetSGLIBDiv).remove(); 
 
 						r.bindEvents(updated);
 						
+						$('.tooltip').remove(); //Remove any lagging tooltips, they will be recreated.
 						if (elmt2 != null && !(typeof elmt2 === 'undefined')) $(elmt2).val('');
 						
 						if (successCallback) successCallback(updated);
@@ -830,7 +854,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						console.log(textStatus);
 						console.log(errorThrown);
 						console.log(XMLHttpRequest.responseText);
-						alert("ERROR: <code>" + XMLHttpRequest.responseText + "<code>")
+						console.log("ERROR: <code>" + XMLHttpRequest.responseText + "<code>")
 					}
 					if(errorCallback) {
 						errorCallback(XMLHttpRequest, textStatus, errorThrown);
@@ -844,7 +868,7 @@ $("form[id^='smartguide_']" ).each(function() {
 			}); 
 		}
 	};
-	SMARTGUIDES[smartletCode].init();
+	//SMARTGUIDES[smartletCode].init();
 });
 
 function getScripts(scripts, callback) {
