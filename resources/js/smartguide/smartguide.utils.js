@@ -22,9 +22,9 @@ var utilsController = {
 			context = sgRef.fm;
 		}
 
-		if(!isDateSupported()) {
-			$("[type=date]").attr("type","text");
-		}
+		//if(!isDateSupported()) {
+		//	$("[type=date]").attr("type","text");
+		//}
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -57,7 +57,7 @@ var utilsController = {
 		// https://github.com/RobinHerbots/Inputmask
 		$('input[data-mask]', context).each(function (index) {
 			var $this = $(this);
-			var type = $this.prop('type');
+			var type = $this.attr('type');
 			if(type != "date") {
 				$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true });
 			} else {
@@ -73,7 +73,7 @@ var utilsController = {
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
 			// if type contains date then skip, as the browser will take care of data entry
-			var type = $this.prop('type');
+			var type = $this.attr('type');
 
 			//In case it's not SG control, but still participage to conditional visibility
 			if(typeof $this.attr("data-eventtarget") !== 'undefined') {
