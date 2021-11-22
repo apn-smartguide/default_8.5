@@ -19,17 +19,29 @@
 	<% 
 		Context.Items["data-value"] = GetHTMLDate(control.Current);
 	%>
+<<<<<<< HEAD
 	<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+=======
+	<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+>>>>>>> v8.5.0
 	<% if (IsPdf || IsSummary) { %>
 		<p><%=Context.Items["data-value"]%></p>
 	<% } else { %>
 		<apn:choosecontrol runat="server">
 			<apn:whencontrol type="INPUT" runat="server"><input type='<%=Context.Items["html5type"]%>' class='form-control' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' value='<%=Context.Items["data-value"]%>' size='<apn:controlattribute attr="size" runat="server"/>' <apn:metadata runat="server" /> placeholder='<%=GetAttribute(control.Current, "placeholder")%>' maxlength='<apn:controlattribute attr="size" runat="server" />' <%= Context.Items["readonly"] %> <!-- #include file="aria-attributes.inc" --> data-apnformat='<apn:controlattribute runat="server" attr="format"/>'/></apn:whencontrol>
+<<<<<<< HEAD
 			<apn:whencontrol type="SELECT1" runat="server"><apn:control id="select" runat="server"><select <apn:metadata runat="server" /> class='form-control' name='<apn:name runat="server" />' <apn:ifnotcontrolvalid runat="server"> aria-describedby='error_<apn:name runat="server" />' </apn:ifnotcontrolvalid> aria-invalid='<%= (control.Current.isValid()? "true" : "false")%>' <%if (control.Current.isRequired()) { %>required<% } %> aria-labelledby='lbl_<apn:name runat="server" />'><apn:forEach id="option" runat="server"><option <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> id='<apn:name runat="server"/>' value='<apn:value runat="server" tohtml="true"/>' <%= control.Current.containsValue(option.Current.getValue()) ? "selected" : "" %>><apn:label runat="server" /></option></apn:forEach></select></apn:control></apn:whencontrol>
 			<apn:whencontrol type="LABEL" runat="server"><apn:label runat="server" /></apn:whencontrol>
 		</apn:choosecontrol>
 	<% } %>
 	<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+=======
+			<apn:whencontrol type="SELECT1" runat="server"><apn:control id="select" runat="server"><select <apn:metadata runat="server" /> class='form-control' name='<apn:name runat="server" />' <apn:ifnotcontrolvalid runat="server"> aria-describedby='error_<apn:name runat="server" />' </apn:ifnotcontrolvalid> aria-invalid='<%= (control.Current.isValid()? "true" : "false")%>' <%if (control.Current.isRequired()) { %>aria-required="true"<% } %> aria-labelledby='lbl_<apn:name runat="server" />'><apn:forEach id="option" runat="server"><option <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> id='<apn:name runat="server"/>' value='<apn:value runat="server" tohtml="true"/>' <%= control.Current.containsValue(option.Current.getValue()) ? "selected" : "" %>><apn:label runat="server" /></option></apn:forEach></select></apn:control></apn:whencontrol>
+			<apn:whencontrol type="LABEL" runat="server"><apn:label runat="server" /></apn:whencontrol>
+		</apn:choosecontrol>
+	<% } %>
+	<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="label label-danger"><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+>>>>>>> v8.5.0
 	</div>
 <% } %>
 </apn:control>

@@ -205,7 +205,6 @@ $("form[id^='smartguide_']" ).each(function() {
 
 				return false;
 			});
-			
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();

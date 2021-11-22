@@ -1220,6 +1220,45 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 		return btn;
 	}
+	
+	public long GetSortableDate(ControlInfo ctrl) {
+
+		long staticvalue = 0;
+		DateTime dt;
+
+		String format = ctrl.getAttribute("format");
+		if(!format.Equals("")){
+			format = format.Replace("mois","MM").Replace("month","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
+		} else {
+			 format = "yyyy-MM-dd";
+		}
+
+		Boolean result = DateTime.TryParseExact(ctrl.getValue(), format, System.Globalization.CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+		//If this failed, try again without specifying the culture.
+		if(!result) {
+			result = DateTime.TryParse(ctrl.getValue(), out dt); 
+		}
+
+		if(result) {
+			staticvalue = dt.Ticks;
+		}
+
+		return staticvalue;
+	}
+
+	public string GetHTMLDate(ControlInfo ctrl) {
+		
+		if (ctrl.getValue() != null && !ctrl.getValue().Equals("")) {
+			DateTime dt = new DateTime();
+			String format = ctrl.getAttribute("format");
+			Boolean result = DateTime.TryParseExact(ctrl.getValue(), format, System.Globalization.CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+			if(!result) {
+				result = DateTime.TryParse(ctrl.getValue(), out dt); 
+			}
+			return dt.ToString("yyyy-MM-dd");
+		}
+		return "";
+	}
 
 public long GetSortableDate(ControlInfo ctrl) {
 

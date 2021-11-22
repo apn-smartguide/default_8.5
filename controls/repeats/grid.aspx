@@ -181,6 +181,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 					</apn:control>
 				</td>
 				<% } %>
+<<<<<<< HEAD
 				<apn:forEach runat="server" id="trRow">
 					<apn:forEach runat="server" id="trCol">
 						<apn:forEach runat="server" id="trField">
@@ -204,6 +205,23 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 													<% } else { %>
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><apn:value runat="server"/></td>
 													<% } %>
+=======
+				<apn:forEach runat="server" id="row1">
+					<apn:forEach runat="server" id="col1">
+						<apn:forEach runat="server" id="field1">
+							<% if(!field1.Current.getAttribute("style").Equals("visibility:hidden;") && !field1.Current.getAttribute("visible").Equals("false") && !field1.Current.getCSSClass().Contains("hide-from-list-view") && !field1.Current.getCSSClass().Contains("proxy")) { %>
+								<apn:ChooseControl runat="server">
+									<apn:WhenControl type="GROUP" runat="server"><td class='<%=field1.Current.getCSSClass()%>'><% ExecutePath("/controls/control.aspx"); %></td></apn:WhenControl>
+									<apn:WhenControl type="TRIGGER" runat="server">
+										<td>
+											<% if (!IsPdf) { %>
+												<% if (field1.Current.getAttribute("class").Equals("button")) {%>
+													<button type='button' class='<apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(field1.Current).Equals("")){ %>title='<%=GetTooltip(field1.Current)%>' aria-label='<%=GetTooltip(field1.Current)%>'<% } %>><apn:value runat="server"/></button>
+												<% } else if (field1.Current.getAttribute("class").Equals("pdf-button")) {%>
+													<a href='genpdf/do.aspx/view.pdf?cache=<%= System.Guid.NewGuid().ToString() %>&pdf=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+												<% } else if (field1.Current.getAttribute("class").Equals("view-xml-button")) { %>
+													<a href='genxml/do.aspx/view.xml?cache=<%= System.Guid.NewGuid().ToString() %>&xsd=<apn:name runat="server"/>&interviewID=<apn:control type="interview-code" runat="server"><apn:value runat="server"/></apn:control>' target='_blank' data-toggle='tooltip' data-html='true' <% if (!GetTooltip(control.Current).Equals("")){ %>title='<%=GetTooltip(control.Current)%>' aria-label='<%=GetTooltip(control.Current)%>'<% } %> class='btn <apn:cssclass runat="server"/>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>'><apn:value runat="server"/></a>
+>>>>>>> v8.5.0
 												<% } %>
 												</apn:Otherwise>
 											</apn:ChooseControl>

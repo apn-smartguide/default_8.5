@@ -30,8 +30,14 @@ var utilsController = {
 			$("[type=date]").attr("type","text");
 		}
 
+<<<<<<< HEAD
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 		
+=======
+		//if(!isDateSupported()) {
+		//	$("[type=date]").attr("type","text");
+		//}
+>>>>>>> v8.5.0
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -70,30 +76,42 @@ var utilsController = {
 			});
 		});
 
-		//if(!isIE11) {
-			// Input masks
-			// https://github.com/RobinHerbots/Inputmask
-			$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
-				var $this = $(this);
-				
-				var dataMaskRaw = $this.attr('data-mask-raw');
-				if (typeof dataMaskRaw !== 'undefined') {
-					$this.inputmask(JSON.parse(dataMaskRaw));
-				} else {
-					var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
-					var dataMask = $this.attr('data-mask');
-					if (typeof dataMask !== 'undefined') {
-						$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
-					}
-					var dataMaskOptions = $this.attr('data-mask-options');
-					if (typeof dataMaskOptions !== 'undefined') {
-						$.extend(options, JSON.parse(dataMaskOptions));
-					}			
-					
-					$this.inputmask(options);
+
+		$('input[data-mask]', context).each(function (index) {
+			var $this = $(this);
+			var type = $this.attr('type');
+			if(type != "date") {
+				$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true });
+			} else {
+				$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true});
+			}
+		});
+
+		// https://github.com/RobinHerbots/Inputmask
+		$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
+			var $this = $(this);
+			var type = $this.attr('type');
+
+			var dataMaskRaw = $this.attr('data-mask-raw');
+			if (typeof dataMaskRaw !== 'undefined') {
+				$this.inputmask(JSON.parse(dataMaskRaw));
+			} else {
+				var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
+				if(type == "date") {
+					options = { autoGroup: true, jitMasking: true };
 				}
-			});
-		//}
+				var dataMask = $this.attr('data-mask');
+				if (typeof dataMask !== 'undefined') {
+					$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
+				}
+				var dataMaskOptions = $this.attr('data-mask-options');
+				if (typeof dataMaskOptions !== 'undefined') {
+					$.extend(options, JSON.parse(dataMaskOptions));
+				}			
+				
+				$this.inputmask(options);
+			}
+		});
 
 		//For multi-level support
 		$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
@@ -130,7 +148,7 @@ var utilsController = {
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
 			// if type contains date then skip, as the browser will take care of data entry
-			var type = $this.prop('type');
+			var type = $this.attr('type');
 
 			//In case it's not SG control, but still participage to conditional visibility
 			if(typeof $this.attr("data-eventtarget") !== 'undefined') {
@@ -155,6 +173,7 @@ var utilsController = {
 			
 			//Requires Jquery.datepicker
 			if(typeof $this.datepicker !== 'undefined') {
+<<<<<<< HEAD
 				var dtOptions = {
 					format: format
 					,autoclose: true
@@ -182,6 +201,24 @@ var utilsController = {
 					e.preventDefault();
 					e.stopPropagation();
 				});
+=======
+			var dtOptions = {
+				format: format
+				,autoclose: true
+				,enableOnReadonly: !readonly
+				,language: currentLocale
+				,orientation: 'bottom auto'
+				,assumeNearbyYear: true // this is for 2-year dates; assumes by default margin of 20 years; see online docs
+			};
+			// Check extra options through data attributes
+			var minDate = $this.attr('data-mindate')
+			if (minDate) {
+				dtOptions.startDate = minDate;
+			}
+			var maxDate = $this.attr('data-maxdate')
+			if (maxDate) {
+				dtOptions.endDate = maxDate;
+>>>>>>> v8.5.0
 			}
 		});
 		//}
@@ -199,9 +236,23 @@ var utilsController = {
 			$input.attr('type', 'hidden');
 			$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
 			
+<<<<<<< HEAD
 			if(this.target != "") {
 				form.target = this.target;
 			}
+=======
+			$this.datepicker(dtOptions).on("show", function(e){
+				//prevent conflict with crud modal
+				e.preventDefault();
+				e.stopPropagation();
+			}).on("hide", function(e){
+				//prevent conflict with crud modal
+				e.preventDefault();
+				e.stopPropagation();
+			});
+			}
+		});	
+>>>>>>> v8.5.0
 
 			$(form).append($input);
 			$('body').append(form)
@@ -258,6 +309,7 @@ var utilsController = {
 			});
 		});
 
+<<<<<<< HEAD
 		//Disable required field html client-side validation
 		$('.no-validate').on('click', function(){
 			$('form').prop('novalidate', true);
@@ -301,6 +353,9 @@ if (typeof Object.assign !== 'function') {
 	writable: true,
 	configurable: true
 	});
+=======
+	}
+>>>>>>> v8.5.0
 }
 
 var isDateSupported = function () {
