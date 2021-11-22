@@ -131,7 +131,6 @@ var utilsController = {
 			
 		});
 		
-		//if(!isIE11) {
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
@@ -190,7 +189,6 @@ var utilsController = {
 				});
 			}
 		});
-		//}
 
 		$('.link-as-post').off('click').on('click',function(e){
 			e.preventDefault();
