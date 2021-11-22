@@ -88,7 +88,7 @@ string selectionType = repeat.getSelectionType();
 					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getMetaData("target") + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
+					value = "<button type='button' id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='" + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getMetaData("target") + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
 					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
@@ -99,7 +99,7 @@ string selectionType = repeat.getSelectionType();
 							tooltipStr = " title='" + tooltip + "' aria-label='" + tooltip + "'";
 						}
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button type='button' id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='" + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
