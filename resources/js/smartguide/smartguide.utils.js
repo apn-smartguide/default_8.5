@@ -25,8 +25,6 @@ var utilsController = {
 		if (!context) {
 			context = sgRef.fm;
 		}
-
-		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 		
 		//Init Formatters
 		reformatAllFieldTypes();
