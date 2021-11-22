@@ -25,7 +25,6 @@ var utilsController = {
 		if (!context) {
 			context = sgRef.fm;
 		}
-
 		//Init Formatters
 		reformatAllFieldTypes();
 
