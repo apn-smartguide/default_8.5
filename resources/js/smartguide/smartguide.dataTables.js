@@ -335,9 +335,7 @@ var dataTablesController = {
 		});
 		
 		// Listen on datatable ajax call events
-		$('.dataTable').each(function() {
-
-			if($.fn.dataTable.isDataTable(this)){
+		$('.datatables').each(function() {
 			var input_filter_value;
 			var input_filter_timeout=null;
 
@@ -358,8 +356,7 @@ var dataTablesController = {
 				input_filter_timeout=setTimeout(function(){
 					table.search(input_filter_value).draw();
 				}, 800);
-			});	
-			}		
+			});			
 		});
 	}
 }
