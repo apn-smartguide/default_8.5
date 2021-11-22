@@ -26,18 +26,6 @@ var utilsController = {
 			context = sgRef.fm;
 		}
 		
-		if(!isDateSupported()) {
-			$("[type=date]").attr("type","text");
-		}
-
-<<<<<<< HEAD
-		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-		
-=======
-		//if(!isDateSupported()) {
-		//	$("[type=date]").attr("type","text");
-		//}
->>>>>>> v8.5.0
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -173,7 +161,6 @@ var utilsController = {
 			
 			//Requires Jquery.datepicker
 			if(typeof $this.datepicker !== 'undefined') {
-<<<<<<< HEAD
 				var dtOptions = {
 					format: format
 					,autoclose: true
@@ -201,24 +188,6 @@ var utilsController = {
 					e.preventDefault();
 					e.stopPropagation();
 				});
-=======
-			var dtOptions = {
-				format: format
-				,autoclose: true
-				,enableOnReadonly: !readonly
-				,language: currentLocale
-				,orientation: 'bottom auto'
-				,assumeNearbyYear: true // this is for 2-year dates; assumes by default margin of 20 years; see online docs
-			};
-			// Check extra options through data attributes
-			var minDate = $this.attr('data-mindate')
-			if (minDate) {
-				dtOptions.startDate = minDate;
-			}
-			var maxDate = $this.attr('data-maxdate')
-			if (maxDate) {
-				dtOptions.endDate = maxDate;
->>>>>>> v8.5.0
 			}
 		});
 		//}
@@ -236,23 +205,9 @@ var utilsController = {
 			$input.attr('type', 'hidden');
 			$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
 			
-<<<<<<< HEAD
 			if(this.target != "") {
 				form.target = this.target;
 			}
-=======
-			$this.datepicker(dtOptions).on("show", function(e){
-				//prevent conflict with crud modal
-				e.preventDefault();
-				e.stopPropagation();
-			}).on("hide", function(e){
-				//prevent conflict with crud modal
-				e.preventDefault();
-				e.stopPropagation();
-			});
-			}
-		});	
->>>>>>> v8.5.0
 
 			$(form).append($input);
 			$('body').append(form)
@@ -309,7 +264,6 @@ var utilsController = {
 			});
 		});
 
-<<<<<<< HEAD
 		//Disable required field html client-side validation
 		$('.no-validate').on('click', function(){
 			$('form').prop('novalidate', true);
@@ -353,9 +307,6 @@ if (typeof Object.assign !== 'function') {
 	writable: true,
 	configurable: true
 	});
-=======
-	}
->>>>>>> v8.5.0
 }
 
 var isDateSupported = function () {
