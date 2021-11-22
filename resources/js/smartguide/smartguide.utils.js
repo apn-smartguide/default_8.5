@@ -57,7 +57,12 @@ var utilsController = {
 		// https://github.com/RobinHerbots/Inputmask
 		$('input[data-mask]', context).each(function (index) {
 			var $this = $(this);
-			$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true });
+			var type = $this.prop('type');
+			if(type != "date") {
+				$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true });
+			} else {
+				$this.inputmask({ mask: $this.attr('data-mask'), jitMasking: true});
+			}
 		});
 
 		$('a[data-toggle="collapse"]').click(function () {
