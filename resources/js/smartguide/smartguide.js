@@ -526,7 +526,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
 									errorMessages += $('.label-danger', $container).text().trim();
-									if(errorMessages == '') {
+									if(errorMessages == '' || $field.hasClass('btn-cancel')) {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
