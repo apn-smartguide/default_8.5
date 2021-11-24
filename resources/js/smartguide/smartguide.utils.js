@@ -25,6 +25,13 @@ var utilsController = {
 		if (!context) {
 			context = sgRef.fm;
 		}
+		
+		if(!isDateSupported()) {
+			$("[type=date]").attr("type","text");
+		}
+
+		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+		
 		//Init Formatters
 		reformatAllFieldTypes();
 
@@ -63,31 +70,30 @@ var utilsController = {
 			});
 		});
 
-		// https://github.com/RobinHerbots/Inputmask
-		$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
-			var $this = $(this);
-			var type = $this.attr('type');
-
-			var dataMaskRaw = $this.attr('data-mask-raw');
-			if (typeof dataMaskRaw !== 'undefined') {
-				$this.inputmask(JSON.parse(dataMaskRaw));
-			} else {
-				var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
-				if(type == "date") {
-					options = { autoGroup: true, jitMasking: true };
-				}
-				var dataMask = $this.attr('data-mask');
-				if (typeof dataMask !== 'undefined') {
-					$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
-				}
-				var dataMaskOptions = $this.attr('data-mask-options');
-				if (typeof dataMaskOptions !== 'undefined') {
-					$.extend(options, JSON.parse(dataMaskOptions));
-				}			
+		//if(!isIE11) {
+			// Input masks
+			// https://github.com/RobinHerbots/Inputmask
+			$('input[data-mask], input[data-mask-options], input[data-mask-raw]', context).each(function (index) {
+				var $this = $(this);
 				
-				$this.inputmask(options);
-			}
-		});
+				var dataMaskRaw = $this.attr('data-mask-raw');
+				if (typeof dataMaskRaw !== 'undefined') {
+					$this.inputmask(JSON.parse(dataMaskRaw));
+				} else {
+					var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
+					var dataMask = $this.attr('data-mask');
+					if (typeof dataMask !== 'undefined') {
+						$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
+					}
+					var dataMaskOptions = $this.attr('data-mask-options');
+					if (typeof dataMaskOptions !== 'undefined') {
+						$.extend(options, JSON.parse(dataMaskOptions));
+					}			
+					
+					$this.inputmask(options);
+				}
+			});
+		//}
 
 		//For multi-level support
 		$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
@@ -118,12 +124,13 @@ var utilsController = {
 			}, 0);
 			
 		});
-
+		
+		//if(!isIE11) {
 		// Date widget initializations
 		$('input[type=date][data-apnformat],input[type=text][data-apnformat]', context).each(function(index) {
 			var $this = $(this);
 			// if type contains date then skip, as the browser will take care of data entry
-			var type = $this.attr('type');
+			var type = $this.prop('type');
 
 			//In case it's not SG control, but still participage to conditional visibility
 			if(typeof $this.attr("data-eventtarget") !== 'undefined') {
@@ -177,6 +184,7 @@ var utilsController = {
 				});
 			}
 		});
+		//}
 
 		$('.link-as-post').off('click').on('click',function(e){
 			e.preventDefault();

@@ -180,31 +180,6 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
-			$('.link-as-post').off('click').on('click',function(e){
-
-				e.preventDefault();
-				e.stopImmediatePropagation();
-
-				var form = document.createElement('form');
-				form.action = $(this).attr('href');
-				form.method = 'post';
-
-				var $input = $(document.createElement('input'));
-				$input.attr('name', 'com.alphinat.sgs.anticsrftoken');
-				$input.attr('type', 'hidden');
-				$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
-				
-				if(this.target != "") {
-					form.target = this.target;
-				}
-
-				$(form).append($input);
-				$('body').append(form)
-				form.submit();
-				$('body').remove(form);
-
-				return false;
-			});
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();
@@ -551,7 +526,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
 									errorMessages += $('.label-danger', $container).text().trim();
-									if(errorMessages == '') {
+									if(errorMessages == '' || $field.hasClass('btn-cancel')) {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
