@@ -526,7 +526,7 @@ $("form[id^='smartguide_']" ).each(function() {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
 									errorMessages += $('.label-danger', $container).text().trim();
-									if(errorMessages == '' || $field.hasClass('btn-cancel')) {
+									if(errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
@@ -832,7 +832,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 
 						//replace all alerts returned; page & modals
-						$('[id^=alerts]').each(function(){
+						$('[id^=alerts').each(function(){
 							var sourceAlertDiv = $('#'+CSS.escape(this.id), fm);
 							var targetAlertDiv = $('#'+CSS.escape(this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
