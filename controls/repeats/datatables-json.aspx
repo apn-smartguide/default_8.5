@@ -91,7 +91,20 @@ string selectionType = repeat.getSelectionType();
 					addtoresults = false;
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
-					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]'>"+label+"</button>";
+					//Treatment to retrieve the data event targets
+					string targetFieldIds = "";
+					ISmartletField[] targetFields = fields[j].getEventTarget();
+					foreach(ISmartletField targetField in targetFields) {
+						if(targetField != null) {
+							targetFieldIds += "\"" + targetField.getHtmlName() + "\",";
+						}
+					}
+					if(!string.IsNullOrEmpty(targetFieldIds)) {
+						//Remove last comma
+						targetFieldIds = targetFieldIds.Substring(0, targetFieldIds.Length-1);
+					}
+
+					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+label+"</button>";
 				} else if (fields[j].getTypeConst() == 80000) {
 					// hidden fields
 					if (unsafeMeta) { value = fields[j].getString(); }
