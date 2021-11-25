@@ -835,7 +835,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 
 						//replace all alerts returned; page & modals
-						$('[id^=alerts').each(function(){
+						$('[id^=alerts]').each(function(){
 							var sourceAlertDiv = $('#'+CSS.escape(this.id), fm);
 							var targetAlertDiv = $('#'+CSS.escape(this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
