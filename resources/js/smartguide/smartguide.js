@@ -794,12 +794,15 @@ $("form[id^='smartguide_']" ).each(function() {
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
 							if(targetArr.includes("form")) {
-								var responseTarget = $responseDiv;
-								responseTarget = responseTarget.clone();
-								$currentDiv.after(responseTarget).remove();
-								updated.push(responseTarget);
-							} 
-							else if(!targetArr.forEach(function(target) {
+								//rebuild targetArr with all the div_ and d_ smartguide controls.
+								targetArr = []; //empty the array.
+								$('[id^=div_d_], [id^=d_]').each(function(){
+									var sgControl = CSS.escape(this.id).replace("div_", "");
+									targetArr.push(sgControl);
+								});
+							}  
+							
+							if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
 									if(typeof target !== 'undefined' && target != "") {
 										target = CSS.escape(target);
