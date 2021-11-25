@@ -807,9 +807,11 @@ $("form[id^='smartguide_']" ).each(function() {
 									if(typeof target !== 'undefined' && target != "") {
 										target = CSS.escape(target);
 										var responseTarget = $('#div_'+target, $responseDiv);
+
 										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
 
 										responseTarget = responseTarget.clone();
+										
 										if (responseTarget.length > 0) {
 											var currentTarget = $('#div_'+target, $currentDiv);
 											if(currentTarget.length == 0) currentTarget = $('#'+target, $currentDiv);
