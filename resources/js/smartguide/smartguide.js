@@ -189,6 +189,32 @@ $("form[id^='smartguide_']" ).each(function() {
 				modal.modal('hide');
 			});
 
+			$('.link-as-post').off('click').on('click',function(e){
+
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				var form = document.createElement('form');
+				form.action = $(this).attr('href');
+				form.method = 'post';
+
+				var $input = $(document.createElement('input'));
+				$input.attr('name', 'com.alphinat.sgs.anticsrftoken');
+				$input.attr('type', 'hidden');
+				$input.attr('value', $("[name='com.alphinat.sgs.anticsrftoken']").val());
+				
+				if(this.target != "") {
+					form.target = this.target;
+				}
+
+				$(form).append($input);
+				$('body').append(form)
+				form.submit();
+				$('body').remove(form);
+
+				return false;
+			});
+
 			// bind events attached to fields
 			var updatedRepeatIds = [];
 			$("#alerts").hide();
@@ -782,19 +808,24 @@ $("form[id^='smartguide_']" ).each(function() {
 						var updated = [];
 						if(typeof targetArr !== 'undefined' && targetArr != null) {
 							if(targetArr.includes("form")) {
-								var responseTarget = $responseDiv;
-								responseTarget = responseTarget.clone();
-								$currentDiv.after(responseTarget).remove();
-								updated.push(responseTarget);
-							} 
-							else if(!targetArr.forEach(function(target) {
+								//rebuild targetArr with all the div_ and d_ smartguide controls.
+								targetArr = []; //empty the array.
+								$('[id^=div_d_], [id^=d_]').each(function(){
+									var sgControl = CSS.escape(this.id).replace("div_", "");
+									targetArr.push(sgControl);
+								});
+							}  
+
+							if(!targetArr.forEach(function(target) {
 								if (allowSelfRefresh || selfRefresh || target!=currentID) {
 									if(typeof target !== 'undefined' && target != "") {
 										target = CSS.escape(target);
 										var responseTarget = $('#div_'+target, $responseDiv);
+
 										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
 
 										responseTarget = responseTarget.clone();
+										
 										if (responseTarget.length > 0) {
 											var currentTarget = $('#div_'+target, $currentDiv);
 											if(currentTarget.length == 0) currentTarget = $('#'+target, $currentDiv);
@@ -820,7 +851,7 @@ $("form[id^='smartguide_']" ).each(function() {
 						}
 
 						//replace all alerts returned; page & modals
-						$('[id^=alerts').each(function(){
+						$('[id^=alerts]').each(function(){
 							var sourceAlertDiv = $('#'+CSS.escape(this.id), fm);
 							var targetAlertDiv = $('#'+CSS.escape(this.id), response);
 							$(sourceAlertDiv).after(targetAlertDiv).remove();
