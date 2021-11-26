@@ -30,7 +30,7 @@ function tts(context){
                 if ($player.parent().siblings("[type='radio'], [type='checkbox']").length > 0) {
                     suffix = "_option";
                     prefix = $player.parent().attr('data-index');
-                    if (prefix.length > 0) prefix = "." + prefix;
+                    if (typeof prefix != 'undefined' && prefix.length > 0) prefix = "." + prefix;
                     suffix = prefix + suffix;
                 }
                 $player.off("click").on("click", function () {
