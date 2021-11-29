@@ -156,21 +156,33 @@ $("form[id^='smartguide_']" ).each(function() {
 		}
 		, bindEvents : function(ajaxUpdates, rebindInitiator) {
 			var r = SMARTGUIDES[smartletCode];
-			// basic bindings for field event with dependencies to other fields
-			// textboxes, textarea and password
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('keyup paste', r.bindThisResetFocus).on('keyup paste', r.bindThisResetFocus);
-			$('input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 
-			// checkboxes and radio buttons
-			$('input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget]').each(function() { // check if we already have change event attached
-				var id = CSS.escape($(this).attr('name'));
-				if (typeof smartletfields[CSS.escape(id)] !== 'undefined' && $.isEmptyObject(smartletfields[id].events.onchange)) {
-					$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
+			// basic bindings for field with dependencies to other fields (and no actions defined)
+			$('select:has(option[data-eventtarget]),input[type=image][data-eventtarget],input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget],input[type=date][data-eventtarget],input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').each(function() { // check if we already have events attached
+				var id = $(this).attr('name');
+				var pos = id.indexOf('[');
+				if (pos > -1) {
+					id = id.substring(0, pos);
+				}
+				if (typeof smartletfields[CSS.escape(id)] !== 'undefined' && Object.keys(smartletfields[id].events).length == 0) {
+					if ($(this).is('textarea') || $(this).attr('type') === 'text' || $(this).attr('type') === 'password') {
+						$(this).off('keyup paste', r.bindThisResetFocus).on('keyup paste', r.bindThisResetFocus);
+						$(this).off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
+					}
+					if ($(this).attr('type') === 'date') {
+						$(this).off('blur',r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
+					}
+					if ($(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio') {
+						$(this).off('change',r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
+					}
+					if ($(this).attr('type') === 'image') {
+						$(this).off('click',r.bindThis).on('click', r.bindThis);
+					}
+					if ($(this).is('select')) {
+						$(this).off('change',r.bindThisOption).on('change', r.bindThisOption);
+					}
 				}
 			});
-
-			$('input[type=image][data-eventtarget]').off('click',r.bindThis).on('click', r.bindThis);
-			$('select:has(option[data-eventtarget])').off('change',r.bindThisOption).on('change', r.bindThisOption);
 			
 			$('.modal-close').off('click').on('click', function(e){
 				var modal = $(this).parent().parent().parent().parent();
