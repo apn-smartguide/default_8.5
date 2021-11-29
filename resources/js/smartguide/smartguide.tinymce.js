@@ -88,7 +88,7 @@ var tinymceController = {
 		//},10);
 	},
 
-	bindEvents : function($selector) {
+	bindEvents : function(sgRef, $selector, context) {
 		//find all object with this selector.
 		$selector.each(function(){
 			if(!$(this).attr('readonly')) {
