@@ -874,3 +874,9 @@ input.autocomplete::after {
 	font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif !important;
 	color: #666666;
 }
+
+.tinymce.inline {
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	padding: 10px;
+}

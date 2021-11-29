@@ -1180,7 +1180,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		.Replace("block-view","")
 		.Replace("datatables-view","")
 		.Replace("datatable-editable","")
-		.Replace("select-all","");
+		.Replace("select-all","")
+		.Replace("tinymce","");
 
 		return result;
 	}
