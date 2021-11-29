@@ -837,8 +837,33 @@ $("form[id^='smartguide_']" ).each(function() {
 												currentTarget.modal('hide'); //.show need to be handled in the callback.
 											}
 											
-											$(currentTarget).after(responseTarget).remove();
-											updated.push(responseTarget);
+											// we start partial swap by supporting type=text only
+											var isPartialSwapSupported = ($('input[type=text]', responseTarget).length > 0);
+											if (currentTarget.children().length != responseTarget.children().length || !isPartialSwapSupported) {
+												$(currentTarget).after(responseTarget).remove();
+												updated.push(responseTarget);
+											} else {
+												var currentChildrens = currentTarget.children();
+												var responseChildrens = responseTarget.children();
+												for(var i=0; i<responseChildrens.length; i++) {
+													var respChildren = $(responseChildrens[i]);
+													var currentChildren = $(currentChildrens[i]);
+													if (!respChildren.is('input') && !currentChildren.is('input')) {
+														currentChildren.after(respChildren).remove();
+													} else {
+														// swap attributes (value, class)
+														// check if read only or doesn't have focus
+														if (currentChildren.prop('readonly') || !currentChildren.is(":focus")) {
+															var respValue = respChildren.val();
+															currentChildren.val(respValue);
+														}
+														
+														var respClasses = respChildren.attr('class');
+														currentChildren.attr('class', respClasses);
+													}
+												}
+												updated.push(currentTarget);												
+											}
 										}
 									}
 									return true;
