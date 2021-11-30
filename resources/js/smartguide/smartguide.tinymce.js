@@ -58,9 +58,7 @@ var tinymceController = {
 		}
 	},
 
-	init: function(sgRef, currentLocale) {
-
-	},
+	init: function(sgRef, currentLocale) {},
 	
 	initWithObject: function(obj) {
 
@@ -83,9 +81,7 @@ var tinymceController = {
 
 	initWithSelector: function(selector) {
 		tinymceController.config.selector = selector;
-		//setTimeout(function () {
-			tinymce.init(tinymceController.config);
-		//},10);
+		tinymce.init(tinymceController.config);
 	},
 
 	bindEvents : function(sgRef, $selector, context) {
