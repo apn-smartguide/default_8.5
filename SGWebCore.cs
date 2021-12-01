@@ -137,6 +137,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["is-development"] = null;
 		Application["smartletLoggerSGWebCore"] = null;
 		Application["showEnumerationErrors"] = null;
+		Application["themes-locations"] = null;
 
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
