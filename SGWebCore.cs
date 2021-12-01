@@ -290,17 +290,17 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string Theme {
 		get {
-			//if(Context.Items["theme"] == null || ((string)Context.Items["theme"]).Equals("")) {
-			//	Context.Items["theme"] = sg.Smartlet.getTheme();
-			//}
-			//return (string)Context.Items["theme"];
-			return sg.Smartlet.getTheme();
+			if(Context.Items["theme"] == null || ((string)Context.Items["theme"]).Equals("")) {
+				Context.Items["theme"] = sg.Smartlet.getTheme();
+			}
+			return (string)Context.Items["theme"];
 		}
 	}
 
 	public string Workspace {
 		get {
 			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
+				ClearCaches();
 				Context.Items["workspace"] = Smartlet.getWorkspace();
 			} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
 				//We're changing workspace, clear the caches.
