@@ -290,10 +290,11 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string Theme {
 		get {
-			if(Context.Items["theme"] == null || ((string)Context.Items["theme"]).Equals("")) {
-				Context.Items["theme"] = sg.Smartlet.getTheme();
-			}
-			return (string)Context.Items["theme"];
+			//if(Context.Items["theme"] == null || ((string)Context.Items["theme"]).Equals("")) {
+			//	Context.Items["theme"] = sg.Smartlet.getTheme();
+			//}
+			//return (string)Context.Items["theme"];
+			return sg.Smartlet.getTheme();
 		}
 	}
 
@@ -454,7 +455,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public void ExecutePath(string path) {
 		string target = ResolvePath(path);
 		if(!target.Equals("")) {
-			Server.Execute(ResolvePath(path));
+			Server.Execute(target);
 		} else {
 			if(IsDevelopment) {
 				if (Logger != null) Logger.error(String.Concat("File not found: ", path));
