@@ -84,12 +84,17 @@ var tinymceController = {
 		tinymce.init(tinymceController.config);
 	},
 
-	bindEvents : function(sgRef, $selector, context) {
+	bindEvents : function(sgRef, selector, context) {
 		//find all object with this selector.
-		$selector.each(function(){
-			if(!$(this).attr('readonly')) {
-				tinymceController.initWithObject(this);
-			}
-		});
+		if (!selector.jquery){
+			selector = $(selector);
+		}
+		if(typeof selector !== 'undefined' || selector.length > 0) { 
+			selector.each(function(){
+				if(!$(this).attr('readonly')) {
+					tinymceController.initWithObject(this);
+				}
+			});
+		}
 	}
 }
