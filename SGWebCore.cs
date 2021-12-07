@@ -1183,6 +1183,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		.Replace("datatables-view","")
 		.Replace("datatable-editable","")
 		.Replace("select-all","")
+		.Replace("signature","")
 		.Replace("tinymce","");
 
 		return result;
