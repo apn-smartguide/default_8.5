@@ -314,6 +314,14 @@ table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.d
 	background-image: none !important;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+	background-color: #2572b4 !important;
+	border-color: #2572b4;
+	color: #fff !important; 
+	cursor: default;
+	z-index: 2;
+}
+
 div.repeat:not(.grid-view) table {
 	border-collapse: collapse !important;
 }
