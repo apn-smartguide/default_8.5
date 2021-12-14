@@ -363,9 +363,16 @@
 		// check render mode
 		string renderMode = getMetaDataValue("render-mode");
 		if (renderMode != null && renderMode.Equals("true")) {
+			//jOptions.Add("processing", true);
 			jOptions.Add("serverSide", true);
+			// jOptions.Add("deferRender", true);
 			// if server side, must add the ajaxSource
-			jOptions.Add("ajaxSource",  ResolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
+			//JObject ajax = new JObject();
+			//ajax.Add("url", ResolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
+			// ajax.Add("type", "POST");
+			//ajax.Add("datatype", "json");
+			//jOptions.Add("ajax", ajax);
+			jOptions.Add("ajaxSource", ResolvePath("/controls/repeats/datatables-json.aspx") + "?appID=" + sg.Smartlet.getCode() + "&tableName=" + control.Current.getCode());
 		}
 		return jOptions;
 	}
@@ -585,6 +592,7 @@
 			JObject jOptions = new JObject();
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
+			jOptions.Add("paging", true);
 			jOptions.Add("autoWidth", true);
 
 			if(control.Current.getCSSClass().Contains("responsive")){
@@ -593,7 +601,6 @@
 			if(control.Current.getCSSClass().Contains("scrollX")){
 				jOptions.Add("scrollX", true);
 			}
-			jOptions.Add("deferRender", true);
 
 			if (!string.IsNullOrEmpty(initialSearch)){
 				jOptions.Add(new JProperty(

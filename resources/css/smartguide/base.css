@@ -322,6 +322,11 @@ table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.d
 	z-index: 2;
 }
 
+th.btn-link {
+	text-decoration: none;
+	color: revert;
+}
+
 div.repeat:not(.grid-view) table {
 	border-collapse: collapse !important;
 }
@@ -459,6 +464,7 @@ table.uploads-render tr td {
 
 .btn-link {
 	text-align: left;
+	cursor: pointer;
 }
 
 .btn-breadcrumb {

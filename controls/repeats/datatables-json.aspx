@@ -18,9 +18,14 @@ string selectStyle = repeat.getMetaData("select-style");
 string primaryKeyFieldName = repeat.getMetaData("id");
 bool isSelectable = repeat.isSelectable();
 string selectionType = repeat.getSelectionType();
+string draw = "1";
+if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
+	draw = Request["sEcho"];
+}
+
 %>
 {
-	"draw": <%=Request["sEcho"]%>,
+	"draw": <%=draw%>,
 	"recordsTotal": <%=repeat.getTotal()%>,
 	"recordsFiltered": <%=repeat.getTotal()%>,
 	"data": [
@@ -104,7 +109,7 @@ string selectionType = repeat.getSelectionType();
 						targetFieldIds = targetFieldIds.Substring(0, targetFieldIds.Length-1);
 					}
 
-					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+label+ fields[j].getNonLocalizedMetaData("label-suffix") +"</button>";
+					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>" + label + fields[j].getNonLocalizedMetaData("label-suffix") + "</button>";
 				} else if (fields[j].getTypeConst() == 80000) {
 					// hidden fields
 					if (unsafeMeta) { value = fields[j].getString(); }

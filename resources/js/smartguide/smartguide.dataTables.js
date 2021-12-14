@@ -5,12 +5,14 @@ var dataTablesController = {
 	},
 	preDTAjaxCall: function(e) {
 		dataTablesController.ajax_counter++;
-		$(this).spinner({disabled : true});
+		$('#loader').fadeIn("fast");
+		$(this).fadeTo("slow", 0.33);
 	}, 
 	postDTAjaxCall: function(e) {
 		dataTablesController.ajax_counter--;
 		if (dataTablesController.ajax_counter == 0) {
-			$(this).spinner({disabled : false});
+			$(this).fadeTo("slow", 1);
+			$('#loader').fadeOut("fast");
 		}
 	},
 	bindEvents : function(sgRef, context) {
