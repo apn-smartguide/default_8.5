@@ -340,7 +340,6 @@ var dataTablesController = {
 		$('.datatables').each(function() {
 			var input_filter_value;
 			var input_filter_timeout=null;
-
 			var table = $(this).DataTable();
 			// check if we are server side, if not exit
 			if (table.ajax.url() == null) return;
@@ -351,12 +350,11 @@ var dataTablesController = {
 			var search_input = $('.dataTables_filter input', $(this).closest('.dataTables_wrapper'));
 			search_input.unbind();
 			search_input.keyup( function (e) {
-				var table = $('table', $(this).closest('.dataTables_wrapper')).DataTable();
-				$('table', $(this).closest('.dataTables_wrapper')).spinner({disabled : true});
+				var searchtable = $('table', $(this).closest('.dataTables_wrapper')).DataTable();
 				input_filter_value=this.value;
 				clearTimeout(input_filter_timeout);
 				input_filter_timeout=setTimeout(function(){
-					table.search(input_filter_value).draw();
+					searchtable.search(input_filter_value).draw();
 				}, 800);
 			});			
 		});
