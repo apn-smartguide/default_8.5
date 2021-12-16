@@ -528,6 +528,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		} else {
 			Logger.debug("<<<< SGWebCore:IsLogged: Cleared [userid, roles] >>>>");
 			Session["userid"] = "";
+			Session["username"] = "";
+			Session["fullname"] = "";
 			Session["roles"] = "";
 			return false;
 		}
@@ -551,6 +553,12 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string Username { 
 		get {
 			return (Session["username"] != null) ? (string) Session["username"] : "";
+		}
+	}
+
+	public string Fullname { 
+		get {
+			return (Session["fullname"] != null) ? (string) Session["fullname"] : "";
 		}
 	}
 
