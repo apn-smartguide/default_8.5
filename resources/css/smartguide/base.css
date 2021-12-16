@@ -51,12 +51,21 @@ textarea.autoexpand {
 	width: 100%;
 }
 
+.form-control.inline {
+	display: inline !important;
+	width: auto !important;
+}
+
 .form-check-label {
 	font-weight: normal;
 }
 
 .has-feedback .form-control {
 	padding-right: 10px;
+}
+
+div.inline {
+	display: inline-block;
 }
 
 /* Sticky Footer */
@@ -883,8 +892,8 @@ input.autocomplete::after {
 	color: #666666;
 }
 
-.tinymce.inline {
-	border: 1px solid #cccccc;
+.tinymce.inline-mode {
+	border: 1px solid #cecece;
 	border-radius: 3px;
 	padding: 10px;
 }

@@ -1189,10 +1189,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		return result;
 	}
 
-	public SessionField GetProxyButton(string key, ref string eventTargets) {
-		SessionField btn = (SessionField)FindFieldByName(key);
-		if(btn != null) {
-			ISmartletField[] targets = btn.getEventTarget();
+	public SessionField GetProxyControl(string key, ref string eventTargets) { 
+		SessionField ctrl = (SessionField)FindFieldByName(key);
+		if(ctrl != null) {
+			ISmartletField[] targets = ctrl.getEventTarget();
 			if(targets != null) {
 				foreach(ISmartletField targetField in targets) {
 					if(targetField != null) {
@@ -1201,31 +1201,39 @@ public partial class SGWebCore : System.Web.UI.Page
 				}
 			}
 		}
-		return btn;
+		return ctrl;
+	}
+
+	public SessionField GetProxyButton(string key, ref string eventTargets) {
+		return GetProxyControl(key, ref eventTargets);
+	}
+
+	public SessionField GetProxyControl(string key, int repeatIndex, ref string eventTargets) {
+		SessionField ctrl = null;
+
+		if(repeatIndex > -1) {
+			ctrl = (SessionField)FindFieldByNameUnderRepeat(key, repeatIndex);
+		} else {
+			ctrl = (SessionField)FindFieldByName(key);
+		}
+		if(ctrl != null) {
+			ISmartletField[] targets = ctrl.getEventTarget();
+			if(targets != null) {
+				foreach(ISmartletField targetField in targets) {
+					if(targetField != null) {
+						eventTargets += "\"" + targetField.getHtmlName() + "\",";
+					}
+				}
+			}
+		}
+		return ctrl;
 	}
 
 	public SessionField GetProxyButton(string key, int repeatIndex, ref string eventTargets) {
-		SessionField btn = null;
-
-		if(repeatIndex > -1) {
-			btn = (SessionField)FindFieldByNameUnderRepeat(key, repeatIndex);
-		} else {
-			btn = (SessionField)FindFieldByName(key);
-		}
-		if(btn != null) {
-			ISmartletField[] targets = btn.getEventTarget();
-			if(targets != null) {
-				foreach(ISmartletField targetField in targets) {
-					if(targetField != null) {
-						eventTargets += "\"" + targetField.getHtmlName() + "\",";
-					}
-				}
-			}
-		}
-		return btn;
+		return GetProxyButton(key, repeatIndex, ref eventTargets);
 	}
 
-public long GetSortableDate(ControlInfo ctrl) {
+	public long GetSortableDate(ControlInfo ctrl) {
 
 		long staticvalue = 0;
 		DateTime dt;
