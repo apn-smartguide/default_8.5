@@ -545,6 +545,7 @@ $("form[id^='smartguide_']" ).each(function() {
 										var handler = r._createEventHandler(clientEvent);
 										$field.data('_smartlet', smartlet).on(jqEvent, handler);
 										$field.triggerHandler(jqEvent);
+										r._bindModalFieldEvent($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax);
 									}
 								}, 0);
 							},
@@ -819,13 +820,16 @@ $("form[id^='smartguide_']" ).each(function() {
 									if(typeof target !== 'undefined' && target != "") {
 										target = CSS.escape(target);
 										var responseTarget = $('#div_'+target, $responseDiv);
+										var currentTarget = $('#div_'+target, $currentDiv);
+
+										var neverRefreshFlag = currentTarget.hasClass("never-refresh");
+										if(neverRefreshFlag) return;
 
 										if(responseTarget.length == 0) responseTarget = $('#'+target, $responseDiv);
-
 										responseTarget = responseTarget.clone();
 										
 										if (responseTarget.length > 0) {
-											var currentTarget = $('#div_'+target, $currentDiv);
+											
 											if(currentTarget.length == 0) currentTarget = $('#'+target, $currentDiv);
 											//Check to see if we're using a crud-modal, is so, need to hide it.
 											//Display happens at the event handler level (ie. save_...)
