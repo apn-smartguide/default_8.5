@@ -23,6 +23,7 @@
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["is-wb-tables"] = CSSClass.Contains("wb-tables");
+	Context.Items["never-refresh"] = control.Current.getCSSClass().Contains("never-refresh");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 
 	Context.Items["limit"] = "";
@@ -34,7 +35,7 @@
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='repeat panel panel-default <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='repeat panel panel-default <% if ((bool)Context.Items["never-refresh"]) { %>never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
