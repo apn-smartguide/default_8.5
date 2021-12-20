@@ -88,6 +88,21 @@
 		<div id='div_<apn:name runat="server"/>_body' class='panel-collapse collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
 	<div class='panel-body'>
+		<apn:control runat="server" type="default-instance" id="filters">
+			<apn:forEach runat="server" id="thFilterRow">
+				<apn:forEach runat="server" id="thFilterCol">
+					<apn:forEach runat="server" id="thFilterField">
+						<%
+						if(thFilterField.Current.getCSSClass().Contains("filters")) {
+							Context.Items["render-proxy"] = true;
+							ExecutePath("/controls/control.aspx");
+							Context.Items["render-proxy"] = false;
+						}
+						%>
+					</apn:forEach>
+				</apn:forEach>
+			</apn:forEach>	
+		</apn:control>
 		<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%><% if (!(bool)Context.Items["is-wb-tables"]) { %> = <%=getDatatablesInitOptions()%>;<% } else { %> = '';<% } %></script>
 		<table class='<% = GetCleanCSSClass(control.Current) %>' style='<apn:cssStyle runat="server" />; width:100%;' <%=Context.Items["limit"]%> <apn:metadata runat="server" match="data-*" /> <% if ((bool)Context.Items["is-wb-tables"]) { %> data-wb-tables='<%=getDatatablesInitOptions()%>'<% } %>>
 			<apn:control runat="server" type="default-instance" id="headerGroup">
@@ -106,7 +121,7 @@
 										<apn:WhenControl type="GROUP" runat="server">
 											<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label") && !thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 												<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' class='<%=GetCleanCSSClass(thRowField.Current)%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thRowField.Current)%></th>
-											<% } else { %>
+											<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
 												<td <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' data-sortable="false"></td>
 											<% } %>
 										</apn:WhenControl>
@@ -118,7 +133,7 @@
 												<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
 													<td data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 												<% } %>
-											<% } else { %>
+											<% } else if (!thRowField.Current.getCSSClass().Contains("proxy")){ %>
 												<td data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 											<% } %>
 										</apn:Otherwise>
@@ -128,7 +143,7 @@
 							<apn:WhenControl type="GROUP" runat="server">
 								<% if(!thField.Current.getCSSClass().Contains("hide-column-label") && !thField.Current.getAttribute("style").Contains("visibility:hidden") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' class='<%=GetCleanCSSClass(thField.Current)%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thField.Current)%></th>
-								<% } else { %>
+								<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
 									<td <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
@@ -141,7 +156,7 @@
 									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
 										<td data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 									<% } %>
-								<% } else { %>
+									<% } else if (!thField.Current.getCSSClass().Contains("proxy")){ %>
 									<td data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
@@ -595,6 +610,9 @@
 			jOptions.Add("paging", true);
 			jOptions.Add("autoWidth", true);
 
+			if(control.Current.getCSSClass().Contains("hide-search")){
+				jOptions.Add("searching", false);
+			}
 			if(control.Current.getCSSClass().Contains("responsive")){
 				jOptions.Add("responsive", true);
 			}
