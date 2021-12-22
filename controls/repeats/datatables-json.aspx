@@ -122,8 +122,22 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 						if(!tooltip.Equals("")) {
 							tooltipStr = " title='" + tooltip + "' aria-label='" + tooltip + "'";
 						}
+
+						string targetFieldIds = "";
+						ISmartletField[] targetFields = grpFields[k].getEventTarget();
+						foreach(ISmartletField targetField in targetFields) {
+							if(targetField != null) {
+								targetFieldIds += "\"" + targetField.getHtmlName() + "\",";
+							}
+						}
+						if(!string.IsNullOrEmpty(targetFieldIds)) {
+							//Remove last comma
+							targetFieldIds = targetFieldIds.Substring(0, targetFieldIds.Length-1);
+						}
+	
+
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]'>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+grpFields[k].getLabel()+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}

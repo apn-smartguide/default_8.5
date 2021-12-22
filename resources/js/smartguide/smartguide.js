@@ -830,7 +830,9 @@ $("form[id^='smartguide_']" ).each(function() {
 										
 										if (responseTarget.length > 0) {
 											
+											if(currentTarget.length == 0) currentTarget = $('#modal_'+target, $currentDiv);
 											if(currentTarget.length == 0) currentTarget = $('#'+target, $currentDiv);
+
 											//Check to see if we're using a crud-modal, is so, need to hide it.
 											//Display happens at the event handler level (ie. save_...)
 											if($('.crud-modal', responseTarget).length > 0) {
@@ -866,7 +868,7 @@ $("form[id^='smartguide_']" ).each(function() {
 														currentChildren.attr('class', respClasses);
 													}
 												}
-												updated.push(currentTarget);												
+												updated.push(currentTarget);
 											}
 										}
 									}
