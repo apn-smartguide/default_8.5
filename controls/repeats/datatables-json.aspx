@@ -5,7 +5,13 @@
 <%-- https://datatables.net/manual/index --%>
 <%
 smartlet.SmartletID = Request["appID"];
+
+//This is required for multiple-table scenario in same page.
+//You need to add a field on the page that will contain the name of the current table being processed, and it's value set via a "OnFieldRender" action updatedTableName = requestParameter("tableName")
+//Then you need to add a condition on the service call that populates each table to verifiy that it's actually our table that being processed.
+//i.e. requestParameter("tableName") == our tableName
 string tableName = Request["tableName"];
+
 %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" runat="server" ProcessingEvent="Render" visible="true" />
 <apn:api5 id="sg5" runat="server" />
