@@ -126,7 +126,7 @@
 												<td <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' data-sortable="false"></td>
 											<% } %>
 										</apn:WhenControl>
-										<apn:WhenControl type="TRIGGER" runat="server"><% if(!thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %><td data-code='<%=thRowField.Current.getCode()%>'><%= GetLabel(thRowField.Current) %></td><% } %></apn:WhenControl>
+										<apn:WhenControl type="TRIGGER" runat="server"><% if(!thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %><td data-code='<%=thRowField.Current.getCode()%>'><% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) GetLabel(thRowField.Current); %></td><% } %></apn:WhenControl>
 										<apn:Otherwise runat="server">
 											<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 												<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>

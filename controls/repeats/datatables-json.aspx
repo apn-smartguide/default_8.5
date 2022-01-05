@@ -86,6 +86,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 			for(int j=0;j<fields.Length;j++) {
 				string fieldid = fields[j].getId();
 				string label = fields[j].getLabel();
+				string ctlValue = fields[j].getString();
 				string value = "";
 				string tooltip = JavascriptEncode(fields[j].getTooltip());
 				bool unsafeMeta = !String.IsNullOrEmpty(fields[j].getNonLocalizedMetaData("unsafe"));
@@ -98,7 +99,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 				
 				fields[j].calculateAvailability();
 				if (!fields[j].isAvailable() || fields[j].getCSSClass().Contains("proxy") ) {
-					value = ""; //"<span id='d_"+fieldid+"["+id+"]'></span>";
+					value = "";
 					addtoresults = false;
 				} else if (fields[j].getTypeConst() == 190000) {
 					// special case for buttons
@@ -113,6 +114,10 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 					if(!string.IsNullOrEmpty(targetFieldIds)) {
 						//Remove last comma
 						targetFieldIds = targetFieldIds.Substring(0, targetFieldIds.Length-1);
+					}
+					
+					if(fields[j].getCSSClass().Contains("btn-link") && !ctlValue.Equals("")) {
+						label = ctlValue;
 					}
 
 					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>" + label + fields[j].getNonLocalizedMetaData("label-suffix") + "</button>";
@@ -140,10 +145,14 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 							//Remove last comma
 							targetFieldIds = targetFieldIds.Substring(0, targetFieldIds.Length-1);
 						}
-	
+						string ctrlLabel = grpFields[k].getLabel();
+						string ctrlValue = grpFields[k].getString();
+						if(grpFields[k].getCSSClass().Contains("btn-link") && !ctrlValue.Equals("")) {
+							ctrlLabel = ctrlValue;
+						}
 
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+grpFields[k].getLabel()+"</button>";
+							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+ctrlLabel+"</button>";
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
