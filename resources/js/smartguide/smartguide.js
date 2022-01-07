@@ -228,15 +228,10 @@ $("form[id^='smartguide_']" ).each(function() {
 							var updated = false;
 							
 							if(field.isUnderRepeat) {
-								var rptId = field.repeatId;
-								var numberOfGroups = smartletfields[rptId].numberOfGroups;
-								for(var i=0;i<numberOfGroups;i++) {
-									$field = r._getJQField(fieldType, key + "[" + (i+1) + "]");
-									for (var j=0; j < ajaxUpdates.length; j++){
-										if ($(ajaxUpdates[j]).is($field[0]) || $.contains(ajaxUpdates[j][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
-											updated = true;
-											break;
-										}
+								for (var j=0; j < ajaxUpdates.length; j++){
+									if ($(ajaxUpdates[j]).is($field[0]) || $.contains(ajaxUpdates[j][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
+										updated = true;
+										break;
 									}
 								}
 							} else {
@@ -265,18 +260,14 @@ $("form[id^='smartguide_']" ).each(function() {
 							// check if we are under repeat, in which case we must bind each instance of that field
 							if (field.isUnderRepeat) {
 								// get number of instances to bind
-								var rptId = field.repeatId;
-								var numberOfGroups = smartletfields[rptId].numberOfGroups;
-
-								for(var i=0;i<numberOfGroups;i++) {
-									var fieldHtmlName = key + "[" + (i+1) + "]";
-									var jqField = r._getJQField(fieldType, fieldHtmlName);
-									if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf('btn-modal') < 0) {
-										r._bindFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
-									} else {
-										r._bindModalFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
-									}
+								var fieldHtmlName = $field.attr("id");
+								var jqField = $field;
+								if(jqField != null && jqField.attr('class') != null && jqField.attr('class').indexOf('btn-modal') < 0) {
+									r._bindFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
+								} else {
+									r._bindModalFieldEvent(jqField, field, fieldType, fieldHtmlName, event, events[event].server, events[event].client, events[event]['isAjax']);
 								}
+
 							} else if($field.is(":visible") || (fieldType === 'button' && isSmartGuideField) || isInModal) {
 								if($field.attr('class') == null || ($field.attr('class') != null && $field.attr('class').indexOf('btn-modal') < 0)) {
 									r._bindFieldEvent($field, field, fieldType, key, event, events[event].server, events[event].client, events[event]['isAjax']);
@@ -475,8 +466,7 @@ $("form[id^='smartguide_']" ).each(function() {
 					$field = $('[id'+sub+'='+fieldHtmlName+']', r.fm);
 				}
 			}
-			if (isSubstringSelector && $field.length > 0)
-				return $field.first();
+
 			return $field;
 		}
 		, _bindModalFieldEvent : function($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax){
@@ -485,8 +475,6 @@ $("form[id^='smartguide_']" ).each(function() {
 			if (jqEvent.indexOf("on") == 0) {
 				jqEvent = jqEvent.substring(2);
 			}
-			
-			//var $field = r._getJQField(fieldType, fieldHtmlName);
 			
 			// check if we need to bind the div_ of a repeat or group field
 			if (fieldType == 'repeat') {
@@ -576,8 +564,6 @@ $("form[id^='smartguide_']" ).each(function() {
 			if (jqEvent.indexOf("on") == 0) {
 				jqEvent = jqEvent.substring(2);
 			}
-			
-			//var $field = r._getJQField(fieldType, fieldHtmlName);
 			
 			// check if we need to bind the div_ of a repeat or group field
 			if (fieldType == 'repeat') {

@@ -7,12 +7,14 @@ var dataTablesController = {
 		dataTablesController.ajax_counter++;
 		$('#loader').fadeIn("fast");
 		$(this).fadeTo("slow", 0.33);
+		//console.log("preDTAjaxCall");
 	}, 
 	postDTAjaxCall: function(e) {
 		dataTablesController.ajax_counter--;
 		if (dataTablesController.ajax_counter == 0) {
 			$(this).fadeTo("slow", 1);
 			$('#loader').fadeOut("fast");
+			//console.log("postDTAjaxCall")
 		}
 	},
 
@@ -346,6 +348,8 @@ var dataTablesController = {
 			var table = $(this).DataTable();
 			// check if we are server side, if not exit
 			if (table.ajax.url() == null) return;
+
+			console.log("datatable main process");
 
 			table.off('preXhr.dt', dataTablesController.preDTAjaxCall).on('preXhr.dt', dataTablesController.preDTAjaxCall);
 			table.off('xhr.dt', dataTablesController.postDTAjaxCall).on('xhr.dt', dataTablesController.postDTAjaxCall);
