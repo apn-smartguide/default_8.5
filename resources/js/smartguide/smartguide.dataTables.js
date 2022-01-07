@@ -15,7 +15,8 @@ var dataTablesController = {
 			$('#loader').fadeOut("fast");
 		}
 	},
-	bindEvents : function(sgRef, context) {
+
+	bindEvents : function(sgRef, context, rebindInitiator) {
 		var $form = sgRef.fm;
 
 		$('div.repeat table:not(.wb-tables)').each(function(index, elmt) {
@@ -237,7 +238,9 @@ var dataTablesController = {
 					}
 				}
 			}
-			sgRef.bindEvents([$(this)]);
+			if(rebindInitiator != "dataTablesController") {
+				sgRef.bindEvents([$(this)], "dataTablesController");
+			}
 		});
 
 		$('[name=select_all]', 'table:not(.wb-tables).table thead tr th').first().off('click').on('click', function(){
@@ -346,6 +349,14 @@ var dataTablesController = {
 
 			table.off('preXhr.dt', dataTablesController.preDTAjaxCall).on('preXhr.dt', dataTablesController.preDTAjaxCall);
 			table.off('xhr.dt', dataTablesController.postDTAjaxCall).on('xhr.dt', dataTablesController.postDTAjaxCall);
+
+			// var id = $(this).parents(".repeat").attr("id");
+			// if(typeof id !== 'undefined' && rebindInitiator != "dataTablesController") {
+			// 	console.log("bindEvents:datatables (ajax loaded) " + id);
+			// 	setTimeout(function() {
+			// 		sgRef.bindEvents([$("#"+id)], "dataTablesController");
+			// 	},500);
+			// }
 
 			var search_input = $('.dataTables_filter input', $(this).closest('.dataTables_wrapper'));
 			search_input.unbind();
