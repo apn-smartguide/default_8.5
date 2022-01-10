@@ -568,7 +568,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
-	//Roles are retreive and set on ther Session in the /smartprofile/dashboard smartlet, welcome page, actions
+	//Roles are retreive and set on the Session for ex.: in the /smartprofile/dashboard smartlet, welcome page, actions
 	public string UserRoles {
 		get {
 			string result = "";
