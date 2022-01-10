@@ -1,17 +1,22 @@
 var dataTablesController = {
+	ajax_targets: [],
 	ajax_counter: 0,
 	init: function(sgRef) {
 		sgRef.dataTableInstances = {};
 	},
 	preDTAjaxCall: function(e) {
 		dataTablesController.ajax_counter++;
+		dataTablesController.ajax_targets.push(e.target.id);
 		$('#loader').fadeIn("fast");
 		$(this).fadeTo("slow", 0.33);
 		//console.log("preDTAjaxCall");
 	}, 
 	postDTAjaxCall: function(e) {
 		dataTablesController.ajax_counter--;
-		if (dataTablesController.ajax_counter == 0) {
+		if (dataTablesController.ajax_targets.indexOf(e.target.id) > -1) {
+			dataTablesController.ajax_targets = dataTablesController.ajax_targets.filter(function(item) {
+				return item !== e.target.id;
+			});
 			$(this).fadeTo("slow", 1);
 			$('#loader').fadeOut("fast");
 			//console.log("postDTAjaxCall")
