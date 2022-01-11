@@ -159,8 +159,10 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 					}
 					grpValue += "</span></div>";
 					value = grpValue;
+				} else if (fields[j].getTypeConst() == DotnetConstants.ElementType.UPLOAD) {
+					value = "<input type='file' class='form-control' name='d_"+fieldid+"["+id+"]' id='d_"+fieldid+"["+id+"]' style='"+ fields[j].getCSSStyle() +"'/>";
 				} else {
-					value = value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
+				    value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
 				}
 				// escape sensitive chars
 				value = HttpUtility.JavaScriptStringEncode(value);
