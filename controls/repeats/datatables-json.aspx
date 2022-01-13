@@ -95,6 +95,8 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 				string tooltipStr = "";
 				if(!tooltip.Equals("")) {
 					tooltipStr = " title='" + tooltip + "' aria-label='" + tooltip + "'";
+				} else {
+					tooltipStr = "";
 				}
 				
 				fields[j].calculateAvailability();
@@ -132,6 +134,8 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 						tooltip = JavascriptEncode(grpFields[k].getTooltip());
 						if(!tooltip.Equals("")) {
 							tooltipStr = " title='" + tooltip + "' aria-label='" + tooltip + "'";
+						} else {
+							tooltipStr = "";
 						}
 
 						string targetFieldIds = "";
