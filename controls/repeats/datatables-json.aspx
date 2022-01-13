@@ -1,5 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
+<%@ Import Namespace="com.alphinat.sg5.widget.upload" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <%-- https://datatables.net/manual/index --%>
@@ -164,7 +165,12 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 					grpValue += "</span></div>";
 					value = grpValue;
 				} else if (fields[j].getTypeConst() == DotnetConstants.ElementType.UPLOAD) {
-					value = "<input type='file' class='form-control' name='d_"+fieldid+"["+id+"]' id='d_"+fieldid+"["+id+"]' style='"+ fields[j].getCSSStyle() +"'/>";
+					if(string.IsNullOrEmpty(fields[j].getString())) {
+						value = "<input type='file' class='form-control' name='d_"+fieldid+"["+id+"]' id='d_"+fieldid+"["+id+"]' style='"+ fields[j].getCSSStyle() +"'/>";
+					} else {
+						ISmartletUpload upload = (ISmartletUpload)fields[j];
+						value = "<div><a target='_blank' href='upload/do.aspx/" + upload.getFileName() + "?id=d_" + fieldid+"["+id+"]&interviewID=" + sg5.Smartlet.getCode() + "'>" + upload.getFileName() + "</a></div>";
+					}
 				} else {
 				    value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
 				}
