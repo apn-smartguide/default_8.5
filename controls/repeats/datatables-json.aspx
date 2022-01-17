@@ -157,7 +157,16 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 						}
 
 						if(grpFields[k].isAvailable()) {
-							grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+ctrlLabel+"</button>";
+							if(grpFields[k].getTypeConst() == DotnetConstants.ElementType.UPLOAD) {
+								if(string.IsNullOrEmpty(grpFields[k].getString())) {
+									grpValue = grpValue + "<input type='file' class='form-control' name='d_"+grpFields[k].getId()+"["+id+"]' id='d_"+grpFields[k].getId()+"["+id+"]' style='"+ grpFields[k].getCSSStyle() +"'/>";
+								} else {
+									ISmartletUpload upload = (ISmartletUpload)grpFields[k];
+									grpValue = grpValue + "<div><a target='_blank' href='upload/do.aspx/" + upload.getFileName() + "?id=d_" + grpFields[k].getId()+"["+id+"]&interviewID=" + sg5.Smartlet.getCode() + "'>" + upload.getFileName() + "</a></div>";
+								}
+							} else {
+								grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+ctrlLabel+"</button>";
+							}
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
