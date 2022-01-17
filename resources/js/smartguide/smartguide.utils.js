@@ -262,7 +262,7 @@ var utilsController = {
 		});
 
 		if (typeof tts === 'function'){
-			tts(context)
+			tts();
 		}
 	}
 }

@@ -1019,6 +1019,13 @@ public partial class SGWebCore : System.Web.UI.Page
 		return sb.ToString();
 	}
 
+	//TTS & STT PageLevel Features
+	public bool TTSEnabled {
+		get {
+			return CurrentPageCSS.Contains("tts");
+		}
+	}
+	
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) {
 		bool result = false;
