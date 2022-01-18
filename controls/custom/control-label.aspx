@@ -4,16 +4,10 @@
 	<apn:ifcontrolrequired runat="server"><span class="required"  data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span></apn:ifcontrolrequired>
 	<% if(!control.Current.getLabel().Equals("")) { %>
 	<apn:ifnotcontrolattribute attr="tooltip" runat="server">
-		<span class='field-name <apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> <apn:cssclass runat="server"/> <% if (TTSEnabled) { %>tts tts-play<% } %>'><%=Context.Items["label"] + GetMetaDataValue(control.Current, "label-suffix") %></span>
-		<% if (TTSEnabled) { %>
-			<span style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span>
-		<% } %>
+		<span class='field-name <apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> <apn:cssclass runat="server"/>'><%=Context.Items["label"] + GetMetaDataValue(control.Current, "label-suffix") %></span>
 	</apn:ifnotcontrolattribute>
 	<apn:ifcontrolattribute attr="tooltip" runat="server">
-		<span class='field-name <apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> <apn:cssclass runat="server"/> <% if (TTSEnabled) { %>tts tts-play<% } %>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"] + GetMetaDataValue(control.Current, "label-suffix")%></span>
-		<% if (TTSEnabled) { %>
-			<span style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span>
-		<% } %>
+		<span class='field-name <apn:ifnotcontrolvalid runat="server"></span>has-error</apn:ifnotcontrolvalid> <apn:cssclass runat="server"/>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"] + GetMetaDataValue(control.Current, "label-suffix")%></span>
 	</apn:ifcontrolattribute>
 	<% } %>
 	<% ExecutePath("/controls/help.aspx"); %>

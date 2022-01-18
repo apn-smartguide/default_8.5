@@ -4,6 +4,23 @@
 // If we can't find the SG identifier, we'll silently log it.
 function tts(){
 	console.log("tts enabled")
+	$("[data-tts]").each(function(){
+		var ttsId = $(this).attr("data-tts");
+		$(this).off('hover').hover(function() {
+			$("#tts_" + ttsId).attr("style", 'display:content;');
+		},function(){
+			$("#tts_" + ttsId).attr("style", 'display:none;');
+		});
+		$(this).off("click").on("click", function () {
+			var audio = new Audio();
+			var source = "./resources/do.aspx?file=" + smartletName + "/" + currentLocale + "/" + ttsId + ".wav";
+			audio.src = source;
+			audio.load();
+			audio.onloadeddata = function() {
+				audio.play();
+			};
+		});
+	});
 	$(".tts").each(function () {
 		var fieldId = "";
 		//1st check if we are on a SG Field directly.
