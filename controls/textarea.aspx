@@ -13,7 +13,7 @@
 		<p><apn:value runat="server"/></p>
 	<% } else { %>
 		<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
-		<div id='div_<apn:name runat="server"/>' data-name='<%=control.Current.getCode()%>' class='<%=Context.Items["no-col-layout"]%> form-group <%=GetCleanCSSClass(control) %> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (TTSEnabled) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" --> ><% ExecutePath("/controls/label.aspx"); %><apn:controlattribute runat="server" attr="prefix"/>
+		<div id='div_<apn:name runat="server"/>' data-name='<%=control.Current.getCode()%>' class='<%=Context.Items["no-col-layout"]%> form-group <%=GetCleanCSSClass(control) %> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> ><% ExecutePath("/controls/label.aspx"); %><apn:controlattribute runat="server" attr="prefix"/>
 			<% if (control.Current.getCSSClass().Contains("inline-mode")) { %>
 				<div name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='<apn:cssclass runat="server"/>' <apn:metadata runat="server"/> <%= Context.Items["readonly"] %> <apn:ifcontrolrequired runat="server">aria-required="true"</apn:ifcontrolrequired> <!-- #include file="aria-attributes.inc" --> ><apn:value runat="server"/></div><apn:controlattribute runat="server" attr="suffix"/>
 			<% } else { %>
