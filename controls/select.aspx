@@ -25,7 +25,10 @@
 							<apn:forEach id="control3" runat="server">
 								<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 								<% 
-									Context.Items["id"] = control3.Current.getAttribute("id") + Context.Items["optionIndex"];
+									Context.Items["id"] = control3.Current.getAttribute("id");
+									string[] arrId = ((string)Context.Items["id"]).Split('o');
+									Context.Items["optionIndex"] = arrId[arrId.Length-1];
+								    Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option";
 									Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 									if (!control3.Current.getLabel().Equals("")) { Context.Items["label"] = control3.Current.getLabel(); }
 								%>
@@ -38,7 +41,10 @@
 						<apn:otherwise runat="server">
 							<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 							<% 
-								Context.Items["id"] = control2.Current.getAttribute("id") + Context.Items["optionIndex"]; 
+								Context.Items["id"] = control2.Current.getAttribute("id");
+								string[] arrId = ((string)Context.Items["id"]).Split('o');
+								Context.Items["optionIndex"] = arrId[arrId.Length-1];
+								Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option"; 
 								Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 								if (!control2.Current.getLabel().Equals("")) { Context.Items["label"] = control2.Current.getLabel(); }
 							%>

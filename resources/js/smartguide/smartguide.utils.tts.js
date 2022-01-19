@@ -8,9 +8,9 @@ function tts(){
 	$("[data-tts]").each(function(){
 		var ttsId = $(this).attr("data-tts");
 		$(this).off('hover').hover(function() {
-			$("#tts_" + ttsId).attr("style", 'display:content;');
+			$("#tts_" + CSS.escape(ttsId)).attr("style", 'display:content;');
 		},function(){
-			$("#tts_" + ttsId).attr("style", 'display:none;');
+			$("#tts_" + CSS.escape(ttsId)).attr("style", 'display:none;');
 		});
 		$(this).off("click").on("click", function () {
 			var audio = new Audio();
