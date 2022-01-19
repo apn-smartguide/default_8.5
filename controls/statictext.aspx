@@ -8,7 +8,7 @@
 	<% } else { %>
 	<div id='div_<apn:name runat="server"/>' <% if (TTSEnabled && !control.Current.isDynamicValue()) { Response.Output.Write("data-tts='{0}_value'",control.Current.getFieldId()); } %> class='<%=Context.Items["no-col-layout"]%> <%=GetCleanCSSClass(control.Current)%> form-group' style='<apn:controlattribute runat="server" attr="style"/><apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> <apn:metadata runat="server" /> >
 	<% if (!BareRender && control.Current.getLabel().Trim().Length > 0){ %>
-		<label <%if(control.Current.getCSSClass().Contains("inline")) {%>class='inline'<% } %> <% if (TTSEnabled) { Response.Output.Write("data-tts='{0}_label'",control.Current.getFieldId()); } %>><span><% ExecutePath("/controls/custom/control-label.aspx"); %><% if (TTSEnabled) { %><span id='<% Response.Output.Write("tts_{0}_label",control.Current.getFieldId()); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %></span></label>
+		<label <%if(control.Current.getCSSClass().Contains("inline")) {%>class='inline'<% } %>><span><% ExecutePath("/controls/custom/control-label.aspx"); %></span></label>
 	<% } %>
 	<apn:value runat="server"/>
 	<% if (TTSEnabled && !control.Current.isDynamicValue()) { %><span id='<% Response.Output.Write("tts_{0}_value",control.Current.getFieldId()); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>
