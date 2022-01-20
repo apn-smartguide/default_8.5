@@ -29,7 +29,10 @@
 							<apn:forEach runat="server" id="control6">
 								<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="radio-inline"><% } %>
 								<% 
-									Context.Items["id"] = control6.Current.getAttribute("id") + Context.Items["optionIndex"];
+									Context.Items["id"] = control6.Current.getAttribute("id");
+									string[] arrId = ((string)Context.Items["id"]).Split('o');
+									Context.Items["optionIndex"] = arrId[arrId.Length - 1];
+									Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option";
 									Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 									if (!control6.Current.getLabel().Equals("")) { Context.Items["label"] = control6.Current.getLabel(); }
 								%>
@@ -43,7 +46,10 @@
 						<apn:otherwise runat="server">
 							<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="radio-inline"><% } %>
 							<% 
-								Context.Items["id"] = control5.Current.getAttribute("id") + Context.Items["optionIndex"];
+								Context.Items["id"] = control5.Current.getAttribute("id");
+								string[] arrId = ((string)Context.Items["id"]).Split('o');
+								Context.Items["optionIndex"] = arrId[arrId.Length - 1];
+								Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option";
 								Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 								if (!control5.Current.getLabel().Equals("")) { Context.Items["label"] = control5.Current.getLabel(); }
 							%>

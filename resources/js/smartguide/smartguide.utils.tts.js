@@ -6,13 +6,21 @@
 function tts(){
 	console.log("tts enabled")
 	$("[data-tts]").each(function(){
-		var ttsId = $(this).attr("data-tts");
-		$(this).off('hover').hover(function() {
-			$("#tts_" + CSS.escape(ttsId)).attr("style", 'display:content;');
-		},function(){
-			$("#tts_" + CSS.escape(ttsId)).attr("style", 'display:none;');
+		let ttsId = $(this).attr("data-tts");
+		let encodedTtsId = CSS.escape(ttsId);
+		// $(this).off('hover').hover(function() {
+		// 	$("#tts_" + encodedTtsId).attr("style", 'display:content;');
+		// },function(){
+		// 	$("#tts_" + encodedTtsId).attr("style", 'display:none;');
+		// });
+		$(this).off('mouseenter').mouseenter(function() {
+			$("#tts_" + encodedTtsId).attr("style", 'display:content; cursor: pointer;');
 		});
-		$(this).off("click").on("click", function () {
+		$(this).parent().off('mouseleave').mouseleave(function(){
+			$("#tts_" + encodedTtsId).attr("style", 'display:none; cursor: pointer;');
+		});
+		$(`#tts_${encodedTtsId}`).off("click").on("click", function (e) {
+			e.preventDefault();
 			var audio = new Audio();
 			var source = "./resources/do.aspx?file=" + smartletName + "/" + currentLocale + "/" + ttsId + ".wav";
 			audio.src = source;
