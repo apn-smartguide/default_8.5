@@ -203,6 +203,15 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool Environment {
+		get {
+			if(Application["environment"] == null) {
+				Application["environment"] = GetAppSetting("com.alphinat.sgs.environment");
+			}
+			return (bool)Application["environment"];
+		}
+	}
+
 	public bool TraceExecution {
 		get {
 			if(Application["trace-execution"] != null) {
