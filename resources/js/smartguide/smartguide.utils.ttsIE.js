@@ -56,7 +56,7 @@ function tts(context) {
                 var text = $(input).val();
                 if (text == "") return;
                 var audio = new Audio();
-                audio.src = "/smartlets/do.aspx?t_tts=true&text=" + text;
+                audio.src = applicationPath + "/do.aspx?t_tts=true&text=" + text;
                 audio.load();
                 audio.onloadeddata = function() {
                     audio.play();
@@ -136,7 +136,7 @@ function tts(context) {
                         // send data to service to text
                         $.ajax({
                             type: "POST",
-                            url: "/smartlets/do.aspx?t_stt=true",
+                            url: applicationPath + "/do.aspx?t_stt=true",
                             data: blob,
                             processData: false,
                             contentType: "audio/wav",

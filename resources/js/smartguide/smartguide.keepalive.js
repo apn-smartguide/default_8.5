@@ -19,7 +19,7 @@ function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logo
 	}
 
 	if(typeof logoutPage === 'undefined' || logoutPage == "") {
-		logoutPage = '/smartlets/do.aspx?interviewID=logout&workspace=' + workspace + '&lang=' + currentLocale + '&session-timeout=true';
+		logoutPage = applicationPath + 'do.aspx?interviewID=logout&workspace=' + workspace + '&lang=' + currentLocale + '&session-timeout=true';
 	}
 
 	if(typeof _redirUrl !== 'undefined' && _redirUrl != "") {

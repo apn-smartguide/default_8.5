@@ -350,12 +350,21 @@ public partial class SGWebCore : System.Web.UI.Page
 		set { Application["theme-locations"] = value; }
 	}
 
+
+	public string ApplicationPath {
+		get {
+			string appPath = HttpContext.Current.Request.ApplicationPath;
+			if(appPath.Equals("/")) appPath = "";
+			return appPath;
+		}
+	}
+
 	//// Filepaths Helpers ////
 	//Will provide the runniing basePath based on the current Workspace name.
 	public string BasePath {
 		get {
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
-				Application["basePath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", SmartGuideDomain, Workspace, "/");
+				Application["basePath"] = String.Concat(ApplicationPath,"/aspx/", SmartGuideDomain, Workspace, "/");
 			}
 			return (string)Application["basePath"];
 		}
@@ -497,7 +506,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//// Referencing other smartlets helpers ////
 	public string GetURLForSmartlet(string smartletName, string urlParams) {
-		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
+		StringBuilder smartletUrl = new StringBuilder(ApplicationPath).Append("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
 		if (!urlParams.Equals("")) {
 			smartletUrl.Append("&").Append(urlParams);
 		}
