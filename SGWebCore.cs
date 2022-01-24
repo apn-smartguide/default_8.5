@@ -363,7 +363,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string ApplicationPath {
 		get {
 			string appPath = HttpContext.Current.Request.ApplicationPath;
-			if(appPath.Equals("/")) appPath = "";
+			if(!appPath.EndsWith("/")) appPath = String.Concat(appPath,"/");
 			return appPath;
 		}
 	}
@@ -373,7 +373,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string BasePath {
 		get {
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
-				Application["basePath"] = String.Concat(ApplicationPath,"/aspx/", SmartGuideDomain, Workspace, "/");
+				Application["basePath"] = String.Concat(ApplicationPath,"aspx/", SmartGuideDomain, Workspace, "/");
 			}
 			return (string)Application["basePath"];
 		}
