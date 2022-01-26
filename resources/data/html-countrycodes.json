@@ -1,0 +1,977 @@
+[
+{
+	"col1": "AF",
+	"col2": "Afghanistan"
+},
+{
+	"col1": "AX",
+	"col2": "Åland Islands"
+},
+{
+	"col1": "AL",
+	"col2": "Albania"
+},
+{
+	"col1": "DZ",
+	"col2": "Algeria"
+},
+{
+	"col1": "AS",
+	"col2": "American Samoa"
+},
+{
+	"col1": "AD",
+	"col2": "Andorra"
+},
+{
+	"col1": "AO",
+	"col2": "Angola"
+},
+{
+	"col1": "AI",
+	"col2": "Anguilla"
+},
+{
+	"col1": "AQ",
+	"col2": "Antarctica"
+},
+{
+	"col1": "AG",
+	"col2": "Antigua and Barbuda"
+},
+{
+	"col1": "AR",
+	"col2": "Argentina"
+},
+{
+	"col1": "AM",
+	"col2": "Armenia"
+},
+{
+	"col1": "AW",
+	"col2": "Aruba"
+},
+{
+	"col1": "AU",
+	"col2": "Australia"
+},
+{
+	"col1": "AT",
+	"col2": "Austria"
+},
+{
+	"col1": "AZ",
+	"col2": "Azerbaijan"
+},
+{
+	"col1": "BS",
+	"col2": "Bahamas"
+},
+{
+	"col1": "BH",
+	"col2": "Bahrain"
+},
+{
+	"col1": "BD",
+	"col2": "Bangladesh"
+},
+{
+	"col1": "BB",
+	"col2": "Barbados"
+},
+{
+	"col1": "BY",
+	"col2": "Belarus"
+},
+{
+	"col1": "BE",
+	"col2": "Belgium"
+},
+{
+	"col1": "BZ",
+	"col2": "Belize"
+},
+{
+	"col1": "BJ",
+	"col2": "Benin"
+},
+{
+	"col1": "BM",
+	"col2": "Bermuda"
+},
+{
+	"col1": "BT",
+	"col2": "Bhutan"
+},
+{
+	"col1": "BO",
+	"col2": "Bolivia"
+},
+{
+	"col1": "BA",
+	"col2": "Bosnia and Herzegovina"
+},
+{
+	"col1": "BW",
+	"col2": "Botswana"
+},
+{
+	"col1": "BV",
+	"col2": "Bouvet Island"
+},
+{
+	"col1": "BR",
+	"col2": "Brazil"
+},
+{
+	"col1": "IO",
+	"col2": "British Indian Ocean Territory"
+},
+{
+	"col1": "BN",
+	"col2": "Brunei Darussalam"
+},
+{
+	"col1": "BG",
+	"col2": "Bulgaria"
+},
+{
+	"col1": "BF",
+	"col2": "Burkina Faso"
+},
+{
+	"col1": "BI",
+	"col2": "Burundi"
+},
+{
+	"col1": "KH",
+	"col2": "Cambodia"
+},
+{
+	"col1": "CM",
+	"col2": "Cameroon"
+},
+{
+	"col1": "CA",
+	"col2": "Canada"
+},
+{
+	"col1": "CV",
+	"col2": "Cape Verde"
+},
+{
+	"col1": "KY",
+	"col2": "Cayman Islands"
+},
+{
+	"col1": "CF",
+	"col2": "Central African Republic"
+},
+{
+	"col1": "TD",
+	"col2": "Chad"
+},
+{
+	"col1": "CL",
+	"col2": "Chile"
+},
+{
+	"col1": "CN",
+	"col2": "China"
+},
+{
+	"col1": "CX",
+	"col2": "Christmas Island"
+},
+{
+	"col1": "CC",
+	"col2": "Cocos (Keeling) Islands"
+},
+{
+	"col1": "CO",
+	"col2": "Colombia"
+},
+{
+	"col1": "KM",
+	"col2": "Comoros"
+},
+{
+	"col1": "CG",
+	"col2": "Congo"
+},
+{
+	"col1": "CD",
+	"col2": "Congo, The Democratic Republic of The"
+},
+{
+	"col1": "CK",
+	"col2": "Cook Islands"
+},
+{
+	"col1": "CR",
+	"col2": "Costa Rica"
+},
+{
+	"col1": "CI",
+	"col2": "Cote D'ivoire"
+},
+{
+	"col1": "HR",
+	"col2": "Croatia"
+},
+{
+	"col1": "CU",
+	"col2": "Cuba"
+},
+{
+	"col1": "CY",
+	"col2": "Cyprus"
+},
+{
+	"col1": "CZ",
+	"col2": "Czechia"
+},
+{
+	"col1": "DK",
+	"col2": "Denmark"
+},
+{
+	"col1": "DJ",
+	"col2": "Djibouti"
+},
+{
+	"col1": "DM",
+	"col2": "Dominica"
+},
+{
+	"col1": "DO",
+	"col2": "Dominican Republic"
+},
+{
+	"col1": "EC",
+	"col2": "Ecuador"
+},
+{
+	"col1": "EG",
+	"col2": "Egypt"
+},
+{
+	"col1": "SV",
+	"col2": "El Salvador"
+},
+{
+	"col1": "GQ",
+	"col2": "Equatorial Guinea"
+},
+{
+	"col1": "ER",
+	"col2": "Eritrea"
+},
+{
+	"col1": "EE",
+	"col2": "Estonia"
+},
+{
+	"col1": "ET",
+	"col2": "Ethiopia"
+},
+{
+	"col1": "FK",
+	"col2": "Falkland Islands (Malvinas)"
+},
+{
+	"col1": "FO",
+	"col2": "Faroe Islands"
+},
+{
+	"col1": "FJ",
+	"col2": "Fiji"
+},
+{
+	"col1": "FI",
+	"col2": "Finland"
+},
+{
+	"col1": "FR",
+	"col2": "France"
+},
+{
+	"col1": "GF",
+	"col2": "French Guiana"
+},
+{
+	"col1": "PF",
+	"col2": "French Polynesia"
+},
+{
+	"col1": "TF",
+	"col2": "French Southern Territories"
+},
+{
+	"col1": "GA",
+	"col2": "Gabon"
+},
+{
+	"col1": "GM",
+	"col2": "Gambia"
+},
+{
+	"col1": "GE",
+	"col2": "Georgia"
+},
+{
+	"col1": "DE",
+	"col2": "Germany"
+},
+{
+	"col1": "GH",
+	"col2": "Ghana"
+},
+{
+	"col1": "GI",
+	"col2": "Gibraltar"
+},
+{
+	"col1": "GR",
+	"col2": "Greece"
+},
+{
+	"col1": "GL",
+	"col2": "Greenland"
+},
+{
+	"col1": "GD",
+	"col2": "Grenada"
+},
+{
+	"col1": "GP",
+	"col2": "Guadeloupe"
+},
+{
+	"col1": "GU",
+	"col2": "Guam"
+},
+{
+	"col1": "GT",
+	"col2": "Guatemala"
+},
+{
+	"col1": "GG",
+	"col2": "Guernsey"
+},
+{
+	"col1": "GN",
+	"col2": "Guinea"
+},
+{
+	"col1": "GW",
+	"col2": "Guinea-bissau"
+},
+{
+	"col1": "GY",
+	"col2": "Guyana"
+},
+{
+	"col1": "HT",
+	"col2": "Haiti"
+},
+{
+	"col1": "HM",
+	"col2": "Heard Island and Mcdonald Islands"
+},
+{
+	"col1": "VA",
+	"col2": "Holy See (Vatican City State)"
+},
+{
+	"col1": "HN",
+	"col2": "Honduras"
+},
+{
+	"col1": "HK",
+	"col2": "Hong Kong"
+},
+{
+	"col1": "HU",
+	"col2": "Hungary"
+},
+{
+	"col1": "IS",
+	"col2": "Iceland"
+},
+{
+	"col1": "IN",
+	"col2": "India"
+},
+{
+	"col1": "ID",
+	"col2": "Indonesia"
+},
+{
+	"col1": "IR",
+	"col2": "Iran, Islamic Republic of"
+},
+{
+	"col1": "IQ",
+	"col2": "Iraq"
+},
+{
+	"col1": "IE",
+	"col2": "Ireland"
+},
+{
+	"col1": "IM",
+	"col2": "Isle of Man"
+},
+{
+	"col1": "IL",
+	"col2": "Israel"
+},
+{
+	"col1": "IT",
+	"col2": "Italy"
+},
+{
+	"col1": "JM",
+	"col2": "Jamaica"
+},
+{
+	"col1": "JP",
+	"col2": "Japan"
+},
+{
+	"col1": "JE",
+	"col2": "Jersey"
+},
+{
+	"col1": "JO",
+	"col2": "Jordan"
+},
+{
+	"col1": "KZ",
+	"col2": "Kazakhstan"
+},
+{
+	"col1": "KE",
+	"col2": "Kenya"
+},
+{
+	"col1": "KI",
+	"col2": "Kiribati"
+},
+{
+	"col1": "KP",
+	"col2": "Korea, Democratic People's Republic of"
+},
+{
+	"col1": "KR",
+	"col2": "Korea, Republic of"
+},
+{
+	"col1": "KW",
+	"col2": "Kuwait"
+},
+{
+	"col1": "KG",
+	"col2": "Kyrgyzstan"
+},
+{
+	"col1": "LA",
+	"col2": "Lao People's Democratic Republic"
+},
+{
+	"col1": "LV",
+	"col2": "Latvia"
+},
+{
+	"col1": "LB",
+	"col2": "Lebanon"
+},
+{
+	"col1": "LS",
+	"col2": "Lesotho"
+},
+{
+	"col1": "LR",
+	"col2": "Liberia"
+},
+{
+	"col1": "LY",
+	"col2": "Libyan Arab Jamahiriya"
+},
+{
+	"col1": "LI",
+	"col2": "Liechtenstein"
+},
+{
+	"col1": "LT",
+	"col2": "Lithuania"
+},
+{
+	"col1": "LU",
+	"col2": "Luxembourg"
+},
+{
+	"col1": "MO",
+	"col2": "Macao"
+},
+{
+	"col1": "MK",
+	"col2": "Macedonia, The Former Yugoslav Republic of"
+},
+{
+	"col1": "MG",
+	"col2": "Madagascar"
+},
+{
+	"col1": "MW",
+	"col2": "Malawi"
+},
+{
+	"col1": "MY",
+	"col2": "Malaysia"
+},
+{
+	"col1": "MV",
+	"col2": "Maldives"
+},
+{
+	"col1": "ML",
+	"col2": "Mali"
+},
+{
+	"col1": "MT",
+	"col2": "Malta"
+},
+{
+	"col1": "MH",
+	"col2": "Marshall Islands"
+},
+{
+	"col1": "MQ",
+	"col2": "Martinique"
+},
+{
+	"col1": "MR",
+	"col2": "Mauritania"
+},
+{
+	"col1": "MU",
+	"col2": "Mauritius"
+},
+{
+	"col1": "YT",
+	"col2": "Mayotte"
+},
+{
+	"col1": "MX",
+	"col2": "Mexico"
+},
+{
+	"col1": "FM",
+	"col2": "Micronesia, Federated States of"
+},
+{
+	"col1": "MD",
+	"col2": "Moldova, Republic of"
+},
+{
+	"col1": "MC",
+	"col2": "Monaco"
+},
+{
+	"col1": "MN",
+	"col2": "Mongolia"
+},
+{
+	"col1": "ME",
+	"col2": "Montenegro"
+},
+{
+	"col1": "MS",
+	"col2": "Montserrat"
+},
+{
+	"col1": "MA",
+	"col2": "Morocco"
+},
+{
+	"col1": "MZ",
+	"col2": "Mozambique"
+},
+{
+	"col1": "MM",
+	"col2": "Myanmar"
+},
+{
+	"col1": "NA",
+	"col2": "Namibia"
+},
+{
+	"col1": "NR",
+	"col2": "Nauru"
+},
+{
+	"col1": "NP",
+	"col2": "Nepal"
+},
+{
+	"col1": "NL",
+	"col2": "Netherlands"
+},
+{
+	"col1": "AN",
+	"col2": "Netherlands Antilles"
+},
+{
+	"col1": "NC",
+	"col2": "New Caledonia"
+},
+{
+	"col1": "NZ",
+	"col2": "New Zealand"
+},
+{
+	"col1": "NI",
+	"col2": "Nicaragua"
+},
+{
+	"col1": "NE",
+	"col2": "Niger"
+},
+{
+	"col1": "NG",
+	"col2": "Nigeria"
+},
+{
+	"col1": "NU",
+	"col2": "Niue"
+},
+{
+	"col1": "NF",
+	"col2": "Norfolk Island"
+},
+{
+	"col1": "MP",
+	"col2": "Northern Mariana Islands"
+},
+{
+	"col1": "NO",
+	"col2": "Norway"
+},
+{
+	"col1": "OM",
+	"col2": "Oman"
+},
+{
+	"col1": "PK",
+	"col2": "Pakistan"
+},
+{
+	"col1": "PW",
+	"col2": "Palau"
+},
+{
+	"col1": "PS",
+	"col2": "Palestinian Territory, Occupied"
+},
+{
+	"col1": "PA",
+	"col2": "Panama"
+},
+{
+	"col1": "PG",
+	"col2": "Papua New Guinea"
+},
+{
+	"col1": "PY",
+	"col2": "Paraguay"
+},
+{
+	"col1": "PE",
+	"col2": "Peru"
+},
+{
+	"col1": "PH",
+	"col2": "Philippines"
+},
+{
+	"col1": "PN",
+	"col2": "Pitcairn"
+},
+{
+	"col1": "PL",
+	"col2": "Poland"
+},
+{
+	"col1": "PT",
+	"col2": "Portugal"
+},
+{
+	"col1": "PR",
+	"col2": "Puerto Rico"
+},
+{
+	"col1": "QA",
+	"col2": "Qatar"
+},
+{
+	"col1": "RE",
+	"col2": "Reunion"
+},
+{
+	"col1": "RO",
+	"col2": "Romania"
+},
+{
+	"col1": "RU",
+	"col2": "Russian Federation"
+},
+{
+	"col1": "RW",
+	"col2": "Rwanda"
+},
+{
+	"col1": "SH",
+	"col2": "Saint Helena"
+},
+{
+	"col1": "KN",
+	"col2": "Saint Kitts and Nevis"
+},
+{
+	"col1": "LC",
+	"col2": "Saint Lucia"
+},
+{
+	"col1": "PM",
+	"col2": "Saint Pierre and Miquelon"
+},
+{
+	"col1": "VC",
+	"col2": "Saint Vincent and The Grenadines"
+},
+{
+	"col1": "WS",
+	"col2": "Samoa"
+},
+{
+	"col1": "SM",
+	"col2": "San Marino"
+},
+{
+	"col1": "ST",
+	"col2": "Sao Tome and Principe"
+},
+{
+	"col1": "SA",
+	"col2": "Saudi Arabia"
+},
+{
+	"col1": "SN",
+	"col2": "Senegal"
+},
+{
+	"col1": "RS",
+	"col2": "Serbia"
+},
+{
+	"col1": "SC",
+	"col2": "Seychelles"
+},
+{
+	"col1": "SL",
+	"col2": "Sierra Leone"
+},
+{
+	"col1": "SG",
+	"col2": "Singapore"
+},
+{
+	"col1": "SK",
+	"col2": "Slovakia"
+},
+{
+	"col1": "SI",
+	"col2": "Slovenia"
+},
+{
+	"col1": "SB",
+	"col2": "Solomon Islands"
+},
+{
+	"col1": "SO",
+	"col2": "Somalia"
+},
+{
+	"col1": "ZA",
+	"col2": "South Africa"
+},
+{
+	"col1": "GS",
+	"col2": "South Georgia and The South Sandwich Islands"
+},
+{
+	"col1": "ES",
+	"col2": "Spain"
+},
+{
+	"col1": "LK",
+	"col2": "Sri Lanka"
+},
+{
+	"col1": "SD",
+	"col2": "Sudan"
+},
+{
+	"col1": "SR",
+	"col2": "Suriname"
+},
+{
+	"col1": "SJ",
+	"col2": "Svalbard and Jan Mayen"
+},
+{
+	"col1": "SZ",
+	"col2": "Swaziland"
+},
+{
+	"col1": "SE",
+	"col2": "Sweden"
+},
+{
+	"col1": "CH",
+	"col2": "Switzerland"
+},
+{
+	"col1": "SY",
+	"col2": "Syrian Arab Republic"
+},
+{
+	"col1": "TW",
+	"col2": "Taiwan, Province of China"
+},
+{
+	"col1": "TJ",
+	"col2": "Tajikistan"
+},
+{
+	"col1": "TZ",
+	"col2": "Tanzania, United Republic of"
+},
+{
+	"col1": "TH",
+	"col2": "Thailand"
+},
+{
+	"col1": "TL",
+	"col2": "Timor-leste"
+},
+{
+	"col1": "TG",
+	"col2": "Togo"
+},
+{
+	"col1": "TK",
+	"col2": "Tokelau"
+},
+{
+	"col1": "TO",
+	"col2": "Tonga"
+},
+{
+	"col1": "TT",
+	"col2": "Trinidad and Tobago"
+},
+{
+	"col1": "TN",
+	"col2": "Tunisia"
+},
+{
+	"col1": "TR",
+	"col2": "Turkey"
+},
+{
+	"col1": "TM",
+	"col2": "Turkmenistan"
+},
+{
+	"col1": "TC",
+	"col2": "Turks and Caicos Islands"
+},
+{
+	"col1": "TV",
+	"col2": "Tuvalu"
+},
+{
+	"col1": "UG",
+	"col2": "Uganda"
+},
+{
+	"col1": "UA",
+	"col2": "Ukraine"
+},
+{
+	"col1": "AE",
+	"col2": "United Arab Emirates"
+},
+{
+	"col1": "GB",
+	"col2": "United Kingdom"
+},
+{
+	"col1": "US",
+	"col2": "United States"
+},
+{
+	"col1": "UM",
+	"col2": "United States Minor Outlying Islands"
+},
+{
+	"col1": "UY",
+	"col2": "Uruguay"
+},
+{
+	"col1": "UZ",
+	"col2": "Uzbekistan"
+},
+{
+	"col1": "VU",
+	"col2": "Vanuatu"
+},
+{
+	"col1": "VE",
+	"col2": "Venezuela"
+},
+{
+	"col1": "VN",
+	"col2": "Viet Nam"
+},
+{
+	"col1": "VG",
+	"col2": "Virgin Islands, British"
+},
+{
+	"col1": "VI",
+	"col2": "Virgin Islands, U.S."
+},
+{
+	"col1": "WF",
+	"col2": "Wallis and Futuna"
+},
+{
+	"col1": "EH",
+	"col2": "Western Sahara"
+},
+{
+	"col1": "YE",
+	"col2": "Yemen"
+},
+{
+	"col1": "ZM",
+	"col2": "Zambia"
+},
+{
+	"col1": "ZW",
+	"col2": "Zimbabwe"
+}]
