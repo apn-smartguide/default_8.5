@@ -63,6 +63,9 @@ var utilsController = {
 			});
 			$(this).devbridgeAutocomplete({
 				lookup: datalist,
+				onInvalidateSelection:function(){
+					$(this).prev().attr('value', '')
+				},
 				onSelect: function (suggestion) {
 					$(this).prev().attr('value', suggestion.data);
 				},
