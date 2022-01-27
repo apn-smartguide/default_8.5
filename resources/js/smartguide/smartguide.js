@@ -4,6 +4,15 @@
 
 if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = [];
 
+function findFieldByName(name) {
+	let index = Object.keys(smartletfields).findIndex(key => smartletfields[key].name == name);
+	if(typeof index !== 'undefined') {
+		return $("[name=" + Object.keys(smartletfields)[index] + "]");
+	} else {
+		return undefined;
+	}
+}
+
 $("form[id^='smartguide_']" ).each(function() {
 
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
