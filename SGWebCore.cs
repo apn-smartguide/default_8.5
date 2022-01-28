@@ -1209,6 +1209,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		.Replace("open","")
 		.Replace("table-render","")
 		.Replace("table-view","")
+		.Replace("panel-heading-button","")
+		.Replace("panel-heading-control","")
 		.Replace("grid-render","")
 		.Replace("grid-view","")
 		.Replace("block-render","")
