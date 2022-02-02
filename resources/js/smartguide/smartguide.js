@@ -13,6 +13,10 @@ function findFieldByName(name) {
 	}
 }
 
+function findRepeatTableByName(name) {
+	return findFieldByName(name).parents(".repeat").find("table");
+}
+
 $("form[id^='smartguide_']" ).each(function() {
 
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
