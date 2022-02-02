@@ -8,15 +8,11 @@ function tts(){
 	$("[data-tts]").each(function(){
 		let ttsId = $(this).attr("data-tts");
 		let encodedTtsId = CSS.escape(ttsId);
-		// $(this).off('hover').hover(function() {
-		// 	$("#tts_" + encodedTtsId).attr("style", 'display:content;');
-		// },function(){
-		// 	$("#tts_" + encodedTtsId).attr("style", 'display:none;');
-		// });
-		$(this).off('mouseenter').mouseenter(function() {
+
+		$(this).off('mouseenter focusin').on("mouseenter focusin", function() {
 			$("#tts_" + encodedTtsId).attr("style", 'display:content; cursor: pointer;');
 		});
-		$(this).parent().off('mouseleave').mouseleave(function(){
+		$(this).parent().off('mouseleave focusout').on("mouseleave focusout", function(){
 			$("#tts_" + encodedTtsId).attr("style", 'display:none; cursor: pointer;');
 		});
 		$(`#tts_${encodedTtsId}`).off("click").on("click", function (e) {
@@ -30,64 +26,6 @@ function tts(){
 			};
 		});
 	});
-
-	// $(".tts").each(function () {
-	// 	var fieldId = "";
-	// 	//1st check if we are on a SG Field directly.
-	// 	if (typeof $(this).attr("id") != "undefined") {
-	// 		fieldId = $(this).attr("id").substring(6);
-	// 	} else {
-	// 		// Try to find the parent SG Field
-	// 		var parentObj = $(this).parents("[id^='d_']")[0];
-	// 		if (typeof parentObj != "undefined") {
-	// 			fieldId = $(parentObj).attr("id").substring(6);
-	// 		} else {
-	// 			var parentObj = $(this).parents("[id^='div_d_']")[0];
-	// 			if (typeof parentObj != "undefined") {
-	// 				fieldId = $(parentObj).attr("id").substring(6);
-	// 			} else {
-	// 				fieldId = $(this).attr("id");
-	// 			}
-	// 		}
-	// 	}
-
-	// 	//We found a fieldId, let's bind the click
-	// 	if (typeof fieldId != 'undefined' && fieldId.length > 0) {
-	// 		var $playObj = $(this);
-	// 		$playObj.each(function () {
-	// 			$this = $(this);
-	// 			//$player = $(".tts-icon",this);
-	// 			$this.off('hover').hover(function() {
-	// 				$(".tts-icon",this).first().attr("style", 'display:content;');
-	// 			},function(){
-	// 				$(".tts-icon",this).first().attr("style", 'display:none;');
-	// 			});
-
-	// 			var suffix = "_value";
-	// 			var prefix = "";
-	// 			if ($this.parents("label").length > 0 || $this.parents(".panel-title").length > 0 || $(".tts-icon",this).parents("label").length > 0 || $(".tts-icon",this).parents(".panel-title").length > 0) {
-	// 				suffix = "_label";
-	// 			}
-	// 			if ($this.parent().siblings("[type='radio'], [type='checkbox']").length > 0) {
-	// 				suffix = "_option";
-	// 				prefix = $player.parent().attr('data-index');
-	// 				if (prefix.length > 0) prefix = "." + prefix;
-	// 				suffix = prefix + suffix;
-	// 			}
-	// 			$this.off("click").on("click", function () {
-	// 				var audio = new Audio();
-	// 				var source = "./resources/do.aspx?file=" + smartletName + "/" + currentLocale + "/" + fieldId + suffix + ".wav";
-	// 				audio.src = source;
-	// 				audio.load();
-	// 				audio.onloadeddata = function() {
-	// 					audio.play();
-	// 				};
-	// 			});
-	// 		});
-	// 	} else {
-	// 		console.log("could not find the field id for this TTS");
-	// 	}
-	// });
 
 	// Audio binding for Text To Speech Input AddOn, for live processing of typed text.
 	$(".tts-addon").each(function () {
