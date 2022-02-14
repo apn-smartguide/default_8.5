@@ -23,9 +23,27 @@
 				</li>
 				<apn:ifsmartletmultilingual runat="server">
 					<li class="dropdown">
-						<apn:locale runat="server" id="loc2"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="langselect"><%=loc2.Current.getLabel()%> <span class="caret"></span></a></apn:locale>
+						<apn:locale runat="server" id="loc">
+							<%
+							string localeEnDesc = "";
+							string localeDesc = GetLocaleDescription(loc.Current.getValue(), ref localeEnDesc);
+							if(!loc.Current.getValue().Equals("en") && localeEnDesc != "") {
+								localeDesc = localeDesc + " (" + localeEnDesc + ")";
+							}
+							%>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="langselect"><%=localeDesc%> <span class="caret"></span></a>
+						</apn:locale>
 						<ul class="dropdown-menu" aria-labelledby="langselect">
-							<apn:forEach runat="server" id="locale" items="languages"><li><a href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>' class="link-as-post"><%=locale.Current.getLabel()%></a></li></apn:forEach>
+							<apn:forEach runat="server" id="locale" items="languages">
+								<%
+								string localeEnDesc = "";
+								string localeDesc = GetLocaleDescription(locale.Current.getValue(), ref localeEnDesc);
+								if(!locale.Current.getValue().Equals("en") && localeEnDesc != "") {
+									localeDesc = localeDesc + " (" + localeEnDesc + ")";
+								}
+								%>
+								<li><a href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>' class="link-as-post"><%=localeDesc%></a></li>
+							</apn:forEach>
 						</ul>
 					</li>
 				</apn:ifsmartletmultilingual>

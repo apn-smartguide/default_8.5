@@ -288,6 +288,29 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public string GetLocaleDescription(string localeCode) {
+		string fallbackDescription = "";
+		return GetLocaleDescription(localeCode, ref fallbackDescription);
+	}
+	//Gets the native description of the requested locale, if the theme provides this information.
+	//Otherwise returns the description provided by the built-in languages (if found).
+	//Optionnaly provide the fallbackDescription of the locale, this depends on your base language (typically english)
+	public string GetLocaleDescription(string localeCode, ref string fallbackDescription) {
+		string currentLocale = Smartlet.getCurrentLocale();
+		//set the locale to the requested localeCode
+		Smartlet.setCurrentLocale(localeCode);
+		//The following keys need to be in your theme.xls file.
+		string localeNativeDesc = Smartlet.getLocalizedResource("lang-native");
+		fallbackDescription = Smartlet.getLocalizedResource("lang-en");
+		if(localeNativeDesc == null || localeNativeDesc == "") {
+			localeNativeDesc = Smartlet.getCurrentLocaleDescription();
+			fallbackDescription = "";
+		}
+		//revert to initial locale
+		Smartlet.setCurrentLocale(currentLocale);
+		return localeNativeDesc;
+	}
+
 	public ISmartletPage CurrentPage {
 		get {
 			if(Context.Items["currentPage"] == null) {
@@ -325,10 +348,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
 				//using the localized ressource, the API getSubject does not support localization.
-				Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
+				Context.Items["smartletSubject"] = GetLocalizedResource("smartlet.subject");
 				if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
 					//Fallback to theme subject if none specified at the Smartlet level
-					Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("theme.text.subject");
+					Context.Items["smartletSubject"] = GetLocalizedResource("theme.text.subject");
 				}
 				if(Context.Items["smartletSubject"] == null ) {
 					Context.Items["smartletSubject"] = "";
@@ -664,10 +687,11 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetLocalizedResource(string key) {
-		if(Application["localized-"+key] == null) {
-			Application["localized-"+key] = Smartlet.getLocalizedResource(key);
+		//TODO: Consider current locale?
+		if(Application["localized-"+key+CurrentLocale] == null) {
+			Application["localized-"+key+CurrentLocale] = Smartlet.getLocalizedResource(key);
 		}
-		return (string)Application["localized-"+key];
+		return (string)Application["localized-"+key+CurrentLocale];
 	}
 
 	public string GetVariableByName(string key) {
