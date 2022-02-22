@@ -449,8 +449,8 @@ $("form[id^='smartguide_']" ).each(function() {
 					var f = true;
 					try {
 						var smartlet = $(this).data('_smartlet');
-						f = Function("smartlet", "field", "ajaxSubmit", "submit", clientEvent).bind(smartlet.field())
-								(smartlet, smartlet.field.bind(smartlet));
+						f = Function("smartlet", "field", "event", clientEvent).bind(smartlet.field())
+								(smartlet, smartlet.field.bind(smartlet), e);
 					} catch (err){
 						alert(err);
 					}
