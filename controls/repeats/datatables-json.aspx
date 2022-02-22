@@ -3,6 +3,8 @@
 <%@ Import Namespace="com.alphinat.sg5.widget.upload" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
+<apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" CalculatePage="false" runat="server" ProcessingEvent="Render" visible="true" />
+<apn:api5 id="sg5" runat="server" />
 <%-- https://datatables.net/manual/index --%>
 <%
 smartlet.SmartletID = Request["appID"];
@@ -13,10 +15,6 @@ smartlet.SmartletID = Request["appID"];
 //i.e. requestParameter("tableName") == our tableName
 string tableName = Request["tableName"];
 
-%>
-<apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" runat="server" ProcessingEvent="Render" visible="true" />
-<apn:api5 id="sg5" runat="server" />
-<%
 ISmartletRepeat repeat = (ISmartletRepeat)sg5.Smartlet.findFieldByName(tableName);
 
 string selectClass = repeat.getMetaData("select-class");
