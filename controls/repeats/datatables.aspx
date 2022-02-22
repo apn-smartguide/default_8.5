@@ -10,6 +10,7 @@
 <%
 	Context.Items["hiddenName"] = "";
 	Context.Items["repeatCode"] = control.Current.getCode();
+	logger().debug("repeatCode:" + Context.Items["repeatCode"]);
 	string CSSClass = control.Current.getCSSClass();
 	Context.Items["hideAddButton"] = CSSClass.Contains("hide-add-btn");
 	Context.Items["hideRowAddButton"] = control.Current.getCSSClass().Contains("hide-row-add-btn");
