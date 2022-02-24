@@ -17,6 +17,10 @@ function findRepeatTableByName(name) {
 	return findFieldByName(name).parents(".repeat").find("table");
 }
 
+function triggerButton(name) {
+	window.location='do.aspx?t_' + name + '=1';
+}
+
 $("form[id^='smartguide_']" ).each(function() {
 
 	var smartletCode = $(this).attr('id').replace('smartguide_','');
