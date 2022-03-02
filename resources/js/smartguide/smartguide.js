@@ -507,8 +507,8 @@ $("form[id^='smartguide_']" ).each(function() {
 				$field.off(jqEvent);
 				$field.on(jqEvent, function(e) {
 					var r = SMARTGUIDES[smartletCode];
-					
-					$(this).after($('<input/>', {
+					var $this = $(this);
+					$this.after($('<input/>', {
 						type: 'hidden',
 						name: 'e_'+fieldHtmlName.substring(2).replace(/\\/g,""),
 						value: 'on'+e.type
@@ -527,7 +527,8 @@ $("form[id^='smartguide_']" ).each(function() {
 								$field.attr('data-eventtarget', targets);
 							}
 						}
-
+						$this.prop("disabled",true);
+						$('#loader').fadeIn("fast");
 						r.ajaxProcess(this, null, true,
 							function() {
 								// must remove the e_ field we added
@@ -556,21 +557,25 @@ $("form[id^='smartguide_']" ).each(function() {
 										$field.triggerHandler(jqEvent);
 										r._bindModalFieldEvent($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax);
 									}
+									
 								}, 0);
 							},
 							null,
-							null
+							function(){
+								$this.prop("disabled",false);
+								$('#loader').fadeOut("fast");
+							}
 						);
 					}
 					else {
-						if (!$(this).hasClass("always-enabled")) {
+						if (!$this.hasClass("always-enabled")) {
 							r._doubleClickHandler(e);
 						} else {
 							r.fm.submit();
 						}
 						
 						// must remove the e_ field we added is the button is always enabled, like when triggering a file download
-						if ($(this).hasClass("always-enabled")) {
+						if ($this.hasClass("always-enabled")) {
 							$('[name="' + 'e_'+fieldHtmlName.substring(2).replace(/\\/g,"") + '"]').remove();
 						}
 					}
