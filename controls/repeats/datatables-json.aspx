@@ -121,7 +121,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 						label = ctlValue;
 					}
 
-					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>" + label + fields[j].getNonLocalizedMetaData("label-suffix") + "</button>";
+					value = "<button id='d_"+fieldid+"["+id+"]' " + tooltipStr + " type='button' class='sg " + fields[j].getCSSClass() + "' style='" + fields[j].getCSSStyle() + "' target='" + fields[j].getNonLocalizedMetaData("target") + "' name='d_"+fieldid+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>" + label + fields[j].getNonLocalizedMetaData("label-suffix") + "</button>";
 				} else if (fields[j].getTypeConst() == 80000) {
 					// hidden fields
 					if (unsafeMeta) { value = fields[j].getString(); }
@@ -163,7 +163,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 									grpValue = grpValue + "<div><a target='_blank' href='upload/do.aspx/" + upload.getFileName() + "?id=d_" + grpFields[k].getId()+"["+id+"]&interviewID=" + sg5.Smartlet.getCode() + "'>" + upload.getFileName() + "</a></div>";
 								}
 							} else {
-								grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+ctrlLabel+"</button>";
+								grpValue = grpValue + "<button id='d_"+ grpFields[k].getId()+"["+id+"]' "+ tooltipStr +" type='button' class='sg " + grpFields[k].getCSSClass() + "' style='" + grpFields[k].getCSSStyle() + "' target='" + grpFields[k].getNonLocalizedMetaData("target") + "' name='d_"+grpFields[k].getId()+"["+id+"]' data-eventtarget='[" + targetFieldIds + "]'>"+ctrlLabel+"</button>";
 							}
 						} else {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
