@@ -1349,75 +1349,27 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
-	///Cookies
+	private static string Unicode2ASCII(string text)
+		{
+			// Create two different encodings.
+			System.Text.Encoding ascii = System.Text.Encoding.ASCII;
+			System.Text.Encoding unicode = System.Text.Encoding.Unicode;
+
+			// Convert the string into a byte array.
+			byte[] unicodeBytes = unicode.GetBytes(text);
+
+			// Perform the conversion from one encoding to the other.
+			byte[] asciiBytes = System.Text.Encoding.Convert(unicode, ascii, unicodeBytes);
+
+			// Convert the new byte[] into a char[] and then into a string.
+			char[] asciiChars = new char[ascii.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
+			ascii.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
+			string asciiString = new string(asciiChars);
+
+			return asciiString;
+	}
+
 	private readonly Regex rgx = new Regex("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
-
-	// public void ClearCookie(IServiceContext context, string cookieName)
-	// {
-	// 	lLogger.debug("Cookie - Start clearing " + cookieName);
-
-	// 	try
-	// 	{
-	// 		string secureValue = (string)context.getEnvironment().getAttribute(Constants.Scope.CONFIGURATION, "SP.Smartlets.Cookie.Secure");
-	// 		if (String.IsNullOrEmpty(secureValue))
-	// 		{
-	// 			secureValue = "false";
-	// 		}
-
-	// 		HttpRequest req = (HttpRequest)context.getEnvironment().getRequest();
-
-	// 		string baseURL = req.Url.ToString();
-
-	// 		Logger.debug("BaseURL is " + baseURL);
-
-	// 		string fullDomain = Between(baseURL, "://", "/");
-
-	// 		if (fullDomain.IndexOf(":") > -1)
-	// 		{
-	// 			fullDomain = Before(fullDomain, ":");
-	// 		}
-
-	// 		Logger.debug("Full domain is " + fullDomain);
-
-	// 		string domain = "";
-
-	// 		// is it an IP address
-	// 		if (rgx.Match(fullDomain).Success)
-	// 		{
-	// 			domain = fullDomain;
-	// 		}
-	// 		else
-	// 		{
-	// 			string[] parts = fullDomain.Split('.');
-	// 			int nbrparts = parts.Length;
-	// 			domain = fullDomain;
-	// 			if (nbrparts > 2)
-	// 			{
-	// 				int indexDot = domain.IndexOf(".");
-	// 				if (indexDot > -1)
-	// 				{
-	// 					domain = domain.Substring(indexDot);
-	// 				}
-	// 			}
-	// 		}
-
-	// 		int index = domain.IndexOf(".");
-	// 		if (index == 0)
-	// 		{
-	// 			domain = domain.Substring(1);
-	// 		}
-
-	// 		Logger.debug("Final domain is " + domain);
-
-	// 		context.getEnvironment().addHttpCookie(cookieName, "", "0", domain, "/", secureValue, "true");
-	// 	}
-	// 	catch (Exception e)
-	// 	{
-	// 		Logger.error("An exception occured trying to clear cookie " + cookieName + ".  The exception is " + e.Message);
-	// 	}
-
-	// 	Logger.debug("Done clearing " + cookieName);
-	// }
 
 	public string Before(string value, string a)
 	{
