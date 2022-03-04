@@ -87,7 +87,7 @@
 					</apn:forEach>
 				</datalist>
 				<% } else { %>
-				<select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' class='<%=GetCleanCSSClass(control.Current).Replace("pull-right","")%> form-control input-sm' aria-labelledby='lbl_<apn:name runat="server"/>' style='<%= (control.Current.getAttribute("style") + " " + control.Current.getCSSStyle()) %>' size='1' <apn:metadata runat="server"/><%=Context.Items["readonly"]%> >
+				<select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' class='<%=GetCleanCSSClass(control.Current).Replace("pull-right","")%> form-control input-sm' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='lbl_<apn:name runat="server"/>' style='<%= (control.Current.getAttribute("style") + " " + control.Current.getCSSStyle()) %>' size='1' <apn:metadata runat="server"/><%=Context.Items["readonly"]%> >
 					<apn:forEach runat="server" id="control4" >
 						<apn:choosecontrol runat="server">
 							<apn:whencontrol runat="server" type="optgroup" >
