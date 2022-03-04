@@ -527,7 +527,9 @@ $("form[id^='smartguide_']" ).each(function() {
 								$field.attr('data-eventtarget', targets);
 							}
 						}
-						$this.prop("disabled",true);
+						if($this.is("button")) {
+							$this.prop("disabled",true);
+						}
 						$('#loader').fadeIn("fast");
 						r.ajaxProcess(this, null, true,
 							function() {
@@ -562,7 +564,9 @@ $("form[id^='smartguide_']" ).each(function() {
 							},
 							null,
 							function(){
-								$this.prop("disabled",false);
+								if($this.is("button")) {
+									$this.prop("disabled",false);
+								}
 								$('#loader').fadeOut("fast");
 							}
 						);
