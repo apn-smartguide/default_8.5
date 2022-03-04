@@ -601,6 +601,10 @@
 
 		// check if data-wb-tables meta exists
 		string datatablesInitOptions = getMetaDataValue("data-wb-tables");
+		bool autoWidth = true;
+		if (getMetaDataValue("autoWidth") != null){
+			autoWidth = getMetaDataValue("autoWidth").Equals("true");
+		}
 
 		if (datatablesInitOptions == null || datatablesInitOptions.Length == 0) {
 
@@ -610,7 +614,7 @@
 			Dictionary<string, int> fieldNameToId = new Dictionary<string, int>();
 			ISmartletGroup defaultGroup = ((ISmartletRepeat)sg.Smartlet.findFieldByName(control.Current.getCode())).getDefaultGroup();
 			jOptions.Add("paging", true);
-			jOptions.Add("autoWidth", true);
+			jOptions.Add("autoWidth", autoWidth);
 
 			if(control.Current.getCSSClass().Contains("hide-search")){
 				jOptions.Add("searching", false);
