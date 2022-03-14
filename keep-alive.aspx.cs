@@ -47,7 +47,9 @@ public partial class KeepAlive : System.Web.UI.Page, IRequiresSessionState
 				//HttpContext.Current.Response.Write("{test:" + test + "},{session:alive},{session-id:" + aspnetCookie.Value + "},{session-expires:" + aspnetCookie.Expires + "}" + ",{timeout:" + timeout + "}");
 				HttpContext.Current.Response.Write("{session:alive}");
 			}
-			if (smartProfileAuthCookie != null && !smartProfileAuthCookie.Value.Equals("")) {
+
+			string SPRestAPI = GetAppSetting("SmartProfileRestApi");
+			if (smartProfileAuthCookie != null && SPRestAPI != null && !smartProfileAuthCookie.Value.Equals("")) {
 				string apiUrl = GetAppSetting("SmartProfileRestApi")+"/spv3/utils/keepalive";
 				WebClient client = new WebClient();
 				client.Headers["SPAccessToken"] = GetAppSetting("SP.Smartlets.WS.AccessKey");
