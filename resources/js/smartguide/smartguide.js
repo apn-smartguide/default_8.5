@@ -7,7 +7,11 @@ if (typeof SMARTGUIDES === 'undefined') SMARTGUIDES = [];
 function findFieldByName(name) {
 	let index = Object.keys(smartletfields).findIndex(key => smartletfields[key].name == name);
 	if(typeof index !== 'undefined') {
-		return $("[name=" + Object.keys(smartletfields)[index] + "]");
+		let result = $("[name$=" + Object.keys(smartletfields)[index] + "]");
+		if(typeof result == 'undefined' || result.length == 0) {
+			result = $("[id$=" + Object.keys(smartletfields)[index] + "]");
+		}
+		return result;
 	} else {
 		return undefined;
 	}
