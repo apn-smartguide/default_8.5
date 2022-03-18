@@ -1030,7 +1030,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string[] Errors {
 		get{
 			List<string> errors = new List<string>();
-			errors.Add("test error");
+			//errors.Add("test error");
 			if(Smartlet.getActionErrors().Length > 0) {
 				foreach(ISmartletActionError error in Smartlet.getActionErrors()) {
 					string errorMsg = error.getError();
