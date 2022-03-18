@@ -6,7 +6,6 @@
 <link href='<%= ResolvePath("/resources/img/favicon.ico") %>' rel="icon" type="image/x-icon">
 <link href='<%= ResolvePath("/resources/img/apn_icon.png") %>' rel="icon" sizes="192x192">
 <link href='<%= ResolvePath("/resources/img/apn_icon.png") %>' rel="apple-touch-icon">
-<script src='<%= CacheBreak("/resources/js/jquery-3.5.1.js") %>'></script>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <link href='<%= ResolvePath("/resources/img/favicon.ico") %>' rel="shortcut icon" />
@@ -17,9 +16,12 @@
 <link href='<%= CacheBreak("/resources/plugins/jquery/jquery-timepicker/jquery.timepicker.css") %>' rel="stylesheet">
 
 <!-- Bootstrap -->
-<link href='<%= CacheBreak("/resources/css/bootstrap4/bootstrap.css") %>' rel="stylesheet">
-<!-- <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap.css") %>' rel="stylesheet"> -->
-<!-- <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-theme.css") %>' rel="stylesheet"> -->
+<% if(BootstrapVersion == "4") { %>
+<link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.css") %>' rel="stylesheet">
+<% } else { %>
+<link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.css") %>' rel="stylesheet">
+<!-- <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap-theme.css") %>' rel="stylesheet"> -->
+<% } %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css") %>' rel="stylesheet">
 
 <!-- Fonts -->

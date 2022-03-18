@@ -9,9 +9,12 @@
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.ba-throttle-debounce.js") %>'></script>
 
 <!-- Bootstrap -->
-<script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.bundle.min.js") %>'></script>
-<!-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap.min.js") %>'></script> -->
+<% if(BootstrapVersion == "4") { %>
+<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
+<% } else { %>
+<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.min.js") %>'></script>
+<% } %>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-session-timeout.js") %>'></script>
 
 <!-- Additional -->
