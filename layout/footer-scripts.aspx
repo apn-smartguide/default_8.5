@@ -8,7 +8,7 @@
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.caret-1.5.2.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.ba-throttle-debounce.js") %>'></script>
 
-<!-- Boostrap -->
+<!-- Bootstrap -->
 <script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/bootstrap4/bootstrap.bundle.min.js") %>'></script>
 <!-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap.min.js") %>'></script> -->

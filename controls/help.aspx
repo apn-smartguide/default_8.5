@@ -32,7 +32,7 @@
 							<apn:ifhelplink runat="server"><iframe id='smartlet' src='<apn:help runat="server"/>' width='100%' height='400px;' frameborder='0' framespacing='0' scrolling='auto'></iframe></apn:ifhelplink>
 							<apn:ifnothelplink runat="server"><apn:help runat="server"/></apn:ifnothelplink>
 						</div>
-						<div class='modal-footer'><button class='sg btn <% if(BoostrapVersion == "4") { Response.Output.Write("btn-secondary"); } else { Reponse.Output.Write("btn-default"); } %>' data-dismiss='modal' onclick='return false;' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></button></div>
+						<div class='modal-footer'><button class='sg btn <% if(BootstrapVersion == "4") { Response.Output.Write("btn-secondary"); } else { Response.Output.Write("btn-default"); } %>' data-dismiss='modal' onclick='return false;' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></button></div>
 					</div>
 				</div>
 			</div>

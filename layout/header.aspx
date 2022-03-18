@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a href="#" class="navbar-brand">SmartGuide</a>
-			<button class="sg <% if(BootstrapVersion == "4") { Response.Outpout.Write("navbar-toggler float-right"); } else { Response.Output.Write("navbar-toggle"); }" type="button" data-toggle="collapse" data-target="#navbar-main">
+			<button class='sg <% if(BootstrapVersion == "4") { Response.Output.Write("navbar-toggler float-right"); } else { Response.Output.Write("navbar-toggle"); } %>' type="button" data-toggle="collapse" data-target="#navbar-main">
 				<% if(BootstrapVersion == "4") { %>
 				<span class="navbar-toggler-icon"/>
 				<% } else { %>

@@ -36,7 +36,7 @@
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='<% if(BoostrapVersion == "4") { Response.Output.Write("card") } else { Response.Output.Write("panel panel-default") } %><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='<% if(BootstrapVersion == "4") { Response.Output.Write("card"); } else { Response.Output.Write("panel panel-default"); } %><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
@@ -89,7 +89,7 @@
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 		<div id='div_<apn:name runat="server"/>_body' class='collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
-	<div class='<% if(BootstrapVersion == "4") { Response.Output.Write("card-body")} else { Response.Output.Write("panel-body")} %>'>
+	<div class='<% if(BootstrapVersion == "4") { Response.Output.Write("card-body"); } else { Response.Output.Write("panel-body"); } %>'>
 		<apn:control runat="server" type="default-instance" id="filters">
 			<apn:forEach runat="server" id="thFilterRow">
 				<apn:forEach runat="server" id="thFilterCol">

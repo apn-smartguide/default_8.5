@@ -138,6 +138,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["smartletLoggerSGWebCore"] = null;
 		Application["showEnumerationErrors"] = null;
 		Application["themes-locations"] = null;
+		Application["bootstrap-version"] = null;
 
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
@@ -200,6 +201,21 @@ public partial class SGWebCore : System.Web.UI.Page
 				Application["is-development"] = GetAppSetting("com.alphinat.sgs.environment").Equals("Development");
 			}
 			return (bool)Application["is-development"];
+		}
+	}
+
+	public string BootstrapVersion {
+		get {
+			if(Application["bootstrap-version"] == null) {
+				Application["bootstrap-version"] = GetAppSetting("com.alphinat.sgs.bootstrap.version");
+				if (Application["bootstrap-version"] == null) {
+					Application["bootstrap-version"] = "3";
+				}
+			}
+			return (string)Application["bootstrap-version"];
+		}
+		set {
+			Application["bootstrap-version"] = value;
 		}
 	}
 

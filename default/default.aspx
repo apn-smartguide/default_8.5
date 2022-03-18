@@ -6,6 +6,7 @@
 	TimerTraceStart("default");
 	ThemesLocations = new string[]{Theme,"/.."};
 	LogoutURL = GetURLForSmartlet(SmartletName);
+	BootstrapVersion = "4";
 %>
 <% Context.Items["pdf"] = false; %>
 <!DOCTYPE html>

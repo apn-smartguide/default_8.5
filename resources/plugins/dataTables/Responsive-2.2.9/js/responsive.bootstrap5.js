@@ -52,7 +52,7 @@ var _modal = $(
 );
 var modal;
 
-// Need to wait for the document to be ready for Boostrap 5 to be able to initialise to modal
+// Need to wait for the document to be ready for Bootstrap 5 to be able to initialise to modal
 $(function () {
 	modal = new bootstrap.Modal(_modal[0]);
 });
