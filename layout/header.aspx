@@ -1,10 +1,18 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <div class="navbar navbar-dark bg-dark navbar-expand-md fixed-top py-0">
 	<div class="container">
-		<a href="#" class="navbar-brand">SmartGuide</a>
-		<button class="navbar-toggler fload-right" type="button" data-toggle="collapse" data-target="#navbar-main">
-			<span class="navbar-toggler-icon"/>
-		</button>
+		<div class="navbar-header">
+			<a href="#" class="navbar-brand">SmartGuide</a>
+			<button class="sg <% if(BootstrapVersion == "4") { Response.Outpout.Write("navbar-toggler float-right"); } else { Response.Output.Write("navbar-toggle"); }" type="button" data-toggle="collapse" data-target="#navbar-main">
+				<% if(BootstrapVersion == "4") { %>
+				<span class="navbar-toggler-icon"/>
+				<% } else { %>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<% } %>
+			</button>
+		</div>
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="navbar-nav mr-auto">
 				<li class="dropdown nav-item">
@@ -19,9 +27,27 @@
 				</li>
 				<apn:ifsmartletmultilingual runat="server">
 					<li class="dropdown">
-						<apn:locale runat="server" id="loc2"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id=""><%=loc2.Current.getLabel()%> <span class="caret"></span></a></apn:locale>
+						<apn:locale runat="server" id="loc">
+							<%
+							string localeEnDesc = "";
+							string localeDesc = GetLocaleDescription(loc.Current.getValue(), ref localeEnDesc);
+							if(!loc.Current.getValue().Equals("en") && localeEnDesc != "") {
+								localeDesc = localeDesc + " (" + localeEnDesc + ")";
+							}
+							%>
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="langselect"><%=localeDesc%> <span class="caret"></span></a>
+						</apn:locale>
 						<ul class="dropdown-menu" aria-labelledby="langselect">
-							<apn:forEach runat="server" id="locale" items="languages"><a class="dropdown-item" href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>'><%=locale.Current.getLabel()%></a></apn:forEach>
+							<apn:forEach runat="server" id="locale" items="languages">
+								<%
+								string localeEnDesc = "";
+								string localeDesc = GetLocaleDescription(locale.Current.getValue(), ref localeEnDesc);
+								if(!locale.Current.getValue().Equals("en") && localeEnDesc != "") {
+									localeDesc = localeDesc + " (" + localeEnDesc + ")";
+								}
+								%>
+								<li><a href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>' class="dropdown-item link-as-post"><%=localeDesc%></a></li>
+							</apn:forEach>
 						</ul>
 					</li>
 				</apn:ifsmartletmultilingual>

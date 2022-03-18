@@ -13,7 +13,6 @@
 					<% } else { %>
 						<li class="breadcrumb-item"><a href='<%=pageURL%>' class="link-as-post"><%= pageTitle %></a></li>
 					<% } %>
-				</li>
 				<% } %>
 			</ol>
 		</nav>

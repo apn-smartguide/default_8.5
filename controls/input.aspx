@@ -15,7 +15,7 @@
 	%>
 	<% if (Context.Items["maxlength"] == null) Context.Items["maxlength"] = ""; %>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex%>'>Anchor to error <%=ErrorIndex%></a></apn:ifnotcontrolvalid>
-	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> input-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" --> >
+	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> input-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (TTSEnabled) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" --> >
 		<% ExecutePath("/controls/label.aspx"); %>
 		<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="badge badge-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 		<% if(IsPdf || IsSummary) { %>
@@ -29,7 +29,7 @@
 			<%}%>
 			<%-- If control is required, when using a cancel button, make sure to add the "formnovalidate" data attribute. --%>
 			</apn:ifcontrolrequired>
-			<input name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' type='<%=Context.Items["html5type"]%>' <apn:metadata runat="server" /> value='<apn:value runat="server" />' title='<%=GetAttribute(control.Current, "label")%>' placeholder='<%=GetAttribute(control.Current, "placeholder")%>' size='<apn:controlattribute runat="server" attr="size"/>' style='<apn:controlattribute runat="server" attr="style" /> <apn:cssstyle runat="server" />' class='form-control <apn:cssclass runat="server"/>' <%= Context.Items["readonly"] %> <%if (control.Current.isRequired()) { %>aria-required="true"<% } %> <%= (Context.Items["maxlength"].Equals("") ? "" : "maxlength='" + Context.Items["maxlength"] + "'") %> <!-- #include file="aria-attributes.inc" -->/>
+			<input name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' type='<%=Context.Items["html5type"]%>' <apn:metadata runat="server" /> value='<apn:value runat="server" tohtml="true"/>' title='<%=GetAttribute(control.Current, "label")%>' placeholder='<%=GetAttribute(control.Current, "placeholder")%>' size='<apn:controlattribute runat="server" attr="size"/>' style='<apn:controlattribute runat="server" attr="style" /> <apn:cssstyle runat="server" />' class='form-control <apn:cssclass runat="server"/>' <%= Context.Items["readonly"] %> <%if (control.Current.isRequired()) { %>aria-required="true"<% } %> <%= (Context.Items["maxlength"].Equals("") ? "" : "maxlength='" + Context.Items["maxlength"] + "'") %> <!-- #include file="aria-attributes.inc" -->/>
 			<apn:ifcontrolattribute runat="server" attr="suffix"><span class='input-group-addon'><apn:controlattribute runat="server" attr="suffix" /></span></apn:ifcontrolattribute>
 			<apn:ifcontrolattribute runat="server" attr="prefix or suffix"></div></apn:ifcontrolattribute>
 		<% } %>

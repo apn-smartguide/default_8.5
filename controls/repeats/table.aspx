@@ -39,7 +39,7 @@
 					<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
 					<% SessionField addBtn = GetProxyButton(Context.Items["repeatCode"] + "_add", ref eventTargets); %>
 					<% if(addBtn != null && addBtn.isAvailable()) { %>
-						<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
+						<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCleanCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 					<% } else { %>
 						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn float-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span>
 					<% } %>
@@ -66,7 +66,7 @@
 							<div class="input-group input-group-sm mb-3">
 								<div class="input-group-prepend"><span class="input-group-text"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span></div>
 								<input id='datatable-search' type='text' class='form-control' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
-								<button type="submit" class='searchBtn btn btn-sm btn-secondary' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
+								<button type="submit" class='sg searchBtn btn btn-sm btn-default' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 							</div>
 						</div>
 					<% } %>

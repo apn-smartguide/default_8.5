@@ -85,7 +85,8 @@
 		<% if ((int)Context.Items["alerts-count"] > 0) { %>
 		<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
 			<h2><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
-			<ul><apn:forEach items="alert-controls" id="alert" runat="server">
+			<ul>
+			<apn:forEach items="alert-controls" id="alert" runat="server">
 				<li id='error_<%=Context.Items["counter"] %>_<%= alert.Current.getName() %>'>
 					<% if(alert.Current.getAlert().Trim().Equals("error.goto.summary")) { %>
 						<apn:localize runat="server" key="theme.text.flowchange"/>
@@ -101,10 +102,11 @@
 						}
 						Context.Items["counter"] = (int)Context.Items["counter"] + 1;
 					%>
-					<a href='' onclick="$('<%=Context.Items["target"]%>').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"/><% if (ShowEnumerationErrors){%><span class="prefix">Error <%= Context.Items["counter"] %>:</span><%} if (!string.IsNullOrEmpty(fieldLabel)){%> <%= fieldLabel %> - <%}%><%= alert.Current.getAlert() %></a>
+					<a href='' onclick="$('<%=Context.Items["target"]%>').animate({scrollTop: $('#div_<%= alert.Current.getName() %>'.replace('[','\\[').replace(']','\\]')).offset().top}, 1000);return false;"><% if (ShowEnumerationErrors){%><span class="prefix">Error <%= Context.Items["counter"] %>:</span><%} if (!string.IsNullOrEmpty(fieldLabel)){%> <%= fieldLabel %> - <%}%><%= alert.Current.getAlert() %></a>
 					<% } else { %><span class="required">Page Error: <%= alert.Current.getAlert() %></span><% } %>
 				</li>
-			</apn:forEach><ul>
+			</apn:forEach>
+			</ul>
 		</section>
 		<% } %>
 	</div>

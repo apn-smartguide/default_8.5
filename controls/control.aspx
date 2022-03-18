@@ -4,14 +4,14 @@
 	bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
 	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) {
 	} else if(control.Current.getCSSClass().Contains("proxy") && !renderProxy) {
-	} else if (customControl.Equals("file")) {
+	} else if (customControl != null && customControl.Equals("file")) {
 		if(!control.Current.getValue().Equals("")) {
 			//Use the controls Value if you need to dynamically switch the file loaded based on conditions
 			ExecutePath(control.Current.getValue());
 		} else if(!control.Current.getLabel().Equals("")){
 			ExecutePath(control.Current.getLabel());
 		}
-	} else if (!customControl.Equals("")) {
+	} else if (customControl != null && !customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
 	} else { %>

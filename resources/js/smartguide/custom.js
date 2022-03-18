@@ -34,6 +34,26 @@ var customJS = {
 			dataTablesController.bindEvents(sgRef, context[i]);
 			crudController.bindEvents(sgRef, context[i]);
 		}
+
+		$('select.select2.countries').select2({
+			minimumInputLength: 3,
+			ajax: {
+				url: '/smartlets/do.aspx?t_countries_search=1',
+				dataType: 'json',
+				type: "GET",
+				delay: 250,
+				processResults: function (data) {
+					return {
+						results: $.map(data, function (item) {
+							return {
+								text:item.Name,
+								id: item.Code
+							}
+						})
+					};
+				}
+			}
+		});
 	}
 };
 

@@ -1,9 +1,29 @@
 var dataTablesController = {
+	ajax_targets: [],
+	ajax_counter: 0,
 	init: function(sgRef) {
 		sgRef.dataTableInstances = {};
 	},
-	
-	bindEvents : function(sgRef, context) {
+	preDTAjaxCall: function(e) {
+		dataTablesController.ajax_counter++;
+		dataTablesController.ajax_targets.push(e.target.id);
+		$('#loader').fadeIn("fast");
+		$(this).fadeTo("slow", 0.33);
+		//console.log("preDTAjaxCall");
+	}, 
+	postDTAjaxCall: function(e) {
+		dataTablesController.ajax_counter--;
+		if (dataTablesController.ajax_targets.indexOf(e.target.id) > -1) {
+			dataTablesController.ajax_targets = dataTablesController.ajax_targets.filter(function(item) {
+				return item !== e.target.id;
+			});
+			$(this).fadeTo("slow", 1);
+			$('#loader').fadeOut("fast");
+			//console.log("postDTAjaxCall")
+		}
+	},
+
+	bindEvents : function(sgRef, context, rebindInitiator) {
 		var $form = sgRef.fm;
 
 		$('div.repeat table:not(.wb-tables)').each(function(index, elmt) {
@@ -110,7 +130,7 @@ var dataTablesController = {
 					var repeatDiv = $(obj).parent().parent();
 					if (repeatDiv.hasClass('hide-search')) gridOption['hide-search'] = true;
 					if (repeatDiv.hasClass('hide-pagination')) gridOption['hide-pagination'] = true;
-					if (repeatDiv.hasClass('grid-view')) gridOption['standard-search'] = true;
+					//if (repeatDiv.hasClass('grid-view')) gridOption['standard-search'] = true;
 					if (repeatDiv.hasClass('selectable')) gridOption['selectable'] = true;
 					var dtOptions = {
 						"stateSave": true,
@@ -181,11 +201,11 @@ var dataTablesController = {
 						dtOptions = Object.assign(dtOptions, tempOptions);
 					}
 					otable = $(elmt).show().DataTable(dtOptions);
-					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
+					sgRef.dataTableInstances[CSS.escape($(repeatDiv).attr('id'))] = otable;
 				} else {
 					var repeatDiv = $(obj).parent().parent();
 					otable = $(elmt).DataTable();
-					sgRef.dataTableInstances[$.escapeSelector($(repeatDiv).attr('id'))] = otable;
+					sgRef.dataTableInstances[CSS.escape($(repeatDiv).attr('id'))] = otable;
 				}
 				return otable;
 			}
@@ -225,7 +245,9 @@ var dataTablesController = {
 					}
 				}
 			}
-			sgRef.bindEvents([$(this)]);
+			if(rebindInitiator != "dataTablesController") {
+				sgRef.bindEvents([$(this)], "dataTablesController");
+			}
 		});
 
 		$('[name=select_all]', 'table:not(.wb-tables).table thead tr th').first().off('click').on('click', function(){
@@ -322,6 +344,39 @@ var dataTablesController = {
 				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: $(this).attr('id') }}); 
 				$("form").attr('action', originalAction);
 			}
+		});
+		
+		// Listen on datatable ajax call events
+		$('.datatables').each(function() {
+			var input_filter_value;
+			var input_filter_timeout=null;
+			var table = $(this).DataTable();
+			// check if we are server side, if not exit
+			if (table.ajax.url() == null) return;
+
+			console.log("datatable main process");
+
+			table.off('preXhr.dt', dataTablesController.preDTAjaxCall).on('preXhr.dt', dataTablesController.preDTAjaxCall);
+			table.off('xhr.dt', dataTablesController.postDTAjaxCall).on('xhr.dt', dataTablesController.postDTAjaxCall);
+
+			// var id = $(this).parents(".repeat").attr("id");
+			// if(typeof id !== 'undefined' && rebindInitiator != "dataTablesController") {
+			// 	console.log("bindEvents:datatables (ajax loaded) " + id);
+			// 	setTimeout(function() {
+			// 		sgRef.bindEvents([$("#"+id)], "dataTablesController");
+			// 	},500);
+			// }
+
+			var search_input = $('.dataTables_filter input', $(this).closest('.dataTables_wrapper'));
+			search_input.unbind();
+			search_input.keyup( function (e) {
+				var searchtable = $('table', $(this).closest('.dataTables_wrapper')).DataTable();
+				input_filter_value=this.value;
+				clearTimeout(input_filter_timeout);
+				input_filter_timeout=setTimeout(function(){
+					searchtable.search(input_filter_value).draw();
+				}, 800);
+			});			
 		});
 	}
 }

@@ -28,14 +28,14 @@ Context.Items["btnAddStyle"] = "";
 Context.Items["btnAddType"] = "prepare_add_instance";
 
 %>
-<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='card repeat uploads-render <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='<% if(BootstrapVersion == "4") { Response.Output.Write("card"); } else { Response.Output.Write("panel panel-default"); } %> repeat uploads-render <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <% if (TTSEnabled) { %>tts tts-play<% } %>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name='<apn:name runat="server"/>' type='hidden' value='' />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
-	<div class='card-header clearfix'>
-		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %><div class='float-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='<%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
+	<div class='<% if(BoostrapVersion == "4") { Response.Output.Write("card-header"); } else { Response.Output.Write("panel-heading"); } %> clearfix'>
+		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %><div class='pull-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='sg <%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">

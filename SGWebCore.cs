@@ -137,6 +137,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["is-development"] = null;
 		Application["smartletLoggerSGWebCore"] = null;
 		Application["showEnumerationErrors"] = null;
+		Application["themes-locations"] = null;
 
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
@@ -199,6 +200,15 @@ public partial class SGWebCore : System.Web.UI.Page
 				Application["is-development"] = GetAppSetting("com.alphinat.sgs.environment").Equals("Development");
 			}
 			return (bool)Application["is-development"];
+		}
+	}
+
+	public bool Environment {
+		get {
+			if(Application["environment"] == null) {
+				Application["environment"] = GetAppSetting("com.alphinat.sgs.environment");
+			}
+			return (bool)Application["environment"];
 		}
 	}
 
@@ -278,6 +288,29 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public string GetLocaleDescription(string localeCode) {
+		string fallbackDescription = "";
+		return GetLocaleDescription(localeCode, ref fallbackDescription);
+	}
+	//Gets the native description of the requested locale, if the theme provides this information.
+	//Otherwise returns the description provided by the built-in languages (if found).
+	//Optionnaly provide the fallbackDescription of the locale, this depends on your base language (typically english)
+	public string GetLocaleDescription(string localeCode, ref string fallbackDescription) {
+		string currentLocale = Smartlet.getCurrentLocale();
+		//set the locale to the requested localeCode
+		Smartlet.setCurrentLocale(localeCode);
+		//The following keys need to be in your theme.xls file.
+		string localeNativeDesc = Smartlet.getLocalizedResource("lang-native");
+		fallbackDescription = Smartlet.getLocalizedResource("lang-en");
+		if(localeNativeDesc == null || localeNativeDesc == "") {
+			localeNativeDesc = Smartlet.getCurrentLocaleDescription();
+			fallbackDescription = "";
+		}
+		//revert to initial locale
+		Smartlet.setCurrentLocale(currentLocale);
+		return localeNativeDesc;
+	}
+
 	public ISmartletPage CurrentPage {
 		get {
 			if(Context.Items["currentPage"] == null) {
@@ -299,6 +332,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string Workspace {
 		get {
 			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
+				ClearCaches();
 				Context.Items["workspace"] = Smartlet.getWorkspace();
 			} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
 				//We're changing workspace, clear the caches.
@@ -314,10 +348,10 @@ public partial class SGWebCore : System.Web.UI.Page
 		get {
 			if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
 				//using the localized ressource, the API getSubject does not support localization.
-				Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("smartlet.subject");
+				Context.Items["smartletSubject"] = GetLocalizedResource("smartlet.subject");
 				if(Context.Items["smartletSubject"] == null || ((string)Context.Items["smartletSubject"]).Equals("")) {
 					//Fallback to theme subject if none specified at the Smartlet level
-					Context.Items["smartletSubject"] = sg.getSmartlet().getSessionSmartlet().getLocalizedResource("theme.text.subject");
+					Context.Items["smartletSubject"] = GetLocalizedResource("theme.text.subject");
 				}
 				if(Context.Items["smartletSubject"] == null ) {
 					Context.Items["smartletSubject"] = "";
@@ -348,17 +382,35 @@ public partial class SGWebCore : System.Web.UI.Page
 		set { Application["theme-locations"] = value; }
 	}
 
+
+	public string ApplicationPath {
+		get {
+			string appPath = HttpContext.Current.Request.ApplicationPath;
+			if(!appPath.EndsWith("/")) appPath = String.Concat(appPath,"/");
+			return appPath;
+		}
+	}
+
 	//// Filepaths Helpers ////
 	//Will provide the runniing basePath based on the current Workspace name.
 	public string BasePath {
 		get {
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
-				Application["basePath"] = String.Concat(HttpContext.Current.Request.ApplicationPath, "/aspx/", Workspace, "/");
+				Application["basePath"] = String.Concat(ApplicationPath,"aspx/", SmartGuideDomain, Workspace, "/");
 			}
 			return (string)Application["basePath"];
 		}
 	}
 
+	public string SmartGuideDomain {
+		get {
+			string domain = Smartlet.getDomain().Replace("default","");
+			if(!domain.Equals("")) domain = domain + "/";
+			return domain;
+		}
+	}
+
+	//deprecated
 	public string CoreThemePath {
 		get {
 			if (Application["coreThemePath"] == null || ((string)Application["coreThemePath"]).Equals("")) {
@@ -371,6 +423,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public string CurrentThemePath {
 		get {
 			if (Application["currentThemePath"] == null || ((string)Application["currentThemePath"]).Equals("")) {
@@ -443,7 +496,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public void ExecutePath(string path) {
 		string target = ResolvePath(path);
 		if(!target.Equals("")) {
-			Server.Execute(ResolvePath(path));
+			Server.Execute(target);
 		} else {
 			if(IsDevelopment) {
 				if (Logger != null) Logger.error(String.Concat("File not found: ", path));
@@ -485,7 +538,7 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	//// Referencing other smartlets helpers ////
 	public string GetURLForSmartlet(string smartletName, string urlParams) {
-		StringBuilder smartletUrl = new StringBuilder("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
+		StringBuilder smartletUrl = new StringBuilder(ApplicationPath).Append("do.aspx?interviewID=").Append(smartletName).Append("&workspace=").Append(Workspace).Append("&lang=").Append(CurrentLocale);
 		if (!urlParams.Equals("")) {
 			smartletUrl.Append("&").Append(urlParams);
 		}
@@ -516,6 +569,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		} else {
 			Logger.debug("<<<< SGWebCore:IsLogged: Cleared [userid, roles] >>>>");
 			Session["userid"] = "";
+			Session["username"] = "";
+			Session["fullname"] = "";
 			Session["roles"] = "";
 			return false;
 		}
@@ -542,13 +597,19 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public string Fullname { 
+		get {
+			return (Session["fullname"] != null) ? (string) Session["fullname"] : "";
+		}
+	}
+
 	public string UserId {
 		get {
 			return (Session["userid"] != null) ? (string) Session["userid"] : "";
 		}
 	}
 
-	//Roles are retreive and set on ther Session in the /smartprofile/dashboard smartlet, welcome page, actions
+	//Roles are retreive and set on the Session for ex.: in the /smartprofile/dashboard smartlet, welcome page, actions
 	public string UserRoles {
 		get {
 			string result = "";
@@ -626,10 +687,11 @@ public partial class SGWebCore : System.Web.UI.Page
 	}
 
 	public string GetLocalizedResource(string key) {
-		if(Application["localized-"+key] == null) {
-			Application["localized-"+key] = Smartlet.getLocalizedResource(key);
+		//TODO: Consider current locale?
+		if(Application["localized-"+key+CurrentLocale] == null) {
+			Application["localized-"+key+CurrentLocale] = Smartlet.getLocalizedResource(key);
 		}
-		return (string)Application["localized-"+key];
+		return (string)Application["localized-"+key+CurrentLocale];
 	}
 
 	public string GetVariableByName(string key) {
@@ -834,6 +896,8 @@ public partial class SGWebCore : System.Web.UI.Page
 		return breadcrumbs;
 	}
 
+	//deprecated
+
 	public bool ShowWizard {
 		get {
 			if(Context.Items["showWizard"] == null) {
@@ -888,6 +952,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	//deprecated
 	public bool HideFunelNavigation {
 		get {
 			if(Context.Items["hideFunelNavigation"] == null) {
@@ -996,6 +1061,13 @@ public partial class SGWebCore : System.Web.UI.Page
 		return sb.ToString();
 	}
 
+	//TTS & STT PageLevel Features
+	public bool TTSEnabled {
+		get {
+			return CurrentPageCSS.Contains("tts");
+		}
+	}
+	
 	//// Field Helpers ////
 	public bool IsUnderRepeat(ISmartletField f) {
 		bool result = false;
@@ -1069,6 +1141,9 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string GetLabel(SessionField ctrl) {
 		return ctrl.getLabel();
 	}
+	public string GetLabel(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetLabel(ctrl.Current);
+	}
 
 	public string GetTooltip(ControlInfo ctrl) {
 		return ctrl.getTooltip();
@@ -1082,16 +1157,24 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getTooltip();
 	}
 
-	public string GetCSSClass(ControlInfo ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetTooltip(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetTooltip(ctrl.Current);
 	}
 
-	public string GetCSSClass(ISmartletField ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(ControlInfo ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
 	}
 
-	public string GetCSSClass(SessionField ctrl) {
-		return ctrl.getCSSClass().Replace("proxy","");
+	public string GetCleanCSSClass(ISmartletField ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
+	}
+
+	public string GetCleanCSSClass(SessionField ctrl) {
+		return RemoveBehaviourFlags(ctrl.getCSSClass());
+	}
+
+	public string GetCleanCSSClass(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetCleanCSSClass(ctrl.Current);
 	}
 
 	public string GetCSSStyle(ControlInfo ctrl) {
@@ -1106,12 +1189,24 @@ public partial class SGWebCore : System.Web.UI.Page
 		return ctrl.getCSSStyle();
 	}
 
-	public string GetAttribute(ControlInfo ctrl, string attribute) {
-		return ctrl.getAttribute(attribute);
+	public string GetCSSStyle(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetCSSStyle(ctrl.Current);
 	}
 
 	public string GetMetaDataValue(ControlInfo ctrl, string key) {
 		return (ctrl.getMetaDataValue(key) != null && !ctrl.getMetaDataValue(key).Equals("")) ? ctrl.getMetaDataValue(key) : "";
+	}
+
+	public string GetMetaDataValue(Alphinat.SmartGuideServer.Controls.Control ctrl, string key) {
+		return GetMetaDataValue(ctrl.Current, key);
+	}
+
+	public string GetAttribute(ControlInfo ctrl, string attribute) {
+		return ctrl.getAttribute(attribute);
+	}
+
+	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute) {
+		return GetAttribute(ctrl.Current, attribute);
 	}
 
 	public string GetAttribute(ControlInfo ctrl, string attribute, bool tohtml) {
@@ -1122,10 +1217,41 @@ public partial class SGWebCore : System.Web.UI.Page
 		} 
 	}
 
-	public SessionField GetProxyButton(string key, ref string eventTargets) {
-		SessionField btn = (SessionField)FindFieldByName(key);
-		if(btn != null) {
-			ISmartletField[] targets = btn.getEventTarget();
+	public string GetAttribute(Alphinat.SmartGuideServer.Controls.Control ctrl, string attribute, bool tohtml) {
+		return GetAttribute(ctrl.Current, attribute, tohtml);
+	}
+
+	public string RemoveBehaviourFlags(string value) {
+
+		string result = value.Replace("proxy","")
+		.Replace("hide-column-label","")
+		.Replace("hide-label","")
+		.Replace("hide-sort","")
+		.Replace("nonsearchable", "")
+		.Replace("plain-group","")
+		.Replace("collapsible","")
+		.Replace("open","")
+		.Replace("table-render","")
+		.Replace("table-view","")
+		.Replace("panel-heading-button","")
+		.Replace("panel-heading-control","")
+		.Replace("grid-render","")
+		.Replace("grid-view","")
+		.Replace("block-render","")
+		.Replace("block-view","")
+		.Replace("datatables-view","")
+		.Replace("datatable-editable","")
+		.Replace("select-all","")
+		.Replace("signature","")
+		.Replace("tinymce","");
+
+		return result;
+	}
+
+	public SessionField GetProxyControl(string key, ref string eventTargets) { 
+		SessionField ctrl = (SessionField)FindFieldByName(key);
+		if(ctrl != null) {
+			ISmartletField[] targets = ctrl.getEventTarget();
 			if(targets != null) {
 				foreach(ISmartletField targetField in targets) {
 					if(targetField != null) {
@@ -1134,38 +1260,79 @@ public partial class SGWebCore : System.Web.UI.Page
 				}
 			}
 		}
-		return btn;
+		return ctrl;
+	}
+
+	public SessionField GetProxyButton(string key, ref string eventTargets) {
+		return GetProxyControl(key, ref eventTargets);
+	}
+
+	public SessionField GetProxyControl(string key, int repeatIndex, ref string eventTargets) {
+		SessionField ctrl = null;
+
+		if(repeatIndex > -1) {
+			ctrl = (SessionField)FindFieldByNameUnderRepeat(key, repeatIndex);
+		} else {
+			ctrl = (SessionField)FindFieldByName(key);
+		}
+		if(ctrl != null) {
+			ISmartletField[] targets = ctrl.getEventTarget();
+			if(targets != null) {
+				foreach(ISmartletField targetField in targets) {
+					if(targetField != null) {
+						eventTargets += "\"" + targetField.getHtmlName() + "\",";
+					}
+				}
+			}
+		}
+		return ctrl;
 	}
 
 	public SessionField GetProxyButton(string key, int repeatIndex, ref string eventTargets) {
-		SessionField btn = null;
-
-		if(repeatIndex > -1) {
-			btn = (SessionField)FindFieldByNameUnderRepeat(key, repeatIndex);
-		} else {
-			btn = (SessionField)FindFieldByName(key);
-		}
-		if(btn != null) {
-			ISmartletField[] targets = btn.getEventTarget();
-			if(targets != null) {
-				foreach(ISmartletField targetField in targets) {
-					if(targetField != null) {
-						eventTargets += "\"" + targetField.getHtmlName() + "\",";
-					}
-				}
-			}
-		}
-		return btn;
+		return GetProxyButton(key, repeatIndex, ref eventTargets);
 	}
 
 	public long GetSortableDate(ControlInfo ctrl) {
+
 		long staticvalue = 0;
-		try {
-			string dateFormat = ctrl.getAttribute("format");
-			dateFormat = dateFormat.Replace("mois","MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy").Replace("mm","MM");
-			staticvalue = DateTime.ParseExact(ctrl.getValue(), dateFormat, System.Globalization.CultureInfo.InvariantCulture).Ticks;
-		} catch(Exception e) { }
+		DateTime dt;
+
+		String format = ctrl.getAttribute("format");
+		if(!format.Equals("")){
+			format = format.Replace("mois","MM").Replace("month","MM").Replace("mmm", "M").Replace("mm", "MM").Replace("jj","dd").Replace("aaaa","yyyy").Replace("aa","yy");
+		} else {
+			 format = "yyyy-MM-dd";
+		}
+
+		Boolean result = DateTime.TryParseExact(ctrl.getValue(), format, System.Globalization.CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+		//If this failed, try again without specifying the culture.
+		if(!result) {
+			result = DateTime.TryParse(ctrl.getValue(), out dt); 
+		}
+
+		if(result) {
+			staticvalue = dt.Ticks;
+		}
+
 		return staticvalue;
+	}
+
+	public string GetHTMLDate(ControlInfo ctrl) {
+		
+		if (ctrl.getValue() != null && !ctrl.getValue().Equals("")) {
+			DateTime dt = new DateTime();
+			String format = ctrl.getAttribute("format");
+			Boolean result = DateTime.TryParseExact(ctrl.getValue(), format, System.Globalization.CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+			if(!result) {
+				result = DateTime.TryParse(ctrl.getValue(), out dt); 
+			}
+			return dt.ToString("yyyy-MM-dd");
+		}
+		return "";
+	}
+
+	public long GetSortableDate(Alphinat.SmartGuideServer.Controls.Control ctrl) {
+		return GetSortableDate(ctrl.Current);
 	}
 
 	//// Utilities ///
@@ -1182,75 +1349,27 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
-	///Cookies
+	private static string Unicode2ASCII(string text)
+		{
+			// Create two different encodings.
+			System.Text.Encoding ascii = System.Text.Encoding.ASCII;
+			System.Text.Encoding unicode = System.Text.Encoding.Unicode;
+
+			// Convert the string into a byte array.
+			byte[] unicodeBytes = unicode.GetBytes(text);
+
+			// Perform the conversion from one encoding to the other.
+			byte[] asciiBytes = System.Text.Encoding.Convert(unicode, ascii, unicodeBytes);
+
+			// Convert the new byte[] into a char[] and then into a string.
+			char[] asciiChars = new char[ascii.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
+			ascii.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
+			string asciiString = new string(asciiChars);
+
+			return asciiString;
+	}
+
 	private readonly Regex rgx = new Regex("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
-
-	// public void ClearCookie(IServiceContext context, string cookieName)
-	// {
-	// 	lLogger.debug("Cookie - Start clearing " + cookieName);
-
-	// 	try
-	// 	{
-	// 		string secureValue = (string)context.getEnvironment().getAttribute(Constants.Scope.CONFIGURATION, "SP.Smartlets.Cookie.Secure");
-	// 		if (String.IsNullOrEmpty(secureValue))
-	// 		{
-	// 			secureValue = "false";
-	// 		}
-
-	// 		HttpRequest req = (HttpRequest)context.getEnvironment().getRequest();
-
-	// 		string baseURL = req.Url.ToString();
-
-	// 		Logger.debug("BaseURL is " + baseURL);
-
-	// 		string fullDomain = Between(baseURL, "://", "/");
-
-	// 		if (fullDomain.IndexOf(":") > -1)
-	// 		{
-	// 			fullDomain = Before(fullDomain, ":");
-	// 		}
-
-	// 		Logger.debug("Full domain is " + fullDomain);
-
-	// 		string domain = "";
-
-	// 		// is it an IP address
-	// 		if (rgx.Match(fullDomain).Success)
-	// 		{
-	// 			domain = fullDomain;
-	// 		}
-	// 		else
-	// 		{
-	// 			string[] parts = fullDomain.Split('.');
-	// 			int nbrparts = parts.Length;
-	// 			domain = fullDomain;
-	// 			if (nbrparts > 2)
-	// 			{
-	// 				int indexDot = domain.IndexOf(".");
-	// 				if (indexDot > -1)
-	// 				{
-	// 					domain = domain.Substring(indexDot);
-	// 				}
-	// 			}
-	// 		}
-
-	// 		int index = domain.IndexOf(".");
-	// 		if (index == 0)
-	// 		{
-	// 			domain = domain.Substring(1);
-	// 		}
-
-	// 		Logger.debug("Final domain is " + domain);
-
-	// 		context.getEnvironment().addHttpCookie(cookieName, "", "0", domain, "/", secureValue, "true");
-	// 	}
-	// 	catch (Exception e)
-	// 	{
-	// 		Logger.error("An exception occured trying to clear cookie " + cookieName + ".  The exception is " + e.Message);
-	// 	}
-
-	// 	Logger.debug("Done clearing " + cookieName);
-	// }
 
 	public string Before(string value, string a)
 	{
