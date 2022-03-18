@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
@@ -1011,18 +1012,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
-	public bool ShowErrorsAbove {
-		get {
-			if(Context.Items["errors-above"] == null) {
-				Context.Items["errors-above"] = false;
-			}
-			return (bool)Context.Items["errors-above"];
-		}
-		set {
-			Context.Items["errors-above"] = value;
-		}
-	}
-
 	public bool BareRender {
 		get {
 			if(Context.Items["renderbare"] == null) {
@@ -1035,6 +1024,37 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	/// For now Errors only manage the ActionErrors returned when the key
+	/// com.alphinat.sgs.actions.StopProcessingActionTypes
+	/// is enabled in the web.config.
+	public string[] Errors {
+		get{
+			List<string> errors = new List<string>();
+			errors.Add("test error");
+			if(Smartlet.getActionErrors().Length > 0) {
+				foreach(ISmartletActionError error in Smartlet.getActionErrors()) {
+					string errorMsg = error.getError();
+					if(IsDevelopment) {
+						errorMsg += " " + error.getSource() + " " + error.getStackTrace();
+					}
+					errors.Add(errorMsg);
+				}
+			}
+			return errors.ToArray();
+		}
+	}
+
+	public bool ShowErrorsAbove {
+		get {
+			if(Context.Items["errors-above"] == null) {
+				Context.Items["errors-above"] = false;
+			}
+			return (bool)Context.Items["errors-above"];
+		}
+		set {
+			Context.Items["errors-above"] = value;
+		}
+	}
 	public int ErrorIndex {
 		get {
 			if(Context.Items["errorIndex"] == null) {

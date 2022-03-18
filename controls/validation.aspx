@@ -13,6 +13,20 @@
 }
 %>
 <% if (!IsPdf || !IsSummary) { %>
+	<% 
+	if(Errors.Length > 0) {
+	%>
+	<div class="alert alert-danger">
+		<p><strong><%=Smartlet.getLocalizedResource("theme.text.unexpected-error")%></strong></p>
+	<%
+		for (int i = 0; i < Errors.Length; i ++) {
+			Response.Output.Write(Errors[i].ToString());
+		}
+	%>
+	</div>
+	<%
+	}
+	%>
 	<apn:IfRequiredControlExists runat="server"><% Context.Items["required"] = true; %></apn:IfRequiredControlExists>
 	<% ErrorIndex = 0; %>
 	<%
