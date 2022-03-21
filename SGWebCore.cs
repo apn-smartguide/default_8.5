@@ -107,7 +107,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		// 	html = html.Replace("\t\n", "\n");
 		// 	output.Write(html.Trim());
 		// }
-
 		base.Render(output);
 		if(TraceExecution && beginThemeProcessingTimer != DateTime.MinValue) {
 			endThemeProcessingTimer = DateTime.UtcNow;
@@ -1031,8 +1030,11 @@ public partial class SGWebCore : System.Web.UI.Page
 		get{
 			List<string> errors = new List<string>();
 			//errors.Add("test error");
-			if(Smartlet.getActionErrors().Length > 0) {
-				foreach(ISmartletActionError error in Smartlet.getActionErrors()) {
+			SessionSmartlet smartlet = sg.getSmartlet().getSessionSmartlet();
+			ISmartletActionError[] sessionActionErrors = smartlet.getActionErrors();
+
+			if(sessionActionErrors.Length > 0) {
+				foreach(ISmartletActionError error in sessionActionErrors) {
 					string errorMsg = error.getError();
 					if(IsDevelopment) {
 						errorMsg += " " + error.getSource() + " " + error.getStackTrace();
