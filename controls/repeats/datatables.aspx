@@ -31,20 +31,39 @@
 	if("".Equals(control.Current.getMetaDataValue("data-page-length")) && !"".Equals(control.Current.getAttribute("limit"))) {
 		Context.Items["limit"] = "data-page-length='" + control.Current.getAttribute("limit") + "'";
 	}
+
+	string bodyCSS, collapseCSS, titleCSS, pullLeftCSS, headerCSS, containerCSS;
+
+	if (BootstrapVersion == "4") {
+		containerCSS = "card";
+		headerCSS = "card-header";
+		pullLeftCSS = "float-left";
+		titleCSS = "card-title";
+		collapseCSS = "collapse";
+		bodyCSS = "card-body";
+
+	} else {
+		containerCSS = "panel panel-default";
+		headerCSS = "panel-heading";
+		pullLeftCSS = "pull-left";
+		titleCSS = "panel-title";
+		collapseCSS = "panel-collapse collapse";
+		bodyCSS = "panel-body";
+	}
 %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='<% if(BootstrapVersion == "4") { Response.Output.Write("card"); } else { Response.Output.Write("panel panel-default"); } %><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='<%= containerCSS%><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<% if (!(bool)Context.Items["hideHeading"]) { %>
-	<div class='card-header'>
+	<div class='<%= headerCSS%>'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='float-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='<%=pullLeftCSS%>' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
 			<apn:control type="insert" id="button" runat="server">
@@ -53,7 +72,7 @@
 				<% if(addBtn != null && addBtn.isAvailable()) { %>
 					<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCleanCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 				<% } else { %>
-					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn float-right' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span>
+					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(BootstrapVersion == "4") { Response.Output.Write("float-right"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span>
 				<% } %>
 			</apn:control>
 		<% } %>
@@ -82,14 +101,14 @@
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>
 		<% if (control.Current.getLabel() != "") { %>
-			<h5 class="mt-1 mb-1"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+			<h2 class="<%= titleCSS%>"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
 		<% } %>
 	</div>
 	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-		<div id='div_<apn:name runat="server"/>_body' class='collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+		<div id='div_<apn:name runat="server"/>_body' class='<%= collapseCSS%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
-	<div class='<% if(BootstrapVersion == "4") { Response.Output.Write("card-body"); } else { Response.Output.Write("panel-body"); } %>'>
+	<div class='<%= bodyCSS%>'>
 		<apn:control runat="server" type="default-instance" id="filters">
 			<apn:forEach runat="server" id="thFilterRow">
 				<apn:forEach runat="server" id="thFilterCol">
