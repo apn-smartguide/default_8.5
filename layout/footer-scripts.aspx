@@ -33,6 +33,7 @@
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
+<script src='<%= CacheBreak("/resources/js/select2.full.min.js") %>'></script>
 
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
