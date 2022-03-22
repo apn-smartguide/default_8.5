@@ -373,7 +373,8 @@ div.repeat table td.repeatbutton {
 	border-bottom: 1px #8e8e8e solid ;
 }
 
-.card .repeatinstance {
+.card .repeatinstance,
+.panel .repeatinstance {
 	margin: 15px;
 	border: 1px #8e8e8e solid;
 	border-radius: 3px;
@@ -415,7 +416,8 @@ div.repeat table td.repeatbutton {
 	margin-bottom: 0px !important;
 }
 
-.panel-borderless .card-header {
+.panel-borderless .card-header,
+.panel-borderless .panel-heading {
 	background: #fff;
 	border-width: 0px;
 }

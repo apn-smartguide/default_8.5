@@ -43,20 +43,45 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 //	Context.Items["btnAddCSSClass"] = btnAdd.getCSSClass().Replace("proxy","");
 //	Context.Items["btnAddStyle"] = btnAdd.getCSSStyle();
 //}
+
+string bodyCSS, collapseCSS, containerCSS;
+
+	if (BootstrapVersion == "4") {
+		containerCSS = "card";
+		collapseCSS = "collapse";
+		bodyCSS = "card-body";
+
+	} else {
+		containerCSS = "panel panel-default";
+		collapseCSS = "panel-collapse collapse";
+		bodyCSS = "panel-body";
+	}
 %>
-<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='card <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
+<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget") %>]'<% } %> class='<%= containerCSS%> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat <% if ((bool)Context.Items["isSelectable"]) { %> selectable<% } %> <%--=control.Current.getCSSClass()--%>' style='<%=control.Current.getCSSStyle()%>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite'<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name='<apn:name runat="server"/>' type='hidden' value='' />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
+	<%
+		string headerCSS, titleCSS, pullCSS;
+		if (BootstrapVersion == "4") {
+			headerCSS = "card-header";
+			titleCSS = "card-title";
+			pullCSS = "float-right";
+		} else {
+			headerCSS = "panel-heading";
+			titleCSS = "panel-title";
+			pullCSS = "pull-right";
+		}
+	%>
 	<% if (!(bool)Context.Items["hideHeading"]) { %>
-	<div class='card-header clearfix'>
+	<div class='<%= headerCSS%> clearfix'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
-			<div class='float-right'>
+			<div class='<%= pullCSS%>'>
 				<apn:control id="button" runat="server" type="prepare_add_instance">
 					<% string eventTargets = control.Current.getAttribute("eventtarget"); %>
 					<% SessionField addBtn = GetProxyButton(Context.Items["repeatCode"] + "_add", ref eventTargets); %>
@@ -69,14 +94,14 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 			</div>
 		<% } %>
 		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
-		<h5 class="mt-1 mb-1"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+		<h5 class="<%= titleCSS%>"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 	</div>
 	<% } %>
 	</apn:control>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-		<div id='div_<apn:name runat="server"/>_body' class='collapse <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+		<div id='div_<apn:name runat="server"/>_body' class='<%= collapseCSS%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 	<% } %>
-	<div class='card-body'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
+	<div class='<%= bodyCSS%>'  id='div_<%=Context.Items["repeat-name-" + Context.Items["repeat-level"]]%>_table'>
 	<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%> = '';</script>
 	<table class='<%=control.Current.getCSSClass()%> <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "")%>' <%= ((bool)Context.Items["hasPagination"] ? " data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "") %>>
 		<% if ((bool)Context.Items["hasPagination"]) { %><apn:control type="repeat-current-page" runat="server" ><input type='hidden' value='<apn:value runat="server"/>' name='<apn:name runat="server" />' class='repeatCurrentPage'/></apn:control><% } %>

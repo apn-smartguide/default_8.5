@@ -101,7 +101,7 @@
 		</apn:forEach></apn:forEach></apn:forEach>
 		</apn:control>
 		<% if (control.Current.getLabel() != "") { %>
-			<h2 class="<%= titleCSS%>"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+			<h5 class="<%= titleCSS%>"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 		<% } %>
 	</div>
 	<% } %>
