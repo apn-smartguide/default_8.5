@@ -386,7 +386,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string ApplicationPath {
 		get {
 			string appPath = HttpContext.Current.Request.ApplicationPath;
-			if(!appPath.EndsWith("/")) appPath = String.Concat(appPath,"/");
+			if(!appPath.EndsWith("/") && appPath != "/") appPath = String.Concat(appPath,"/");
 			return appPath;
 		}
 	}
