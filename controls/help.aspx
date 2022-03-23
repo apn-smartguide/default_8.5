@@ -15,8 +15,13 @@
 		<% } else { %>
 			<span  data-toggle='modal' data-target='#div_<apn:helpid runat="server"/>' onclick='return false;'>
 			<a href='#' alt="question mark icon" class='link-help' data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.helptitle"/>' arial-label='<apn:localize runat="server" key="theme.text.helptitle"/>'>
-				<apn:ifnotcontrolvalid runat="server"><span class='has-error glyphicon glyphicon-question-sign'></span></apn:ifnotcontrolvalid>
-				<apn:ifcontrolvalid runat="server"><span class="sr-only">Question mark</span><span aria-hidden="true" class='glyphicon glyphicon-question-sign'></span></apn:ifcontrolvalid>
+				<apn:ifnotcontrolvalid runat="server">
+					<span class='has-error <% if(BootstrapVersion == "4") {Response.Output.Write("fa fa-question-circle");} else { Response.Output.Write("glyphicon glyphicon-question-sign"); }%>'/>
+				</apn:ifnotcontrolvalid>
+				<apn:ifcontrolvalid runat="server">
+					<span class="sr-only">Question mark</span>
+					<span aria-hidden="true" class='<% if (BootstrapVersion == "4") {Response.Output.Write("fa fa-question-circle");} else { Response.Output.Write("glyphicon glyphicon-question-sign"); }%>'/>
+				</apn:ifcontrolvalid>
 			</a>
 			</span>
 			<!-- Modal -->
