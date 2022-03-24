@@ -80,12 +80,12 @@
 				<div class='row' style="width: 100%;">
 					<% if(!(bool)Context.Items["hideSearch"]) { %>
 						<div class=' <% if(BootstrapVersion == "4") { Response.Output.Write("col-12 col-lg-5"); } else { Response.Output.Write("pull-right"); }%>'>
-							<div class="<%= groupCSS%> mb-3">
+							<div class="<%= groupCSS%> mb-3" <% if (BootstrapVersion == "4") { Response.Output.Write("style='display:flex;'");}%>>
 								<% if (BootstrapVersion == "4") {%> <div class="input-group-prepend"> <%}%>
-									<span class="input-group-text"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span>
+									<span class="input-group-text" style="font-size: 1em;"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span>
 								<% if (BootstrapVersion == "4") {%> </div> <%}%>
-								<input id='datatable-search' type='text' class='form-control' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
-								<button type="submit" class='sg searchBtn btn btn-sm btn-default' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
+								<input id='datatable-search' type='text' class='<% if (BootstrapVersion != "4") { Response.Output.Write("form-control"); }%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
+								<button type="submit" class='sg searchBtn btn btn-sm btn-light' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 							</div>
 						</div>
 					<% } %>
