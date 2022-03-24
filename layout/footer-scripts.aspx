@@ -10,8 +10,10 @@
 
 <!-- Bootstrap -->
 <% if(BootstrapVersion == "4") { %>
-<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
+<!--bootstrap.bundle.min.js contains everything bootstrap.min.js has, plus the plugin Popper
+	Only import one of the two -->
+	<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
+	<!-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script> -->
 <% } else { %>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.min.js") %>'></script>
 <% } %>
