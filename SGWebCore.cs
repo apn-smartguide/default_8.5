@@ -403,7 +403,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
 				Application["basePath"] = String.Concat(ApplicationPath,"aspx/", SmartGuideDomain, Workspace, "/");
 			}
-			Logger.trace("BasePath:" + (string)Application["basePath"]);
+			//Logger.trace("BasePath:" + (string)Application["basePath"]);
 			return (string)Application["basePath"];
 		}
 	}
