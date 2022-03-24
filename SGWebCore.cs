@@ -331,16 +331,21 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string Workspace {
 		get {
-			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
-				ClearCaches();
-				Context.Items["workspace"] = Smartlet.getWorkspace();
-			} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
-				//We're changing workspace, clear the caches.
-				Logger.debug("<<<< SGWebCore:Workspace: Changing Workspace, Cleared Caches >>>>");
-				ClearCaches();
-				Context.Items["workspace"] = Smartlet.getWorkspace();
-            }
-			return (string)Context.Items["workspace"];
+			bool workspaceEnabled = bool.Parse(GetAppSetting("com.alphinat.sg.workspace.Enabled"));
+			if(workspaceEnabled) {
+				if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
+					ClearCaches();
+					Context.Items["workspace"] = Smartlet.getWorkspace();
+				} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
+					//We're changing workspace, clear the caches.
+					Logger.debug("<<<< SGWebCore:Workspace: Changing Workspace, Cleared Caches >>>>");
+					ClearCaches();
+					Context.Items["workspace"] = Smartlet.getWorkspace();
+				}
+				return (string)Context.Items["workspace"];
+			} else {
+				return "";
+			}
 		}
 	}
 
@@ -398,6 +403,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
 				Application["basePath"] = String.Concat(ApplicationPath,"aspx/", SmartGuideDomain, Workspace, "/");
 			}
+			Logger.trace("BasePath:" + (string)Application["basePath"]);
 			return (string)Application["basePath"];
 		}
 	}
