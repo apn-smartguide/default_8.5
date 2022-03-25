@@ -20,16 +20,18 @@
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
-	string collapseCSS, containerCSS, headerCSS;
+	string collapseCSS, containerCSS, headerCSS, groupCSS;
 
 	if (BootstrapVersion == "4") {
 		containerCSS = "card";
 		collapseCSS = "collapse";
 		headerCSS = "card-header";
+		groupCSS = "input-group input-group-sm";
 	} else {
 		containerCSS = "panel panel-default";
 		collapseCSS = "panel-collapse collapse";
 		headerCSS = "panel-heading";
+		groupCSS = "form-group";
 	}
 %>
 	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat mt-2 mb-2 <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
@@ -61,9 +63,9 @@
 						<% if (!control.Current.getLabel().Equals("")) { %><h5 class="mb-0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5><% } %>
 				</apn:control>
 				<% if ((bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary) { %>
-					<div class='container form-inline' style='padding:10px'>
-						<div class='row' style="width: 100%;">
-							<div class='<% if (BootstrapVersion == "4") { Response.Output.Write("col-6"); } else { Response.Output.Write("col-xs-6");}%>'>
+					<div class='form-inline' style='padding-top:10px'>
+						<div class='row' style="width: 100%; padding-top: 10px;">
+							<div class='col-12 col-lg-7 mb-3 mb-lg-0 '>
 								<b>Page <span class='paginationInfo'><%=Convert.ToInt32(control.Current.getAttribute("currentPage")) +1%> / <%=control.Current.getAttribute("totalPages")%></b></span> &nbsp;&nbsp;&nbsp;<apn:localize runat="server" key="theme.text.datatable.fetch" />
 								<apn:control runat="server" type="repeat-page-limit" id="pageSize">
 									<% if (" 10 20 50 75 ".Contains(" " + pageSize.Current.getValue() + " ")) { %>
@@ -79,21 +81,17 @@
 								</apn:control>
 								<apn:localize runat="server" key="theme.text.datatable.entry" />
 							</div>
-							<div class='<% if (BootstrapVersion == "4") { Response.Output.Write("col-6"); } else { Response.Output.Write("col-xs-6");}%>'>
-								<% if(!(bool)Context.Items["hideSearch"]) {%>
-									<% if (BootstrapVersion == "4") {%> 
-									<div class="input-group input-group-sm mb-3">
-									<%}%>
-										<div class="input-group-prepend"><span class="input-group-text"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span></div>
-										<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='form-control searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
-									<% if (BootstrapVersion == "4") {%> 
-										<button type="submit" class='searchBtn btn btn-sm btn-secondary' title='<apn:localize runat="server" key="theme.icon.search"/>' aria-label='<apn:localize runat="server" key="theme.icon.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></button>
+							<% if(!(bool)Context.Items["hideSearch"]) {%>
+								<div class=' <% if(BootstrapVersion == "4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>'>
+									<div class="<%= groupCSS%> mb-3" <% if (BootstrapVersion == "4") { Response.Output.Write("style='display:flex;'");}%>>
+										<% if (BootstrapVersion == "4") {%> <div class="input-group-prepend"> <%}%>
+											<span class="input-group-text" style="font-size: 1em;"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span>
+										<% if (BootstrapVersion == "4") {%> </div> <%}%>
+										<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='<% if (BootstrapVersion != "4") { Response.Output.Write("form-control"); }%> searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
+										<button type="submit" class='sg searchBtn btn btn-sm btn-light' title='<apn:localize runat="server" key="theme.icon.search"/>' aria-label='<apn:localize runat="server" key="theme.icon.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></button>
 									</div>
-									<%} else { %>
-										<span class='searchBtn'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></span>
-									<%}%>
-								<% } %>
-							</div>
+								</div>
+							<% } %>
 						</div>
 					</div>
 				<% } %>
