@@ -1029,22 +1029,28 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool HasActionErrors {
+		get {
+			SessionSmartlet smartlet = sg.getSmartlet().getSessionSmartlet();
+			ISmartletActionError[] sessionActionErrors = smartlet.getActionErrors();
+			return (sessionActionErrors.Length > 0);
+			//return true;
+		}
+	}
 	/// For now Errors only manage the ActionErrors returned when the key
 	/// com.alphinat.sgs.actions.StopProcessingActionTypes
 	/// is enabled in the web.config.
-	public string[] Errors {
+	public string[] ActionErrors {
 		get{
 			List<string> errors = new List<string>();
-			//errors.Add("test error");
+			
 			SessionSmartlet smartlet = sg.getSmartlet().getSessionSmartlet();
 			ISmartletActionError[] sessionActionErrors = smartlet.getActionErrors();
-
+			
 			if(sessionActionErrors.Length > 0) {
 				foreach(ISmartletActionError error in sessionActionErrors) {
 					string errorMsg = error.getError();
-					if(IsDevelopment) {
-						errorMsg += " " + error.getSource() + " " + error.getStackTrace();
-					}
+					errorMsg += " " + error.getSource() + " " + error.getStackTrace();
 					errors.Add(errorMsg);
 				}
 			}

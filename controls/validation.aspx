@@ -14,17 +14,19 @@
 %>
 <% if (!IsPdf || !IsSummary) { %>
 	<% 
-	if(Errors.Length > 0) {
+	if(HasActionErrors) {
 	%>
 	<div class="alert alert-danger">
 		<p><strong><%=Smartlet.getLocalizedResource("theme.text.unexpected-error")%></strong></p>
 	<%
-		for (int i = 0; i < Errors.Length; i ++) {
-			string errorMessage = Errors[i].ToString();
-			if(errorMessage.Contains("<html")) {
-				Response.Output.Write("<iframe width='100%' frameborder='0' marginheight='5' marginwidth='5' srcdoc='" + errorMessage + "'></iframe>");
-			} else {
-				Response.Output.Write(errorMessage);
+		if(IsDevelopment) {
+			for (int i = 0; i < ActionErrors.Length; i ++) {
+				string errorMessage = ActionErrors[i].ToString();
+				if(errorMessage.Contains("<html")) {
+					Response.Output.Write("<iframe width='100%' frameborder='0' marginheight='5' marginwidth='5' srcdoc='" + errorMessage + "'></iframe>");
+				} else {
+					Response.Output.Write(errorMessage);
+				}
 			}
 		}
 	%>
