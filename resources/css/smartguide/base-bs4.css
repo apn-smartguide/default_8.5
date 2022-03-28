@@ -638,14 +638,14 @@ input[type="password"] {
 }
 
 .chkbxrdio-grp ul li label {
-	margin-left: 5px;
+	margin-left: 15px;
 	margin-right: 5px;
 	display: inline;
 }
 
 
 .chkbxrdio-grp ul.large-checkbox li label, .chkbxrdio-grp ul.large-radio li label {
-	margin-left: 5px;
+	margin-left: 15px;
 	margin-right: 5px;
 }
 
