@@ -208,6 +208,22 @@ var utilsController = {
 
 			return false;
 		});
+
+		$('.clear-upload').off('click').on('click', function (e) {
+            //onAddInstance
+            $('#loader').fadeIn("fast");
+            var $this = $(this);
+            var id = CSS.escape(this.id);
+            var newinput = '<input type="hidden" name="' + id + '" id="' + id + '" value=""/>';
+            r.ajaxProcess(this, null, true,
+                function (updatedEles) {
+                },
+                null,
+                function(){
+                    $("#loader").fadeOut("fast");
+                }
+            );
+        });
 		
 		//Support for auto-expandable textarea
 		function setAutoHeight(obj) {
