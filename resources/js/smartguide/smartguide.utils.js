@@ -215,7 +215,7 @@ var utilsController = {
             var $this = $(this);
             var id = CSS.escape(this.id);
             var newinput = '<input type="hidden" name="' + id + '" id="' + id + '" value=""/>';
-            r.ajaxProcess(this, null, true,
+            sgRef.ajaxProcess(this, null, true,
                 function (updatedEles) {
                 },
                 null,
