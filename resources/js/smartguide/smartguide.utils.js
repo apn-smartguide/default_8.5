@@ -209,19 +209,19 @@ var utilsController = {
 			return false;
 		});
 
-		// $('.clear-upload').off('click').on('click', function (e) {
-        //     $('#loader').fadeIn("fast");
-        //     var $this = $(this);
-		// 	var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value=""/>';
-		// 	$this.before(newinput);
-        //     sgRef.ajaxProcess(this, null, true,
-        //         null,
-        //         null,
-        //         function(){
-        //             $("#loader").fadeOut("fast");
-        //         }
-        //     );
-        // });
+		$('.clear-upload').off('click').on('click', function (e) {
+            $('#loader').fadeIn("fast");
+            var $this = $(this);
+			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value=""/>';
+			$this.before(newinput);
+            sgRef.ajaxProcess(this, null, true,
+                null,
+                null,
+                function(){
+                    $("#loader").fadeOut("fast");
+                }
+            );
+        });
 		
 		//Support for auto-expandable textarea
 		function setAutoHeight(obj) {
