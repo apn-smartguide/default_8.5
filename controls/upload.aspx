@@ -35,7 +35,7 @@
 					if(btn != null && btn.isAvailable()) { %>
 						<button type='button' id='d_<%=btn.getId()%>' name='d_<%=btn.getId()%>' class='sg <%=GetCleanCSSClass(btn)%>' style='<%=btn.getCSSStyle()%>' data-eventtarget='[<%=eventTargets%>]' <% if (!GetTooltip(btn).Equals("")){ %>title='<%=GetTooltip(btn)%>' aria-label='<%=GetTooltip(btn)%>'<% } %>><%=btn.getLabel()%></button>
 					<% } else { %> 
-						<button type='button' id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg clear-upload self-refresh' data-eventtarget='[]' value="" aria-labelledby='lbl_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button>
+						<button type='button' id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg clear-upload self-refresh <apn:localize runat="server" key="theme.style.button.delete"/>' data-eventtarget='[]' value="" aria-labelledby='lbl_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button>
 					<% } %>
 				<% } %>
 				<!-- use link to clear, the data on the page will not be submitted -->
