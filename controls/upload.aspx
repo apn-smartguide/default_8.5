@@ -28,7 +28,7 @@
 				<% if (!control.Current.getCSSClass().Contains("hide-delete-btn")) { %>
 				&nbsp;
 				<!-- use button to clear, all the data on the page will be submitted -->
-				<% if (((string)Context.Items["readonly"]).Length == 0 && !IsSummary) { %><button type='button' name='<apn:name runat="server"/>' class='sg btn btn-danger btn-xs btn-link clear-upload' aria-labelledby='lbl_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button><% } %>
+				<% if (((string)Context.Items["readonly"]).Length == 0 && !IsSummary) { %><button type='button' id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg clear-upload self-refresh' data-eventtarget='[]' value="" aria-labelledby='lbl_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button><% } %>
 				<!-- use link to clear, the data on the page will not be submitted -->
 				<!-- <a href="?<apn:name runat="server"/>=">Clear</a>	-->
 				<% } %>

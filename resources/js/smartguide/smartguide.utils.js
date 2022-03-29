@@ -210,14 +210,12 @@ var utilsController = {
 		});
 
 		$('.clear-upload').off('click').on('click', function (e) {
-            //onAddInstance
             $('#loader').fadeIn("fast");
             var $this = $(this);
-            var id = CSS.escape(this.id);
-            var newinput = '<input type="hidden" name="' + id + '" id="' + id + '" value=""/>';
+			var newinput = '<input type="hidden" name="' + this.id + '" id="' + this.id + '" value=""/>';
+			$this.before(newinput);
             sgRef.ajaxProcess(this, null, true,
-                function (updatedEles) {
-                },
+                null,
                 null,
                 function(){
                     $("#loader").fadeOut("fast");
