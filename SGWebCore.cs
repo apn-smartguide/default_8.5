@@ -107,7 +107,6 @@ public partial class SGWebCore : System.Web.UI.Page
 		// 	html = html.Replace("\t\n", "\n");
 		// 	output.Write(html.Trim());
 		// }
-
 		base.Render(output);
 		if(TraceExecution && beginThemeProcessingTimer != DateTime.MinValue) {
 			endThemeProcessingTimer = DateTime.UtcNow;
@@ -348,16 +347,21 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string Workspace {
 		get {
-			if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
-				ClearCaches();
-				Context.Items["workspace"] = Smartlet.getWorkspace();
-			} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
-				//We're changing workspace, clear the caches.
-				Logger.debug("<<<< SGWebCore:Workspace: Changing Workspace, Cleared Caches >>>>");
-				ClearCaches();
-				Context.Items["workspace"] = Smartlet.getWorkspace();
-            }
-			return (string)Context.Items["workspace"];
+			bool workspaceEnabled = bool.Parse(GetAppSetting("com.alphinat.sg.workspace.Enabled"));
+			if(workspaceEnabled) {
+				if(Context.Items["workspace"] == null || ((string)Context.Items["workspace"]).Equals("")) {
+					ClearCaches();
+					Context.Items["workspace"] = Smartlet.getWorkspace();
+				} else if (Context.Items["workspace"] != null && !Smartlet.getWorkspace().Equals((string)Context.Items["workspace"])) {
+					//We're changing workspace, clear the caches.
+					Logger.debug("<<<< SGWebCore:Workspace: Changing Workspace, Cleared Caches >>>>");
+					ClearCaches();
+					Context.Items["workspace"] = Smartlet.getWorkspace();
+				}
+				return (string)Context.Items["workspace"];
+			} else {
+				return "";
+			}
 		}
 	}
 
@@ -403,7 +407,7 @@ public partial class SGWebCore : System.Web.UI.Page
 	public string ApplicationPath {
 		get {
 			string appPath = HttpContext.Current.Request.ApplicationPath;
-			if(!appPath.EndsWith("/")) appPath = String.Concat(appPath,"/");
+			if(!appPath.EndsWith("/") && appPath != "/") appPath = String.Concat(appPath,"/");
 			return appPath;
 		}
 	}
@@ -415,6 +419,7 @@ public partial class SGWebCore : System.Web.UI.Page
 			if (Application["basePath"] == null || ((string)Application["basePath"]).Equals("")) {
 				Application["basePath"] = String.Concat(ApplicationPath,"aspx/", SmartGuideDomain, Workspace, "/");
 			}
+			//Logger.trace("BasePath:" + (string)Application["basePath"]);
 			return (string)Application["basePath"];
 		}
 	}
@@ -1040,19 +1045,28 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
+	public bool HasActionErrors {
+		get {
+			SessionSmartlet smartlet = sg.getSmartlet().getSessionSmartlet();
+			ISmartletActionError[] sessionActionErrors = smartlet.getActionErrors();
+			return (sessionActionErrors.Length > 0);
+			//return true;
+		}
+	}
 	/// For now Errors only manage the ActionErrors returned when the key
 	/// com.alphinat.sgs.actions.StopProcessingActionTypes
 	/// is enabled in the web.config.
-	public string[] Errors {
+	public string[] ActionErrors {
 		get{
 			List<string> errors = new List<string>();
-			//errors.Add("test error");
-			if(Smartlet.getActionErrors().Length > 0) {
-				foreach(ISmartletActionError error in Smartlet.getActionErrors()) {
+			
+			SessionSmartlet smartlet = sg.getSmartlet().getSessionSmartlet();
+			ISmartletActionError[] sessionActionErrors = smartlet.getActionErrors();
+			
+			if(sessionActionErrors.Length > 0) {
+				foreach(ISmartletActionError error in sessionActionErrors) {
 					string errorMsg = error.getError();
-					if(IsDevelopment) {
-						errorMsg += " " + error.getSource() + " " + error.getStackTrace();
-					}
+					errorMsg += " " + error.getSource() + " " + error.getStackTrace();
 					errors.Add(errorMsg);
 				}
 			}
