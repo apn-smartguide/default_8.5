@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 <% 
 	string containerCSS, headerCSS, titleCSS, collapseCSS, bodyCSS = ""; 
-	if(BootstrapVersion == "4") { 
+	if(LayoutEngine == "BS4") { 
 		containerCSS = "card";
 		headerCSS = "card-header";
 		titleCSS = "card-title";

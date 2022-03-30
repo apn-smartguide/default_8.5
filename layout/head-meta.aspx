@@ -11,6 +11,6 @@
 <meta name="keywords" content='<apn:control runat="server" type="keyword"><apn:value runat="server"/></apn:control>'>
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="generator" content="SmartGuide 8.0.2"> <%-- leave this for stats please --%>
+<meta name="generator" content="SmartGuide 8.0.3"> <%-- leave this for stats please --%>
 <meta name="application-name" content="<apn:control runat="server" type="smartlet-name"><apn:value runat="server"/></apn:control>">
 <% ExecutePath("/layout/dcterms.aspx"); %>

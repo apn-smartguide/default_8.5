@@ -34,7 +34,7 @@
 
 	string bodyCSS, collapseCSS, titleCSS, pullLeftCSS, headerCSS, containerCSS;
 
-	if (BootstrapVersion == "4") {
+	if (LayoutEngine == "BS4") {
 		containerCSS = "card";
 		headerCSS = "card-header d-flex align-items-center";
 		pullLeftCSS = "float-left";
@@ -66,7 +66,7 @@
 			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='<%=pullLeftCSS%>' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (control.Current.getLabel() != "") { %>
-			<h5 class="<%= titleCSS%>" style='margin: 0px; <% if(BootstrapVersion != "4") {Response.Output.Write("padding-top: 0.5rem;");}%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+			<h5 class="<%= titleCSS%>" style='margin: 0px; <% if(LayoutEngine != "BS4") {Response.Output.Write("padding-top: 0.5rem;");}%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
 			<apn:control type="insert" id="button" runat="server">
@@ -75,7 +75,7 @@
 				<% if(addBtn != null && addBtn.isAvailable()) { %>
 					<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCleanCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 				<% } else { %>
-					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(BootstrapVersion == "4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/>'></span></span>
+					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(LayoutEngine == "BS4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/>'></span></span>
 				<% } %>
 			</apn:control>
 		<% } %>

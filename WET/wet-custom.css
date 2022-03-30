@@ -1,0 +1,81 @@
+/* Place your Bootstrap and SmartGuide overwrites here as well as any custom classes */
+
+/* WET-BOEW patch Start */
+/* fix width of controls in form-control */
+/* select.form-control, textarea.form-control, input.form-control {
+	width: 100% !important;
+} */
+
+/* DataTables override - using WET version */
+table.dataTable thead .sorting {
+	background-image: none;
+}
+table.dataTable thead .sorting_asc {
+	background-image: none;
+}
+table.dataTable thead .sorting_desc {
+	background-image: none;
+}
+
+.dataTables_wrapper .dataTables_filter {
+	float:left;
+	text-align: left;
+}
+
+.dataTables_wrapper .dataTables_info {
+	clear: none ;
+	float: none;
+	padding-top: 0px;
+}
+
+.dataTables_wrapper .dataTables_length {
+	float: none;
+}
+/* DataTables */
+
+/* fix width of date input in Safari */
+.wb-date-wrap.input-group {
+	width: 100%;
+}
+
+/* fix height of date input in Safari */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	input[type=date].form-control, 
+	input[type=datetime-local].form-control, 
+	input[type=month].form-control, 
+	input[type=time].form-control {
+		line-height: 20px;
+	}
+}
+
+/* Reduce size of legend to match other labels, legend is applied to radio and checkbox list, but WET-BOEW Styling not appropriate for forms.  */
+legend {
+	font-size: 16px;
+}
+
+.input-group-addon {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.form-control {
+	width: 100%;
+}
+
+.form-group {
+	/* padding-left: 15px; */
+	/* padding-right: 15px; */
+}
+
+.pagination {
+	float: right;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* missing background color in WET */
+.modal-header {
+	background-color: #2e5274;
+	color: #fff;
+}
+/* WET-BOEW patch end */

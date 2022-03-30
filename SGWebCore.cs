@@ -139,6 +139,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["showEnumerationErrors"] = null;
 		Application["themes-locations"] = null;
 		Application["bootstrap-version"] = null;
+		Application["wet-enabled"] = null;
 
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
@@ -204,18 +205,34 @@ public partial class SGWebCore : System.Web.UI.Page
 		}
 	}
 
-	public string BootstrapVersion {
+	public string LayoutEngine {
 		get {
 			if(Application["bootstrap-version"] == null) {
 				Application["bootstrap-version"] = GetAppSetting("com.alphinat.sgs.bootstrap.version");
 				if (Application["bootstrap-version"] == null) {
-					Application["bootstrap-version"] = "3";
+					Application["bootstrap-version"] = "BS3";
 				}
 			}
 			return (string)Application["bootstrap-version"];
 		}
 		set {
 			Application["bootstrap-version"] = value;
+		}
+	}
+
+	public bool WETEnabled
+	{
+		get
+		{
+			if (Application["wet-enabled"] != null)
+			{
+				return (bool)Application["wet-enabled"];
+			}
+			return false;
+		}
+		set
+		{
+			Application["wet-enabled"] = value;
 		}
 	}
 

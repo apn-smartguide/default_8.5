@@ -9,12 +9,12 @@
 	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; } %>
 	<apn:choosecontrol runat="server">
 		<apn:whencontrol runat="server" type="check">
-		<div id='div_<apn:name runat="server"/>' class="chkbxrdio-grp form-group <% if (TTSEnabled) { %>tts tts-play<% } %>">
+		<div id='div_<apn:name runat="server"/>' class="<% if (WETEnabled) { %>chkbxrdio-grp <% } %> form-group <% if (TTSEnabled) { %>tts tts-play<% } %>">
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
 			<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
 			<% Context.Items["label"] = control.Current.getLabel(); %>
 			<% Context.Items["hide-option-label"] = control.Current.getCSSClass().Contains("hide-option-label"); %>
-			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(BootstrapVersion == "4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
+			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(LayoutEngine == "BS4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
 			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
 			<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
 			<apn:forEach id="control2" runat="server">
@@ -49,7 +49,7 @@
 								if (!control2.Current.getLabel().Equals("")) { Context.Items["label"] = control2.Current.getLabel(); }
 							%>
 							<input type='checkbox' name='<%=control2.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>' class='<%=control.Current.getCSSClass()%> form-check-input' value='<%= control2.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control2.Current.getValue()) ? " checked='checked'" : "" %> <%=Context.Items["readonly"]%><% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%= control.Current.getAttribute("eventtarget")%>]' aria-controls='<%= control.Current.getAttribute("eventtarget").Replace("\"","")%>'<% } %> aria-labelledby='<%= Context.Items["aria-labelledby"]%>' />
-							<label class="<% if(BootstrapVersion == "4") { Response.Output.Write("form-check"); } else { Response.Output.Write("form-check-label"); } %>" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=(!GetTooltip(control.Current).Equals("")) ? GetTooltip(control.Current) : Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
+							<label class="<% if(LayoutEngine == "BS4") { Response.Output.Write("form-check"); } else { Response.Output.Write("form-check-label"); } %>" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=(!GetTooltip(control.Current).Equals("")) ? GetTooltip(control.Current) : Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
 							<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
 							<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
 						</apn:otherwise>
@@ -59,14 +59,14 @@
 			</ul>
 			<% Context.Items["label"] = ""; %>
 			<% Context.Items["hide-option-label"] = null; %>
-			<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(BootstrapVersion == "4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+			<% if(!ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(LayoutEngine == "BS4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 		</div>
 		</apn:whencontrol>
 		<apn:whencontrol runat="server" type="lbox">
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
 			<div id='div_<apn:name runat="server"/>' <%=Context.Items["layout"]%> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> form-group <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' <!-- #include file="aria-live.inc" -->>
 				<% if (!BareRender){ %><% ExecutePath("/controls/label.aspx"); %><% } %>
-				<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(BootstrapVersion == "4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
+				<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(LayoutEngine == "BS4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%></span><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 				<% if (IsPdf || IsSummary) { %><p><%=control.Current.getSelectedLabel()%></p>
 				<% } else { %>
 				<select name='<%= control.Current.getName() %>' id='<%= control.Current.getName() %>' <apn:metadata runat="server" /> class='<apn:cssclass runat="server" /> form-control' <%=Context.Items["readonly"]%> style='<%= (control.Current.getAttribute("style")+" "+control.Current.getCSSStyle()) %>' multiple size='<%= control.Current.getAttribute("size") %>' <!-- #include file="aria-attributes.inc" -->>

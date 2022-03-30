@@ -22,7 +22,7 @@
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 	string collapseCSS, containerCSS, headerCSS, groupCSS;
 
-	if (BootstrapVersion == "4") {
+	if (LayoutEngine == "BS4") {
 		containerCSS = "card";
 		collapseCSS = "collapse";
 		headerCSS = "card-header";
@@ -81,13 +81,13 @@
 								</apn:control>
 								<apn:localize runat="server" key="theme.text.datatable.entry" />
 							</div>
-							<% if(!(bool)Context.Items["hideSearch"]) {%>
-								<div class=' <% if(BootstrapVersion == "4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>'>
-									<div class="<%= groupCSS%> mb-3" <% if (BootstrapVersion == "4") { Response.Output.Write("style='display:flex;'");}%>>
-										<% if (BootstrapVersion == "4") {%> <div class="input-group-prepend"> <%}%>
+							<% if(!(bool)Context.Items["hideSearch"]) { %>
+								<div class=' <% if(LayoutEngine == "BS4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>'>
+									<div class="<%= groupCSS%> mb-3" <% if (LayoutEngine == "BS4") { Response.Output.Write("style='display:flex;'");}%>>
+										<% if (LayoutEngine == "BS4") { %> <div class="input-group-prepend"> <% } %>
 											<span class="input-group-text" style="font-size: 1em;"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span>
-										<% if (BootstrapVersion == "4") {%> </div> <%}%>
-										<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='<% if (BootstrapVersion != "4") { Response.Output.Write("form-control"); }%> searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
+										<% if (LayoutEngine == "BS4") { %> </div> <% } %>
+										<apn:control type="repeat-filter" runat="server" id="filter"><input type='text' class='<% if (LayoutEngine != "BS4") { Response.Output.Write("form-control"); }%> searchBox' placeholder='<%=GetAttribute(filter.Current, "placeholder")%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' /></apn:control>
 										<button type="submit" class='sg searchBtn btn btn-sm btn-light' title='<apn:localize runat="server" key="theme.icon.search"/>' aria-label='<apn:localize runat="server" key="theme.icon.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>' aria-hidden='true' /></button>
 									</div>
 								</div>
@@ -107,7 +107,7 @@
 				<apn:forEach id="status" runat="server">
 					<% Context.Items["optionIndex"] = status.getCount(); 
 						string bodyCSS, pullCSS;
-						if (BootstrapVersion == "4") {
+						if (LayoutEngine == "BS4") {
 							bodyCSS = "card-body";
 							pullCSS = "float-right";
 						} else {

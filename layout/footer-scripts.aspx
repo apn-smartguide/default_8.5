@@ -1,4 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<% if(WETEnabled) { %>
+<!-- WET-BOEW -->
+<script src='<%= CacheBreak("/WET/wet-boew/js/wet-boew.min.js") %>'></script>
+<% } %>
+
 <!-- JQuery -->
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.form.min.js") %>'></script>
@@ -9,13 +14,12 @@
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.ba-throttle-debounce.js") %>'></script>
 
 <!-- Bootstrap -->
-<% if(BootstrapVersion == "4") { %>
-<!--bootstrap.bundle.min.js contains everything bootstrap.min.js has, plus the plugin Popper
-	Only import one of the two -->
-	<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
-	<!-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script> -->
-<% } else { %>
+<% if(LayoutEngine.Equals("BS3")) { %>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.min.js") %>'></script>
+<% } else if(LayoutEngine.Equals("BS4")) { %>
+<%-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script> --%>
+<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
+<% } else if(LayoutEngine.Equals("BS5")) { %>
 <% } %>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-session-timeout.js") %>'></script>
 
@@ -33,9 +37,13 @@
 <script src='<%= CacheBreak("/resources/js/js-cookie.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jSignature.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/select2.full.min.js") %>'></script>
+<% if(!WETEnabled) { %>
+<script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
+<%--<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.11.3/js/jquery.datatables.js") %>'></script>--%>
+<%--<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/js/dataTables.responsive.js") %>'></script>--%>
+<% } %>
 
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
@@ -47,13 +55,10 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
+<% if(WETEnabled) { %>
+<script src='<%= CacheBreak("/WET/smartguide.dataTables.wb.js") %>'></script>
+<% } %>
 <script type="text/javascript">
-	//Manually start SmartGuide
-	$(document).ready(function(){
-		for(let smartlet in SMARTGUIDES){
-			SMARTGUIDES[smartlet].init();
-		}
-	});
 	var dataTableTranslations = {
 		'zeroRecords': '<apn:localize runat="server" key="theme.text.datatable.zeroRecords"/>',
 		'infoEmpty': '<apn:localize runat="server" key="theme.text.datatable.infoEmpty"/>',
@@ -70,5 +75,18 @@
 		'discardChanges': $("<div>").html('<apn:localize runat="server" key="theme.text.modals.discardChanges"/>').text(),
 		'deleteRow': $("<div>").html('<apn:localize runat="server" key="theme.text.modals.deleteRow"/>').text()
 	};
-	initToBrowserLocale(currentLocale);	
+	<% if (WETEnabled) { %>
+	wb.doc.on("wb-ready.wb", function (event) {
+		for (let smartlet in SMARTGUIDES) {
+			SMARTGUIDES[smartlet].init();
+		}
+	});
+	<% } else { %>
+	$(document).ready(function () {
+		for (let smartlet in SMARTGUIDES) {
+			SMARTGUIDES[smartlet].init();
+		}
+	});
+	<% } %>
+	initToBrowserLocale(currentLocale);
 </script>

@@ -1,7 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
 <%
 	string pullCSS;
-	if (BootstrapVersion == "4") {
+	if (LayoutEngine == "BS4") {
 		pullCSS = "float-right";
 	} else {
 		pullCSS = "pull-right";

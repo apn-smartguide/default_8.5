@@ -23,7 +23,7 @@
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 
 	string containerCSS, headerCSS, titleCSS, collapseCSS, bodyCSS, groupCSS;
-	if (BootstrapVersion == "4") {
+	if (LayoutEngine == "BS4") {
 		containerCSS = "card";
 		headerCSS = "card-header";
 		titleCSS = "card-title";
@@ -47,7 +47,7 @@
 		</apn:control>
 		<% } %>
 		<% if (!(bool)Context.Items["hideHeading"]) { %>
-		<div class='<%= headerCSS%>' <%if (BootstrapVersion == "4") {Response.Output.Write("style='padding: 0.25rem 1.25rem;'");}%>>
+		<div class='<%= headerCSS%>' <%if (LayoutEngine == "BS4") {Response.Output.Write("style='padding: 0.25rem 1.25rem;'");}%>>
 			<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 				<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 			<% } %>
@@ -58,7 +58,7 @@
 					<% if(addBtn != null && addBtn.isAvailable()) { %>
 						<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCleanCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 					<% } else { %>
-						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(BootstrapVersion == "4") { Response.Output.Write("float-right mt-2"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/>'></span></span>
+						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(LayoutEngine == "BS4") { Response.Output.Write("float-right mt-2"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/>'></span></span>
 					<% } %>
 				</apn:control>
 			<% } %>
@@ -79,12 +79,12 @@
 			<div class='form-inline' style='padding-bottom:5px'>
 				<div class='row' style="width: 100%;">
 					<% if(!(bool)Context.Items["hideSearch"]) { %>
-						<div class=' <% if(BootstrapVersion == "4") { Response.Output.Write("col-12 col-lg-5"); } else { Response.Output.Write("pull-right"); }%>'>
-							<div class="<%= groupCSS%> mb-3" <% if (BootstrapVersion == "4") { Response.Output.Write("style='display:flex;'");}%>>
-								<% if (BootstrapVersion == "4") {%> <div class="input-group-prepend"> <%}%>
+						<div class=' <% if(LayoutEngine == "BS4") { Response.Output.Write("col-12 col-lg-5"); } else { Response.Output.Write("pull-right"); }%>'>
+							<div class="<%= groupCSS%> mb-3" <% if (LayoutEngine == "BS4") { Response.Output.Write("style='display:flex;'");}%>>
+								<% if (LayoutEngine == "BS4") { %> <div class="input-group-prepend"> <% } %>
 									<span class="input-group-text" style="font-size: 1em;"><apn:localize runat="server" key="theme.text.datatable.filter" />:</span>
-								<% if (BootstrapVersion == "4") {%> </div> <%}%>
-								<input id='datatable-search' type='text' class='<% if (BootstrapVersion != "4") { Response.Output.Write("form-control"); }%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
+								<% if (LayoutEngine == "BS4") { %> </div> <% } %>
+								<input id='datatable-search' type='text' class='<% if (LayoutEngine != "BS4") { Response.Output.Write("form-control"); }%>' value='<apn:value runat="server" />' name='<apn:name runat="server" />' placeholder='<%=GetAttribute(control.Current, "placeholder")%>'>
 								<button type="submit" class='sg searchBtn btn btn-sm btn-light' title='<apn:localize runat="server" key="theme.text.search"/>' aria-label='<apn:localize runat="server" key="theme.text.search"/>'><span class='<apn:localize runat="server" key="theme.icon.search"/>'></span></button>
 							</div>
 						</div>
