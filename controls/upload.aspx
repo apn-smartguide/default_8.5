@@ -28,7 +28,16 @@
 				<% if (!control.Current.getCSSClass().Contains("hide-delete-btn")) { %>
 				&nbsp;
 				<!-- use button to clear, all the data on the page will be submitted -->
-				<% if (((string)Context.Items["readonly"]).Length == 0 && !IsSummary) { %><button type='submit' name='<apn:name runat="server"/>' class='sg btn btn-danger btn-xs btn-link' aria-labelledby='lbl_<apn:name runat="server"/>' onclick='this.value=""; return true;' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button><% } %>
+				<% if (((string)Context.Items["readonly"]).Length == 0 && !IsSummary) { %>
+					<%
+					string eventTargets = "";
+					SessionField btn = GetProxyButton("upload_clear", ref eventTargets);
+					if(btn != null && btn.isAvailable()) { %>
+						<button type='button' id='d_<%=btn.getId()%>' name='d_<%=btn.getId()%>' class='sg <%=GetCleanCSSClass(btn)%>' style='<%=btn.getCSSStyle()%>' data-eventtarget='[<%=eventTargets%>]' <% if (!GetTooltip(btn).Equals("")){ %>title='<%=GetTooltip(btn)%>' aria-label='<%=GetTooltip(btn)%>'<% } %>><%=btn.getLabel()%></button>
+					<% } else { %> 
+						<button type='button' id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg clear-upload self-refresh <apn:localize runat="server" key="theme.style.button.delete"/>' data-eventtarget='[]' value="" aria-labelledby='lbl_<apn:name runat="server"/>' title='<apn:localize runat="server" key="theme.upload.delete" />'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></button>
+					<% } %>
+				<% } %>
 				<!-- use link to clear, the data on the page will not be submitted -->
 				<!-- <a href="?<apn:name runat="server"/>=">Clear</a>	-->
 				<% } %>

@@ -3,14 +3,14 @@
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%-- https://datatables.net/manual/index --%>
 <%
-smartlet.SmartletID = Request["appID"];
+smartlet.SmartletID = HttpUtility.JavaScriptStringEncode(Request["appID"]);
 %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" RenderPage="false" CalculatePage="false" runat="server" ProcessingEvent="Render" visible="true" />
 <apn:api5 id="sg5" runat="server" />
 <%
 ISmartletLogger log = sg5.Context.getLogger("selections");
 
-string tableId = Request["tableId"];
+string tableId = HttpUtility.JavaScriptStringEncode(Request["tableId"]);
 // remove prefix and suffixes
 if (tableId.IndexOf("d_s") == 0) {
 	tableId = tableId.Substring(3);

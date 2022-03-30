@@ -7,13 +7,13 @@
 <apn:api5 id="sg5" runat="server" />
 <%-- https://datatables.net/manual/index --%>
 <%
-smartlet.SmartletID = Request["appID"];
+smartlet.SmartletID = HttpUtility.JavaScriptStringEncode(Request["appID"]);
 
 //This is required for multiple-table scenario in same page.
 //You need to add a field on the page that will contain the name of the current table being processed, and it's value set via a "OnFieldRender" action updatedTableName = requestParameter("tableName")
 //Then you need to add a condition on the service call that populates each table to verifiy that it's actually our table that being processed.
 //i.e. requestParameter("tableName") == our tableName
-string tableName = Request["tableName"];
+string tableName = HttpUtility.JavaScriptStringEncode(Request["tableName"]);
 
 ISmartletRepeat repeat = (ISmartletRepeat)sg5.Smartlet.findFieldByName(tableName);
 
@@ -25,7 +25,7 @@ bool isSelectable = repeat.isSelectable();
 string selectionType = repeat.getSelectionType();
 string draw = "1";
 if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
-	draw = Request["sEcho"];
+	draw = HttpUtility.JavaScriptStringEncode(Request["sEcho"]);
 }
 
 %>
