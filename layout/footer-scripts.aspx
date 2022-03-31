@@ -91,5 +91,8 @@
 		}
 	});
 	<% } %>
+	<% if (!IsLogged()) { %>
+		backgroundKeepAlive('<%= ResolvePath("/handlers/keepalive.ashx") %>', 30 * 1000);
+	<% } %>
 	initToBrowserLocale(currentLocale);
 </script>

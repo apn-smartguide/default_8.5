@@ -1,11 +1,42 @@
 var keepAliveController = {
 	init: function (sgRef, warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutUrl, redirUrl) {
-		sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutUrl, redirUrl);		
+		sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, keepAlivePage, logoutUrl, redirUrl);
 	},
 
-	bindEvents: function (sgRef, context) {
-		
+	bindEvents: function (sgRef, context) {}
+}
+
+function backgroundKeepAlive(keepAlivePage, keepAliveDelay) {
+	var keepAlivePinged = false;
+
+	function keepAlive() {
+		if (!keepAlivePinged) {
+			// Ping keepalive URL using (if provided) data and type from options
+			$.ajax({
+				type: 'post',
+				url: keepAlivePage,
+				data: ''
+			});
+			keepAlivePinged = true;
+			setTimeout(function () {
+				keepAlivePinged = false;
+			}, keepAliveDelay);
+		}
 	}
+
+	var mousePosition = [-1, -1];
+	$(document).on('keyup touchend touchmove scroll click', function (e) { // removed mouseup
+		if (e.type === 'mousemove') {
+			// Solves mousemove even when mouse not moving issue on Chrome:
+			// https://code.google.com/p/chromium/issues/detail?id=241476
+			if (e.clientX === mousePosition[0] && e.clientY === mousePosition[1]) {
+				return;
+			}
+			mousePosition[0] = e.clientX;
+			mousePosition[1] = e.clientY;
+		}
+		keepAlive();
+	});
 }
 
 function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logoutUrl, _redirUrl) {
@@ -47,7 +78,7 @@ function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logo
 			keepAlive: true,
 			countdownMessage: 'Redirection dans {timer} secondes.',
 			countdownBar: true
-		});			
+		});
 	}
 	if (currentLocale == 'en' && keepAliveFlag == "True") {
 		$.sessionTimeout({
@@ -59,12 +90,12 @@ function sgKeepAlive(warnDelay, redirDelay, keepAliveDelay, _keepAliveUrl, _logo
 			logoutUrl: logoutPage,
 			redirUrl: redirPage,
 			warnAfter:(warnDelay*60*1000),
-			redirAfter: (redirDelay*60*1000)-(30*1000), 
+			redirAfter: (redirDelay*60*1000)-(30*1000),
 			keepAliveInterval: keepAliveDelay*1000,
 			ignoreUserActivity: false,
 			keepAlive: true,
 			countdownMessage: 'Redirecting in {timer} seconds.',
 			countdownBar: true
-		});			
+		});
 	}
 }

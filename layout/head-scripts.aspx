@@ -2,6 +2,7 @@
 <%-- Scripts needed earlier --%>
 <script src='<%= CacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>
+	$.getScript({url: '<%= ResolvePath("/handlers/sglib.ashx") %>'});
 	var urlCurrentPage = ' <%=GetURLForPage(CurrentPage)%>';
 	<%-- var uploader = '<%= ResolvePath("/handlers/uploads.ashx") %>'; --%>
 	var keepAlivePage = '<%= ResolvePath("/handlers/keepalive.ashx") %>';

@@ -1,4 +1,4 @@
-<%@ WebHandler Language="C#" Class="keepalive" %>
+<%@ WebHandler Language="C#" Class="KeepAlive" %>
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,39 +13,47 @@ public class KeepAlive : IRequiresSessionState, IHttpHandler
 	public void ProcessRequest (HttpContext context) {
 		VerifySession(context);
 		//context.Current.Session["test"] = DateTime.UtcNow.ToString();
-		context.Current.Response.Flush();
-		context.Current.Response.Close();
-	}	
+		context.Response.Flush();
+		context.Response.Close();
+	}
 
-	public static void VerifySession(HttpContext context)
+	public bool IsReusable
+	{
+		get
+		{
+			return false;
+		}
+	}
+
+	private static void VerifySession(HttpContext context)
 	{
 		Configuration config = WebConfigurationManager.OpenWebConfiguration("~/Web.Config");
 		SessionStateSection section = (SessionStateSection)config.GetSection("system.web/sessionState");
 
-		//string test = (string)context.Current.Session["test"];
-		HttpCookie aspnetCookie = context.Current.Request.Cookies[section.CookieName];
-		HttpCookie smartProfileAuthCookie = context.Current.Request.Cookies["SmartProfileAuthCookie"];
+		//string test = (string)context.Session["test"];
+		HttpCookie aspnetCookie = context.Request.Cookies[section.CookieName];
+		HttpCookie smartProfileAuthCookie = context.Request.Cookies["SmartProfileAuthCookie"];
 
-		context.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-		context.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
-		context.Current.Response.Cache.SetNoStore();
-		context.Current.Response.Cache.SetNoServerCaching();
+		context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+		context.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+		context.Response.Cache.SetNoStore();
+		context.Response.Cache.SetNoServerCaching();
 
-		if (context.Current.Session != null)
+		if (context.Session != null)
 		{
-			if (context.Current.Session.IsNewSession)
+			if (context.Session.IsNewSession)
 			{
-				context.Current.Response.Write("{session:new}");
+				context.Response.Write("{session:new}");
 			}
 			if (aspnetCookie != null && !aspnetCookie.Value.Equals(""))
 			{
 				int timeout = (int)section.Timeout.TotalMinutes;
 				aspnetCookie.Expires = DateTime.UtcNow.AddMinutes(timeout);
-				aspnetCookie.Secure = context.Current.Request.IsSecureConnection;
+				aspnetCookie.Secure = context.Request.IsSecureConnection;
 				aspnetCookie.SameSite = SameSiteMode.Strict;
-				context.Current.Response.Cookies.Add(aspnetCookie);
-				//context.Current.Response.Write("{test:" + test + "},{session:alive},{session-id:" + aspnetCookie.Value + "},{session-expires:" + aspnetCookie.Expires + "}" + ",{timeout:" + timeout + "}");
-				context.Current.Response.Write("{session:alive}");
+				context.Response.Cookies.Add(aspnetCookie);
+				//context.Response.Write("{test:" + test + "},{session:alive},{session-id:" + aspnetCookie.Value + "},{session-expires:" + aspnetCookie.Expires + "}" + ",{timeout:" + timeout + "}");
+				context.Response.Write("{session:alive}");
 			}
 
 			string SPRestAPI = GetAppSetting("SmartProfileRestApi");
@@ -55,14 +63,14 @@ public class KeepAlive : IRequiresSessionState, IHttpHandler
 				client.Headers["SPAccessToken"] = GetAppSetting("SP.Smartlets.WS.AccessKey");
 				client.Headers["SPAuthToken"] = smartProfileAuthCookie.Value;
 				string result = client.DownloadString(apiUrl);
-				context.Current.Response.Write("{smartprofile:"+result+"}");
+				context.Response.Write("{smartprofile:"+result+"}");
 			}   
 		} else {
-			context.Current.Response.Write("{session:none}");
+			context.Response.Write("{session:none}");
 		}
 	}
 
-	public static string GetAppSetting(string key) {
+	private static string GetAppSetting(string key) {
 		if(System.Configuration.ConfigurationManager.AppSettings[key] != null) {
 			return (string)System.Configuration.ConfigurationManager.AppSettings[key];
 		}
