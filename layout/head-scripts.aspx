@@ -3,8 +3,8 @@
 <script src='<%= CacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>
 	var urlCurrentPage = ' <%=GetURLForPage(CurrentPage)%>';
-	<%-- var uploader = '<%= ResolvePath("/uploads.ashx") %>'; --%>
-	var keepAlivePage = '<%= ResolvePath("/keep-alive.aspx") %>';
+	<%-- var uploader = '<%= ResolvePath("/handlers/uploads.ashx") %>'; --%>
+	var keepAlivePage = '<%= ResolvePath("/handlers/keepalive.ashx") %>';
 	var keepAliveFlag = '<%= IsLogged() %>';
 	var sessionDuration = '<%= Session.Timeout %>';
 	var logoutPage = '<%= LogoutURL %>';

@@ -137,9 +137,9 @@ public partial class SGWebCore : System.Web.UI.Page
 		Application["is-development"] = null;
 		Application["smartletLoggerSGWebCore"] = null;
 		Application["showEnumerationErrors"] = null;
-		Application["themes-locations"] = null;
-		Application["bootstrap-version"] = null;
-		Application["wet-enabled"] = null;
+		Application["themes"] = null;
+		Application["themes-options"] = null;
+		Application["layout-engine"] = null;
 
 		Context.Items["smartlet"] = null;
 		Context.Items["smartletName"] = null;
@@ -207,32 +207,16 @@ public partial class SGWebCore : System.Web.UI.Page
 
 	public string LayoutEngine {
 		get {
-			if(Application["bootstrap-version"] == null) {
-				Application["bootstrap-version"] = GetAppSetting("com.alphinat.sgs.bootstrap.version");
-				if (Application["bootstrap-version"] == null) {
-					Application["bootstrap-version"] = "BS3";
+			if(Application["layout-engine"] == null) {
+				Application["layout-engine"] = GetAppSetting("com.alphinat.sgs.layout-engine");
+				if (Application["layout-engine"] == null) {
+					Application["layout-engine"] = "BS3"; //defaulting to Bootstrap 3.x version for legacy support.
 				}
 			}
-			return (string)Application["bootstrap-version"];
+			return (string)Application["layout-engine"];
 		}
 		set {
-			Application["bootstrap-version"] = value;
-		}
-	}
-
-	public bool WETEnabled
-	{
-		get
-		{
-			if (Application["wet-enabled"] != null)
-			{
-				return (bool)Application["wet-enabled"];
-			}
-			return false;
-		}
-		set
-		{
-			Application["wet-enabled"] = value;
+			Application["layout-engine"] = value;
 		}
 	}
 
@@ -415,9 +399,15 @@ public partial class SGWebCore : System.Web.UI.Page
 	//Provide an array of "theme" names from the Lowest -> Highest.
 	//Last theme to have a positive asset hit will be the executed asset.
 	//Asset can be any server side processed reference. (*.aspx, *.css, *.js, *.*)
-	public string[] ThemesLocations {
-		get { return (string[])Application["theme-locations"]; }
-		set { Application["theme-locations"] = value; }
+	public ArrayList Themes {
+		get { return (ArrayList)Application["themes"]; }
+		set { Application["themes"] = value; }
+	}
+
+	public ArrayList Options
+	{
+		get { return (ArrayList)Application["theme-options"]; }
+		set { Application["theme-options"] = value; }
 	}
 
 
@@ -494,7 +484,7 @@ public partial class SGWebCore : System.Web.UI.Page
 		string filePath = "";
 		string pathParams = "";
 		
-		string key = path + "-" + String.Join("-",ThemesLocations);
+		string key = path + "-" + String.Join("-",Themes.ToArray());
 
 		if(path.Contains("?")) {
 			pathParams = path.Split('?')[1];
@@ -503,8 +493,8 @@ public partial class SGWebCore : System.Web.UI.Page
 
 		Boolean found = false;
 		if (!pathsDictionary.ContainsKey(key)) {
-			foreach(string themeLocation in ThemesLocations) {
-				string themePath = GetThemePathForAsset(themeLocation, path);
+			foreach(string theme in Themes.ToArray()) {
+				string themePath = GetThemePathForAsset(theme, path);
 				if(themePath != "") {
 					filePath = themePath;
 					found = true;

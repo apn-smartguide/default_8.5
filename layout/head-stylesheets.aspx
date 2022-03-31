@@ -1,5 +1,4 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-
 <!--[if gte IE 9 | !IE ]><!-->
 <!-- JQuery -->
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-3.6.0.min.js") %>'></script>
@@ -31,23 +30,23 @@
 
 <!-- Additional -->
 <link href='<%= CacheBreak("/resources/css/select2.min.css") %>' rel="stylesheet">
-<% if(!WETEnabled) { %>
+<% if(!Options.Contains("WET")) { %>
 <link href='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/css/responsive.datatables.min.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/plugins/dataTables/Select-1.3.3/css/select.dataTables.min.css") %>' rel="stylesheet">
 <% } %>
 
-<% if(WETEnabled) { %>
+<% if(Options.Contains("WET")) { %>
 <!-- WET-->
-<link href='<%= CacheBreak("/WET/theme-wet-boew/css/theme.css") %>' rel="stylesheet">
+<link href='<%= CacheBreak("/resources/WET/theme-wet-boew/css/theme.css") %>' rel="stylesheet">
 <% } %>
 
 <!-- SmartGuide CSS -->
 <link href='<%= CacheBreak("/resources/css/smartguide/base.css") %>' rel="stylesheet">
-<% if(WETEnabled) { %>
-<link href='<%= CacheBreak("/WET/wet-custom.css") %>' rel="stylesheet">
+<% if(Options.Contains("WET")) { %>
+<link href='<%= CacheBreak("/resources/WET/wet-custom.css") %>' rel="stylesheet">
 <% } %>
 <link href='<%= CacheBreak("/resources/css/smartguide/custom.css") %>' rel="stylesheet">
 <noscript>
-	<link href='<%= CacheBreak("/WET/wet-boew/css/noscript.min.css") %>' rel="stylesheet">
+	<link href='<%= CacheBreak("/resources/WET/wet-boew/css/noscript.min.css") %>' rel="stylesheet">
 </noscript>

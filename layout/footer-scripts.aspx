@@ -1,7 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
-<% if(WETEnabled) { %>
+<% if(Options.Contains("WET")) { %>
 <!-- WET-BOEW -->
-<script src='<%= CacheBreak("/WET/wet-boew/js/wet-boew.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
 <% } %>
 
 <!-- JQuery -->
@@ -37,9 +37,11 @@
 <script src='<%= CacheBreak("/resources/js/js-cookie.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/jSignature.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/holder.min.js") %>'></script>
+<% if(Options.Contains("TTS")) { %>
 <script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
+<% } %>
 <script src='<%= CacheBreak("/resources/js/select2.full.min.js") %>'></script>
-<% if(!WETEnabled) { %>
+<% if(!Options.Contains("WET")) { %>
 <script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.11.3/js/jquery.datatables.js") %>'></script>--%>
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/js/dataTables.responsive.js") %>'></script>--%>
@@ -48,15 +50,16 @@
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tinymce.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.tables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.dataTables.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.crud.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.formatters.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.keepalive.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.js") %>'></script>
+<% if(Options.Contains("TTS")) { %>
+<script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.tts.js") %>'></script>
+<% } %>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
-<% if(WETEnabled) { %>
-<script src='<%= CacheBreak("/WET/smartguide.dataTables.wb.js") %>'></script>
+<% if(Options.Contains("WET")) { %>
+<script src='<%= CacheBreak("/resources/WET/smartguide.dataTables.wb.js") %>'></script>
 <% } %>
 <script type="text/javascript">
 	var dataTableTranslations = {
@@ -75,7 +78,7 @@
 		'discardChanges': $("<div>").html('<apn:localize runat="server" key="theme.text.modals.discardChanges"/>').text(),
 		'deleteRow': $("<div>").html('<apn:localize runat="server" key="theme.text.modals.deleteRow"/>').text()
 	};
-	<% if (WETEnabled) { %>
+	<% if (Options.Contains("WET")) { %>
 	wb.doc.on("wb-ready.wb", function (event) {
 		for (let smartlet in SMARTGUIDES) {
 			SMARTGUIDES[smartlet].init();

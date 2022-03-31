@@ -9,18 +9,6 @@
 
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav">
-
-
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</a>
-					<div class="dropdown-menu" aria-labelledby="dropdown07">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</div>
-				</li>
-
-
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="examples" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</a>
 					<div class="dropdown-menu" aria-labelledby="examples">
