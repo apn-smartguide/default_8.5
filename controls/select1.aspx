@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 	<!-- #include file="hidden.inc" -->
@@ -14,7 +14,7 @@
 %>
 	<apn:choosecontrol runat="server" >
 		<apn:whencontrol runat="server" type="radio">
-		<div id='div_<apn:name runat="server" />' data-name='<%=control.Current.getCode()%>' class="<% if (WETEnabled) { %>chkbxrdio-grp <% } %>form-group">
+		<div id='div_<apn:name runat="server" />' data-name='<%=control.Current.getCode()%>' class='<% if (Options.Contains("WET")) { %>chkbxrdio-grp <% } %>form-group'>
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
 			<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
 			<% Context.Items["label"] = control.Current.getLabel(); %>

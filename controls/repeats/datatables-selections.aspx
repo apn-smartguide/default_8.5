@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%-- https://datatables.net/manual/index --%>

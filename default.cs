@@ -1,25 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
-using System.Globalization;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 
-using com.alphinat.sg;
-using com.alphinat.sg5;
-using com.alphinat.sgs;
-using com.alphinat.sgs.smartlet;
-using com.alphinat.sgs.smartlet.display;
+using SGWeb.Core;
 
-public partial class _Default : SGWebCore
+public partial class _Default : WebPage
 {
 	protected void Page_Load(object sender, EventArgs e) {
 		base.Load(sender, e);

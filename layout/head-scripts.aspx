@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <%-- Scripts needed earlier --%>
 <script src='<%= CacheBreak("/resources/js/iso-639-1.js") %>'></script>
 <script>

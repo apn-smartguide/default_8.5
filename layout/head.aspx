@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <head>
 	<% ExecutePath("/layout/head-meta.aspx"); %>
 	<% ExecutePath("/layout/head-stylesheets.aspx"); %>

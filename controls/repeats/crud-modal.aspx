@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 	<div class='modal crud-modal<%=Context.Items["repeat-level"]%>' tabindex='-1' role='dialog'>
 		<section class='modal-dialog overlay-def <%=control.Current.getNonLocalizedMetaDataValue("modal-size")%>'>

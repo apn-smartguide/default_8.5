@@ -1,5 +1,5 @@
 <%@ Import Namespace="com.alphinat.sg5" %>
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <nav id="sidebar" class="sidenav affix">
 	<ul class="list-unstyled components">
 <%

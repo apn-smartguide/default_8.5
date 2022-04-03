@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <% if (!IsPdf) { %>
 	<% ISmartletPage[] breadcrumbs = Breadcrumbs(); %>
 	<% if (!CurrentPageCSS.Contains("hide-breadcrumbs")) { %>

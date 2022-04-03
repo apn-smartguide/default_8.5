@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 	<% Context.Items["hide-option-label"] = Context.Items["hide-option-label"] != null && (bool)Context.Items["hide-option-label"] == true; %>
 	<% Context.Items["hide-label"] = control.Current.getCSSClass().Contains("hide-label") || (bool)Context.Items["hide-option-label"]; %>

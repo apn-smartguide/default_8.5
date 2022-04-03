@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <!--[if gte IE 9 | !IE ]><!-->
 <!-- JQuery -->
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-3.6.0.min.js") %>'></script>

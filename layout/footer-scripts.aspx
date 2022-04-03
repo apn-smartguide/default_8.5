@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" CodeFile="../SGWebCore.cs" Inherits="SGWebCore" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <% if(Options.Contains("WET")) { %>
 <!-- WET-BOEW -->
 <script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
