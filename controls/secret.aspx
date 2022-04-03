@@ -6,7 +6,7 @@
 	<% } else { %>
 	<% if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";} %>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex%>'>Anchor to error <%=ErrorIndex%></a></apn:ifnotcontrolvalid>
-	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <%=control.Current.getCSSClass().Replace("toggle-password","")%> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (TTSEnabled) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <%=control.Current.getCSSClass().Replace("toggle-password","")%> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" -->>
 		<% ExecutePath("/controls/label.aspx"); %>
 		<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="badge badge-danger"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 		<% if (IsPdf || IsSummary) { %><p>********</p>

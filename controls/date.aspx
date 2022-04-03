@@ -11,7 +11,7 @@
 <% if (control.Current.getAttribute("visible").Equals("false")) { %><!-- #include file="hidden.inc" -->
 <% } else { %>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a id='error_index_<%=ErrorIndex%>'></a></apn:ifnotcontrolvalid>
-	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (TTSEnabled) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" --> >
+	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" --> >
 	<% ExecutePath("/controls/label.aspx"); %>
 	<%-- for html date type, format must be "yyyy-mm-dd" for value, min and max attributes. --%>
 	<%-- for min or max attribute set via data attribute; Ex.: HTML -> Min -> setting --%>

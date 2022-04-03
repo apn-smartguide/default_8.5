@@ -10,8 +10,8 @@
 	<% if (!BareRender && control.Current.getLabel().Trim().Length > 0){ %>
 		<label <%if(control.Current.getCSSClass().Contains("inline")) {%>class='inline'<% } %>><span><% ExecutePath("/controls/custom/control-label.aspx"); %></span></label>
 	<% } %>
-		<span <% if (TTSEnabled && !control.Current.isDynamicValue()) { Response.Output.Write("data-tts='{0}_value'",control.Current.getFieldId()); } %>><apn:value runat="server"/></span>
-	<% if (TTSEnabled && !control.Current.isDynamicValue()) { %><span id='<% Response.Output.Write("tts_{0}_value",control.Current.getFieldId()); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>
+		<span <% if (Options.Contains("TTS") && !control.Current.isDynamicValue()) { Response.Output.Write("data-tts='{0}_value'",control.Current.getFieldId()); } %>><apn:value runat="server"/></span>
+	<% if (Options.Contains("TTS") && !control.Current.isDynamicValue()) { %><span id='<% Response.Output.Write("tts_{0}_value",control.Current.getFieldId()); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>
 	</div>
 	<% } %>
 </apn:control>

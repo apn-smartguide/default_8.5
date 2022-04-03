@@ -9,7 +9,7 @@
 	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; } %>
 	<apn:choosecontrol runat="server">
 		<apn:whencontrol runat="server" type="check">
-		<div id='div_<apn:name runat="server"/>' class='<% if (Options.Contains("WET")) { %>chkbxrdio-grp <% } %> form-group <% if (TTSEnabled) { %>tts tts-play<% } %>'>
+		<div id='div_<apn:name runat="server"/>' class='<% if (Options.Contains("WET")) { %>chkbxrdio-grp <% } %> form-group <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>'>
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
 			<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
 			<% Context.Items["label"] = control.Current.getLabel(); %>

@@ -17,21 +17,21 @@ if (Context.Items["tts-id"].Equals("") && !control.Current.getFieldId().Equals("
 	<% if (!Context.Items["label"].Equals("")) { %>
 	<apn:ifnotcontrolattribute attr="tooltip" runat="server">
 		<apn:ifnotcontrolvalid runat="server">
-			<span <% if (TTSEnabled && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class="error"><span class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>'><%=Context.Items["label"]%></span></span>
+			<span <% if (Options.Contains("TTS") && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class="error"><span class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>'><%=Context.Items["label"]%></span></span>
 		</apn:ifnotcontrolvalid>
 		<apn:ifcontrolvalid runat="server">
-			<span <% if (TTSEnabled && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>'><%=Context.Items["label"]%></span>
+			<span <% if (Options.Contains("TTS") && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>'><%=Context.Items["label"]%></span>
 		</apn:ifcontrolvalid>
 	</apn:ifnotcontrolattribute>
 	<apn:ifcontrolattribute attr="tooltip" runat="server">
 		<apn:ifnotcontrolvalid runat="server">
-			<span <% if (TTSEnabled && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class="error"><span class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"]%></span></span>
+			<span <% if (Options.Contains("TTS") && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class="error"><span class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"]%></span></span>
 		</apn:ifnotcontrolvalid>
 		<apn:ifcontrolvalid runat="server">
-			<span <% if (TTSEnabled && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"]%></span>
+			<span <% if (Options.Contains("TTS") && !Context.Items["tts-id"].Equals("")) { Response.Output.Write("data-tts='{0}'",Context.Items["tts-id"]); } %> class='field-name <%if((bool)Context.Items["hide-label"]) { %>sr-only<% } %>' data-toggle='tooltip' data-placement='auto' data-container='body' data-html='true' title='<%=GetTooltip(control.Current)%>'><%=Context.Items["label"]%></span>
 		</apn:ifcontrolvalid>
 	</apn:ifcontrolattribute>
-	<% if (TTSEnabled && !Context.Items["tts-id"].Equals("")) { %><span id='<% Response.Output.Write("tts_{0}",Context.Items["tts-id"]); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>
+	<% if (Options.Contains("TTS") && !Context.Items["tts-id"].Equals("")) { %><span id='<% Response.Output.Write("tts_{0}",Context.Items["tts-id"]); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>
 	<% } %>
 	<% ExecutePath("/controls/help.aspx"); %>
 	<% Context.Items["tts-id"] = ""; %>

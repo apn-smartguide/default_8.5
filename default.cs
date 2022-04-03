@@ -2,7 +2,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 
-using SGWeb.Core;
+using SG.Theme.Core;
 
 public partial class _Default : WebPage
 {
