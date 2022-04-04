@@ -1,0 +1,518 @@
+{
+  "Text formatting options": {
+    "Label": {
+      "en": "Text formatting options",
+      "fr": "Options de formatage de texte"
+    },
+    "Description": {
+      "en": "Apply one or more of the following text formatting options",
+      "fr": "Appliquer une ou plusieurs des options de formatage de texte suivantes"
+    },
+    "List": [
+      {
+        "class": "lead",
+        "en": "Makes a paragraph stand out",
+        "fr": "Fait ressortir un paragraphe"
+      },
+      {
+        "class": "text-left",
+        "en": "Left aligns text",
+        "fr": "Aligne le texte à gauche"
+      },
+      {
+        "class": "text-center",
+        "en": "Center aligns text",
+        "fr": "Aligne le texte au centre"
+      },
+      {
+        "class": "text-right",
+        "en": "Right aligns text",
+        "fr": "Aligne le texte à droite"
+      },
+      {
+        "class": "text-justify",
+        "en": "Justifies text",
+        "fr": "Justifie le texte"
+      },
+      {
+        "class": "text-nowrap",
+        "en": "Displays text on one line",
+        "fr": "Affiche le texte sur une ligne"
+      },
+      {
+        "class": "text-lowercase",
+        "en": "Converts text to lowercase",
+        "fr": "Convertit le texte en lettres minuscules"
+      },
+      {
+        "class": "text-uppercase",
+        "en": "Converts text to uppercase",
+        "fr": "Convertit le texte en lettres majuscules"
+      },
+      {
+        "class": "text-capitalize",
+        "en": "Capitalizes text",
+        "fr": "Affiche la première lettre des mots en majuscule"
+      },
+      {
+        "class": "text-muted",
+        "en": "Deemphasizes text by applying a muted color",
+        "fr": "Rend le texte plus discret en y appliquant une couleur effacée"
+      },
+      {
+        "class": "text-primary",
+        "en": "Applies a dark blue color to the text",
+        "fr": "Applique une couleur bleu foncé au texte"
+      },
+      {
+        "class": "text-success",
+        "en": "Applies a green color to the text",
+        "fr": "Applique une couleur verte au texte"
+      },
+      {
+        "class": "text-info",
+        "en": "Applies a light blue color to the text",
+        "fr": "Applique une couleur bleu pâle au texte"
+      },
+      {
+        "class": "text-warning",
+        "en": "Applies a light yellow color to the text",
+        "fr": "Applique une couleur jaune pâle au texte"
+      },
+      {
+        "class": "text-danger",
+        "en": "Applies a red color to the text",
+        "fr": "Applique une couleur rouge au texte"
+      }
+    ]
+  },
+  "Image formatting options": {
+    "Label": {
+      "en": "Image formatting options",
+      "fr": "Options de formatage d'image"
+    },
+    "Description": {
+      "en": "Use these classes to add special effects to static images",
+      "fr": "Utiliser ces classes pour ajouter des effets spéciaux aux images statiques"
+    },
+    "List": [
+      {
+        "class": "img-responsive",
+        "en": "Makes the image scale nicely to the parent element",
+        "fr": "Ajuste les dimensions de l'image en fonction de son élément parent"
+      },
+      {
+        "class": "img-rounded",
+        "en": "Rounds the corners of the image",
+        "fr": "Arrondit les coins de l'image"
+      },
+      {
+        "class": "img-circle",
+        "en": "Displays the image in a circle",
+        "fr": "Affiche l'image dans un cercle"
+      },
+      {
+        "class": "img-thumbnail",
+        "en": "Adds a frame to the image",
+        "fr": "Ajoute un cadre à l'image"
+      }
+    ]
+  },
+  "Button formatting options": {
+    "Label": {
+      "en": "Button formatting options",
+      "fr": "Options de formatage de bouton"
+    },
+    "Description": {
+      "en": "Apply these classes to buttons to modify their appearance or to convey special meaning",
+      "fr": "Appliquer ces classes aux boutons pour modifier leur apparence ou leur donner une signification particulière"
+    },
+    "List": [
+      {
+        "class": "btn-default",
+        "en": "Standard button",
+        "fr": "Bouton standard"
+      },
+      {
+        "class": "btn-primary",
+        "en": "Provides extra visual weight and identifies the primary action in a set of buttons",
+        "fr": "Fournit un poids visuel additionnel et identifie l'action principale dans un ensemble de boutons"
+      },
+      {
+        "class": "btn-success",
+        "en": "Indicates a successful or positive action",
+        "fr": "Indique une action réussie ou positive"
+      },
+      {
+        "class": "btn-info",
+        "en": "Contextual button for informational alert messages",
+        "fr": "Bouton contextuel pour les messages d'information"
+      },
+      {
+        "class": "btn-warning",
+        "en": "Indicates caution should be taken with this action",
+        "fr": "Indique qu'il faut utiliser une action avec précaution"
+      },
+      {
+        "class": "btn-danger",
+        "en": "Indicates a dangerous or potentially negative action",
+        "fr": "Indique qu'une action est potentiellement négative ou dangereuse"
+      },
+      {
+        "class": "btn-link",
+        "en": "Makes a button look like a link",
+        "fr": "Fait en sorte qu'un bouton ressemble à un lien"
+      },
+      {
+        "class": "btn-modal",
+        "en": "Changes the behavior of a button to run the server side actions before the client side JS actions (often used in modals)",
+        "fr": "Change le comportement d'un bouton pour rouler les actions cÃ´tÃ© serveur avant les actions JS client (souvent utilisÃ© dans les modals)"
+      },
+      {
+        "class": "always-enabled",
+        "en": "Apply to have the button remain active even right after having been clicked",
+        "fr": "Appliquer pour que le bouton reste actif même juste après avoir été cliqué"
+      },
+      {
+        "class": "btn-lg",
+        "en": "Makes a button larger",
+        "fr": "Agrandit la taille du bouton"
+      },
+      {
+        "class": "btn-sm",
+        "en": "Makes a button smaller",
+        "fr": "Réduit la taille du bouton"
+      },
+      {
+        "class": "btn-xs",
+        "en": "Makes a button extra small",
+        "fr": "Rend un bouton très petit"
+      },
+      {
+        "class": "btn-block",
+        "en": "Makes a button span the full width of a parent",
+        "fr": "Fait en sorte que le bouton prenne la pleine largeur de l'élément parent"
+      }
+    ]
+  },
+  "Block formatting options": {
+    "Label": {
+      "en": "Block formatting options",
+      "fr": "Options de formatage de bloc"
+    },
+    "Description": {
+      "en": "Use to stylize or float elements, specify a background color and other properties",
+      "fr": "Utiliser pour styliser ou flotter des éléments, spécifier une couleur de fond ou d'autres propriétés"
+    },
+    "List": [
+      {
+        "class": "bg-primary",
+        "en": "Applies a dark blue background",
+        "fr": "Applique un fond bleu foncé"
+      },
+      {
+        "class": "bg-success",
+        "en": "Applies a green background",
+        "fr": "Applique un fond vert"
+      },
+      {
+        "class": "bg-info",
+        "en": "Applies a light blue background",
+        "fr": "Applique un fond bleu pâle"
+      },
+      {
+        "class": "bg-warning",
+        "en": "Applies a light yellow background",
+        "fr": "Applique un fond jaune pâle"
+      },
+      {
+        "class": "bg-danger",
+        "en": "Applies a red background",
+        "fr": "Applique un fond rouge"
+      },
+      {
+        "class": "clearfix",
+        "en": "Ensures the element is cleared left and right",
+        "fr": "Assure qu'il n'y ait aucun élément à gauche ou à droite de l'élément"
+      },
+      {
+        "class": "pull-left",
+        "en": "Float an element to the left",
+        "fr": "Flotte un élément vers la gauche"
+      },
+      {
+        "class": "pull-right",
+        "en": "Float an element to the right",
+        "fr": "Flotte un élément vers la droite"
+      },
+      {
+        "class": "center-block",
+        "en": "Center content a block",
+        "fr": "Aligne un bloc de contenu au centre"
+      },
+      {
+        "class": "smartmodal",
+        "en": "Transforms a group into a modal dialog",
+        "fr": "Transforme un groupe en dialogue modal"
+      },
+      {
+        "class": "pre-scrollable",
+        "en": "Sets a max-height of 350px and provides a y-axis scrollbar",
+        "fr": "Applique une hauteur maximale de 350px et fournit un scrollbar vertical"
+      },
+      {
+        "class": "well",
+        "en": "Applies an inset effect to the element",
+        "fr": "Donne à l'élément un effet d'encart"
+      },
+      {
+        "class": "well-lg",
+        "en": "Makes a well larger. Use in conjunction with <code>.well</code>",
+        "fr": "Agrandit l'encart. À utiliser en complément de la classe <code>.well</code>"
+      },
+      {
+        "class": "well-sm",
+        "en": "Makes a well smaller. Use in conjunction with <code>.well</code>",
+        "fr": "Réduit l'encart. À utiliser en complément de la classe <code>.well</code>"
+      },
+      {
+        "class": "plain-group",
+        "en": "Removes header and border of group",
+        "fr": "Retire l'entête et le cadre d'un groupe"
+      },
+      {
+        "class": "panel-borderless",
+        "en": "Removes border of group",
+        "fr": "Retire le cadre d'un groupe"
+      },
+      {
+        "class": "large",
+        "en": "Display the checkbox or radio control in larger format",
+        "fr": "Affiche le checkbox ou radio en plus grand format "
+      }
+    ]
+  },
+  "Print utility classes": {
+    "Label": {
+      "en": "Visibility utility classes",
+      "fr": "Classes utilitaires de visibilité"
+    },
+    "Description": {
+      "en": "Apply these classes to determine the element appearance during printing or device resizing",
+      "fr": "Appliquer ces classes pour déterminer l'apparence de l'élément lors de l'impression ou du redimensionnement de l'écran"
+    },
+    "List": [
+      {
+        "class": "visible-print-block",
+        "en": "Visible as a block element when printing",
+        "fr": "Rend l'élément visible en tant que bloc lors de l'impression"
+      },
+      {
+        "class": "visible-print-inline",
+        "en": "Visible as an inline element when printing",
+        "fr": "Rend l'élément visible en tant qu'élément en ligne lors de l'impression"
+      },
+      {
+        "class": "visible-print-inline-block",
+        "en": "Visible as an inline block when printing",
+        "fr": "Rend l'élément visible en tant que bloc en ligne lors de l'impression"
+      },
+      {
+        "class": "hidden-print",
+        "en": "Hides the element during printing",
+        "fr": "Cache l'élément lors de l'impression"
+      },
+      {
+        "class": "visible-xs-block",
+        "en": "Visible as a block element for extra small devices",
+        "fr": "Rend l'élément visible pour des appareils très petits en tant que bloc"
+      },
+      {
+        "class": "visible-xs-inline",
+        "en": "Visible as an inline element for extra small devices",
+        "fr": "Rend l'élément visible pour des appareils très petits en tant qu'élément en ligne"
+      },
+      {
+        "class": "visible-xs-inline-block",
+        "en": "Visible as an inline block for extra small devices",
+        "fr": "Rend l'élément visible pour des appareils très petits en tant que bloc en ligne"
+      },
+      {
+        "class": "visible-sm-block",
+        "en": "Visible as a block element for small devices",
+        "fr": "Rend l'élément visible pour des appareils petits en tant que bloc"
+      },
+      {
+        "class": "visible-sm-inline",
+        "en": "Visible as an inline element for small devices",
+        "fr": "Rend l'élément visible pour des appareils petits en tant qu'élément en ligne"
+      },
+      {
+        "class": "visible-sm-inline-block",
+        "en": "Visible as an inline block for small devices",
+        "fr": "Rend l'élément visible pour des appareils petits en tant que bloc en ligne"
+      },
+      {
+        "class": "visible-md-block",
+        "en": "Visible as a block element for medium devices",
+        "fr": "Rend l'élément visible pour des appareils moyens en tant que bloc"
+      },
+      {
+        "class": "visible-md-inline",
+        "en": "Visible as an inline element for medium devices",
+        "fr": "Rend l'élément visible pour des appareils moyens en tant qu'élément en ligne"
+      },
+      {
+        "class": "visible-md-inline-block",
+        "en": "Visible as an inline block for medium devices",
+        "fr": "Rend l'élément visible pour des appareils moyens en tant que bloc en ligne"
+      },
+      {
+        "class": "visible-lg-block",
+        "en": "Visible as a block element for large devices",
+        "fr": "Rend l'élément visible pour de grands appareils en tant que bloc"
+      },
+      {
+        "class": "visible-lg-inline",
+        "en": "Visible as an inline element for large devices",
+        "fr": "Rend l'élément visible pour de grands appareils en tant qu'élément en ligne"
+      },
+      {
+        "class": "visible-lg-inline-block",
+        "en": "Visible as an inline block for large devices",
+        "fr": "Rend l'élément visible pour de grands appareils en tant que bloc en ligne"
+      }
+    ]
+  },
+  "Grid options": {
+    "Label": {
+      "en": "Grid options",
+      "fr": "Options de formatage de table"
+    },
+    "Description": {
+      "en": "Use these classes to apply certain behaviors to a repeat group and/or its fields.",
+      "fr": "Utiliser ces classes pour appliquer certains comportements à un groupe répétable et/ou ces champs."
+    },
+    "List": [
+      {
+        "class": "datatables-view",
+        "en": "Forces the display of the group as a datatable that can be edited online, additional configurations to be applied via the data attributes.",
+        "fr": "Force l'affichage du groupe sous forme d'un datatable éditable en ligne, configurations additionnelles appliqués via les attributs data."
+      },
+      {
+        "class": "grid-view",
+        "en": "Displays the group as a table where each column represents a field and each row represents a record.",
+        "fr": "Affiche le groupe sous forme de tableau où chaque colonne correspond à un champ et chaque rangée correspond à une instance."
+      },
+      {
+        "class": "table-render",
+        "en": "Forces the display of the group as a table that can be edited online.",
+        "fr": "Force l'affichage du groupe sous forme de tableau éditable en ligne."
+      },
+      {
+        "class": "block-render",
+        "en": "Forces the display of the group as sections of fields, preserving the original layout, that can be edited online.",
+        "fr": "Force l'affichage du groupe sous forme de sections de champ, présevant le layout original, et qui peut-être édité en ligne."
+      },
+      {
+        "class": "hide-search",
+        "en": "Removes the searchbox from the grid",
+        "fr": "Retire la boîte de recherche du tableau"
+      },
+      {
+        "class": "hide-pagination",
+        "en": "Removes the pagination option from the grid",
+        "fr": "Désactive la pagination des résultats"
+      },
+      {
+        "class": "hide-edit-btn",
+        "en": "Removes the edit icon from each row",
+        "fr": "Retire l’icône d’édition de chaque rangée"
+      },
+      {
+        "class": "hide-delete-btn",
+        "en": "Removes the delete icon from each row",
+        "fr": "Retire l’icône de suppression de chaque rangée"
+      },
+      {
+        "class": "hide-add-btn",
+        "en": "Removes the add button from each row",
+        "fr": "Retire le bouton d’ajout d’instance du tableau"
+      },
+      {
+        "class": "hide-from-list-view",
+        "en": "Hides the element when displaying the list view",
+        "fr": "Cache l’élément lors de l’affichage de la liste"
+      },
+      {
+        "class": "hide-from-add-view",
+        "en": "Hides the element in the Add entry interface",
+        "fr": "Cache l’élément dans l’interface d’ajout d’instance"
+      },
+      {
+        "class": "hide-from-edit-view",
+        "en": "Hides the element in the Edit entry interface",
+        "fr": "Cache l’élément dans l’interface d’édition d’instance"
+      },
+      {
+        "class": "hide-sort",
+        "en": "Disables the sort on all columns",
+        "fr": "Désactive le tri sur toutes les colonnes"
+      }
+    ]
+  },
+  "Specific options": {
+    "Label": {
+      "en": "Specific behavior classes",
+      "fr": "Classes à comportement spécifique"
+    },
+    "Description": {
+      "en": "Use these classes to apply specific behaviors to fields.",
+      "fr": "Utiliser ces classes pour appliquer certains comportements spécifiques à des champs."
+    },
+    "List": [
+      {
+        "class": "autocomplete",
+        "en": "Transforms a dropdown into an autocomplete control",
+        "fr": "Transforme une liste déroulante en contrôle avec auto-complétion"
+      },
+      {
+        "class": "smartmodal",
+        "en": "Transforms a group into a modal dialog",
+        "fr": "Transforme un groupe en dialogue modal"
+      }
+    ]
+  },
+  "Page formatting options": {
+    "Label": {
+      "en": "Page formatting classes",
+      "fr": "Classes de formatage de page"
+    },
+    "Description": {
+      "en": "Use these classes to apply specific behaviors to pages.",
+      "fr": "Utiliser ces classes pour appliquer certains comportements spécifiques à des pages."
+    },
+    "List": [
+      {
+        "class": "hide-header",
+        "en": "Apply this class to a page to hide the page header.",
+        "fr": "Ajouter cette classe à une page pour cacher l'entête."
+      },
+      {
+        "class": "hide-progress-bar",
+        "en": "Apply this class to a page to hide the progress bar.",
+        "fr": "Ajouter cette classe à une page pour cacher la barre de progression."
+      },
+      {
+        "class": "hide-breadcrumb",
+        "en": "Apply this class to a page to hide the section breadcrumb.",
+        "fr": "Ajouter cette classe à une page pour cacher le fil d'ariane."
+      },
+      {
+        "class": "hide-footer",
+        "en": "Apply this class to a page to hide the footer section.",
+        "fr": "Ajouter cette classe à une page pour cacher le pied de page."
+      }
+    ]
+  }
+}
