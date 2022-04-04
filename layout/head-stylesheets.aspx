@@ -18,7 +18,9 @@
 <!-- Bootstrap -->
 <% if(LayoutEngine.Equals("BS3")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.css") %>' rel="stylesheet">
+	<% if(Options.Contains("boootstrap-theme")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap-theme.css") %>' rel="stylesheet">
+	<% } %>
 <% } else if(LayoutEngine.Equals("BS4")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.css") %>' rel="stylesheet">
 <% } else if(LayoutEngine.Equals("BS5")) { %>
