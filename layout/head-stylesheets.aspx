@@ -36,14 +36,14 @@
 <link href='<%= CacheBreak("/resources/plugins/dataTables/Select-1.3.3/css/select.dataTables.min.css") %>' rel="stylesheet">
 <% } %>
 
-<% if(Options.Contains("WET")) { %>
+<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <!-- WET-->
 <link href='<%= CacheBreak("/resources/WET/theme-wet-boew/css/theme.css") %>' rel="stylesheet">
 <% } %>
 
 <!-- SmartGuide CSS -->
 <link href='<%= CacheBreak("/resources/css/smartguide/base.css") %>' rel="stylesheet">
-<% if(Options.Contains("WET")) { %>
+<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <link href='<%= CacheBreak("/resources/WET/wet-custom.css") %>' rel="stylesheet">
 <% } %>
 <link href='<%= CacheBreak("/resources/css/smartguide/custom.css") %>' rel="stylesheet">

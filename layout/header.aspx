@@ -1,32 +1,26 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-				aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
+<header>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<div class="container">
 			<a class="navbar-brand" href="#">Smartguide</a>
-		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="examples">Examples<span class="caret"></span></a>
-					<ul class="dropdown-menu" aria-labelledby="examples">
-						<li><a href='<%=GetURLForSmartlet("sg-8-5-theme")%>'>Theme</a></li>
-						<li><a href='<%=GetURLForSmartlet("sg-8-5-repeats-table")%>'>Repeat Table</a></li>
-						<li><a href='<%=GetURLForSmartlet("sg-8-5-repeats-modals")%>'>Repeat & Modals</a></li>
-						<li><a href='<%=GetURLForSmartlet("sg-8-5-navigation")%>'>Navigation</a></li>
-						<li><a href='<%=GetURLForSmartlet("sg-8-5-datatable-server-fruits-serverside")%>'>Datatables.Net</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="examples" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+						<div class="dropdown-menu" aria-labelledby="examples">
+							<a class="dropdown-item" href='#'>SubMenu</a>
+							<a class="dropdown-item" href='#'>SubMenu</a>
+						</div>
+					</li>
+				</ul>
 				<apn:ifsmartletmultilingual runat="server">
-					<li class="dropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
 						<apn:locale runat="server" id="loc">
 							<%
 								string localeEnDesc = "";
@@ -35,27 +29,36 @@
 									localeDesc = localeDesc + " (" + localeEnDesc + ")";
 								}
 							%>
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="langselect"><%=localeDesc%><span class="caret"></span></a>
+							<a class="nav-link dropdown-toggle" href="#" id="langselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=localeDesc%></a>
 						</apn:locale>
-						<ul class="dropdown-menu" aria-labelledby="langselect">
+						<div class="dropdown-menu" aria-labelledby="langselect">
 							<apn:forEach runat="server" id="locale" items="languages">
-								<%
+							<%
 								string localeEnDesc = "";
 								string localeDesc = GetLocaleDescription(locale.Current.getValue(), ref localeEnDesc);
 								if(!locale.Current.getValue().Equals("en") && localeEnDesc != "") {
 									localeDesc = localeDesc + " (" + localeEnDesc + ")";
-								}
-								%>
-							<li><a href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>' class="dropdown-item link-as-post"><%=localeDesc%></a></li>
+								} 
+							%>
+							<a href='<%= GetRequestURI() %>?lang=<%=locale.Current.getValue()%>' class="dropdown-item link-as-post"><%=localeDesc%></a>
 							</apn:forEach>
-						</ul>
+						</div>
 					</li>
+				</ul>
 				</apn:ifsmartletmultilingual>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a class="nav-link" href="https://www.alphinat.com" target="_blank">Alphinat.com</a></li>
-				<li><a class="nav-link" href="https://www.getbootstrap.com/" target="_blank">Bootstrap</a></li>
-			</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.alphinat.com" target="_blank">
+							Alphinat.com
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.getbootstrap.com/" target="_blank">
+							Bootstrap
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
+</header>

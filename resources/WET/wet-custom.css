@@ -79,3 +79,8 @@ legend {
 	color: #fff;
 }
 /* WET-BOEW patch end */
+/* BS4 - fixes start */
+.fixed-top {
+	position: fixed !important;
+}
+/* BS4 - fixes end */

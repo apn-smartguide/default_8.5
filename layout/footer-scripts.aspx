@@ -1,5 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
-<% if(Options.Contains("WET")) { %>
+<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <!-- WET-BOEW -->
 <script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
 <% } %>
@@ -41,7 +41,7 @@
 <script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
 <% } %>
 <script src='<%= CacheBreak("/resources/js/select2.full.min.js") %>'></script>
-<% if(!Options.Contains("WET")) { %>
+<% if(!Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.11.3/js/jquery.datatables.js") %>'></script>--%>
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/js/dataTables.responsive.js") %>'></script>--%>
@@ -58,7 +58,7 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.tts.js") %>'></script>
 <% } %>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
-<% if(Options.Contains("WET")) { %>
+<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <script src='<%= CacheBreak("/resources/WET/smartguide.dataTables.wb.js") %>'></script>
 <% } %>
 <script type="text/javascript">
@@ -95,4 +95,6 @@
 		backgroundKeepAlive('<%= ResolvePath("/handlers/keepalive.ashx") %>', 30 * 1000);
 	<% } %>
 	initToBrowserLocale(currentLocale);
+	<%=Context.Items["javascript"] %>
+	$("#loader").fadeOut("slow");
 </script>
