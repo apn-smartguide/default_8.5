@@ -7,7 +7,7 @@ using SG.Theme.Core;
 public partial class _Default : WebPage
 {
 	protected void Page_Load(object sender, EventArgs e) {
-		base.Load(sender, e);
+		base.Page_Load(sender, e);
 	}
 
 	protected void Page_Init(object sender, EventArgs e) {
@@ -24,6 +24,6 @@ public partial class _Default : WebPage
 
 	private void Page_Error(object sender, EventArgs e)
 	{
-		base.Error(sender, e);
+		base.Page_Error(sender, e);
 	}
 }
