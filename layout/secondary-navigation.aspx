@@ -10,11 +10,11 @@ for (int i = 0; i < pages.Length; i++) {
 	if (!p.getCSSClass().Contains("hidden")) {
 		if(p == CurrentPage) { %>
 		<li class="active">
-			<a href='do.aspx?t_g<%=p.getId()%>=<%=p.getName()%>' class="link-as-post"><%=i+1%>. <%=p.getTitle()%></a>
+			<a href='<%=GetURLForPage(p)%>' class="link-as-post"><%=i+1%>. <%=p.getTitle()%></a>
 		</li>
 		<% } else { %>
 		<li>
-			<a href='do.aspx?t_g<%=p.getId()%>=<%=p.getName()%>' class="link-as-post"><%=i+1%>. <%=p.getTitle()%></a>
+			<a href='<%=GetURLForPage(p)%>' class="link-as-post"><%=i+1%>. <%=p.getTitle()%></a>
 		</li>
 		<% } %>
 	<% } %>
