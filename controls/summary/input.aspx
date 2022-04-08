@@ -1,2 +1,2 @@
-<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control"><% if(!control.Current.getAttribute("style").Equals("visibility:hidden;")) { ExecutePath("/controls/summary/field.aspx"); } %></apn:control>

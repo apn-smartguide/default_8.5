@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
 <% if (!IsPdf) { %>
 <% Context.Items["btn-toolbar"] = true; %>

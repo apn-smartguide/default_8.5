@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 	<apn:ForEach id="field" runat="server">
 		<% Context.Items["aria-labelledby"] = Context.Items["labelIdPrefix"].ToString()+"col"+field.getCount(); //override aria-labelledby by table header %>

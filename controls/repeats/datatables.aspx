@@ -1,5 +1,5 @@
 <!-- TODO: Refactor to not dependent of WET Nomenclature -->
-<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
 <%@ Import Namespace="com.alphinat.sg5.widget.group" %>
 <%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>

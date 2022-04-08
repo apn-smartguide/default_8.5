@@ -1,4 +1,4 @@
-<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <%@ Import Namespace="System.Text.RegularExpressions" %>
 <apn:control runat="server" id="control">
 <% Context.Items["required"] = false; %>

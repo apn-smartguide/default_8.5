@@ -1,2 +1,2 @@
-<%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control"><apn:forEach runat="server"><% ExecutePath("/controls/summary/controls.aspx"); %></apn:forEach></apn:control>
