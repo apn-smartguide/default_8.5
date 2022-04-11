@@ -496,6 +496,23 @@ function initToBrowserLocale(currentLocale) {
 	}
 }
 
+function ChangeUrl(page, url) {
+	if (typeof (history.pushState) != "undefined") {
+		var obj = { Page: page, Url: url };
+		history.pushState(obj, obj.Page, obj.Url);
+	} else {
+		alert("Browser does not support HTML5.");
+	}
+}
+
+function ReplaceUrl(page, url) {
+	if (typeof (history.replaceState) != "undefined") {
+		var obj = { Page: page, Url: url };
+		history.replaceState(obj, obj.Page, obj.Url);
+	} else {
+		alert("Browser does not support HTML5.");
+	}
+}
 /*
  Input Mask plugin binding
  http://github.com/RobinHerbots/jquery.inputmask

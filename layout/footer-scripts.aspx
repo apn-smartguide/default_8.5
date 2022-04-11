@@ -95,6 +95,9 @@
 		backgroundKeepAlive('<%= ResolvePath("/handlers/keepalive.ashx") %>', 30 * 1000);
 	<% } %>
 	initToBrowserLocale(currentLocale);
+	<% if (ShouldNavigateToFriendlyURL) { %>
+		ReplaceUrl('<%=CurrentPage.getTitle()%>', '<%=FriendlyURL%>');
+	<% } %>
 	<%=Context.Items["javascript"] %>
 	$("#loader").fadeOut("slow");
 </script>
