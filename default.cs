@@ -6,24 +6,23 @@ using SG.Theme.Core;
 
 public partial class _Default : WebPage
 {
-	protected void Page_Load(object sender, EventArgs e) {
-		base.Page_Load(sender, e);
+	protected override void OnLoad(EventArgs e) {
+		base.OnLoad(e);
 	}
 
-	protected void Page_Init(object sender, EventArgs e) {
-		base.Init(sender,e);
+	protected override void OnInit(EventArgs e) {
+		base.OnInit(e);
 	}
 
-	protected void PreRender(object sender, EventArgs e) {
-		base.PreRender(sender,e);
+	protected override void OnPreRender(EventArgs e) {
+		base.OnPreRender(e);
 	}
 
 	protected override void Render(HtmlTextWriter output) {
 		base.Render(output);
 	}
 
-	private void Page_Error(object sender, EventArgs e)
-	{
-		base.Page_Error(sender, e);
+	protected override void OnError(EventArgs e) {
+		base.OnError(e);
 	}
 }
