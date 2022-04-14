@@ -9,10 +9,10 @@ function tts(){
 		let ttsId = $(this).attr("data-tts");
 		let encodedTtsId = CSS.escape(ttsId);
 
-		$(this).off('mouseenter focusin').on("mouseenter focusin", function() {
+		$(this).on("mouseenter focusin", function() {
 			$("#tts_" + encodedTtsId).attr("style", 'display:content; cursor: pointer;');
 		});
-		$(this).parent().off('mouseleave focusout').on("mouseleave focusout", function(){
+		$(this).parent().on("mouseleave focusout", function(){
 			$("#tts_" + encodedTtsId).attr("style", 'display:none; cursor: pointer;');
 		});
 		$(`#tts_${encodedTtsId}`).off("click").on("click", function (e) {
