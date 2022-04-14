@@ -5,7 +5,11 @@
 <% } %>
 
 <!-- JQuery -->
+<% if(LayoutEngine.Equals("BS3")) { %>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui.min.js") %>'></script>
+<% } else if(LayoutEngine.Equals("BS4")) { %>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui-draggable.min.js") %>'></script>
+<% } %>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.form.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.bootpag.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.autocomplete.min.js") %>'></script>
@@ -18,6 +22,7 @@
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS4")) { %>
 <%-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script> --%>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS5")) { %>
 <% } %>

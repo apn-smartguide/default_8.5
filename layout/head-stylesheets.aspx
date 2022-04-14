@@ -12,7 +12,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <![endif]-->
 <link href='<%= CacheBreak("/resources/plugins/jquery/jquery.autocomplete.css") %>' rel="stylesheet">
-<link href='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui.css") %>' rel="stylesheet">
+<link href='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui-draggable.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/plugins/jquery/jquery-timepicker/jquery.timepicker.css") %>' rel="stylesheet">
 
 <!-- Bootstrap -->
