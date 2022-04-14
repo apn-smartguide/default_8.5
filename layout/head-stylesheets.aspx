@@ -37,6 +37,9 @@
 <link href='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/css/responsive.datatables.min.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/plugins/dataTables/Select-1.3.3/css/select.dataTables.min.css") %>' rel="stylesheet">
 <% } %>
+<% if(Options.Contains("ARCGIS")) { %>
+<link href="https://js.arcgis.com/4.20/esri/themes/light/main.css" rel="stylesheet">
+<% } %>
 
 <% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <!-- WET-->

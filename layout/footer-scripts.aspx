@@ -46,6 +46,9 @@
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.11.3/js/jquery.datatables.js") %>'></script>--%>
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/js/dataTables.responsive.js") %>'></script>--%>
 <% } %>
+<% if(Options.Contains("ARCGIS")) { %>
+<script src="https://js.arcgis.com/4.20/"></script>
+<% } %>
 
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>
