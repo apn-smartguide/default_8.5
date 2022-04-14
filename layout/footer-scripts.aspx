@@ -22,7 +22,7 @@
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS4")) { %>
 <%-- <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.js") %>'></script> --%>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/popper.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS5")) { %>
 <% } %>
