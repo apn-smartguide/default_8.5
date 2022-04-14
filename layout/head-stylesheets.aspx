@@ -22,8 +22,9 @@
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap-theme.css") %>' rel="stylesheet">
 	<% } %>
 <% } else if(LayoutEngine.Equals("BS4")) { %>
-<link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.css") %>' rel="stylesheet">
+<link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.css") %>' rel="stylesheet">
 <% } else if(LayoutEngine.Equals("BS5")) { %>
+<link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap5/css/bootstrap.min.css") %>' rel="stylesheet">
 <% } %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css") %>' rel="stylesheet">
 

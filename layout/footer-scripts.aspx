@@ -25,6 +25,7 @@
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/popper.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.bundle.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS5")) { %>
+<script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap5/js/bootstrap.bundle.min.js") %>'></script>
 <% } %>
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-session-timeout.js") %>'></script>
 
