@@ -19,6 +19,7 @@
 					</div>
 				</div>
 				<% if (ShowWizard) { ExecutePath("/controls/wizard/sections.aspx"); } %>
+				<% ExecutePath("/controls/validation.aspx"); %>
 				<div class="row smartlet-title">
 					<div class="col-12">
 						<div class="float-right"><img class="float-sm-right" src='<%=ResolvePath("/resources/img/logo.jpg")%>' /></div>

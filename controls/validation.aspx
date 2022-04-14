@@ -1,6 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <%@ Import Namespace="System.Text.RegularExpressions" %>
 <apn:control runat="server" id="control">
+<% Context.Items["errorIndex"] = 0; %>
 <% Context.Items["required"] = false; %>
 <% Context.Items["alert"] = false; %>
 <% Context.Items["underCrudRepeat"] = false; %>
@@ -105,7 +106,7 @@
 		<% } %>
 		<% if ((int)Context.Items["alerts-count"] > 0) { %>
 		<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
-			<h2><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></h2>
+			<strong><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></strong>
 			<ul>
 			<apn:forEach items="alert-controls" id="alert" runat="server">
 				<li id='error_<%=Context.Items["counter"] %>_<%= alert.Current.getName() %>'>
