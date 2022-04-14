@@ -659,7 +659,7 @@ $("form[id^='smartguide_']" ).each(function() {
 							if (isAjax) {
 								if(field.tagName == "BUTTON" && e.type == "click") {
 									$("#loader").fadeIn("slow");
-									$(field).tooltip("destroy");
+									$(field).tooltip("dispose");
 								}
 
 								r.ajaxProcess(field, null, true, 
