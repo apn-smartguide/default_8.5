@@ -7,7 +7,6 @@
 <apn:api5 id="sg5" runat="server" />
 <%-- https://datatables.net/manual/index --%>
 <%
-smartlet.SmartletID = HttpUtility.JavaScriptStringEncode(Request["appID"]);
 
 //This is required for multiple-table scenario in same page.
 //You need to add a field on the page that will contain the name of the current table being processed, and it's value set via a "OnFieldRender" action updatedTableName = requestParameter("tableName")
@@ -191,3 +190,8 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 <% } %>
 	]
 }
+<script runat="server">
+	protected override void OnPreRender(EventArgs e) {
+		smartlet.SmartletID = (string)HttpUtility.JavaScriptStringEncode(Request["appID"]);
+	}
+</script>
