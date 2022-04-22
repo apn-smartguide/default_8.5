@@ -1,29 +1,22 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <!--[if gte IE 9 | !IE ]><!-->
-<!-- JQuery -->
-<script src='<%= CacheBreak("/resources/plugins/jquery/jquery-3.6.0.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/plugins/jquery/jquery-migrate-3.3.2.min.js") %>'></script>
 <link href='<%= ResolvePath("/resources/img/favicon.ico") %>' rel="icon" type="image/x-icon">
 <link href='<%= ResolvePath("/resources/img/apn_icon.png") %>' rel="icon" sizes="192x192">
 <link href='<%= ResolvePath("/resources/img/apn_icon.png") %>' rel="apple-touch-icon">
 <!--<![endif]-->
-<!--[if lt IE 9]>
-<link href='<%= ResolvePath("/resources/img/favicon.ico") %>' rel="shortcut icon" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<![endif]-->
 <link href='<%= CacheBreak("/resources/plugins/jquery/jquery.autocomplete.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui-draggable.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/plugins/jquery/jquery-timepicker/jquery.timepicker.css") %>' rel="stylesheet">
 
 <!-- Bootstrap -->
-<% if(LayoutEngine.Equals("BS3")) { %>
+<% if(LayoutEngine.Equals("BS3") && !Options.Contains("CDTS")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap.css") %>' rel="stylesheet">
 	<% if(Options.Contains("boootstrap-theme")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap3/bootstrap-theme.css") %>' rel="stylesheet">
 	<% } %>
-<% } else if(LayoutEngine.Equals("BS4")) { %>
+<% } else if(LayoutEngine.Equals("BS4") && !Options.Contains("CDTS")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap4/bootstrap.min.css") %>' rel="stylesheet">
-<% } else if(LayoutEngine.Equals("BS5")) { %>
+<% } else if(LayoutEngine.Equals("BS5") && !Options.Contains("CDTS")) { %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap5/css/bootstrap.min.css") %>' rel="stylesheet">
 <% } %>
 <link href='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css") %>' rel="stylesheet">
