@@ -496,6 +496,11 @@ function initToBrowserLocale(currentLocale) {
 	}
 }
 
+function ScrollToError(target, index) {
+	$(target).animate({ scrollTop: $('#error_index_'+index).offset().top }, 1000);
+	return false;
+}
+
 function ChangeUrl(page, url) {
 	if (typeof (history.pushState) != "undefined") {
 		var obj = { Page: page, Url: url };

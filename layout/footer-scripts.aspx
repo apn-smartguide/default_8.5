@@ -1,10 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
-<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
-<!-- WET-BOEW -->
-<script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
-<% } %>
-
 <!-- JQuery -->
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery-3.6.0.min.js") %>'></script>
+<script src='<%= CacheBreak("/resources/plugins/jquery/jquery-migrate-3.3.2.min.js") %>'></script>
 <% if(LayoutEngine.Equals("BS3")) { %>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS4")) { %>
@@ -16,6 +13,11 @@
 <script src='<%= CacheBreak("/resources/plugins/jquery/inputmask/jquery.inputmask.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.caret-1.5.2.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.ba-throttle-debounce.js") %>'></script>
+
+<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
+<!-- WET-BOEW -->
+<script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
+<% } %>
 
 <!-- Bootstrap -->
 <% if(LayoutEngine.Equals("BS3")) { %>
@@ -30,11 +32,6 @@
 <script src='<%= CacheBreak("/resources/plugins/bootstrap/bootstrap-session-timeout.js") %>'></script>
 
 <!-- Additional -->
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-<script src='<%= CacheBreak("/resources/js/polyfill/html5shiv.min.js") %>'></script>
-<script src='<%= CacheBreak("/resources/js/polyfill/respond.min.js") %>'></script>
-<![endif]-->
 <script src='<%= CacheBreak("/resources/js/polyfill/getUserMedia-polyfill.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/polyfill/css.escape.js") %>'></script>
 <script src='<%= CacheBreak("/resources/js/moment/moment.min.js") %>'></script>
