@@ -1,9 +1,4 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
-<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
-<!-- WET-BOEW -->
-<script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
-<% } %>
-
 <!-- JQuery -->
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-3.6.0.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-migrate-3.3.2.min.js") %>'></script>
@@ -18,6 +13,11 @@
 <script src='<%= CacheBreak("/resources/plugins/jquery/inputmask/jquery.inputmask.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.caret-1.5.2.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery.ba-throttle-debounce.js") %>'></script>
+
+<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
+<!-- WET-BOEW -->
+<script src='<%= CacheBreak("/resources/WET/wet-boew/js/wet-boew.min.js") %>'></script>
+<% } %>
 
 <!-- Bootstrap -->
 <% if(LayoutEngine.Equals("BS3")) { %>
