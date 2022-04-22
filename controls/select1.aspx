@@ -21,44 +21,42 @@
 			<% Context.Items["hide-option-label"] = control.Current.getCSSClass().Contains("hide-option-label"); %>
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class="<% if(LayoutEngine == "BS4") { Response.Output.Write("badge badge-danger"); } else { Response.Output.Write("label label-danger"); } %>"><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
 			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server" >has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" --> >
-				<apn:forEach runat="server" id="control5" >
+				<% Context.Items["index"] = 1; %>
+				<apn:forEach runat="server" id="control5">
 					<li>
 						<apn:choosecontrol runat="server">
-						<apn:whencontrol runat="server" type="optgroup">
-							<label class='optgroup'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
-							<apn:forEach runat="server" id="control6">
+							<apn:whencontrol runat="server" type="optgroup">
+								<label class='optgroup'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
+								<apn:forEach runat="server" id="control6">
+									<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="radio-inline"><% } %>
+										<% 
+													Context.Items["id"] = control6.Current.getAttribute("id") + "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"];
+													Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
+													if (!control6.Current.getLabel().Equals("")) { Context.Items["label"] = control6.Current.getLabel(); }
+												%>
+										<input type='radio' name='<%= control6.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>' class='deselect-off <%=control.Current.getCSSClass()%> form-check-input' value='<%= control6.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control6.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %>
+										<% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> aria-labelledby='<%=Context.Items["aria-labelledby"]%>'/>
+										<label class="form-check-label" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
+										<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
+										<% if (control.Current.getCSSClass().Contains("inline")) { %>
+									</div><% } %>
+								</apn:forEach>
+							</apn:whencontrol>
+							<apn:otherwise runat="server">
 								<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="radio-inline"><% } %>
-								<% 
-									Context.Items["id"] = control6.Current.getAttribute("id");
-									string[] arrId = ((string)Context.Items["id"]).Split('o');
-									Context.Items["optionIndex"] = arrId[arrId.Length - 1];
-									Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option";
-									Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
-									if (!control6.Current.getLabel().Equals("")) { Context.Items["label"] = control6.Current.getLabel(); }
-								%>
-								<input type='radio' name='<%= control6.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>' class='deselect-off <%=control.Current.getCSSClass()%> form-check-input' value='<%= control6.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control6.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> 
-								<% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> aria-labelledby='<%=Context.Items["aria-labelledby"]%>'/>
-								<label class="form-check" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
-								<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
-								<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
-							</apn:forEach>
-						</apn:whencontrol>
-						<apn:otherwise runat="server">
-							<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="radio-inline"><% } %>
-							<% 
-								Context.Items["id"] = control5.Current.getAttribute("id");
-								string[] arrId = ((string)Context.Items["id"]).Split('o');
-								Context.Items["optionIndex"] = arrId[arrId.Length - 1];
-								Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option";
-								Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
-								if (!control5.Current.getLabel().Equals("")) { Context.Items["label"] = control5.Current.getLabel(); }
-							%>
-							<input type='radio' name='<%= control5.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>' class='deselect-off <%=control.Current.getCSSClass()%> form-check-input' value='<%= control5.Current.getHTMLValue() %>' <apn:metadata runat="server"/> <%= control.Current.containsValue(control5.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> aria-labelledby='<%=Context.Items["aria-labelledby"]%>'/>
-							<label class="<% if(LayoutEngine == "BS4") { Response.Output.Write("form-check"); } else { Response.Output.Write("form-check-label"); } %>" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' <% if(((string)Context.Items["layout"]).Equals("vertically")) { %>class='radio-inline'<% } %> title='<%=Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
-							<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
-							<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
-						</apn:otherwise>
+									<% 
+												Context.Items["id"] = control5.Current.getAttribute("id") + "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"];
+												Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
+												if (!control5.Current.getLabel().Equals("")) { Context.Items["label"] = control5.Current.getLabel(); }
+											%>
+									<input type='radio' name='<%= control5.Current.getName() %>' id='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>' class='deselect-off <%=control.Current.getCSSClass()%> form-check-input' value='<%= control5.Current.getHTMLValue() %>' <apn:metadata runat="server" /> <%= control.Current.containsValue(control5.Current.getValue()) ? "checked='checked'" : "" %> <%= Context.Items["readonly"] %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> aria-labelledby='<%=Context.Items["aria-labelledby"]%>'/>
+									<label class="form-check-label" id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' <% if(((string)Context.Items["layout"]).Equals("vertically")) { %>class='radio-inline' <% } %> title='<%=Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
+									<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
+									<% if (control.Current.getCSSClass().Contains("inline")) { %>
+								</div><% } %>
+							</apn:otherwise>
 						</apn:choosecontrol>
+						<% Context.Items["index"] = (int)Context.Items["index"] + 1; %>
 					</li>
 				</apn:forEach>
 			</ul>
