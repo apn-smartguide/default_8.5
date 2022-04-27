@@ -22,24 +22,14 @@
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 
-	string containerCSS, headerCSS, titleCSS, collapseCSS, bodyCSS, groupCSS;
+	string groupCSS;
 	if (LayoutEngine == "BS4") {
-		containerCSS = "card";
-		headerCSS = "card-header";
-		titleCSS = "card-title";
-		collapseCSS = "collapse";
-		bodyCSS = "card-body";
 		groupCSS = "input-group input-group-sm";
 	} else {
-		containerCSS = "panel panel-default";
-		headerCSS = "panel-heading";
-		titleCSS = "panel-title";
-		collapseCSS = "collapse panel-collapse";
-		bodyCSS = "panel-body";
 		groupCSS = "form-group";
 	}
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='<%= containerCSS%> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid> <% if ((bool)Context.Items["hidePagination"]) { %> hide-pagination<% } %> <% if ((bool)Context.Items["hideSearch"]) { %> hide-search<% } %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='<%=Class("group-container")%> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid> <% if ((bool)Context.Items["hidePagination"]) { %> hide-pagination<% } %> <% if ((bool)Context.Items["hideSearch"]) { %> hide-search<% } %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<% if(((string)Context.Items["hiddenName"]).Length == 0) { %>
 		<apn:control runat="server" type="repeat-index" id="repeatIndex">
 			<input name='<apn:name runat="server"/>' type="hidden" value="" />
@@ -47,7 +37,7 @@
 		</apn:control>
 		<% } %>
 		<% if (!(bool)Context.Items["hideHeading"]) { %>
-		<div class='<%= headerCSS%>' <%if (LayoutEngine == "BS4") {Response.Output.Write("style='padding: 0.25rem 1.25rem;'");}%>>
+		<div class='<%=Class("group-header")%>' <%if (LayoutEngine == "BS4") {Response.Output.Write("style='padding: 0.25rem 1.25rem;'");}%>>
 			<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 				<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 			<% } %>
@@ -63,14 +53,14 @@
 				</apn:control>
 			<% } %>
 			<% if (control.Current.getLabel() != "") { %>
-				<h5 class="<%= titleCSS%>" style="margin: 0.5rem 0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+				<h5 class='<%=Class("group-title")%>' style="margin: 0.5rem 0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 			<% } %>
 		</div>
 		<% } %>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<div id='div_<apn:name runat="server"/>_body' class='<%= collapseCSS%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+			<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
-		<div class='<%= bodyCSS%> <% if (!(bool)Context.Items["hidePagination"] && !(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
+		<div class='<%=Class("group-body")%> <% if (!(bool)Context.Items["hidePagination"] && !(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
 			<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%> = '';</script>
 			<% int totalPages = Convert.ToInt32(control.Current.getAttribute("totalPages")); %>
 			<% if (totalPages == 0) totalPages = totalPages + 1; %>

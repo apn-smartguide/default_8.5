@@ -20,25 +20,19 @@
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
-	string collapseCSS, containerCSS, headerCSS, groupCSS;
+	string groupCSS;
 
 	if (LayoutEngine == "BS4") {
-		containerCSS = "card";
-		collapseCSS = "collapse";
-		headerCSS = "card-header";
 		groupCSS = "input-group input-group-sm";
 	} else {
-		containerCSS = "panel panel-default";
-		collapseCSS = "panel-collapse collapse";
-		headerCSS = "panel-heading";
 		groupCSS = "form-group";
 	}
 %>
 	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='repeat mt-2 mb-2 <%=control.Current.getCSSClass().Replace("plain-group","") %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<div class='<% if (!(bool)Context.Items["hidePagination"]) { %>bootpag<% } %>'>
-			<div class='<%= containerCSS%> responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "") %>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
+			<div class='<%=Class("group-container")%> responsive <%= ((bool)Context.Items["hasPagination"] ? "hasPagination" : "") %>' <%= ((bool)Context.Items["hasPagination"] ? "data-total-pages='" + control.Current.getAttribute("totalPages") +"'": "")  %>>
 				<% if (!(bool)Context.Items["hideHeading"]) { %>
-				<div class="<%= headerCSS%>">
+				<div class='<%=Class("group-header")%>'>
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 					<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 				<% } %>
@@ -102,20 +96,11 @@
 				<apn:control type="repeat-sort" runat="server"><input type='hidden' value='<apn:value runat="server" />' name='<apn:name runat="server" />' class='repeatSort' /></apn:control>
 				<% } %>
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-				<div id='div_<apn:name runat="server"/>_body' class='<%= collapseCSS%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+				<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 				<% } %>
 				<apn:forEach id="status" runat="server">
-					<% Context.Items["optionIndex"] = status.getCount(); 
-						string bodyCSS, pullCSS;
-						if (LayoutEngine == "BS4") {
-							bodyCSS = "card-body";
-							pullCSS = "float-right";
-						} else {
-							bodyCSS = "panel-body";
-							pullCSS = "pull-right";
-						}
-					%>
-					<div class='<% if ((bool)Context.Items["plain-group"] || (bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } else { Response.Output.Write(bodyCSS); } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
+					<% Context.Items["optionIndex"] = status.getCount(); %>
+					<div class='<% if ((bool)Context.Items["plain-group"] || (bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } else { Class("group-body"); } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
 						<div class='row block-controls'>
 						<div class='col-12'>
@@ -130,7 +115,7 @@
 							</div>
 							<% } %>
 							<% if ((!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) && !IsPdf && !IsSummary) { %>
-							<div class='<%= pullCSS%>'>
+							<div class='<%=Class("right")%>'>
 								<% if (!(bool)Context.Items["hideDeleteButton"]) { %>
 								<apn:control runat="server" type="delete"><span title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='div_<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' class='<apn:localize runat="server" key="theme.style.button.delete"/> <apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>'></span></apn:control>
 								<% } %>

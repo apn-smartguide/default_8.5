@@ -31,42 +31,23 @@
 	if("".Equals(control.Current.getMetaDataValue("data-page-length")) && !"".Equals(control.Current.getAttribute("limit"))) {
 		Context.Items["limit"] = "data-page-length='" + control.Current.getAttribute("limit") + "'";
 	}
-
-	string bodyCSS, collapseCSS, titleCSS, pullLeftCSS, headerCSS, containerCSS;
-
-	if (LayoutEngine == "BS4") {
-		containerCSS = "card";
-		headerCSS = "card-header d-flex align-items-center";
-		pullLeftCSS = "float-left";
-		titleCSS = "card-title";
-		collapseCSS = "collapse";
-		bodyCSS = "card-body";
-
-	} else {
-		containerCSS = "panel panel-default";
-		headerCSS = "panel-heading clearfix";
-		pullLeftCSS = "pull-left";
-		titleCSS = "panel-title pull-left";
-		collapseCSS = "panel-collapse collapse";
-		bodyCSS = "panel-body";
-	}
 %>
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else { %>
 <% Context.Items["repeat-name"] = control.Current.getCode(); %>
-<div id='div_<apn:name runat="server"/>' class='<%= containerCSS%><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
+<div id='div_<apn:name runat="server"/>' class='<%=Class("group-container")%><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<% if (!(bool)Context.Items["hideHeading"]) { %>
-	<div class='<%= headerCSS%>'>
+	<div class='<%=Class("group-header")%>'>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='<%=pullLeftCSS%>' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='<%=Class("left")%>' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (control.Current.getLabel() != "") { %>
-			<h5 class="<%= titleCSS%>" style='margin: 0px; <% if(LayoutEngine != "BS4") {Response.Output.Write("padding-top: 0.5rem;");}%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+			<h5 class='<%=Class("group-title")%>' style='margin: 0px; <% if(LayoutEngine != "BS4") {Response.Output.Write("padding-top: 0.5rem;");}%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
 		<% } %>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf && !IsSummary) { %>
 			<apn:control type="insert" id="button" runat="server">
@@ -106,9 +87,9 @@
 	</div>
 	<% } %>
 	<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-		<div id='div_<apn:name runat="server"/>_body' class='<%= collapseCSS%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+		<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
-	<div class='<%= bodyCSS%>'>
+	<div class='<%=Class("group-body")%>'>
 		<apn:control runat="server" type="default-instance" id="filters">
 			<apn:forEach runat="server" id="thFilterRow">
 				<apn:forEach runat="server" id="thFilterCol">
@@ -152,10 +133,10 @@
 												<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
 													<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' class='<%=GetCleanCSSClass(thRowField.Current)%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thRowField.Current)%></th>
 												<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !thRowField.Current.getCSSClass().Contains("proxy")){ %>
-													<td data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
+													<td class="hide" data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 												<% } %>
 											<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !thRowField.Current.getCSSClass().Contains("proxy")){ %>
-												<td data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
+												<td class="hide" data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 											<% } %>
 										</apn:Otherwise>
 									</apn:forEach>
@@ -175,10 +156,10 @@
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' class='<%=GetCleanCSSClass(thField.Current)%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thField.Current)%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !thField.Current.getCSSClass().Contains("proxy")){ %>
-										<td data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
+										<td class="hide" data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 									<% } %>
-									<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !thField.Current.getCSSClass().Contains("proxy")){ %>
-									<td data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
+								<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !thField.Current.getCSSClass().Contains("proxy")){ %>
+									<td class="hide" data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
 						</apn:ChooseControl>
@@ -206,7 +187,6 @@
 										<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=getSelectLabel()%>'><span class='field-name <% if(getSelectCSSClass().Contains("hide-label")) {%>sr-only<% } %>'><%=getSelectLabel()%></span></label>
 										<% } %>
 									<% } else { %>
-									
 									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input <%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 									<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=getSelectLabel()%>'><span class='field-name <% if(getSelectCSSClass().Contains("hide-label")) {%>sr-only<% } %>'><%=getSelectLabel()%></span></label>
 									<% } %>
@@ -223,22 +203,22 @@
 												<apn:ChooseControl runat="server">
 													<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 													<apn:WhenControl type="TRIGGER" runat="server"><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("panel-heading-") && !trRowField.Current.getCSSClass().Contains("proxy")) { %><td><% ExecutePath("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
-													<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
+													<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 													<apn:Otherwise runat="server">
 														<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("panel-heading-") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
 															<% if(trRowField.Current.getCSSClass().Contains("datatable-editable")) { %>
 																<td style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
 															<% } else if(!thRowField.Current.getCSSClass().Contains("panel-heading-") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
-																<td style='<apn:cssStyle runat="server" />'>
+																<td id='<apn:name runat="server"/>' style='<apn:cssStyle runat="server" />'>
 																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 																<apn:value runat="server"/>
 																<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 																</td>
 															<% } else { %>
-																<td class="hide"></td>
+																<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 															<% } %>
 														<% } else { %>
-															<td class="hide"><!-- #include file="../hidden.inc" --></td>
+															<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 														<% } %>
 													</apn:Otherwise>
 												</apn:ChooseControl>
@@ -247,7 +227,7 @@
 									</apn:WhenControl>
 									<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server"><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !trField.Current.getCSSClass().Contains("proxy")) { %><td><% ExecutePath("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
-									<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
+									<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
 										<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
@@ -260,16 +240,16 @@
 														Context.Items["dataOrder"] = "data-order=\""+ GetSortableDate(trField.Current) +"\"";
 													}
 												%>
-												<td style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
+												<td id='<apn:name runat="server"/>' style='<apn:cssStyle runat="server" />' <%=Context.Items["dataOrder"]%>>
 													<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 													<apn:value runat="server"/>
 													<apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute>
 												</td>
 											<% } else { %>
-												<td class="hide"></td>
+												<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 											<% } %>
 										<% } else { %>
-											<td class="hide"><!-- #include file="../hidden.inc" --></td>
+											<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 										<% } %>
 									</apn:Otherwise>
 								</apn:ChooseControl>
@@ -511,7 +491,7 @@
 			//Cannot add a non available field to the collection, it will not exist in the header's collection of fields.
 			if(fields[i].isAvailable() && !cssClass.Contains("panel-heading-") && !cssClass.Contains("proxy")) {
 				if (fields[i].getTypeConst() == 80000 || cssStyle.Contains("visibility:hidden;") || cssStyle.Contains("display:none;") || cssClass.Contains("hide-from-list-view")) {
-					col.Add("visible", false);
+					//col.Add("visible", false);
 				} else {
 					if(!fields[i].getCSSWidth().Equals("")) {
 						col.Add("width", fields[i].getCSSWidth());
