@@ -334,7 +334,9 @@ $("form[id^='smartguide_']").each(function () {
 					id: htmlName.substring(2).replace(/\\/g, ""),
 					htmlName: htmlName.replace(/\\/g, ""),
 					$: $field,
-					value: $field.val()
+					value: ($field.val() != '') ? $field.val() : $field.text(),
+					html: $field.html(),
+					text: $field.text()
 				}
 			}
 
@@ -361,7 +363,7 @@ $("form[id^='smartguide_']").each(function () {
 								var index = this.field().htmlName.substring(this.field().htmlName.indexOf("["));
 								key = key + index;
 							}
-							return this._fieldObj(f, key);
+							return fieldObj(f, key);
 						}
 					}
 					return null;
@@ -458,8 +460,10 @@ $("form[id^='smartguide_']").each(function () {
 					var f = true;
 					try {
 						var smartlet = $(this).data('_smartlet');
-						f = Function("smartlet", "field", "event", clientEvent).bind(smartlet.field())
-							(smartlet, smartlet.field.bind(smartlet), e);
+						if(typeof smartlet != 'undefined' && smartlet.field() != null) {
+							f = Function("smartlet", "field", "event", clientEvent).bind(smartlet.field())
+								(smartlet, smartlet.field.bind(smartlet), e);
+							}
 					} catch (err) {
 						alert(err);
 					}
