@@ -17,6 +17,7 @@
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class='<%=Class("label-danger")%>'><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
 			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
 			<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
+			<% Context.Items["index"] = 1; %>
 			<apn:forEach id="control2" runat="server">
 				<li>
 					<apn:choosecontrol runat="server">
@@ -24,8 +25,11 @@
 							<% if(!control2.Current.getLabel().Equals("")) { %><label class='optgroup'><% ExecutePath("/controls/custom/control-label.aspx"); %></label><% } %>
 							<apn:forEach id="control3" runat="server">
 								<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
-								<% 
+								<%
 									Context.Items["id"] = control3.Current.getAttribute("id");
+									if(SmartguideMajorVersion < 10) {
+											Context.Items["id"] += "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"];
+									}
 									string[] arrId = ((string)Context.Items["id"]).Split('o');
 									Context.Items["optionIndex"] = arrId[arrId.Length-1];
 								    Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option";
@@ -36,12 +40,16 @@
 								<label class='form-check-label' id='<%=Context.Items["aria-labelledby"]%>' for='<%=Context.Items["id"]%>' title='<%=Context.Items["label"]%>'><% ExecutePath("/controls/custom/control-label.aspx"); %></label>
 								<% if (control.Current.getLabel().Equals("") && control.Current.isRequired()) { %><span class="required" data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.required"/>'>*</span><% } %>
 								<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
+								<% Context.Items["index"] = (int)Context.Items["index"] + 1; %>
 							</apn:forEach>
 						</apn:whencontrol>
 						<apn:otherwise runat="server">
 							<% if (control.Current.getCSSClass().Contains("inline")) { %><div class="checkbox-inline"><% } %>
 							<% 
 								Context.Items["id"] = control2.Current.getAttribute("id");
+								if(SmartguideMajorVersion < 10) {
+										Context.Items["id"] += "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"];
+								}
 								string[] arrId = ((string)Context.Items["id"]).Split('o');
 								Context.Items["optionIndex"] = arrId[arrId.Length-1];
 								Context.Items["tts-id"] = control.Current.getFieldId() + "." + Context.Items["optionIndex"] + "_option"; 
@@ -54,6 +62,7 @@
 							<% if (control.Current.getCSSClass().Contains("inline")) { %></div><% } %>
 						</apn:otherwise>
 					</apn:choosecontrol>
+					<% Context.Items["index"] = (int)Context.Items["index"] + 1; %>
 				</li>
 			</apn:forEach>
 			</ul>
