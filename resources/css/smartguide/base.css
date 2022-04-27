@@ -818,21 +818,6 @@ input[type=file][readonly] {
 }
 /* Alerts End */
 
-/* Breadcrumb */
-.breadcrumb {
-	border: 1px solid #8e8e8e;
-	background-color: #f5f5f5;
-}
-
-.breadcrumb .active {
-	color: #696969;
-}
-
-.breadcrumb>li>a {
-	color: #00749e;
-}
-/* Breadcrumb end */
-
 input.autocomplete::after {
     content: "\f0d7";
     font-family: "Font Awesome 5 Free";
