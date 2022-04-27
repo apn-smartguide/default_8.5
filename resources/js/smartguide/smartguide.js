@@ -505,6 +505,12 @@ $("form[id^='smartguide_']" ).each(function() {
 			if (fieldType == 'repeat') {
 				$field = $("#div_" + fieldHtmlName);
 			} 
+
+			if (fieldType == 'upload') {
+				if ($field.get(0).tagName !== 'BUTTON') {
+					return;
+				}
+			}
 			
 			// bind server event first
 			if (isServer) {
@@ -602,6 +608,12 @@ $("form[id^='smartguide_']" ).each(function() {
 			// check if we need to bind the div_ of a repeat or group field
 			if (fieldType == 'repeat') {
 				$field = $("#div_" + fieldHtmlName);
+			}
+
+			if (fieldType == 'upload') {
+				if ($field.get(0).tagName !== 'BUTTON') {
+					return;
+				}
 			}
 			
 			//first bind client event
