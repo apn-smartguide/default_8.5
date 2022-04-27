@@ -133,7 +133,7 @@
 												<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
 													<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' class='<%=GetCleanCSSClass(thRowField.Current)%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thRowField.Current)%></th>
 												<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !thRowField.Current.getCSSClass().Contains("proxy")){ %>
-													<td class="hide" data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
+													<td data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 												<% } %>
 											<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !thRowField.Current.getCSSClass().Contains("proxy")){ %>
 												<td class="hide" data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
@@ -156,7 +156,7 @@
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' class='<%=GetCleanCSSClass(thField.Current)%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thField.Current)%></th>
 									<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !thField.Current.getCSSClass().Contains("proxy")){ %>
-										<td class="hide" data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
+										<td data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 									<% } %>
 								<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !thField.Current.getCSSClass().Contains("proxy")){ %>
 									<td class="hide" data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
