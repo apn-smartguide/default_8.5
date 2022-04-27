@@ -83,8 +83,8 @@ if (!IsPdf || !IsSummary) {
 			}
 		%>
 	</apn:forEach>
-	<% if (((int)Context.Items["alerts-count"] > 0)) { %>
 	<div id='alerts<%=Context.Items["idsuffix"]%>'><%-- do not change the div id as it is referenced in smartguide.js --%>
+	<% if (((int)Context.Items["alerts-count"] > 0)) { %>
 		<% if ((int)Context.Items["alerts-count"] > 0) { %>
 		<section id="errors-fdbck-frm" class='alert alert-danger' role='alert'>
 			<strong><%=Smartlet.getLocalizedResource("theme.text.errors-found").Replace("{1}", Context.Items["alerts-count"].ToString()) %></strong>
@@ -115,7 +115,7 @@ if (!IsPdf || !IsSummary) {
 			</ul>
 		</section>
 		<% } %>
-	</div>
 	<% } %>
+	</div>
 <% } %>
 </apn:control>
