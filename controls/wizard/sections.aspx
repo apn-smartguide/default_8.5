@@ -15,7 +15,7 @@ Context.Items["totalSection"]  = 0;
 </apn:forEach>
 <% if ( (int)Context.Items["totalSection"] > 1 ) { %>
 <div class="row">
-	<% if (!hideStepNavigation) { %>
+	<% if (!HideStepNavigation) { %>
 	<div class="col-12">
 		<div class='section section-count-<%= (int)Context.Items["totalSection"] + 1 %>'>
 			<ol>
