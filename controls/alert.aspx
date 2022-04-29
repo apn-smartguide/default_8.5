@@ -5,7 +5,20 @@
 	<section id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></section>
 	<% } else { %>
 	<section id='div_<apn:name runat="server"/>' class='<apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> role='alert'>
-	<% if(!Context.Items["label"].Equals("")) { %><apn:label runat="server"/><% } %>
+	<%
+		bool hasLabel = !Context.Items["label"].Equals("");
+		bool isDismissable = control.Current.getCSSClass().Contains("dismissable");
+	%>
+	<% if (hasLabel || isDismissable) { %>
+		<div style="display: flex;">
+		<% if(hasLabel) { %><apn:label runat="server"/><% } %>
+		<% if (isDismissable) { %>
+			<button aria-label="Close" class="close" data-dismiss="alert" type="button" style="padding: 1rem; margin-left: auto">
+				<span aria-hidden="true">×</span>
+			</button>
+		<%}%>
+		</div>
+	<%}%>
 		<apn:ChooseControl runat="server">
 			<apn:WhenControl runat="server" type="GROUP">
 				<apn:forEach runat="server" id="row">

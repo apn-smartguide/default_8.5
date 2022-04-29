@@ -821,6 +821,10 @@ input[type=file][readonly] {
 	margin-top: auto;
 	margin-bottom: 10px;
 }
+
+.dismissable:hover {
+	background-color: rgb(247, 247, 247) !important;
+}
 /* Alerts End */
 
 input.autocomplete::after {
