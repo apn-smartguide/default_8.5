@@ -1,151 +1,153 @@
-        <!-- Add the following Metas at the end of your /apn_common/groups/library.xml meta_data -->
-        <section description="Data attributes for the datatable control" id="G99997" name="Datatable">
-            <attribute description="How many items to display per page in the datatable" id="G37" name="data-page-length">
-                <value description="" id="G8" name="10" value="10"/>
-            </attribute>
-            <attribute description="All configuration options are detailed in the DataTables documentation" id="G38" name="data-aopts">
-                <value description="add a field to your repeat named: [repeat-name]-data-aopts, set the configurations there." id="G9" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-aopts&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
-            </attribute>
-            <attribute description="" id="G40" name="id">
-                <value description="Example of an smartlet field defined as the id for the datatable" id="G1" name="product_url" value="product_url"/>
-            </attribute>
-            <attribute description="Configure your sort options for the datatable" id="G41" name="sorts">
-                <value description="Example" id="G1" name="Name ASC" value="{&quot;order&quot;: [ &quot;name&quot;, &quot;asc&quot; ]}"/>
-            </attribute>
-            <attribute description="Configure your datatable columns" id="G42" name="columns">
-                <value description="Example" id="G1" name="Example" value="[{&quot;product_url&quot;:[&quot;searchable&quot;:&quot;false&quot;, &quot;visible&quot;:&quot;hidden&quot;&quot;]},{&quot;id&quot;:[&quot;visible&quot;:&quot;hidden&quot;]}]"/>
-            </attribute>
-            <attribute description="Options for initialization of the datatable" id="G43" name="init">
-                <value description="" id="G1" name="Preserve state" value="{&quot;stateSave&quot;: true}"/>
-                <value description="" id="G2" name="browsers-server" value="{ &quot;columnDefs&quot;: [ &quot;selections&quot; ] }"/>
-            </attribute>
-            <attribute description="Choose the datatable render-mode" id="G44" name="render-mode">
-                <value description="" id="G1" name="Client Side" value=""/>
-                <value description="" id="G2" name="Server Side" value="true"/>
-            </attribute>
-            <attribute description="Configure the wet-boew settings for your datatable" id="G45" name="data-wb-tables">
-                <value description="Method to set the configuration dynamically be using a settings field on the page." id="G1" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-wb-tables&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
-            </attribute>
-            <attribute description="" id="G46" name="select-all-class">
-                <value description="" id="G1" name="hide-sort large" value="hide-sort large"/>
-            </attribute>
-            <attribute description="" id="G47" name="select-all-style"/>
-            <attribute description="" id="G48" name="select-class">
-                <value description="" id="G1" name="large-checkbox" value="large"/>
-                <value description="" id="G2" name="large-radio" value="large"/>
-            </attribute>
-            <attribute description="" id="G49" name="select-style"/>
-            <attribute description="" id="G50" name="data-priority">
-                <value description="" id="G1" name="1" value="1"/>
-            </attribute>
-        </section>
-        <section description="" id="G99998" name="HTML">
-            <attribute description="" id="G33" name="hasPagination">
-                <value description="" id="G1" name="true" value="true"/>
-            </attribute>
-            <attribute description="" id="G34" name="data-confirm-modal">
-                <value description="" id="G1" name="modal_block-render" value="modal_block-render"/>
-            </attribute>
-            <attribute description="Select an HTML Role attribute to apply" id="G51" name="role">
-                <value description="" id="G1" name="presentation" value="presentation"/>
-                <value description="" id="G2" name="tablist" value="tablist"/>
-            </attribute>
-            <attribute description="" id="G52" name="target">
-                <value description="Open in a new window" id="G1" name="_blank" value="_blank"/>
-                <value description="Open in the parent window" id="G2" name="_parent" value="_parent"/>
-                <value description="Replace the content of the current window" id="G3" name="_self" value="_self"/>
-                <value description="Open in the top most window" id="G4" name="_top" value="_top"/>
-            </attribute>
-            <attribute description="" id="G35" name="data-mask">
-                <value description="" id="G1" name="yyyy-mm-dd" value="9999-99-99"/>
-                <value description="" id="G2" name="999999" value="999999"/>
-                <value description="" id="G3" name="(999) 999-9999" value="(999) 999-9999"/>
-                <value description="Postal Code" id="G4" name="A9A 9A9" value="A9A 9A9"/>
-                <value description="" id="G5" name="(999) 999-9999 ext 999999" value="(999) 999-9999 ext 999999"/>
-                <value description="" id="G6" name="9999" value="9999"/>
-            </attribute>
-            <attribute description="values are; small, normal, large, xtra large" id="G53" name="modal-size">
-                <value description="" id="G1" name="modal-sm" value="modal-sm"/>
-                <value description="" id="G2" name="modal-lg" value="modal-lg"/>
-                <value description="" id="G3" name="modal-xl" value="modal-xl"/>
-                <value description="Normal size modal, requires no class be specified." id="G4" name="modal-md" value=""/>
-            </attribute>
-			<attribute description="The HTML autocomplete attribute" id="G57" name="autocomplete">
-                <value description="A new password. When creating a new account or changing passwords, this should be used for an &quot;Enter your new password&quot; or &quot;Confirm new password&quot; field, as opposed to a general &quot;Enter your current password&quot; field that might be present. This may be used by the browser both to avoid accidentally filling in an existing password and to offer assistance in creating a secure password (see also Preventing autofilling with autocomplete=&quot;new-password&quot;)." id="G1" name="new-password" value="new-password"/>
-                <value description="The browser is not permitted to automatically enter or select a value for this field. It is possible that the document or application provides its own autocomplete feature, or that security concerns require that the field's value not be automatically entered. Note: In most modern browsers, setting autocomplete to &quot;off&quot; will not prevent a password manager from asking the user if they would like to save username and password information, or from automatically filling in those values in a site's login form." id="G2" name="off" value="off"/>
-                <value description="The browser is allowed to automatically complete the input. No guidance is provided as to the type of data expected in the field, so the browser may use its own judgement." id="G3" name="on" value="on"/>
-                <value description="The field expects the value to be a person's full name. Using &quot;name&quot; rather than breaking the name down into its components is generally preferred because it avoids dealing with the wide diversity of human names and how they are structured" id="G4" name="name" value="name"/>
-                <value description="The prefix or title, such as &quot;Mrs.&quot;, &quot;Mr.&quot;, &quot;Miss&quot;, &quot;Ms.&quot;, &quot;Dr.&quot;, or &quot;Mlle.&quot;." id="G5" name="honorific-prefix" value="honorific-prefix"/>
-                <value description="The given (or &quot;first&quot;) name." id="G6" name="given-name" value="given-name"/>
-                <value description="The middle name." id="G7" name="additional-name" value="additional-name"/>
-                <value description="The family (or &quot;last&quot;) name." id="G8" name="family-name" value="family-name"/>
-                <value description="The suffix, such as &quot;Jr.&quot;, &quot;B.Sc.&quot;, &quot;PhD.&quot;, &quot;MBASW&quot;, or &quot;IV&quot;." id="G9" name="honorific-suffix" value="honorific-suffix"/>
-                <value description="A nickname or handle." id="G10" name="nickname" value="nickname"/>
-                <value description="An email address." id="G11" name="email" value="email"/>
-                <value description="A username or account name." id="G12" name="username" value="username"/>
-                <value description="The user's current password." id="G13" name="current-password" value="current-password"/>
-                <value description="A one-time code used for verifying user identity." id="G14" name="one-time-code" value="one-time-code"/>
-                <value description="A job title, or the title a person has within an organization, such as &quot;Senior Technical Writer&quot;, &quot;President&quot;, or &quot;Assistant Troop Leader&quot;." id="G15" name="organization-title" value="organization-title"/>
-                <value description="A company or organization name, such as &quot;Acme Widget Company&quot; or &quot;Girl Scouts of America&quot;." id="G16" name="organization" value="organization"/>
-                <value description="A street address. This can be multiple lines of text, and should fully identify the location of the address within its second administrative level (typically a city or town), but should not include the city name, ZIP or postal code, or country name." id="G17" name="street-address" value="street-address"/>
-                <value description="Each individual line of the street address. These should only be present if the &quot;street-address&quot; is not present." id="G18" name="address-line1" value="address-line1"/>
-                <value description="Each individual line of the street address. These should only be present if the &quot;street-address&quot; is not present." id="G19" name="address-line2" value="address-line2"/>
-                <value description="Each individual line of the street address. These should only be present if the &quot;street-address&quot; is not present." id="G20" name="address-line3" value="address-line3"/>
-                <value description="The finest-grained administrative level, in addresses which have four levels." id="G21" name="address-level4" value="address-level4"/>
-                <value description="The third administrative level, in addresses with at least three administrative levels." id="G22" name="address-level3" value="address-level3"/>
-                <value description="The second administrative level, in addresses with at least two of them. In countries with two administrative levels, this would typically be the city, town, village, or other locality in which the address is located." id="G23" name="address-level2" value="address-level2"/>
-                <value description="The first administrative level in the address. This is typically the province in which the address is located. In the United States, this would be the state. In Switzerland, the canton. In the United Kingdom, the post town." id="G24" name="address-level1" value="address-level1"/>
-                <value description="A country or territory code." id="G25" name="country" value="country"/>
-                <value description="A country or territory name." id="G26" name="country-name" value="country-name"/>
-                <value description="A postal code (in the United States, this is the ZIP code)." id="G27" name="postal-code" value="postal-code"/>
-                <value description="The full name as printed on or associated with a payment instrument such as a credit card. Using a full name field is preferred, typically, over breaking the name into pieces." id="G28" name="cc-name" value="cc-name"/>
-                <value description="A given (first) name as given on a payment instrument like a credit card." id="G29" name="cc-given-name" value="cc-given-name"/>
-                <value description="A middle name as given on a payment instrument or credit card." id="G30" name="cc-additional-name" value="cc-additional-name"/>
-                <value description="A family name, as given on a credit card." id="G31" name="cc-family-name" value="cc-family-name"/>
-                <value description="A credit card number or other number identifying a payment method, such as an account number." id="G32" name="cc-number" value="cc-number"/>
-                <value description="A payment method expiration date, typically in the form &quot;MM/YY&quot; or &quot;MM/YYYY&quot;." id="G33" name="cc-exp" value="cc-exp"/>
-                <value description="The month in which the payment method expires." id="G34" name="cc-exp-month" value="cc-exp-month"/>
-                <value description="The year in which the payment method expires." id="G35" name="cc-exp-year" value="cc-exp-year"/>
-                <value description="The security code for the payment instrument; on credit cards, this is the 3-digit verification number on the back of the card." id="G36" name="cc-csc" value="cc-csc"/>
-                <value description="The type of payment instrument (such as &quot;Visa&quot; or &quot;Master Card&quot;)." id="G37" name="cc-type" value="cc-type"/>
-                <value description="The currency in which the transaction is to take place." id="G38" name="transaction-currency" value="transaction-currency"/>
-                <value description="The amount, given in the currency specified by &quot;transaction-currency&quot;, of the transaction, for a payment form." id="G39" name="transaction-amount" value="transaction-amount"/>
-                <value description="A preferred language, given as a valid BCP 47 language tag." id="G40" name="language" value="language"/>
-                <value description="A birth date, as a full date." id="G41" name="bday" value="bday"/>
-                <value description="The day of the month of a birth date." id="G42" name="bday-day" value="bday-day"/>
-                <value description="The month of the year of a birth date." id="G43" name="bday-month" value="bday-month"/>
-                <value description="The year of a birth date." id="G44" name="bday-year" value="bday-year"/>
-                <value description="A gender identity (such as &quot;Female&quot;, &quot;Fa'afafine&quot;, &quot;Male&quot;), as freeform text without newlines." id="G45" name="sex" value="sex"/>
-                <value description="A full telephone number, including the country code." id="G46" name="tel" value="tel"/>
-                <value description="The country code, such as &quot;1&quot; for the United States, Canada, and other areas in North America and parts of the Caribbean." id="G47" name="tel-country-code" value="tel-country-code"/>
-                <value description="The entire phone number without the country code component, including a country-internal prefix. For the phone number &quot;1-855-555-6502&quot;, this field's value would be &quot;855-555-6502&quot;." id="G48" name="tel-national" value="tel-national"/>
-                <value description="The area code, with any country-internal prefix applied if appropriate." id="G49" name="tel-area-code" value="tel-area-code"/>
-                <value description="The phone number without the country or area code. This can be split further into two parts, for phone numbers which have an exchange number and then a number within the exchange. For the phone number &quot;555-6502&quot;, use &quot;tel-local-prefix&quot; for &quot;555&quot; and &quot;tel-local-suffix&quot; for &quot;6502&quot;." id="G50" name="tel-local" value="tel-local"/>
-                <value description="A telephone extension code within the phone number, such as a room or suite number in a hotel or an office extension in a company." id="G51" name="tel-extension" value="tel-extension"/>
-                <value description="A URL for an instant messaging protocol endpoint, such as &quot;xmpp:username@example.net&quot;." id="G52" name="impp" value="impp"/>
-                <value description="A URL, such as a home page or company web site address as appropriate given the context of the other fields in the form." id="G53" name="url" value="url"/>
-                <value description="The URL of an image representing the person, company, or contact information given in the other fields in the form." id="G54" name="photo" value="photo"/>
-            </attribute>
-			<attribute description="" id="G58" name="min">
-                <value description="" id="G1" name="1901" value="1901-01-01"/>
-            </attribute>
-        </section>
-        <section description="Special Components" id="G99999" name="Components">
-            <attribute description="HTML Controls and other advanced components" id="G30" name="Controls">
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G6" name="h1" value="custom/h1"/>
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G7" name="h2" value="custom/h2"/>
-                <value description="The &lt;span&gt; tag is an inline container used to mark up a part of a text, or a part of a document. When using a group field, the fields inside the group will not render in bootstrap columns." id="G8" name="span" value="custom/span"/>
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G9" name="h3" value="custom/h3"/>
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G10" name="h4" value="custom/h4"/>
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G11" name="h5" value="custom/h5"/>
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G12" name="h6" value="custom/h6"/>
-                <value description="Paragraph, when using a group field, the fields inside the group will not render in bootstrap columns." id="G17" name="p" value="custom/p"/>
-                <value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G18" name="ul" value="custom/ul"/>
-                <value description="vhen using a group field, the fields inside the group will not render in bootstrap columns." id="G19" name="li" value="custom/li"/>
-                <value description="The &lt;a&gt; tag defines a hyperlink, which is used to link from one page to another. When using a group field, The href attribute will be set using the label attribute and the contents of the group will be its label. Otherwise, the href will use the value attribute." id="G20" name="a" value="custom/a"/>
-                <value description="Render this group using the datatable control" id="G21" name="datatables" value="repeats/datatables"/>
-                <value description="Render a &lt;script&gt;&lt;/script&gt; bloc using content from value" id="G22" name="Javascript" value="custom/javascript"/>
-                <value description="Text in a &lt;pre&gt; element is displayed in a fixed-width font, and the text preserves both spaces and line breaks. The text will be displayed exactly as written in the HTML source code." id="G23" name="pre" value="custom/pre"/>
-                <value description="" id="G24" name="test" value="test"/>
-            </attribute>
-        </section>
+<data>
+	<!-- Add the following Metas at the end of your /apn_common/groups/library.xml meta_data -->
+	<section description="Data attributes for the datatable control" id="G99997" name="Datatable">
+		<attribute description="How many items to display per page in the datatable" id="G37" name="data-page-length">
+			<value description="" id="G8" name="10" value="10"/>
+		</attribute>
+		<attribute description="All configuration options are detailed in the DataTables documentation" id="G38" name="data-aopts">
+			<value description="add a field to your repeat named: [repeat-name]-data-aopts, set the configurations there." id="G9" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-aopts&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
+		</attribute>
+		<attribute description="" id="G40" name="id">
+			<value description="Example of an smartlet field defined as the id for the datatable" id="G1" name="product_url" value="product_url"/>
+		</attribute>
+		<attribute description="Configure your sort options for the datatable" id="G41" name="sorts">
+			<value description="Example" id="G1" name="Name ASC" value="{&quot;order&quot;: [ &quot;name&quot;, &quot;asc&quot; ]}"/>
+		</attribute>
+		<attribute description="Configure your datatable columns" id="G42" name="columns">
+			<value description="Example" id="G1" name="Example" value="[{&quot;product_url&quot;:[&quot;searchable&quot;:&quot;false&quot;, &quot;visible&quot;:&quot;hidden&quot;&quot;]},{&quot;id&quot;:[&quot;visible&quot;:&quot;hidden&quot;]}]"/>
+		</attribute>
+		<attribute description="Options for initialization of the datatable" id="G43" name="init">
+			<value description="" id="G1" name="Preserve state" value="{&quot;stateSave&quot;: true}"/>
+			<value description="" id="G2" name="browsers-server" value="{ &quot;columnDefs&quot;: [ &quot;selections&quot; ] }"/>
+		</attribute>
+		<attribute description="Choose the datatable render-mode" id="G44" name="render-mode">
+			<value description="" id="G1" name="Client Side" value=""/>
+			<value description="" id="G2" name="Server Side" value="true"/>
+		</attribute>
+		<attribute description="Configure the wet-boew settings for your datatable" id="G45" name="data-wb-tables">
+			<value description="Method to set the configuration dynamically be using a settings field on the page." id="G1" name="settings" value="${  setting = (ISmartletField)smartlet.findFieldByName(field.getName() + &quot;-data-wb-tables&quot;);  if(setting != null) {  return setting.getValue();  } else { return &quot;&quot;;  }  }$"/>
+		</attribute>
+		<attribute description="" id="G46" name="select-all-class">
+			<value description="" id="G1" name="hide-sort large" value="hide-sort large"/>
+		</attribute>
+		<attribute description="" id="G47" name="select-all-style"/>
+		<attribute description="" id="G48" name="select-class">
+			<value description="" id="G1" name="large-checkbox" value="large"/>
+			<value description="" id="G2" name="large-radio" value="large"/>
+		</attribute>
+		<attribute description="" id="G49" name="select-style"/>
+		<attribute description="" id="G50" name="data-priority">
+			<value description="" id="G1" name="1" value="1"/>
+		</attribute>
+	</section>
+	<section description="" id="G99998" name="HTML">
+		<attribute description="" id="G33" name="hasPagination">
+			<value description="" id="G1" name="true" value="true"/>
+		</attribute>
+		<attribute description="" id="G34" name="data-confirm-modal">
+			<value description="" id="G1" name="modal_block-render" value="modal_block-render"/>
+		</attribute>
+		<attribute description="Select an HTML Role attribute to apply" id="G51" name="role">
+			<value description="" id="G1" name="presentation" value="presentation"/>
+			<value description="" id="G2" name="tablist" value="tablist"/>
+		</attribute>
+		<attribute description="" id="G52" name="target">
+			<value description="Open in a new window" id="G1" name="_blank" value="_blank"/>
+			<value description="Open in the parent window" id="G2" name="_parent" value="_parent"/>
+			<value description="Replace the content of the current window" id="G3" name="_self" value="_self"/>
+			<value description="Open in the top most window" id="G4" name="_top" value="_top"/>
+		</attribute>
+		<attribute description="" id="G35" name="data-mask">
+			<value description="" id="G1" name="yyyy-mm-dd" value="9999-99-99"/>
+			<value description="" id="G2" name="999999" value="999999"/>
+			<value description="" id="G3" name="(999) 999-9999" value="(999) 999-9999"/>
+			<value description="Postal Code" id="G4" name="A9A 9A9" value="A9A 9A9"/>
+			<value description="" id="G5" name="(999) 999-9999 ext 999999" value="(999) 999-9999 ext 999999"/>
+			<value description="" id="G6" name="9999" value="9999"/>
+		</attribute>
+		<attribute description="values are; small, normal, large, xtra large" id="G53" name="modal-size">
+			<value description="" id="G1" name="modal-sm" value="modal-sm"/>
+			<value description="" id="G2" name="modal-lg" value="modal-lg"/>
+			<value description="" id="G3" name="modal-xl" value="modal-xl"/>
+			<value description="Normal size modal, requires no class be specified." id="G4" name="modal-md" value=""/>
+		</attribute>
+		<attribute description="The HTML autocomplete attribute" id="G57" name="autocomplete">
+			<value description="A new password. When creating a new account or changing passwords, this should be used for an &quot;Enter your new password&quot; or &quot;Confirm new password&quot; field, as opposed to a general &quot;Enter your current password&quot; field that might be present. This may be used by the browser both to avoid accidentally filling in an existing password and to offer assistance in creating a secure password (see also Preventing autofilling with autocomplete=&quot;new-password&quot;)." id="G1" name="new-password" value="new-password"/>
+			<value description="The browser is not permitted to automatically enter or select a value for this field. It is possible that the document or application provides its own autocomplete feature, or that security concerns require that the field's value not be automatically entered. Note: In most modern browsers, setting autocomplete to &quot;off&quot; will not prevent a password manager from asking the user if they would like to save username and password information, or from automatically filling in those values in a site's login form." id="G2" name="off" value="off"/>
+			<value description="The browser is allowed to automatically complete the input. No guidance is provided as to the type of data expected in the field, so the browser may use its own judgement." id="G3" name="on" value="on"/>
+			<value description="The field expects the value to be a person's full name. Using &quot;name&quot; rather than breaking the name down into its components is generally preferred because it avoids dealing with the wide diversity of human names and how they are structured" id="G4" name="name" value="name"/>
+			<value description="The prefix or title, such as &quot;Mrs.&quot;, &quot;Mr.&quot;, &quot;Miss&quot;, &quot;Ms.&quot;, &quot;Dr.&quot;, or &quot;Mlle.&quot;." id="G5" name="honorific-prefix" value="honorific-prefix"/>
+			<value description="The given (or &quot;first&quot;) name." id="G6" name="given-name" value="given-name"/>
+			<value description="The middle name." id="G7" name="additional-name" value="additional-name"/>
+			<value description="The family (or &quot;last&quot;) name." id="G8" name="family-name" value="family-name"/>
+			<value description="The suffix, such as &quot;Jr.&quot;, &quot;B.Sc.&quot;, &quot;PhD.&quot;, &quot;MBASW&quot;, or &quot;IV&quot;." id="G9" name="honorific-suffix" value="honorific-suffix"/>
+			<value description="A nickname or handle." id="G10" name="nickname" value="nickname"/>
+			<value description="An email address." id="G11" name="email" value="email"/>
+			<value description="A username or account name." id="G12" name="username" value="username"/>
+			<value description="The user's current password." id="G13" name="current-password" value="current-password"/>
+			<value description="A one-time code used for verifying user identity." id="G14" name="one-time-code" value="one-time-code"/>
+			<value description="A job title, or the title a person has within an organization, such as &quot;Senior Technical Writer&quot;, &quot;President&quot;, or &quot;Assistant Troop Leader&quot;." id="G15" name="organization-title" value="organization-title"/>
+			<value description="A company or organization name, such as &quot;Acme Widget Company&quot; or &quot;Girl Scouts of America&quot;." id="G16" name="organization" value="organization"/>
+			<value description="A street address. This can be multiple lines of text, and should fully identify the location of the address within its second administrative level (typically a city or town), but should not include the city name, ZIP or postal code, or country name." id="G17" name="street-address" value="street-address"/>
+			<value description="Each individual line of the street address. These should only be present if the &quot;street-address&quot; is not present." id="G18" name="address-line1" value="address-line1"/>
+			<value description="Each individual line of the street address. These should only be present if the &quot;street-address&quot; is not present." id="G19" name="address-line2" value="address-line2"/>
+			<value description="Each individual line of the street address. These should only be present if the &quot;street-address&quot; is not present." id="G20" name="address-line3" value="address-line3"/>
+			<value description="The finest-grained administrative level, in addresses which have four levels." id="G21" name="address-level4" value="address-level4"/>
+			<value description="The third administrative level, in addresses with at least three administrative levels." id="G22" name="address-level3" value="address-level3"/>
+			<value description="The second administrative level, in addresses with at least two of them. In countries with two administrative levels, this would typically be the city, town, village, or other locality in which the address is located." id="G23" name="address-level2" value="address-level2"/>
+			<value description="The first administrative level in the address. This is typically the province in which the address is located. In the United States, this would be the state. In Switzerland, the canton. In the United Kingdom, the post town." id="G24" name="address-level1" value="address-level1"/>
+			<value description="A country or territory code." id="G25" name="country" value="country"/>
+			<value description="A country or territory name." id="G26" name="country-name" value="country-name"/>
+			<value description="A postal code (in the United States, this is the ZIP code)." id="G27" name="postal-code" value="postal-code"/>
+			<value description="The full name as printed on or associated with a payment instrument such as a credit card. Using a full name field is preferred, typically, over breaking the name into pieces." id="G28" name="cc-name" value="cc-name"/>
+			<value description="A given (first) name as given on a payment instrument like a credit card." id="G29" name="cc-given-name" value="cc-given-name"/>
+			<value description="A middle name as given on a payment instrument or credit card." id="G30" name="cc-additional-name" value="cc-additional-name"/>
+			<value description="A family name, as given on a credit card." id="G31" name="cc-family-name" value="cc-family-name"/>
+			<value description="A credit card number or other number identifying a payment method, such as an account number." id="G32" name="cc-number" value="cc-number"/>
+			<value description="A payment method expiration date, typically in the form &quot;MM/YY&quot; or &quot;MM/YYYY&quot;." id="G33" name="cc-exp" value="cc-exp"/>
+			<value description="The month in which the payment method expires." id="G34" name="cc-exp-month" value="cc-exp-month"/>
+			<value description="The year in which the payment method expires." id="G35" name="cc-exp-year" value="cc-exp-year"/>
+			<value description="The security code for the payment instrument; on credit cards, this is the 3-digit verification number on the back of the card." id="G36" name="cc-csc" value="cc-csc"/>
+			<value description="The type of payment instrument (such as &quot;Visa&quot; or &quot;Master Card&quot;)." id="G37" name="cc-type" value="cc-type"/>
+			<value description="The currency in which the transaction is to take place." id="G38" name="transaction-currency" value="transaction-currency"/>
+			<value description="The amount, given in the currency specified by &quot;transaction-currency&quot;, of the transaction, for a payment form." id="G39" name="transaction-amount" value="transaction-amount"/>
+			<value description="A preferred language, given as a valid BCP 47 language tag." id="G40" name="language" value="language"/>
+			<value description="A birth date, as a full date." id="G41" name="bday" value="bday"/>
+			<value description="The day of the month of a birth date." id="G42" name="bday-day" value="bday-day"/>
+			<value description="The month of the year of a birth date." id="G43" name="bday-month" value="bday-month"/>
+			<value description="The year of a birth date." id="G44" name="bday-year" value="bday-year"/>
+			<value description="A gender identity (such as &quot;Female&quot;, &quot;Fa'afafine&quot;, &quot;Male&quot;), as freeform text without newlines." id="G45" name="sex" value="sex"/>
+			<value description="A full telephone number, including the country code." id="G46" name="tel" value="tel"/>
+			<value description="The country code, such as &quot;1&quot; for the United States, Canada, and other areas in North America and parts of the Caribbean." id="G47" name="tel-country-code" value="tel-country-code"/>
+			<value description="The entire phone number without the country code component, including a country-internal prefix. For the phone number &quot;1-855-555-6502&quot;, this field's value would be &quot;855-555-6502&quot;." id="G48" name="tel-national" value="tel-national"/>
+			<value description="The area code, with any country-internal prefix applied if appropriate." id="G49" name="tel-area-code" value="tel-area-code"/>
+			<value description="The phone number without the country or area code. This can be split further into two parts, for phone numbers which have an exchange number and then a number within the exchange. For the phone number &quot;555-6502&quot;, use &quot;tel-local-prefix&quot; for &quot;555&quot; and &quot;tel-local-suffix&quot; for &quot;6502&quot;." id="G50" name="tel-local" value="tel-local"/>
+			<value description="A telephone extension code within the phone number, such as a room or suite number in a hotel or an office extension in a company." id="G51" name="tel-extension" value="tel-extension"/>
+			<value description="A URL for an instant messaging protocol endpoint, such as &quot;xmpp:username@example.net&quot;." id="G52" name="impp" value="impp"/>
+			<value description="A URL, such as a home page or company web site address as appropriate given the context of the other fields in the form." id="G53" name="url" value="url"/>
+			<value description="The URL of an image representing the person, company, or contact information given in the other fields in the form." id="G54" name="photo" value="photo"/>
+		</attribute>
+		<attribute description="" id="G58" name="min">
+			<value description="" id="G1" name="1901" value="1901-01-01"/>
+		</attribute>
+	</section>
+	<section description="Special Components" id="G99999" name="Components">
+		<attribute description="HTML Controls and other advanced components" id="G30" name="Controls">
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G6" name="h1" value="custom/h1"/>
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G7" name="h2" value="custom/h2"/>
+			<value description="The &lt;span&gt; tag is an inline container used to mark up a part of a text, or a part of a document. When using a group field, the fields inside the group will not render in bootstrap columns." id="G8" name="span" value="custom/span"/>
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G9" name="h3" value="custom/h3"/>
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G10" name="h4" value="custom/h4"/>
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G11" name="h5" value="custom/h5"/>
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G12" name="h6" value="custom/h6"/>
+			<value description="Paragraph, when using a group field, the fields inside the group will not render in bootstrap columns." id="G17" name="p" value="custom/p"/>
+			<value description="When using a group field, the fields inside the group will not render in bootstrap columns." id="G18" name="ul" value="custom/ul"/>
+			<value description="vhen using a group field, the fields inside the group will not render in bootstrap columns." id="G19" name="li" value="custom/li"/>
+			<value description="The &lt;a&gt; tag defines a hyperlink, which is used to link from one page to another. When using a group field, The href attribute will be set using the label attribute and the contents of the group will be its label. Otherwise, the href will use the value attribute." id="G20" name="a" value="custom/a"/>
+			<value description="Render this group using the datatable control" id="G21" name="datatables" value="repeats/datatables"/>
+			<value description="Render a &lt;script&gt;&lt;/script&gt; bloc using content from value" id="G22" name="Javascript" value="custom/javascript"/>
+			<value description="Text in a &lt;pre&gt; element is displayed in a fixed-width font, and the text preserves both spaces and line breaks. The text will be displayed exactly as written in the HTML source code." id="G23" name="pre" value="custom/pre"/>
+			<value description="" id="G24" name="test" value="test"/>
+		</attribute>
+	</section>
+</data>
