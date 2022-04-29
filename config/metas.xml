@@ -1,4 +1,4 @@
-<data>
+<meta_data>
 	<!-- Add the following Metas at the end of your /apn_common/groups/library.xml meta_data -->
 	<section description="Data attributes for the datatable control" id="T99997" name="Datatable">
 		<attribute description="How many items to display per page in the datatable" id="T37" name="data-page-length">
@@ -150,4 +150,4 @@
 			<value description="" id="T24" name="test" value="test"/>
 		</attribute>
 	</section>
-</data>
+</meta_data>
