@@ -6,14 +6,18 @@
 	<% } else { %>
 	<div class='<apn:cssclass runat="server"/> recap' style='<apn:controlattribute attr="style" runat="server"/><apn:cssstyle runat="server"/>'>
 		<apn:forEach runat="server" id="pageControl">
-			<div class='card'>
-				<div class='card-header'>
-					<h2 class='card-title'>
+			<div class='<%=Class("group-container")%>'>
+				<div class='<%=Class("group-header")%>'>
+					<h2 class='<%=Class("group-title")%>'>
 						<apn:label runat="server" />
-						<div class='float-right summaryBtn'><% if (!IsPdf && !pageControl.Current.getCSSClass().Contains("hide-modify-btn")) { %><apn:control runat="server" type="modify" id="button"><input type='submit' class='btn btn-xs btn-secondary' name='<apn:name runat="server"/>' value='<%=GetAttribute(button.Current, "label")%>' /></apn:control><% } %></div>
 					</h2>
+					<%-- if (!IsPdf && !pageControl.Current.getCSSClass().Contains("hide-modify-btn")) { --%>
+					<div class='<%=Class("right")%> summaryBtn'>
+						<apn:control runat="server" type="modify" id="button"><input type='submit' class='btn btn-xs <%=Class("btn-secondary")%>' name='<apn:name runat="server"/>' value='<%=GetAttribute(button.Current, "label")%>' /></apn:control>
+					</div>
+					<%-- } --%>
 				</div>
-				<div class='card-body'><% ExecutePath("/controls/summary/controls.aspx"); %></div>
+				<div class='<%=Class("group-body")%>'><% ExecutePath("/controls/summary/controls.aspx"); %></div>
 			</div>
 		</apn:forEach>
 	</div>
