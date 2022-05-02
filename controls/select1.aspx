@@ -16,7 +16,7 @@
 		<apn:whencontrol runat="server" type="radio">
 		<div id='div_<apn:name runat="server" />' data-name='<%=control.Current.getCode()%>' class='<% if (Options.Contains("WET")) { %>chkbxrdio-grp <% } %>form-group'>
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
-			<% if (!BareRender){ ExecutePath("/controls/legend.aspx"); } %>
+			<% if (!BareRender){ ExecutePath("/controls/label.aspx"); } %>
 			<% Context.Items["label"] = control.Current.getLabel(); %>
 			<% Context.Items["hide-option-label"] = control.Current.getCSSClass().Contains("hide-option-label"); %>
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class='<%=Class("label-danger")%>'><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>

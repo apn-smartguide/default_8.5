@@ -34,7 +34,7 @@
 				<% ExecutePath("/controls/controls.aspx"); %>
 				<% if (!HideBottomNavigation) { %>
 				<%-- WIZARD PREV/NEXT BUTTONS --%>
-				<div class="navigation"><% ExecutePath("/controls/wizard/bottom-controls.aspx"); %></div>
+				<% ExecutePath("/controls/wizard/bottom-controls.aspx"); %>
 				<% } %>
 			</div>
 		</div>
