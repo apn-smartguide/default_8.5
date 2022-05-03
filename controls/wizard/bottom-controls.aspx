@@ -4,7 +4,7 @@
 <% Context.Items["btn-toolbar"] = true; %>
 <div class="row">
 	<div class="col-12">
-		<div class="btn-toolbar navigation container" role="toolbar">
+		<div class="btn-toolbar navigation" role="toolbar">
 			<%
 			string previousEventTargets = "";
 			SessionField previousBtn = GetProxyButton("previous", ref previousEventTargets);
