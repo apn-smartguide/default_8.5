@@ -4,7 +4,7 @@
 		<div class="row">
 			<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
 			<% if (SecondaryNavigation != null) { %>
-			<div id="leftcol" class="col-3 d-none d-lg-block" typeof="SiteNavigationElement" id="wb-sec" role="navigation">
+			<div id="leftcol" class="col-3 d-none d-lg-block" typeof="SiteNavigationElement" role="navigation">
 				<% if (!SecondaryNavigation.getLabel().Equals("")) { ExecutePath(SecondaryNavigation.getLabel()); } else { ExecutePath("/layout/secondary-navigation.aspx"); } %>
 			</div>
 			<% } %>
