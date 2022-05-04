@@ -56,7 +56,7 @@
 				<% if(addBtn != null && addBtn.isAvailable()) { %>
 					<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCleanCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 				<% } else { %>
-					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(LayoutEngine == "BS4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/>'></span></span>
+					<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(LayoutEngine == "BS4") { Response.Output.Write("ml-auto"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></span>
 				<% } %>
 			</apn:control>
 		<% } %>
