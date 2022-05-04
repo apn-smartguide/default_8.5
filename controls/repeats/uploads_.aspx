@@ -39,11 +39,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">
-					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %>
+					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { Context.Items["render-proxy"] = true; Execute("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %>
 				</apn:forEach>
 			</apn:forEach>
 		</apn:forEach>
-		<h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<h2 class="card-title"><% Execute("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	</apn:control>
 	<div class='drop-popup'><p>Drop your files here</p></div>
@@ -54,7 +54,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 				<tr>
 					<td>
 						<table>
-							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
+							<tr><td><% Execute("/controls/controls.aspx"); %></td></tr>
 							<tr><td>
 								<apn:control runat="server" type="insert" id="saveButton">
 									<% string eventTargets = ""; %>

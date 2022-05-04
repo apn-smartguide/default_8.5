@@ -31,7 +31,7 @@
 										<apn:forEach runat="server" id="gfield">
 											<% if(!gfield.Current.getAttribute("style").Equals("visibility:hidden;") && !gfield.Current.getAttribute("visible").Equals("false") && !gfield.Current.getCSSClass().Contains("hide-from-list-view") && !gfield.Current.getCSSClass().Contains("proxy")) { %>
 												<th <apn:metadata runat="server" match="data-priority"/> class='<%=gcol.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+gcol.getCount()%>'>
-													<span class='<apn:cssclass runat="server"/>'><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
+													<span class='<apn:cssclass runat="server"/>'><% Execute("/controls/custom/control-label.aspx"); %></span>
 													<% if ("true".Equals(gfield.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 													&nbsp;&nbsp;
 													<span data-sort="<%=gfield.Current.getAttribute("sort")%>" data-field-id="<%=gfield.Current.getFieldId()%>"
@@ -52,7 +52,7 @@
 							<apn:Otherwise runat="server">
 								<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 								<th <apn:metadata runat="server" match="data-priority"/> class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-									<span class='<apn:cssclass runat="server"/>'><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
+									<span class='<apn:cssclass runat="server"/>'><% Execute("/controls/custom/control-label.aspx"); %></span>
 									<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 									&nbsp;&nbsp;
 									<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
@@ -88,7 +88,7 @@
 				<% } %>
 				<% BareRender = true; %>
 				<% Context.Items["optionIndex"] = status.getCount(); %>
-				<% ExecutePath("/controls/repeats/table-col.aspx"); %>
+				<% Execute("/controls/repeats/table-col.aspx"); %>
 				<% BareRender = false; %>	
 				<% if (!IsPdf && !IsSummary) { %>
 					<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %><td class='repeatbutton nowrap'><% } %>

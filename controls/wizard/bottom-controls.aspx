@@ -33,10 +33,10 @@
 						<apn:ChooseControl runat="server">
 							<% Context.Items["btn-wizard"] = true; // render btn-wizard if you see any, but don't render proxies in here. %>
 							<apn:WhenControl type="TRIGGER" runat="server">
-							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx");} %>
+							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { Execute("/controls/button.aspx");} %>
 							</apn:WhenControl>
 							<apn:Otherwise runat="server">
-							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/custom/buttons.aspx");} %>
+							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !field.Current.getCSSClass().Contains("proxy")) { Execute("/controls/custom/buttons.aspx");} %>
 							</apn:Otherwise>
 							<% Context.Items["btn-wizard"] = false; %>
 						</apn:ChooseControl>

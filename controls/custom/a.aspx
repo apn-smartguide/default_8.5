@@ -11,7 +11,7 @@
 </apn:ChooseControl>
 <apn:metadata runat="server" match="target"/>>
 <apn:ChooseControl runat="server">
-	<apn:WhenControl runat="server" type="GROUP"><% ExecutePath("/controls/custom/no-col-render.aspx"); %></apn:WhenControl>
+	<apn:WhenControl runat="server" type="GROUP"><% Execute("/controls/custom/no-col-render.aspx"); %></apn:WhenControl>
 	<apn:Otherwise runat="server"><%=GetAttribute(control.Current, "label")%></apn:Otherwise>
 </apn:ChooseControl>
 </a>

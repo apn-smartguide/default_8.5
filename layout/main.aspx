@@ -5,7 +5,7 @@
 			<% SessionField SecondaryNavigation = (SessionField)FindFieldByName("secondary-navigation"); %>
 			<% if (SecondaryNavigation != null) { %>
 			<div id="leftcol" class="col-3 d-none d-lg-block" typeof="SiteNavigationElement" role="navigation">
-				<% if (!SecondaryNavigation.getLabel().Equals("")) { ExecutePath(SecondaryNavigation.getLabel()); } else { ExecutePath("/layout/secondary-navigation.aspx"); } %>
+				<% if (!SecondaryNavigation.getLabel().Equals("")) { Execute(SecondaryNavigation.getLabel()); } else { Execute("/layout/secondary-navigation.aspx"); } %>
 			</div>
 			<% } %>
 			<div class='<% if (SecondaryNavigation != null) { %>col-9<% } else { %>col-12<% } %>'>
@@ -18,8 +18,8 @@
 						</h2>
 					</div>
 				</div>
-				<% if (ShowWizard) { ExecutePath("/controls/wizard/sections.aspx"); } %>
-				<% ExecutePath("/controls/validation.aspx"); %>
+				<% if (ShowWizard) { Execute("/controls/wizard/sections.aspx"); } %>
+				<% Execute("/controls/validation.aspx"); %>
 				<div class="row smartlet-title">
 					<div class="col-12">
 						<div class="float-right"><img class="float-sm-right" src='<%=ResolvePath("/resources/img/logo.jpg")%>' /></div>
@@ -31,10 +31,10 @@
 					</div>
 				</div>
 				<%-- MAIN LOOP OVER PAGE CONTROLS --%>
-				<% ExecutePath("/controls/controls.aspx"); %>
+				<% Execute("/controls/controls.aspx"); %>
 				<% if (!HideBottomNavigation) { %>
 				<%-- WIZARD PREV/NEXT BUTTONS --%>
-				<% ExecutePath("/controls/wizard/bottom-controls.aspx"); %>
+				<% Execute("/controls/wizard/bottom-controls.aspx"); %>
 				<% } %>
 			</div>
 		</div>

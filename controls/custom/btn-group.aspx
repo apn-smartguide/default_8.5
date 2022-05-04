@@ -11,7 +11,7 @@
 <div class='<%=textAlignmentCSSClasses%>'>
 <% } %>
 <div id='div_<apn:name runat="server"/>' class="btn-group <%=btnGroupClasses%>" style='<apn:cssstyle runat="server"/>' role="group">
-<% ExecutePath("/controls/custom/buttons.aspx"); %>
+<% Execute("/controls/custom/buttons.aspx"); %>
 </div>
 <% if (textAlignmentCSSClasses.Length > 0) { %>
 </div>

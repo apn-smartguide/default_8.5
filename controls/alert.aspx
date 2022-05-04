@@ -28,7 +28,7 @@
 								<apn:chooseControl runat="server">
 									<apn:whenControl runat="server" type="COL">
 										<% Context.Items["no-col-layout"] = col.Current.getLayoutAttribute("all"); %>
-										<apn:forEach runat="server" id="field"><% ExecutePath("/controls/control.aspx"); %></apn:forEach>
+										<apn:forEach runat="server" id="field"><% Execute("/controls/control.aspx"); %></apn:forEach>
 										<% Context.Items["no-col-layout"] = ""; %>
 									</apn:whenControl>
 								</apn:chooseControl>

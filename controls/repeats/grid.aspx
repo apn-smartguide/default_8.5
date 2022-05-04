@@ -68,8 +68,8 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 				</apn:control>
 			</div>
 		<% } %>
-		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
-		<h5 class='<%=Class("group-title")%>' style="margin: 0.5rem 0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; Execute("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
+		<h5 class='<%=Class("group-title")%>' style="margin: 0.5rem 0"><% Execute("/controls/custom/control-label.aspx"); %></h5>
 	</div>
 	<% } %>
 	</apn:control>
@@ -102,7 +102,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 											<apn:Otherwise runat="server">
 												<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("proxy")) { %>
 													<% if (thRowField.Current.getType()==1000 && !thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
-													<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thRowField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
+													<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thRowField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% Execute("/controls/controls.aspx"); %></th>
 													<% } else { %>
 													<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thRowField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 														<% if (!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(thRowField.Current, "label") %><% } %>
@@ -139,7 +139,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 							<apn:Otherwise runat="server">
 								<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if (thField.Current.getType()==1000 && !thField.Current.getCSSClass().Contains("hide-column-label")) { %>
-									<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% ExecutePath("/controls/controls.aspx"); %></th>
+									<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% Execute("/controls/controls.aspx"); %></th>
 									<% } else { %>
 									<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'>
 										<% if (!thField.Current.getCSSClass().Contains("hide-column-label")) { %><%= GetAttribute(thField.Current, "label") %><% } %>
@@ -190,13 +190,13 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<apn:forEach runat="server" id="trRowCol">
 										<apn:forEach runat="server" id="trRowField">
 											<apn:ChooseControl runat="server">
-												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/controls.aspx"); } %></td></apn:WhenControl>
-												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); } %></td></apn:WhenControl>
+												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { Execute("/controls/controls.aspx"); } %></td></apn:WhenControl>
+												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { Execute("/controls/button.aspx"); } %></td></apn:WhenControl>
 												<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 												<apn:Otherwise runat="server">
 												<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("proxy")) { %>
 													<% if(trRowField.Current.getCSSClass().Contains("datatable-editable") && (!IsSummary && !IsPdf)) { %>
-														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
+														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td>
 													<% } else if(trRowField.Current.getType() == 1014 /*date*/ ) { %>
 														<td data-order='<%=GetSortableDate(trField.Current)%>'><apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute><apn:value runat="server"/><apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute></td>
 													<% } else if(trRowField.Current.getType() == 1006 /*select*/ || trRowField.Current.getType() == 1007 /*select1*/ ) { %>
@@ -210,13 +210,13 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 										</apn:forEach>
 									</apn:forEach>
 								</apn:WhenControl>
-								<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/control.aspx"); } %></td></apn:WhenControl>
-								<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { ExecutePath("/controls/button.aspx"); }  %></td></apn:WhenControl>
+								<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
+								<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { Execute("/controls/button.aspx"); }  %></td></apn:WhenControl>
 								<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 								<apn:Otherwise runat="server">
 								<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("proxy")) { %>
 									<% if(trField.Current.getCSSClass().Contains("datatable-editable") && (!IsSummary && !IsPdf)) { %>
-										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% ExecutePath("/controls/control.aspx"); %></td>
+										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td>
 									<% } else if(trField.Current.getType() == 1014 /*date*/) { %>
 										<td data-order='<%=GetSortableDate(trField.Current)%>'><apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute><apn:value runat="server"/><apn:ifcontrolattribute runat="server" attr="suffix"><apn:controlattribute runat="server" attr="suffix"/></apn:ifcontrolattribute></td>
 									<% } else if(trField.Current.getType() == 1006 /*select*/ || trField.Current.getType() == 1007 /*select1*/ ) { %>
@@ -262,10 +262,10 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 	<apn:forEach runat="server" id="group1">
 		<% if ("true".Equals(group1.Current.getAttribute("new-instance"))) { %>
 			<% Context.Items["modal-mode"] = "add"; %>
-			<% ExecutePath("/controls/repeats/crud-modal.aspx"); %>
+			<% Execute("/controls/repeats/crud-modal.aspx"); %>
 		<% } else if ("true".Equals(group1.Current.getAttribute("edit-instance"))) { %>
 			<% Context.Items["modal-mode"] = "edit"; %>
-			<% ExecutePath("/controls/repeats/crud-modal.aspx"); %>
+			<% Execute("/controls/repeats/crud-modal.aspx"); %>
 		<% } %>
 		<% Context.Items["modal-mode"] = ""; %>
 	</apn:forEach>

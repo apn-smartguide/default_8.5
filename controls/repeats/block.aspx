@@ -54,7 +54,7 @@
 							</apn:control>
 						</div>
 						<% } %>
-						<% if (!control.Current.getLabel().Equals("")) { %><h5 class="mb-0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5><% } %>
+						<% if (!control.Current.getLabel().Equals("")) { %><h5 class="mb-0"><% Execute("/controls/custom/control-label.aspx"); %></h5><% } %>
 				</apn:control>
 				<% if ((bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary) { %>
 					<div class='form-inline' style='padding-top:10px'>
@@ -128,7 +128,7 @@
 						</div>
 						</div>
 						<% } %>
-						<div class='row block-form'><div class='col-12'><% ExecutePath("/controls/controls.aspx"); %></div></div>
+						<div class='row block-form'><div class='col-12'><% Execute("/controls/controls.aspx"); %></div></div>
 					</div>
 				</apn:forEach>
 				</table>

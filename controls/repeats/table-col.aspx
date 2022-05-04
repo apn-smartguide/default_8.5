@@ -16,7 +16,7 @@
 			<apn:whencontrol runat="server" type="IMAGE">% RenderTD("/controls/image.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
 			<apn:whencontrol runat="server" type="UPLOAD"><% RenderTD("/controls/upload.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
 			<apn:whencontrol runat="server" type="TRIGGER"><% RenderTD("/controls/button.aspx", (bool)Context.Items["IsVisible"], (string)Context.Items["zClass"]); %></apn:whencontrol>
-			<apn:Otherwise runat="server"><% ExecutePath("/controls/repeats/table-col.aspx"); %></apn:Otherwise>
+			<apn:Otherwise runat="server"><% Execute("/controls/repeats/table-col.aspx"); %></apn:Otherwise>
 	</apn:ChooseControl>
 	</apn:forEach>
 </apn:control>
@@ -25,7 +25,7 @@
 		// remove col-*-* from classes because they are no longer needed in tables(<td> <tr>) and messes up the col alignment on edge
 		zClass = Regex.Replace(zClass, "\\bcol-\\w+-\\d+", "");
 		if(isVisible) Response.Write("<td class='"+ zClass +"'>");
-		ExecutePath(ctrl);
+		Execute(ctrl);
 		if(isVisible) Response.Write("</td>");
 	}
 </script>

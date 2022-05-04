@@ -6,7 +6,7 @@
 <% } else { %>
 <% Context.Items["btn-toolbar"] = true; %>
 <div id='div_<apn:name runat="server"/>' class="btn-toolbar <%=control.Current.getCSSClass()%>" style='<apn:cssstyle runat="server"/>' role="toolbar">
-<% ExecutePath("/controls/custom/buttons.aspx"); %>
+<% Execute("/controls/custom/buttons.aspx"); %>
 </div>
 <% Context.Items["btn-toolbar"] = false; %>
 <% } %>

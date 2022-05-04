@@ -7,9 +7,9 @@
 				<h2 class='<%=Class("group-title")%>'><apn:label runat="server" /></h2>
 			</div>
 		<% } %>
-		<div class='<%=Class("group-body")%>'><% ExecutePath("/controls/summary/controls.aspx"); %></div>
+		<div class='<%=Class("group-body")%>'><% Execute("/controls/summary/controls.aspx"); %></div>
 	</div>
 	<% } else { %>
-		<% ExecutePath("/controls/summary/controls.aspx"); %>
+		<% Execute("/controls/summary/controls.aspx"); %>
 	<% } %>
 </apn:control>

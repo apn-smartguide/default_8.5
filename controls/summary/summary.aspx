@@ -17,7 +17,7 @@
 					</div>
 					<%-- } --%>
 				</div>
-				<div class='<%=Class("group-body")%>'><% ExecutePath("/controls/summary/controls.aspx"); %></div>
+				<div class='<%=Class("group-body")%>'><% Execute("/controls/summary/controls.aspx"); %></div>
 			</div>
 		</apn:forEach>
 	</div>

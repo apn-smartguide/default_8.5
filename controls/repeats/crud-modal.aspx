@@ -3,13 +3,13 @@
 	<div class='modal crud-modal<%=Context.Items["repeat-level"]%>' tabindex='-1' role='dialog'>
 		<section class='modal-dialog overlay-def <%=control.Current.getNonLocalizedMetaDataValue("modal-size")%>'>
 			<div class='modal-content'>
-				<header class='modal-header'><div class='modal-title'><% ExecutePath("/controls/custom/control-label.aspx"); %></div></header>
+				<header class='modal-header'><div class='modal-title'><% Execute("/controls/custom/control-label.aspx"); %></div></header>
 				<% string repeatName = "repeat-name-" + Context.Items["repeat-level"]; %>
 				<% string modalBodyName = "div_" + Context.Items[repeatName] + "_" + Context.Items["modal-mode"] + "_modal_body"; %>
 				<div class='modal-body' id='<%=modalBodyName%>'>
 					<% Context.Items["context-modal"] = true; %>
-					<% ExecutePath("/controls/validation.aspx"); %>
-					<% ExecutePath("/controls/controls.aspx"); %>
+					<% Execute("/controls/validation.aspx"); %>
+					<% Execute("/controls/controls.aspx"); %>
 					<% Context.Items["context-modal"] = null; %>
 				</div>
 				<div class='modal-footer'>
