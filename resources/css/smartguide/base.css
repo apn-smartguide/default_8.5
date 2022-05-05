@@ -11,7 +11,7 @@ body.pdf .panel {
 	page-break-inside: avoid;
 }
 
-.recap th {
+/* .recap th {
 	border-bottom: 1px solid;
 }
 
@@ -24,6 +24,7 @@ body.pdf .panel {
 	margin-top: 5px;
 	margin-bottom: 10px;
 }
+*/
 
 .recap .panel-heading .panel-title {
 	font-weight: bold;
