@@ -11,21 +11,6 @@ body.pdf .panel {
 	page-break-inside: avoid;
 }
 
-/* .recap th {
-	border-bottom: 1px solid;
-}
-
-.recap table {
-	border-spacing: 5px;
-	border-collapse: separate;
-}
-
-.recap .row {
-	margin-top: 5px;
-	margin-bottom: 10px;
-}
-*/
-
 .recap .panel-heading .panel-title {
 	font-weight: bold;
 }
@@ -308,6 +293,7 @@ div.uploads-render .panel-body {
 
 div.repeat table td {
 	padding: 5px;
+	vertical-align: top;
 }
 
 table.dataTable td {
@@ -354,6 +340,7 @@ div.repeat table td.repeatbutton {
 	vertical-align: middle;
 	padding-left: 10px;
 	padding-right: 10px;
+	display: inline-block;
 }
 
 .nowrap {
