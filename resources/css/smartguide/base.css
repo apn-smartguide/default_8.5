@@ -804,11 +804,11 @@ input[type=file][readonly] {
 /* File Upload */
 
 /* Alerts */
-.alert > :first-child {
+/* .alert > :first-child {
 	margin-left: 1.2em;
 	margin-top: auto;
 	margin-bottom: 10px;
-}
+} */
 
 .dismissable:hover {
 	background-color: rgb(247, 247, 247) !important;
