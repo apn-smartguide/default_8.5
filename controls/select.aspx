@@ -11,15 +11,16 @@
 		<apn:whencontrol runat="server" type="check">
 		<div id='div_<apn:name runat="server"/>' class='<% if (Options.Contains("WET")) { %>chkbxrdio-grp <% } %> form-group <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>'>
 			<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex %>'>Anchor to error <%=ErrorIndex %></a></apn:ifnotcontrolvalid>
-			<% if (!BareRender){ Execute("/controls/label.aspx"); } %>
+			<% Context.Items["hide-label"] = control.Current.getCSSClass().Contains("hide-label"); %>
+			<% if (!BareRender && !(bool)Context.Items["hide-label"]){ Execute("/controls/label.aspx"); } %>
 			<% Context.Items["label"] = control.Current.getLabel(); %>
 			<% Context.Items["hide-option-label"] = control.Current.getCSSClass().Contains("hide-option-label"); %>
 			<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class='<%=Class("label-danger")%>'><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong><br/></apn:ifnotcontrolvalid><% } %>
-			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
+			<ul <%=Context.Items["readonly"]%> <apn:metadata runat="server" /> class='<% if(((string)Context.Items["layout"]).Equals("horizontally")) { %>checkbox-inline<% } %> <%=Context.Items["no-col-layout"]%> <apn:cssclass runat="server" /> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid>' style='<apn:cssstyle runat="server"/>' <!-- #include file="aria-live.inc" -->>
 			<% if(((string)Context.Items["readonly"]).Length == 0) { %><input type='hidden' name='<apn:name runat="server"/>' value='' /><% } %>
 			<% Context.Items["index"] = 1; %>
 			<apn:forEach id="control2" runat="server">
-				<li>
+				<li class="checkbox">
 					<apn:choosecontrol runat="server">
 						<apn:whencontrol runat="server" type="optgroup">
 							<% if(!control2.Current.getLabel().Equals("")) { %><label class='optgroup'><% Execute("/controls/custom/control-label.aspx"); %></label><% } %>
