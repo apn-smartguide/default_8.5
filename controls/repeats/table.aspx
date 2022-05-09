@@ -195,14 +195,15 @@
 				SessionGroup tableFooterGroup = (SessionGroup)sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName(tableFooterGroupName);
 				%>
 				<% if (tableFooterGroup != null) { %>
-				<tfooter>
+				<tfoot>
 					<tr>
 						<% if ((bool)Context.Items["isSelectable"]) { %><td></td><% } %>
 						<% foreach(ISmartletField footerField in tableFooterGroup.findAllFields()) { %>
 							<% if(footerField.isAvailable()  && !footerField.getCSSClass().Contains("hide-from-list-view") && !footerField.getCSSClass().Contains("proxy")) { %><td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' ><%=footerField.getValue()%></td><% } %>
 						<% } %>
+						<td></td>
 					</tr>
-				</tfooter>
+				</tfoot>
 				<% } %>
 			</table>
 			<% if (!(bool)Context.Items["hidePagination"] && (bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary && !(bool)Context.Items["useDataTables"]) { %>
