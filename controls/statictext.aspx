@@ -8,7 +8,7 @@
 	<% } else { %>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <%=GetCleanCSSClass(control.Current)%> form-group' style='<apn:controlattribute runat="server" attr="style"/><apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> <apn:metadata runat="server" /> >
 	<% if (!BareRender && control.Current.getLabel().Trim().Length > 0){ %>
-		<label <%if(control.Current.getCSSClass().Contains("inline")) {%>class='inline'<% } %>><span><% ExecutePath("/controls/custom/control-label.aspx"); %></span></label>
+		<label <%if(control.Current.getCSSClass().Contains("inline")) {%>class='inline'<% } %>><span><% Execute("/controls/custom/control-label.aspx"); %></span></label>
 	<% } %>
 		<span <% if (Options.Contains("TTS") && !control.Current.isDynamicValue()) { Response.Output.Write("data-tts='{0}_value'",control.Current.getFieldId()); } %>><apn:value runat="server"/></span>
 	<% if (Options.Contains("TTS") && !control.Current.isDynamicValue()) { %><span id='<% Response.Output.Write("tts_{0}_value",control.Current.getFieldId()); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>

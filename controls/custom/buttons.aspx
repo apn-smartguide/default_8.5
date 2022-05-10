@@ -15,8 +15,8 @@
 						<apn:forEach runat="server" id="field"><%-- Each field --%>
 							<apn:chooseControl runat="server">
 								<% if (!control.Current.getCSSClass().Contains("proxy") || ((control.Current.getCSSClass().Contains("proxy") && (bool)Context.Items["render-proxy"])) || ((control.Current.getCSSClass().Contains("btn-wizard") && (bool)Context.Items["btn-wizard"]))) { %>
-								<apn:whenControl runat="server" type="GROUP"><% ExecutePath("/controls/custom/btn-group.aspx"); %></apn:whenControl>
-								<apn:whenControl runat="server" type="TRIGGER"><% ExecutePath("/controls/button.aspx"); %></apn:whenControl>
+								<apn:whenControl runat="server" type="GROUP"><% Execute("/controls/custom/btn-group.aspx"); %></apn:whenControl>
+								<apn:whenControl runat="server" type="TRIGGER"><% Execute("/controls/button.aspx"); %></apn:whenControl>
 								<% } %>
 							</apn:choosecontrol>
 						</apn:forEach>

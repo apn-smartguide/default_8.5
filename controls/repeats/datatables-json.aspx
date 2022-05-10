@@ -126,7 +126,8 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 					if (unsafeMeta) { value = fields[j].getString(); }
 				} else if (fields[j].getTypeConst() == 30000) {
 					// group
-					string grpValue = "<div class='no-col'><span class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
+					string grpValue = "";
+					grpValue = "<div class='"+ fields[j].getCSSClass()  +"' style='"+ fields[j].getCSSStyle() +"'>";
 					ISmartletField[] grpFields = ((ISmartletGroup)fields[j]).getFields();
 					for(int k=0; k<grpFields.Length;k++){
 						tooltip = JavascriptEncode(grpFields[k].getTooltip());
@@ -168,7 +169,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 							grpValue = grpValue + "<span id='d_"+ grpFields[k].getId()+"["+id+"]' class='form-group'></span>";
 						}
 					}
-					grpValue += "</span></div>";
+					grpValue += "</div>";
 					value = grpValue;
 				} else if (fields[j].getTypeConst() == DotnetConstants.ElementType.UPLOAD) {
 					if(string.IsNullOrEmpty(fields[j].getString())) {

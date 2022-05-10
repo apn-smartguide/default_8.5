@@ -125,7 +125,7 @@ var dataTablesController = {
 
 			var initDataTable = function(obj) {
 				var otable;
-				if (typeof elmt == 'undefined' || !$.fn.dataTable.isDataTable(elmt)) {
+				if (typeof elmt == 'undefined' || typeof $.fn.dataTable == 'undefined' || !$.fn.dataTable.isDataTable(elmt)) {
 					var gridOption = {};
 					var repeatDiv = $(obj).parent().parent();
 					if (repeatDiv.hasClass('hide-search')) gridOption['hide-search'] = true;

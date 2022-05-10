@@ -1,3 +1,3 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <% if (Context.Items["no-col"] == null) {Context.Items["no-col"] = false;} %>
-<apn:control runat="server" id="control"><% if(!control.Current.getAttribute("style").Equals("visibility:hidden;") || !(bool)Context.Items["no-col"]) { %><div class='<apn:controllayoutattribute runat="server" attr="all"/>'><% ExecutePath("/controls/controls.aspx"); %></div><% } else { %> <% ExecutePath("/controls/controls.aspx"); %> <% } %></apn:control>
+<apn:control runat="server" id="control"><% if(!control.Current.getAttribute("style").Equals("visibility:hidden;") || !(bool)Context.Items["no-col"]) { %><div class='<apn:controllayoutattribute runat="server" attr="all"/>'><% Execute("/controls/controls.aspx"); %></div><% } else { %> <% Execute("/controls/controls.aspx"); %> <% } %></apn:control>

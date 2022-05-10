@@ -1,7 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <!-- JQuery -->
+<% if(!Options.Contains("CDTS")) { %>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-3.6.0.min.js") %>'></script>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-migrate-3.3.2.min.js") %>'></script>
+<% } %>
 <% if(LayoutEngine.Equals("BS3")) { %>
 <script src='<%= CacheBreak("/resources/plugins/jquery/jquery-ui-1.13.0.custom/jquery-ui.min.js") %>'></script>
 <% } else if(LayoutEngine.Equals("BS4")) { %>

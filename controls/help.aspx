@@ -16,11 +16,11 @@
 			<span  data-toggle='modal' data-target='#div_<apn:helpid runat="server"/>' onclick='return false;'>
 			<a href='#' alt="question mark icon" class='link-help' data-toggle='tooltip' data-html='true' title='<apn:localize runat="server" key="theme.text.helptitle"/>' arial-label='<apn:localize runat="server" key="theme.text.helptitle"/>'>
 				<apn:ifnotcontrolvalid runat="server">
-					<span class='has-error <% if(LayoutEngine == "BS4") {Response.Output.Write("fa fa-question-circle");} else { Response.Output.Write("glyphicon glyphicon-question-sign"); }%>'/>
+					<span class='has-error <%=Class("icon-help")%>'/>
 				</apn:ifnotcontrolvalid>
 				<apn:ifcontrolvalid runat="server">
 					<span class="sr-only">Question mark</span>
-					<span aria-hidden="true" class='<% if (LayoutEngine == "BS4") {Response.Output.Write("fa fa-question-circle");} else { Response.Output.Write("glyphicon glyphicon-question-sign"); }%>'/>
+					<span aria-hidden="true" class='<%=Class("icon-help")%>'/>
 				</apn:ifcontrolvalid>
 			</a>
 			</span>
@@ -37,7 +37,7 @@
 							<apn:ifhelplink runat="server"><iframe id='smartlet' src='<apn:help runat="server"/>' width='100%' height='400px;' frameborder='0' framespacing='0' scrolling='auto'></iframe></apn:ifhelplink>
 							<apn:ifnothelplink runat="server"><apn:help runat="server"/></apn:ifnothelplink>
 						</div>
-						<div class='modal-footer'><button class='sg btn <% if(LayoutEngine == "BS4") { Response.Output.Write("btn-secondary"); } else { Response.Output.Write("btn-default"); } %>' data-dismiss='modal' onclick='return false;' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></button></div>
+						<div class='modal-footer'><button class='sg btn <%=Class("btn-secondary")%>' data-dismiss='modal' onclick='return false;' aria-label='<apn:localize runat="server" key="theme.text.close"/>'><apn:localize runat="server" key="theme.text.close"/></button></div>
 					</div>
 				</div>
 			</div>

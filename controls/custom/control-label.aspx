@@ -33,7 +33,7 @@ if (Context.Items["tts-id"].Equals("") && !control.Current.getFieldId().Equals("
 	</apn:ifcontrolattribute>
 	<% if (Options.Contains("TTS") && !Context.Items["tts-id"].Equals("")) { %><span id='<% Response.Output.Write("tts_{0}",Context.Items["tts-id"]); %>' style='display:none;' class='tts-icon <apn:localize runat="server" key="theme.icon.play"/>'></span><% } %>
 	<% } %>
-	<% ExecutePath("/controls/help.aspx"); %>
+	<% Execute("/controls/help.aspx"); %>
 	<% Context.Items["tts-id"] = ""; %>
 	<% Context.Items["label"] = ""; %>
 	<% Context.Items["label-suffix"] = ""; %>

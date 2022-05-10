@@ -14,16 +14,16 @@
 <% if (control.Current.getAttribute("visible").Equals("false")) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else if (control.Current.getCSSClass().Contains("uploads-render") || control.Current.getCSSClass().Contains("uploads-view")) {
-	ExecutePath("/controls/repeats/uploads.aspx");
+	Execute("/controls/repeats/uploads.aspx");
 } else if (control.Current.getCSSClass().Contains("grid-render") || control.Current.getCSSClass().Contains("grid-view")) {
-	ExecutePath("/controls/summary/table.aspx");
+	Execute("/controls/summary/table.aspx");
 } else if (control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("block-view")) {
-	ExecutePath("/controls/repeats/block.aspx");
+	Execute("/controls/repeats/block.aspx");
 } else if (control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) {
-	ExecutePath("/controls/summary/table.aspx");
+	Execute("/controls/summary/table.aspx");
 } else if (control.Current.getCSSClass().Contains("datatables") || control.Current.getCSSClass().Contains("datatables-view")) {
-	ExecutePath("/controls/summary/table.aspx");
+	Execute("/controls/summary/table.aspx");
 } else {
-	ExecutePath("/controls/summary/table.aspx");
+	Execute("/controls/summary/table.aspx");
 } %>
 </apn:control>

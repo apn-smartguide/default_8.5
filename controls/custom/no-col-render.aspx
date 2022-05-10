@@ -6,7 +6,7 @@
 <!-- #include file="../hidden.inc" -->
 <% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else if(IsSummary) { %>
-<% ExecutePath("/controls/summary/controls.aspx"); %>
+<% Execute("/controls/summary/controls.aspx"); %>
 <% } else { %>
 <apn:forEach runat="server" id="row">
 	<apn:chooseControl runat="server">
@@ -15,7 +15,7 @@
 				<apn:chooseControl runat="server">
 					<apn:whenControl runat="server" type="COL">
 						<% if((bool)Context.Items["no-col"]) { Context.Items["no-col-layout"] = col.Current.getLayoutAttribute("all");}  %>
-						<apn:forEach runat="server" id="field"><% ExecutePath("/controls/control.aspx"); %></apn:forEach>
+						<apn:forEach runat="server" id="field"><% Execute("/controls/control.aspx"); %></apn:forEach>
 						<% Context.Items["no-col-layout"] = ""; %>
 					</apn:whenControl>
 				</apn:chooseControl>

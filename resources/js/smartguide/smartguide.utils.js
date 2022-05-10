@@ -225,7 +225,10 @@ var utilsController = {
 		
 		//Support for auto-expandable textarea
 		function setAutoHeight(obj) {
-			if(obj.scrollHeight < 120) {
+			if (obj.value == '') {
+				obj.style.overflow = 'auto';
+				obj.style.height = '37px';
+			} else if(obj.scrollHeight < 120) {
 				obj.style.overflow = 'hidden';
 				obj.style.height = obj.scrollHeight + 'px';
 			} else {

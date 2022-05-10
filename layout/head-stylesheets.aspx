@@ -45,7 +45,6 @@
 <% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
 <link href='<%= CacheBreak("/resources/WET/wet-custom.css") %>' rel="stylesheet">
 <% } %>
-<link href='<%= CacheBreak("/resources/css/smartguide/smartguide.css") %>' rel="stylesheet">
 <link href='<%= CacheBreak("/resources/css/smartguide/custom.css") %>' rel="stylesheet">
 <noscript>
 	<link href='<%= CacheBreak("/resources/WET/wet-boew/css/noscript.min.css") %>' rel="stylesheet">

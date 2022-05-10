@@ -34,16 +34,16 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<% Context.Items["hiddenName"] = repeatIndex.Current.getName(); %>
 	</apn:control>
 	<apn:control runat="server" type="default-instance">
-	<div class='<% if(LayoutEngine == "BS4") { Response.Output.Write ("card-header"); } else { Response.Output.Write("panel-heading"); } %> clearfix'>
+	<div class='<%=Class("group-header")%> clearfix'>
 		<% if (!(bool)Context.Items["hideAddButton"] && !IsPdf) { %><div class='pull-right'><apn:control id="btnAdd" runat="server" type="prepare_add_instance"><button type='button' class='sg <%=Context.Items["btnAddCSSClass"]%>' style='<%=Context.Items["btnAddStyle"]%>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' <% if (!GetTooltip(btnAdd.Current).Equals("")){ %>title='<%=GetTooltip(btnAdd.Current)%>' aria-label='<%=GetTooltip(btnAdd.Current)%>'<% } %>><%=Context.Items["btnAddTitle"]%></button></apn:control></div><% } %>
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">
-					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { Context.Items["render-proxy"] = true; ExecutePath("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %>
+					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { Context.Items["render-proxy"] = true; Execute("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %>
 				</apn:forEach>
 			</apn:forEach>
 		</apn:forEach>
-		<h2 class="card-title"><% ExecutePath("/controls/custom/control-label.aspx"); %></h2>
+		<h2 class="card-title"><% Execute("/controls/custom/control-label.aspx"); %></h2>
 	</div>
 	</apn:control>
 	<div class='drop-popup'><p>Drop your files here</p></div>
@@ -54,7 +54,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 				<tr>
 					<td>
 						<table>
-							<tr><td><% ExecutePath("/controls/controls.aspx"); %></td></tr>
+							<tr><td><% Execute("/controls/controls.aspx"); %></td></tr>
 							<tr><td>
 								<apn:control runat="server" type="insert" id="saveButton">
 									<% string eventTargets = ""; %>

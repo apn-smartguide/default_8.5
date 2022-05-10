@@ -22,24 +22,14 @@
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["panel-borderless"] =  CSSClass.Contains("panel-borderless");
 
-	string containerCSS, headerCSS, titleCSS, collapseCSS, bodyCSS, groupCSS;
+	string groupCSS;
 	if (LayoutEngine == "BS4") {
-		containerCSS = "card";
-		headerCSS = "card-header";
-		titleCSS = "card-title";
-		collapseCSS = "collapse";
-		bodyCSS = "card-body";
 		groupCSS = "input-group input-group-sm";
 	} else {
-		containerCSS = "panel panel-default";
-		headerCSS = "panel-heading";
-		titleCSS = "panel-title";
-		collapseCSS = "collapse panel-collapse";
-		bodyCSS = "panel-body";
 		groupCSS = "form-group";
 	}
 %>
-	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='<%= containerCSS%> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid> <% if ((bool)Context.Items["hidePagination"]) { %> hide-pagination<% } %> <% if ((bool)Context.Items["hideSearch"]) { %> hide-search<% } %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
+	<div id='div_<apn:name runat="server"/>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> class='<%=Class("group-container")%> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless<% } %> repeat<apn:ifnotcontrolvalid runat="server" > has-error</apn:ifnotcontrolvalid> <% if ((bool)Context.Items["hidePagination"]) { %> hide-pagination<% } %> <% if ((bool)Context.Items["hideSearch"]) { %> hide-search<% } %>' style='<%=control.Current.getCSSStyle()%>' <!-- #include file="../aria-live.inc" -->>
 		<% if(((string)Context.Items["hiddenName"]).Length == 0) { %>
 		<apn:control runat="server" type="repeat-index" id="repeatIndex">
 			<input name='<apn:name runat="server"/>' type="hidden" value="" />
@@ -47,7 +37,7 @@
 		</apn:control>
 		<% } %>
 		<% if (!(bool)Context.Items["hideHeading"]) { %>
-		<div class='<%= headerCSS%>' <%if (LayoutEngine == "BS4") {Response.Output.Write("style='padding: 0.25rem 1.25rem;'");}%>>
+		<div class='<%=Class("group-header")%>' <%if (LayoutEngine == "BS4") {Response.Output.Write("style='padding: 0.25rem 1.25rem;'");}%>>
 			<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 				<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='pull-left' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 			<% } %>
@@ -58,19 +48,19 @@
 					<% if(addBtn != null && addBtn.isAvailable()) { %>
 						<span data-eventtarget='[<%=eventTargets%>]' aria-controls='tr_<apn:name runat="server"/>' title='<%=GetTooltip(addBtn)%>' aria-label='<%=GetLabel(addBtn)%>' class='<%=GetCleanCSSClass(addBtn)%>' style='<%=GetCSSStyle(addBtn)%>' id='<apn:name runat="server"/>'><%=GetLabel(addBtn)%></span>
 					<% } else { %>
-						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(LayoutEngine == "BS4") { Response.Output.Write("float-right mt-2"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/>'></span></span>
+						<span data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>' title='<apn:localize runat="server" key="theme.text.addinstance"/>' class='repeat_table_add_btn <% if(LayoutEngine == "BS4") { Response.Output.Write("float-right mt-2"); } else { Response.Output.Write("pull-right"); }%>' id='<apn:name runat="server"/>'><span class='<apn:localize runat="server" key="theme.style.button.add"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></span>
 					<% } %>
 				</apn:control>
 			<% } %>
 			<% if (control.Current.getLabel() != "") { %>
-				<h5 class="<%= titleCSS%>" style="margin: 0.5rem 0"><% ExecutePath("/controls/custom/control-label.aspx"); %></h5>
+				<h5 class='<%=Class("group-title")%>' style="margin: 0.5rem 0"><% Execute("/controls/custom/control-label.aspx"); %></h5>
 			<% } %>
 		</div>
 		<% } %>
 		<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
-			<div id='div_<apn:name runat="server"/>_body' class='<%= collapseCSS%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
+			<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 		<% } %>
-		<div class='<%= bodyCSS%> <% if (!(bool)Context.Items["hidePagination"] && !(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
+		<div class='<%=Class("group-body")%> <% if (!(bool)Context.Items["hidePagination"] && !(bool)Context.Items["useDataTables"]) { %>bootpag<% } %>'>
 			<script>var dtOptions_div_<%=control.Current.getName().Replace("[","_").Replace("]","")%> = '';</script>
 			<% int totalPages = Convert.ToInt32(control.Current.getAttribute("totalPages")); %>
 			<% if (totalPages == 0) totalPages = totalPages + 1; %>
@@ -128,7 +118,7 @@
 														<apn:forEach runat="server" id="gfield">
 															<% if(!gfield.Current.getAttribute("style").Equals("visibility:hidden;") && !gfield.Current.getAttribute("visible").Equals("false") && !gfield.Current.getCSSClass().Contains("hide-from-list-view") && !gfield.Current.getCSSClass().Contains("proxy")) { %>
 																<th <apn:metadata runat="server" match="data-priority"/> class='w-auto <%=gcol.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+gcol.getCount()%>'>
-																	<span class='<apn:cssclass runat="server"/>'><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
+																	<span class='<apn:cssclass runat="server"/>'><% Execute("/controls/label.aspx"); %></span>
 																	<% if ("true".Equals(gfield.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 																	&nbsp;&nbsp;
 																	<span data-sort="<%=gfield.Current.getAttribute("sort")%>" data-field-id="<%=gfield.Current.getFieldId()%>"
@@ -149,7 +139,7 @@
 											<apn:Otherwise runat="server">
 												<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
 												<th <apn:metadata runat="server" match="data-priority"/> class='w-auto <%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
-													<span class='<apn:cssclass runat="server"/>'><% ExecutePath("/controls/custom/control-label.aspx"); %></span>
+													<span class='<apn:cssclass runat="server"/>'><% Execute("/controls/label.aspx"); %></span>
 													<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
 													&nbsp;&nbsp;
 													<span data-sort="<%=field.Current.getAttribute("sort")%>" data-field-id="<%=field.Current.getFieldId()%>"
@@ -186,13 +176,13 @@
 							</td>
 							<% } %>
 							<% BareRender = true; %>
-							<% ExecutePath("/controls/repeats/table-col.aspx"); %>
+							<% Execute("/controls/repeats/table-col.aspx"); %>
 							<% BareRender = false; %>	
 							<% if (!IsPdf) { %>
 								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %><td class='repeatbutton nowrap'><% } %>
-									<% if (!(bool)Context.Items["hideAddButton"]) { %><% if (!(bool)Context.Items["hideRowAddButton"]) { %><apn:control type="insert" id="addbutton" runat="server"><span class='<apn:localize runat="server" key="theme.style.button.add"/> <apn:localize runat="server" key="theme.icon.add"/> repeat_table_insert_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %><% } %>
-									<% if (!(bool)Context.Items["hideDeleteButton"]) { %><apn:control type="delete" id="deletebutton" runat="server"><span class='<apn:localize runat="server" key="theme.style.button.delete"/> <apn:localize runat="server" key="theme.icon.delete"/> repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %>
-									<% if ((bool)Context.Items["showMoveUpDownButton"]) { %><apn:control type="moveup" id="moveupbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.up"/> repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><apn:control type="movedown" id="movedownbutton" runat="server"><span class='<apn:localize runat="server" key="theme.icon.down"/> repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'></span></apn:control><% } %>
+									<% if (!(bool)Context.Items["hideAddButton"]) { %><% if (!(bool)Context.Items["hideRowAddButton"]) { %><apn:control type="insert" id="addbutton" runat="server"><span class='repeat_table_insert_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.modal.add"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'><span class='<apn:localize runat="server" key="theme.style.button.add"/>'><span class='<apn:localize runat="server" key="theme.icon.add"/>'></span></span></span></apn:control><% } %><% } %>
+									<% if (!(bool)Context.Items["hideDeleteButton"]) { %><apn:control type="delete" id="deletebutton" runat="server"><span class='repeat_table_del_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.deleteinstance"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'><span class='<apn:localize runat="server" key="theme.style.button.delete"/>'><span class='<apn:localize runat="server" key="theme.icon.delete"/>'></span></span></span></apn:control><% } %>
+									<% if ((bool)Context.Items["showMoveUpDownButton"]) { %><apn:control type="moveup" id="moveupbutton" runat="server"><span class='repeat_table_moveup_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstanceup"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'><span class='<apn:localize runat="server" key="theme.icon.up"/>'></span></span></apn:control><apn:control type="movedown" id="movedownbutton" runat="server"><span class='repeat_table_movedown_btn <%=Context.Items["hiddenName"]%>_<%= status.getCount()%>' id='<apn:name runat="server"/>_<%= status.getCount()%>' title='<apn:localize runat="server" key="theme.text.moveinstancedown"/>' data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='tr_<%=control.Current.getName()%>_<%= status.getCount()%>'><span class='<apn:localize runat="server" key="theme.icon.down"/>'></span></span></apn:control><% } %>
 								<% if ( (!(bool)Context.Items["hideAddButton"] && !(bool)Context.Items["hideRowAddButton"]) || !(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"]) { %></td><% } %>
 							<% } else { %><td></td><% } %>
 						</tr>
@@ -205,14 +195,15 @@
 				SessionGroup tableFooterGroup = (SessionGroup)sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName(tableFooterGroupName);
 				%>
 				<% if (tableFooterGroup != null) { %>
-				<tfooter>
+				<tfoot>
 					<tr>
 						<% if ((bool)Context.Items["isSelectable"]) { %><td></td><% } %>
 						<% foreach(ISmartletField footerField in tableFooterGroup.findAllFields()) { %>
 							<% if(footerField.isAvailable()  && !footerField.getCSSClass().Contains("hide-from-list-view") && !footerField.getCSSClass().Contains("proxy")) { %><td id='div_d_<%=footerField.getId()%>' class='form-group <%=footerField.getCSSClass()%>' style='<%=footerField.getCSSStyle()%>' ><%=footerField.getValue()%></td><% } %>
 						<% } %>
+						<td></td>
 					</tr>
-				</tfooter>
+				</tfoot>
 				<% } %>
 			</table>
 			<% if (!(bool)Context.Items["hidePagination"] && (bool)Context.Items["hasPagination"] && !IsPdf && !IsSummary && !(bool)Context.Items["useDataTables"]) { %>
