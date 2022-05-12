@@ -565,7 +565,7 @@ $("form[id^='smartguide_']").each(function () {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
 									errorMessages += $('.label-danger', $container).text().trim();
-									if (errorMessages == '') {
+									if ($modal.length == 0 || errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
@@ -860,8 +860,13 @@ $("form[id^='smartguide_']").each(function () {
 								if (allowSelfRefresh || selfRefresh || target != currentID) {
 									if (typeof target !== 'undefined' && target != "") {
 										target = CSS.escape(target);
-										var responseTarget = $('#div_' + target, $responseDiv);
-										var currentTarget = $('#div_' + target, $currentDiv);
+										var responseTarget = $('#modal_' + target, $responseDiv);
+										if (responseTarget.length == 0) responseTarget = $('#div_' + target, $responseDiv);
+										if (responseTarget.length == 0) responseTarget = $('#' + target, $responseDiv);
+
+										var currentTarget = $('#modal_' + target, $currentDiv);
+										if (currentTarget.length == 0) currentTarget = $('#div_' + target, $currentDiv);
+										if (currentTarget.length == 0) currentTarget = $('#' + target, $currentDiv);
 
 										var neverRefreshFlag = currentTarget.hasClass("never-refresh");
 										if (neverRefreshFlag) return;
@@ -870,9 +875,6 @@ $("form[id^='smartguide_']").each(function () {
 										responseTarget = responseTarget.clone();
 
 										if (responseTarget.length > 0) {
-
-											if (currentTarget.length == 0) currentTarget = $('#modal_' + target, $currentDiv);
-											if (currentTarget.length == 0) currentTarget = $('#' + target, $currentDiv);
 
 											//Check to see if we're using a crud-modal, is so, need to hide it.
 											//Display happens at the event handler level (ie. save_...)
