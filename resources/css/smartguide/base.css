@@ -170,6 +170,7 @@ background-color: #ffffff;
 .modal-title {
 	font-size: 18px;
 	font-weight: 700;
+	display: inline-flex;
 }
 
 .modal-backdrop {
