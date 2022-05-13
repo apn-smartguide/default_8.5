@@ -518,7 +518,7 @@ $("form[id^='smartguide_']").each(function () {
 			}
 			
 			// bind server event first
-			if (isServer) {
+			if (isServer || typeof isServer == 'undefined') {
 				$field.off(jqEvent);
 				$field.on(jqEvent, function (e) {
 					var r = SMARTGUIDES[smartletCode];
@@ -537,7 +537,7 @@ $("form[id^='smartguide_']").each(function () {
 						if ($modal.length > 0) {
 							modalId = CSS.escape($modal.attr('id'));
 							var targets = $field.attr('data-eventtarget');
-							if (targets.indexOf('form') > -1) {
+							if (typeof targets !== 'undefined' && targets.indexOf('form') > -1) {
 								targets = targets.replace('form', modalId);
 								$field.attr('data-eventtarget', targets);
 							}
@@ -565,7 +565,7 @@ $("form[id^='smartguide_']").each(function () {
 									var updated = [];
 									var errorMessages = $('.alert-danger', $container).text().trim();
 									errorMessages += $('.label-danger', $container).text().trim();
-									if ($modal.length == 0 || errorMessages == '') {
+									//if ($modal.length == 0 || errorMessages == '') {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
@@ -573,7 +573,7 @@ $("form[id^='smartguide_']").each(function () {
 										$field.data('_smartlet', smartlet).on(jqEvent, handler);
 										$field.triggerHandler(jqEvent);
 										r._bindModalFieldEvent($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax);
-									}
+									//}
 
 								}, 0);
 							},
