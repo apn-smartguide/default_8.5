@@ -298,7 +298,7 @@ $("form[id^='smartguide_']").each(function () {
 						}
 					}
 
-					if (field.isRequired && $field.is(":visible") && !isInModal || $('#errors-fdbck-frm').length > 0) {
+					if (field.isRequired && $field.is(":visible") && !isInModal || $('.sg-has-errors').length > 0) {
 						$("#alerts").show();
 					}
 				});
@@ -427,12 +427,10 @@ $("form[id^='smartguide_']").each(function () {
 								var targetAlertDiv = $('#alerts', response);
 								$(sourceAlertDiv).after(targetAlertDiv).remove();
 
-								var errorMessages = $('.alert-danger', response).text().trim();
-								if (errorMessages !== '') {
+								var hasErrors = $('.sg-has-errors', response);
+								if (hasErrors > 0) {
 									validationResult = false;
 								}
-
-								var res = true;
 							} catch (e) {
 								if (console) console.log(e.stack);
 							}
@@ -562,10 +560,8 @@ $("form[id^='smartguide_']").each(function () {
 								}
 
 								setTimeout(function () {
-									var updated = [];
-									var errorMessages = $('.alert-danger', $container).text().trim();
-									errorMessages += $('.label-danger', $container).text().trim();
-									//if ($modal.length == 0 || errorMessages == '') {
+									var hasErrors = $('.sg-has-errors', $container);
+									if (hasErrors.length <= 0) {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
@@ -573,8 +569,7 @@ $("form[id^='smartguide_']").each(function () {
 										$field.data('_smartlet', smartlet).on(jqEvent, handler);
 										$field.triggerHandler(jqEvent);
 										r._bindModalFieldEvent($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax);
-									//}
-
+									}
 								}, 0);
 							},
 							null,
