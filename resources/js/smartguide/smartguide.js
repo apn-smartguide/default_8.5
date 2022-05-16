@@ -59,16 +59,16 @@ $("form[id^='smartguide_']").each(function () {
 			// call the main bind events function
 			r.bindEvents();
 			console.log("Smartguide Initialized");
-		}
-		, addScrollLock: function () {
+		},
+		addScrollLock: function () {
 			var $body = $('body');
 			var curScrollLockCount = 0;
 			if ($body.attr('scrolllock-count')) curScrollLockCount = parseInt($body.attr('scrolllock-count'));
 			curScrollLockCount = curScrollLockCount + 1;
 			$body.attr('scrolllock-count', curScrollLockCount);
 			if (!$body.hasClass('modal-open')) $body.addClass('modal-open');
-		}
-		, removeScrollLock: function () {
+		},
+		removeScrollLock: function () {
 			var $body = $('body');
 			var curScrollLockCount = 0;
 			if ($body.attr('scrolllock-count')) curScrollLockCount = parseInt($body.attr('scrolllock-count'));
@@ -79,8 +79,8 @@ $("form[id^='smartguide_']").each(function () {
 				curScrollLockCount = curScrollLockCount - 1;
 				$body.attr('scrolllock-count', curScrollLockCount);
 			}
-		}
-		, _baseDoubleClickHandler: function (e) {
+		},
+		_baseDoubleClickHandler: function (e) {
 			// check if button should be excluded from double click restriction
 			if (!$(this).hasClass("always-enabled")) {
 				// use flag to determine if we allow submit
@@ -101,8 +101,8 @@ $("form[id^='smartguide_']").each(function () {
 				}
 			}
 			return false;
-		}
-		, _doubleClickHandler: function (e) {
+		},
+		_doubleClickHandler: function (e) {
 			// check if button should be excluded from double click restriction
 			if (!$(this).hasClass("always-enabled")) {
 				// use flag to determine if we allow submit
@@ -119,8 +119,8 @@ $("form[id^='smartguide_']").each(function () {
 				}
 			}
 			return false;
-		}
-		, _bindOrTriggerSmartletAndPageEvent: function () {
+		},
+		_bindOrTriggerSmartletAndPageEvent: function () {
 			//trigger EVENT_ON_INIT_SMARTLET, EVENT_ON_ENTER_PAGE, bind  EVENT_ON_EXIT_PAGE
 			var r = SMARTGUIDES[smartletCode];
 			var $body = $('body');
@@ -174,8 +174,8 @@ $("form[id^='smartguide_']").each(function () {
 			$body.triggerHandler('page:init');
 			$body.triggerHandler('smartlet:page_enter');
 			$body.triggerHandler('page:render');
-		}
-		, bindEvents: function (ajaxUpdates, rebindInitiator) {
+		},
+		bindEvents: function (ajaxUpdates, rebindInitiator) {
 			var r = SMARTGUIDES[smartletCode];
 
 			// basic bindings for field with dependencies to other fields (and no actions defined)
@@ -213,8 +213,8 @@ $("form[id^='smartguide_']").each(function () {
 				var modal = $(this).parent().parent().parent().parent();
 				r.ajaxProcess(modal, null, true, null, null, function () {
 					r.removeScrollLock();
+					modal.modal('hide');
 				});
-				modal.modal('hide');
 			});
 
 			// bind events attached to fields
@@ -311,8 +311,8 @@ $("form[id^='smartguide_']").each(function () {
 			// invoke custom binding methods
 			customJS.bindEvents(r, ajaxUpdates, rebindInitiator);
 			console.log("SmartGuide BindEvents Complete");
-		}
-		, _createSmartletContext: function (contextField, fieldType, fieldHtmlName) {
+		},
+		_createSmartletContext: function (contextField, fieldType, fieldHtmlName) {
 
 			function fieldObj(fieldNode, htmlName) {
 				htmlName = CSS.escape(htmlName);
@@ -343,14 +343,14 @@ $("form[id^='smartguide_']").each(function () {
 			var thisFieldObj = fieldObj(contextField, fieldHtmlName);
 			var smartlet =
 			{
-				_fieldObj: fieldObj(contextField, fieldHtmlName)
-				, _fieldType: fieldType
-				, _contextField: contextField
-				, _fieldHtmlName: fieldHtmlName
-				, lang: function () {
+				_fieldObj: fieldObj(contextField, fieldHtmlName),
+				_fieldType: fieldType,
+				_contextField: contextField,
+				_fieldHtmlName: fieldHtmlName,
+				lang: function () {
 					return currentLocale;
-				}
-				, field: function (nameOrId) {
+				},
+				field: function (nameOrId) {
 					if (!nameOrId) return thisFieldObj;
 					if (typeof smartletfields['d_' + nameOrId] !== 'undefined') return this._fieldObj(smartletfields['d_' + nameOrId], 'd_' + nameOrId);
 					if (typeof smartletfields['t_' + nameOrId] !== 'undefined') return this._fieldObj(smartletfields['t_' + nameOrId], 't_' + nameOrId);
@@ -367,23 +367,23 @@ $("form[id^='smartguide_']").each(function () {
 						}
 					}
 					return null;
-				}
-				, addCustomEventTarget: function (eventTarget) {
+				},
+				addCustomEventTarget: function (eventTarget) {
 					var r = SMARTGUIDES[smartletCode];
 					var target = "";
 					if (eventTarget === "undefined") target = "d_" + _fieldObj.id;
 					if (eventTarget !== "undefined") target = "d_" + eventTarget;
 					if (r._customEventTargets.indexOf(target) == -1) r._customEventTargets.push(target);
-				}
-				, addFormEventTarget: function () {
+				},
+				addFormEventTarget: function () {
 					var r = SMARTGUIDES[smartletCode];
 					r._customEventTargets.push("form");
-				}
-				, customEventTargetsEnabled: function (enabled) {
+				},
+				customEventTargetsEnabled: function (enabled) {
 					var r = SMARTGUIDES[smartletCode];
 					r._customEventTargetsEnabled = enabled;
-				}
-				, openModal: function (modal, options) {
+				},
+				openModal: function (modal, options) {
 					var r = SMARTGUIDES[smartletCode];
 					r.ajaxProcess(modal, null, true,
 						function () {
@@ -398,18 +398,16 @@ $("form[id^='smartguide_']").each(function () {
 						$.extend(modalOptions, options);
 					}
 					modal.modal(modalOptions);
-				}
-				, closeModal: function (modal) {
-					var r = SMARTGUIDES[smartletCode];
-
-					r.ajaxProcess(modal, null, true, null, null,
-						function () {
-							r.removeScrollLock();
-						}
-					);
-					modal.modal('hide');
-				}
-				, validateModal: function (modalId, callback) {
+				},
+				closeModal: function (modal) {
+					var r = SMARTGUIDES[smartletCode]; 
+					var hasErrors = ($('.sg-has-errors', modal).length > 0);
+					r.ajaxProcess(modal, null, true, null, null, function () {
+						r.removeScrollLock();
+						modal.modal('hide');
+					});
+			}, 
+				validateModal: function (modalId, callback) {
 					var validationResult = true;
 					var r = SMARTGUIDES[smartletCode];
 					var fm = r.fm;
@@ -451,8 +449,8 @@ $("form[id^='smartguide_']").each(function () {
 				}
 			};
 			return smartlet;
-		}
-		, _createEventHandler: function (clientEvent) {
+		},
+		_createEventHandler: function (clientEvent) {
 			var handler =
 				function (e) {
 					var f = true;
@@ -471,8 +469,8 @@ $("form[id^='smartguide_']").each(function () {
 					}
 				};
 			return handler;
-		}
-		, _getJQField: function (fieldType, fieldHtmlName, isSubstringSelector) {
+		},
+		_getJQField: function (fieldType, fieldHtmlName, isSubstringSelector) {
 			if (typeof isSubstringSelector === 'undefined') {
 				isSubstringSelector = false;
 			}
@@ -496,8 +494,8 @@ $("form[id^='smartguide_']").each(function () {
 			}
 
 			return $field;
-		}
-		, _bindModalFieldEvent: function ($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax) {
+		},
+		_bindModalFieldEvent: function ($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax) {
 			var r = SMARTGUIDES[smartletCode];
 			var jqEvent = event.toLowerCase();
 			if (jqEvent.indexOf("on") == 0) {
@@ -561,7 +559,7 @@ $("form[id^='smartguide_']").each(function () {
 
 								setTimeout(function () {
 									var hasErrors = $('.sg-has-errors', $container);
-									if (hasErrors.length <= 0) {
+									if ($modal.length <= 0 || hasErrors.length <= 0) {
 										$field.off(jqEvent);
 										//prepare client event context
 										var smartlet = r._createSmartletContext(contextField, fieldType, fieldHtmlName);
@@ -597,8 +595,8 @@ $("form[id^='smartguide_']").each(function () {
 					return false;
 				});
 			}
-		}
-		, _bindFieldEvent: function ($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax) {
+		},
+		_bindFieldEvent: function ($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax) {
 			var r = SMARTGUIDES[smartletCode];
 			var jqEvent = event.toLowerCase();
 			if (jqEvent.indexOf("on") == 0) {
@@ -723,13 +721,13 @@ $("form[id^='smartguide_']").each(function () {
 					}
 				);
 			}
-		}
-		, bindThis: function () {
+		},
+		bindThis: function () {
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess(this, null, false, null, null, null);
-		}
-		, bindThisResetFocus: function () {
+		},
+		bindThisResetFocus: function () {
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess(this, null, false, null, null,
@@ -739,18 +737,18 @@ $("form[id^='smartguide_']").each(function () {
 					}
 				}
 			);
-		}
-		, bindThisAllowSelfRefresh: function () {
+		},
+		bindThisAllowSelfRefresh: function () {
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess(this, null, true, null, null, null);
-		}
-		, bindThisOption: function () {
+		},
+		bindThisOption: function () {
 			var r = SMARTGUIDES[smartletCode];
 			r.bindAllFieldsUnderRepeat(this);
 			r.ajaxProcess($('option', this), null, false, null, null, null);
-		}
-		, bindAllFieldsUnderRepeat: function (elmt) {
+		},
+		bindAllFieldsUnderRepeat: function (elmt) {
 			// check if we are outside a repeat, but make modifications to a field in a repeat
 			// in which case all instances of the repeated fields must be added to the data-eventtarget array
 			if ($(elmt).attr('id') != null && $(elmt).attr('id').indexOf('[') == -1) {
@@ -787,8 +785,8 @@ $("form[id^='smartguide_']").each(function () {
 					$(elmt).attr('data-eventtarget', '["' + newDataEventTarget + '"]');
 				}
 			}
-		}
-		, ajaxProcess: function (elmt, elmt2, allowSelfRefresh, successCallback, errorCallback, completeCallback) {
+		},
+		ajaxProcess: function (elmt, elmt2, allowSelfRefresh, successCallback, errorCallback, completeCallback) {
 			var r = SMARTGUIDES[smartletCode];
 			var fm = r.fm;
 			// Optimization in case we don't allow self refresh and the target is the same as the source field
@@ -978,7 +976,6 @@ $("form[id^='smartguide_']").each(function () {
 			});
 		}
 	};
-	//SMARTGUIDES[smartletCode].init();
 });
 
 function getScripts(scripts, callback) {
