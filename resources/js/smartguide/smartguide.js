@@ -210,11 +210,12 @@ $("form[id^='smartguide_']").each(function () {
 			});
 
 			$('.modal-close').off('click').on('click', function (e) {
-				var modal = $(this).parent().parent().parent().parent();
+				var modal = $(this).parents('.modal');
 				r.ajaxProcess(modal, null, true, null, null, function () {
 					r.removeScrollLock();
 					modal.modal('hide');
 				});
+				
 			});
 
 			// bind events attached to fields
@@ -390,23 +391,23 @@ $("form[id^='smartguide_']").each(function () {
 							r.addScrollLock();
 						},
 						null,
-						null
+						function () {
+							//Clear validation errors that might have appeared
+							var modalOptions = { show: true };
+							if (typeof options !== 'undefined') {
+								$.extend(modalOptions, options);
+							}
+							modal.modal(modalOptions);
+						}
 					);
-					//Clear validation errors that might have appeared
-					var modalOptions = { show: true };
-					if (typeof options !== 'undefined') {
-						$.extend(modalOptions, options);
-					}
-					modal.modal(modalOptions);
 				},
 				closeModal: function (modal) {
 					var r = SMARTGUIDES[smartletCode]; 
-					var hasErrors = ($('.sg-has-errors', modal).length > 0);
 					r.ajaxProcess(modal, null, true, null, null, function () {
 						r.removeScrollLock();
 						modal.modal('hide');
 					});
-			}, 
+				},
 				validateModal: function (modalId, callback) {
 					var validationResult = true;
 					var r = SMARTGUIDES[smartletCode];
