@@ -899,6 +899,7 @@ $("form[id^='smartguide_']").each(function () {
 														if (currentChildren.prop('readonly') || !currentChildren.is(":focus")) {
 															var respValue = respChildren.val();
 															currentChildren.val(respValue);
+															currentChildren.prop('readonly', respChildren.prop('readonly'));
 														}
 
 														var respClasses = respChildren.attr('class');
