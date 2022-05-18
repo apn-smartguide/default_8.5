@@ -350,6 +350,9 @@ var dataTablesController = {
 		$('.datatables').each(function() {
 			var input_filter_value;
 			var input_filter_timeout=null;
+			if ($(this).hasClass('wb-tables') && !$(this).hasClass('.wb-tables-inited')) {
+				$(this).trigger("wb-init.wb-tables");
+			}
 			var table = $(this).DataTable();
 			// check if we are server side, if not exit
 			if (table.ajax.url() == null) return;
