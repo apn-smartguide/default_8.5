@@ -21,8 +21,12 @@
 			Context.Items["tooltip-attribute"] = "title='" + tooltip + "'";
 		}
 	%>
-	<% if ((control.Current.getCSSClass().Contains("proxy") && !(bool)Context.Items["render-proxy"]) || (control.Current.getCSSClass().Contains("btn-wizard") && !(bool)Context.Items["btn-wizard"])) { %>
-	<% } else if (control.Current.getAttribute("visible").Equals("false") || IsPdf || IsSummary) { %>
+	<% if (
+		((control.Current.getCSSClass().Contains("proxy") && !(bool)Context.Items["render-proxy"]) || 
+		(control.Current.getCSSClass().Contains("btn-wizard") && !(bool)Context.Items["btn-wizard"])) && 
+		IsAvailable(control.Current)
+	) { %>
+	<% } else if (!IsAvailable(control.Current) || IsPdf || IsSummary) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else if (control.Current.getAttribute("class").Equals("view-xml-button") || control.Current.getAttribute("class").Equals("pdf-button")) { %>
 		<span class="ml-1 mr-1" id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
