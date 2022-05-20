@@ -1,12 +1,17 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-	<% if (control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="hidden.inc" -->
-	<% } else { %>
-	<%
+<% 
+if (!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
 	Context.Items["layout"] = control.Current.getChoiceLayout();
 	Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : "";
-	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; } %>
+	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {
+		Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
+	} else {
+		Context.Items["no-col-layout"] = "";
+	} 
+%>
 	<apn:choosecontrol runat="server">
 		<apn:whencontrol runat="server" type="check">
 		<div id='div_<apn:name runat="server"/>' class='<% if (Options.Contains("WET")) { %>chkbxrdio-grp <% } %> form-group <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>'>
@@ -100,5 +105,5 @@
 			</div>
 		</apn:whencontrol>
 	</apn:choosecontrol>
-	<% } %>
+<% } %>
 </apn:control>

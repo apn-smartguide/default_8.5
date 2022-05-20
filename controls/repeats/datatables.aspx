@@ -31,11 +31,12 @@
 	if("".Equals(control.Current.getMetaDataValue("data-page-length")) && !"".Equals(control.Current.getAttribute("limit"))) {
 		Context.Items["limit"] = "data-page-length='" + control.Current.getAttribute("limit") + "'";
 	}
+
+	if (!IsAvailable(control.Current)) {
+		Execute("/controls/hidden.aspx");
+	} else {
+		Context.Items["repeat-name"] = control.Current.getCode();
 %>
-<% if (!IsAvailable(control.Current)) { %>
-<!-- #include file="../hidden.inc" -->
-<% } else { %>
-<% Context.Items["repeat-name"] = control.Current.getCode(); %>
 <div id='div_<apn:name runat="server"/>' class='<%=Class("group-container")%><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
 		<input name="<apn:name runat="server"/>" type="hidden" value="" />
@@ -143,7 +144,7 @@
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
-								<% if(!thField.Current.getCSSClass().Contains("hide-column-label") && !thField.Current.getAttribute("style").Contains("visibility:hidden") && IsAvailable(thField.Current) && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("panel-heading-") && !thField.Current.getCSSClass().Contains("proxy")) { %>
+								<% if(!thField.Current.getCSSClass().Contains("hide-column-label") && !thField.Current.getAttribute("style").Contains("visibility:hidden") && IsAvailable(thField.Current) && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)) { %>
 									<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' class='<%=GetCleanCSSClass(thField.Current).Replace("btn-toolbar","")%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thField.Current)%></th>
 								<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)){ %>
 									<td <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' data-sortable="false"></td>
@@ -489,7 +490,7 @@
 			}
 
 			//Cannot add a non available field to the collection, it will not exist in the header's collection of fields.
-			if(fields[i].isAvailable() && !cssClass.Contains("panel-heading-") && !cssClass.Contains("proxy")) {
+			if(fields[i].isAvailable() && !cssClass.Contains("panel-heading-") && !IsProxy(fields[i])) {
 				if (fields[i].getTypeConst() == 80000 || cssStyle.Contains("visibility:hidden;") || cssStyle.Contains("display:none;") || cssClass.Contains("hide-from-list-view")) {
 					//col.Add("visible", false);
 				} else {

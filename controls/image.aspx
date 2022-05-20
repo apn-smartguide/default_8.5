@@ -1,6 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-	<% if (control.Current.getAttribute("visible").Equals("false")) { %>
+	<% if (!IsAvailable(control.Current)) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else { %>
 	<% if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; } %>

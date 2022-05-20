@@ -29,7 +29,7 @@
 								<apn:forEach runat="server" id="grow">
 									<apn:forEach runat="server" id="gcol">
 										<apn:forEach runat="server" id="gfield">
-											<% if(!gfield.Current.getAttribute("style").Equals("visibility:hidden;") && !gfield.Current.getAttribute("visible").Equals("false") && !gfield.Current.getCSSClass().Contains("hide-from-list-view") && !gfield.Current.getCSSClass().Contains("proxy")) { %>
+											<% if(!gfield.Current.getAttribute("style").Equals("visibility:hidden;") && !gfield.Current.getAttribute("visible").Equals("false") && !gfield.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(gfield.Current)) { %>
 												<th <apn:metadata runat="server" match="data-priority"/> class='<%=gcol.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+gcol.getCount()%>'>
 													<span class='<apn:cssclass runat="server"/>'><% Execute("/controls/custom/control-label.aspx"); %></span>
 													<% if ("true".Equals(gfield.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>
@@ -50,7 +50,7 @@
 								</apn:forEach>
 							</apn:whencontrol>
 							<apn:Otherwise runat="server">
-								<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !field.Current.getCSSClass().Contains("proxy")) { %>
+								<% if(!field.Current.getAttribute("style").Equals("visibility:hidden;") && !field.Current.getAttribute("visible").Equals("false") && !field.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(field.Current)) { %>
 								<th <apn:metadata runat="server" match="data-priority"/> class='<%=col.Current.getLayoutAttribute("all")%>' id='<%=Context.Items["labelIdPrefix"].ToString()+"col"+col.getCount()%>'>
 									<span class='<apn:cssclass runat="server"/>'><% Execute("/controls/custom/control-label.aspx"); %></span>
 									<% if ("true".Equals(field.Current.getAttribute("isSortable")) && !(bool)Context.Items["useDataTables"]) { %>

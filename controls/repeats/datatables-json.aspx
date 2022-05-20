@@ -98,7 +98,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 				}
 				
 				fields[j].calculateAvailability();
-				if (!fields[j].isAvailable() || fields[j].getCSSClass().Contains("proxy") ) {
+				if (!fields[j].isAvailable() || IsProxy(fields[j])) {
 					value = "";
 					addtoresults = false;
 				} else if (fields[j].getTypeConst() == 190000) {

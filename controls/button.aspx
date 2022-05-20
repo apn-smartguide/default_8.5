@@ -22,7 +22,7 @@
 		}
 	%>
 	<% if (
-		((control.Current.getCSSClass().Contains("proxy") && !(bool)Context.Items["render-proxy"]) || 
+		((IsProxy(control.Current) && !(bool)Context.Items["render-proxy"]) || 
 		(control.Current.getCSSClass().Contains("btn-wizard") && !(bool)Context.Items["btn-wizard"])) && 
 		IsAvailable(control.Current)
 	) { %>

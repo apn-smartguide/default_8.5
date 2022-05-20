@@ -1,9 +1,11 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-<% if (control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="hidden.inc" -->
-<%} else {%>
-	<% if (!BareRender){ %>
+<%
+if (!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
+	if (!BareRender){
+%>
 	<div class='modal' role='dialog' id='modal_<apn:name runat="server"/>'>
 		<div class='modal-dialog <apn:cssclass runat="server"/>' style='<apn:cssstyle runat="server"/>' role='document'>
 			<div class='modal-content'>

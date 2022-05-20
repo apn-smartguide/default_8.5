@@ -1,12 +1,14 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>	
 	<apn:control runat="server" id="control">	
-	<%	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
-	if((IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) || (!IsPdf && control.Current.getCSSClass().Contains("pdf-only"))) {
+	<%
+	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
+	if((IsPdf && IsHidePdf(control.Current)) || (!IsPdf && IsPdfOnly(control.Current))) {
 	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if(control.Current.getCSSClass().Contains("proxy")) {
-	} else { %>
+	} else if(IsProxy(control.Current)) {
+	} else {
+	%>
 	<apn:choosecontrol runat="server">
 		<apn:whencontrol runat="server" type="ROW"><% Execute("/controls/summary/row.aspx"); %></apn:whencontrol>
 		<apn:whencontrol runat="server" type="COL"><% Execute("/controls/summary/col.aspx"); %></apn:whencontrol>

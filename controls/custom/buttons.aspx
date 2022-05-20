@@ -1,11 +1,13 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-<% Context.Items["render-proxy"] = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false; %>
-<% Context.Items["render-btn-wizard"] = (Context.Items["render-btn-wizard"] != null) ? (bool)Context.Items["render-btn-wizard"] : false; %>
-<% if (!IsAvailable(control.Current)) { %>
-<!-- #include file="../hidden.inc" -->
-<% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
-<% } else { %>
+<% 
+Context.Items["render-proxy"] = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
+Context.Items["render-btn-wizard"] = (Context.Items["render-btn-wizard"] != null) ? (bool)Context.Items["render-btn-wizard"] : false;
+if (!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else if(IsPdf && IsHidePdf(control.Current)) {
+} else { 
+%>
 <apn:forEach runat="server" id="row"><%-- Each row --%>
 	<apn:chooseControl runat="server">
 		<apn:whenControl runat="server" type="ROW">
