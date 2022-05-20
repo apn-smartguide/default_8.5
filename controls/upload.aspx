@@ -1,10 +1,12 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : ""; %>
-<% bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false; %>	
-<% if (control.Current.getAttribute("visible").Equals("false") || (control.Current.getCSSClass().Contains("proxy") && !renderProxy)) { %>
-	<!-- #include file="hidden.inc" -->
-<% } else if (control.Current.getCSSClass().Contains("multiple") && !IsSummary) { %>
+<% 
+Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : "";
+bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
+if (!IsAvailable(control.Current) || (IsProxy(control.Current) && !renderProxy)) {
+	Execute("/controls/hidden.aspx");
+} else if (control.Current.getCSSClass().Contains("multiple") && !IsSummary) {
+%>
 	<span class='<apn:cssclass runat="server"/>' id='div_<apn:name runat="server"/>' >
 		<label for='<apn:name runat="server"/>'>
 			<apn:label runat="server"/> <input type='file' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' multiple title='<apn:label runat="server"/>' style='color:transparent;' onchange='submit();' />

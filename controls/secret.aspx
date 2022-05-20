@@ -1,10 +1,16 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : ""; %>
-	<% if(control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="hidden.inc" -->
-	<% } else { %>
-	<% if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";} %>
+<% 
+Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";
+if(!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
+if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {
+	Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
+} else { 
+	Context.Items["no-col-layout"] = "";
+}
+%>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex%>'>Anchor to error <%=ErrorIndex%></a></apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <%=control.Current.getCSSClass().Replace("toggle-password","")%> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" -->>
 		<% Execute("/controls/label.aspx"); %>
@@ -22,5 +28,5 @@
 			<span toggle="#<%= control.Current.getName() %>" class="far fa-eye field-icon toggle-password"/>
 		<% } %>
 	</div>
-	<% } %>
+<% } %>
 </apn:control>

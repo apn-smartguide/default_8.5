@@ -4,7 +4,7 @@
 	<% if ((" " + control.Current.getCSSClass() + " ").IndexOf(" smartmodal ") > -1) { %><% Execute("/controls/modal.aspx"); %>
 	<% } else if ((control.Current.getCSSClass()).IndexOf("alert") > -1) { %><% Execute("/controls/alert.aspx"); %>
 	<% } else { %>
-		<% if (control.Current.getAttribute("visible").Equals("false")) { %>
+		<% if (!IsAvailable(control.Current)) { %>
 		<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 		<% } else { %>
 			<% if (!BareRender) { %>

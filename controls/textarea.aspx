@@ -1,13 +1,17 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-<% if (control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="hidden.inc" -->
-<% } else { %>
-<%
+<% 
+if (!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
 	Context.Items["rows"] = (control.Current.getAttribute("rows").Equals("")) ? "5" : control.Current.getAttribute("rows");
 	Context.Items["cols"] = (control.Current.getAttribute("cols").Equals("")) ? "36" : control.Current.getAttribute("cols");
 	Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";
-	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";}
+	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {
+		Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
+	} else {
+		Context.Items["no-col-layout"] = "";
+	}
 %>
 	<% if(IsPdf || IsSummary) { %>
 		<p><apn:value runat="server"/></p>

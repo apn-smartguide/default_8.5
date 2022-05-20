@@ -1,19 +1,25 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <%
-	Context.Items["html5type"]="text";
-	// check if html5 type specified explicitly
-	if (control.Current.getAttribute("html5type").Length > 0) { Context.Items["html5type"] = control.Current.getAttribute("html5type"); }
-	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = ""; }
-%>
-<% if(control.Current.getAttribute("style").Contains("visibility:hidden;") || control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="hidden.inc" -->
-<% } else { %>
-	<%
+Context.Items["html5type"]="text";
+// check if html5 type specified explicitly
+if (control.Current.getAttribute("html5type").Length > 0) {
+	Context.Items["html5type"] = control.Current.getAttribute("html5type");
+}
+
+if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {
+	Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " ";
+} else { 
+	Context.Items["no-col-layout"] = "";
+}
+
+if(control.Current.getAttribute("style").Contains("visibility:hidden;") || !IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
 	Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";
 	Context.Items["maxlength"] = control.Current.getAttribute("maxlength");
-	%>
-	<% if (Context.Items["maxlength"] == null) Context.Items["maxlength"] = ""; %>
+	if (Context.Items["maxlength"] == null) Context.Items["maxlength"] = "";
+%>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> input-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" --> >
 		<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a class='sr-only <apn:localize runat="server" key="theme.class.error-link"/>' id='error_index_<%=ErrorIndex%>'>Anchor to error <%=ErrorIndex%></a></apn:ifnotcontrolvalid>
 		<% Execute("/controls/label.aspx"); %>

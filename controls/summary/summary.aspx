@@ -1,9 +1,11 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-	<% IsSummary = true; %>
-	<% if (control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="../hidden.inc" -->
-	<% } else { %>
+	<% 
+	IsSummary = true;
+	if (!IsAvailable(control.Current)) {
+		Execute("/controls/hidden.aspx");
+	} else {
+	%>
 	<div class='<apn:cssclass runat="server"/> recap' style='<apn:controlattribute attr="style" runat="server"/><apn:cssstyle runat="server"/>'>
 		<apn:forEach runat="server" id="pageControl">
 			<div class='<%=Class("group-container")%>'>
@@ -21,6 +23,8 @@
 			</div>
 		</apn:forEach>
 	</div>
-	<% } %>
-	<% IsSummary = false; %>
+	<%
+	}
+	IsSummary = false;
+	%>
 </apn:control>

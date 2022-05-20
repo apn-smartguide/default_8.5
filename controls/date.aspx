@@ -2,14 +2,15 @@
 <%@ Import Namespace="System.Globalization" %>
 <apn:control runat="server" id="control">
 <%
-	Context.Items["html5type"] = "text";
-	// check if html5 type specified explicitly
-	if (control.Current.getAttribute("html5type").Length > 0) { Context.Items["html5type"] = control.Current.getAttribute("html5type"); }
-	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";}
+Context.Items["html5type"] = "text";
+// check if html5 type specified explicitly
+if (control.Current.getAttribute("html5type").Length > 0) { Context.Items["html5type"] = control.Current.getAttribute("html5type"); }
+if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";}
+Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";
+if (!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
 %>
-<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : ""; %>
-<% if (control.Current.getAttribute("visible").Equals("false")) { %><!-- #include file="hidden.inc" -->
-<% } else { %>
 	<apn:ifnotcontrolvalid runat="server"><% ErrorIndex++; %><a id='error_index_<%=ErrorIndex%>'></a></apn:ifnotcontrolvalid>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> form-group <apn:ifcontrolattribute runat="server" attr="prefix or suffix"> form-group</apn:ifcontrolattribute> <apn:cssclass runat="server"/> <apn:ifnotcontrolvalid runat="server">has-error</apn:ifnotcontrolvalid> <% if (Options.Contains("TTS")) { %>tts tts-play<% } %>' <!-- #include file="aria-live.inc" --> >
 	<% Execute("/controls/label.aspx"); %>

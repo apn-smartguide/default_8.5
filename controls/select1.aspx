@@ -1,9 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-<% if (control.Current.getAttribute("visible").Equals("false")) { %>
-	<!-- #include file="hidden.inc" -->
-<% } else { %>
 <%
+if (!IsAvailable(control.Current)) {
+	Execute("/controls/hidden.aspx");
+} else {
 	Context.Items["layout"] = control.Current.getChoiceLayout();
 	Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : "";
 	if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {
