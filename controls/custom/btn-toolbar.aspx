@@ -1,6 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-<% if (control.Current.getAttribute("visible").Equals("false")) { %>
+<% if (!IsAvailable(control.Current)) { %>
 <!-- #include file="../hidden.inc" -->
 <% } else if(IsPdf && control.Current.getCSSClass().Contains("hide-pdf")) { %>
 <% } else if(control.Current.getCSSClass().Contains("btn-wizard")) { 
