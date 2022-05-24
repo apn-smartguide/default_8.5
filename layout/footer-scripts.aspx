@@ -66,7 +66,7 @@
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.utils.tts.js") %>'></script>
 <% } %>
 <script src='<%= CacheBreak("/resources/js/smartguide/custom.js") %>'></script>
-<% if(Options.Contains("WET") && !Options.Contains("CDTS")) { %>
+<% if(Options.Contains("WET")) { %>
 <script src='<%= CacheBreak("/resources/WET/smartguide.dataTables.wb.js") %>'></script>
 <% } %>
 <script type="text/javascript">
