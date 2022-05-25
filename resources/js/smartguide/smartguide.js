@@ -553,6 +553,7 @@ $("form[id^='smartguide_']").each(function () {
 								// need the complex selector below because the whole modal might have been swapped
 								// in the current ajaxProcess call
 								var $modal = $('[name="' + $field.attr('name') + '"]').closest('.modal');
+								if($modal.length == 0) $modal = $('[id="div_' + $field.attr('id') + '"]').closest('.modal');
 								if ($modal.length > 0) {
 									$('#' + $modal.attr('id')).modal('show');
 									$container = $modal;
