@@ -21,6 +21,7 @@ using com.alphinat.xmlengine.interview.tag;
 using com.alphinat.interview.si.xml.servlet.environment;
 using Alphinat.SmartGuideServer.Controls;
 
+//WIP not yet implemented
 public class sglib : IRequiresSessionState, IHttpHandler
 {
 	public void ProcessRequest (HttpContext context) {
