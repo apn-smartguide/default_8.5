@@ -20,7 +20,6 @@
 	Context.Items["hideSearch"] = CSSClass.Contains("hide-search");
 	Context.Items["hideHeading"] = CSSClass.Contains("hide-heading");
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
-	Context.Items["isSelectable"] = control.Current.getAttribute("isselectable").Equals("true");
 	Context.Items["hasPagination"] = "true".Equals(control.Current.getAttribute("hasPagination")) && !((bool)Context.Items["hideSearch"]);
 	Context.Items["selectionType"] = control.Current.getAttribute("selectiontype");
 	Context.Items["is-wb-tables"] = CSSClass.Contains("wb-tables");
@@ -35,7 +34,6 @@
 	if (!IsAvailable(control.Current)) {
 		Execute("/controls/hidden.aspx");
 	} else {
-		Context.Items["repeat-name"] = control.Current.getCode();
 %>
 <div id='div_<apn:name runat="server"/>' class='<%=Class("group-container")%><% if ((bool)Context.Items["never-refresh"]) { %> never-refresh <% } %> <% if ((bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } %> repeat <apn:ifnotcontrolvalid runat="server"> has-error</apn:ifnotcontrolvalid>' <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %> data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]'<% } %><% if(!control.Current.getAttribute("eventsource").Equals("")) { %> aria-live="polite"<% } %> >
 	<apn:control runat="server" type="repeat-index" id="repeatIndex">
@@ -111,7 +109,13 @@
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
 				<tr>
-				<% if (isSelectable()) { %><th data-priority='1'><% if(control.Current.getCSSClass().Contains("select-all") && control.Current.getAttribute("selectiontype").Equals("checkbox")) { %><input name='select_all' id='<%=control.Current.getCode()%>-select-all' onclick='event.stopPropagation()' value="1" type='checkbox' class='<%=getSelectAllCSSClass()%>'  style='<%=getSelectAllCSSStyle()%>' /><% } %></th><% } %>
+				<% if (isSelectable()) { %>
+					<th data-priority='1'>
+						<% if(control.Current.getCSSClass().Contains("select-all") && control.Current.getAttribute("selectiontype").Equals("checkbox")) { %>
+							<input name='select_all' id='<%=control.Current.getCode()%>-select-all' onclick='event.stopPropagation()' value="1" type='checkbox' class='<%=getSelectAllCSSClass()%>'  style='<%=getSelectAllCSSStyle()%>' />
+						<% } %>
+					</th>
+				<% } %>
 				<apn:forEach runat="server" id="thRow">
 					<apn:forEach runat="server" id="thCol">
 						<apn:forEach runat="server" id="thField"> <%-- might be a row or a fied --%>
@@ -181,7 +185,7 @@
 							<td>
 								<apn:control runat="server" type="select_instance" id="sel">
 									<input type="hidden" name='<apn:name runat="server"/>' value="" />
-									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName((string)Context.Items["repeat-name"] + "_select"); %>
+									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName((string)Context.Items["repeatCode"] + "_select"); %>
 									<% if(selectControl != null) { %>
 										<% if (selectControl.isAvailable()) { %>
 										<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input  <%=getSelectCSSClass()%>' style='<%=getSelectCSSStyle()%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
@@ -317,7 +321,16 @@
 	public string getSelectLabel() { return getMetaDataValue("select-label"); }
 
 	public bool isSelectable() {
-		return control.Current.getAttribute("isselectable").Equals("true");
+		if (control.Current.getAttribute("isselectable").Equals("true")) {
+			string eventTargets = "";
+			SessionField ctrl = GetProxyControl(control.Current.getCode() + "_select", ref eventTargets);
+			if(ctrl != null) {
+				ctrl.calculateAvailability();
+				return ctrl.isAvailable();	
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public bool serverSide() { return getMetaDataValue("render-mode").Equals("true"); }
