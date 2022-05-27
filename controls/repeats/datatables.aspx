@@ -109,7 +109,7 @@
 			<apn:control runat="server" type="default-instance" id="headerGroup">
 			<thead>
 				<tr>
-				<% if (isSelectable()) { %>
+				<% if (IsSelectableColumn()) { %>
 					<th data-priority='1'>
 						<% if(control.Current.getCSSClass().Contains("select-all") && control.Current.getAttribute("selectiontype").Equals("checkbox")) { %>
 							<input name='select_all' id='<%=control.Current.getCode()%>-select-all' onclick='event.stopPropagation()' value="1" type='checkbox' class='<%=getSelectAllCSSClass()%>'  style='<%=getSelectAllCSSStyle()%>' />
@@ -181,7 +181,7 @@
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
 				<apn:forEach runat="server" id="trRow">
 					<% if (control.Current.getCSSClass().Contains("block-render")) { %><tr><% } %>
-						<% if (isSelectable()) { %>
+						<% if (IsSelectableRow()) { %>
 							<td>
 								<apn:control runat="server" type="select_instance" id="sel">
 									<input type="hidden" name='<apn:name runat="server"/>' value="" />
@@ -320,13 +320,32 @@
 	// Get the Select Label to use from data-attribute: Datatable -> select-label -> [value]
 	public string getSelectLabel() { return getMetaDataValue("select-label"); }
 
-	public bool isSelectable() {
+	public bool IsSelectableRow() {
+
+		//If the column is not selectable, the all rows are not selectable.
+		if (control.Current.getAttribute("isselectable").Equals("true") && IsSelectableColumn()) {
+			ISmartletField field = FindFieldByName(control.Current.getCode() + "_select");
+			if(field != null) {
+				field.calculateAvailability();
+				return field.isAvailable();
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public bool IsSelectableColumn() {
+
+		//by using a proxy [repeat]_select_column
+		//it is possible to configure conditions on the visibility of the whole column.
+		//this is not an option currently supported by native configuration.
+		//default to the value of the repeat isselectable if no proxt is configured;
+
 		if (control.Current.getAttribute("isselectable").Equals("true")) {
-			string eventTargets = "";
-			SessionField ctrl = GetProxyControl(control.Current.getCode() + "_select", ref eventTargets);
-			if(ctrl != null) {
-				ctrl.calculateAvailability();
-				return ctrl.isAvailable();	
+			ISmartletField field = FindFieldByName(control.Current.getCode() + "_select_column");
+			if (field != null) {
+				field.calculateAvailability();
+				return field.isAvailable();
 			}
 			return true;
 		}
@@ -432,7 +451,7 @@
 	// Options for these are described above.
 	private JArray getSelectableColumnDef(JArray columns, Dictionary<string, int> fieldNameToId) {
 
-		if(isSelectable()){
+		if(IsSelectableColumn()){
 			JArray target = new JArray(0);
 			JObject col = new JObject();
 			col.Add("data","selected");
@@ -649,18 +668,6 @@
 			jOptions = getInitParameters(jOptions);
 			jOptions = getColumnDefs(defaultGroup, jOptions, fieldNameToId);
 			jOptions = getSorts(defaultGroup, jOptions, fieldNameToId);
-
-			// StringBuilder sb = new StringBuilder("<").Append("\"top\"").Append("fil").Append(">").Append("rt").Append("<").Append("\"bottom\"").Append("p").Append(">").Append("<").Append("\"clear\"").Append(">");
-
-			// jOptions.Add(
-			// 	new JProperty("defaults", 
-			// 		new JObject{
-			// 			new JProperty("dom", 
-			// 				new JValue(sb.ToString())
-			// 			)
-			// 		}
-			// 	)
-			// );
 
 			datatablesInitOptions = jOptions.ToString();
 		}
