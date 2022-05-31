@@ -1,15 +1,23 @@
 var WETdataTablesController = {
 	init: function(sgRef) {},
 	
-	bindEvents : function(sgRef, context) {
+	bindEvents: function (sgRef, context, rebindInitiator) {
 
-		$( ".wb-tables" ).off("wb-init.wb-tables").on("wb-init.wb-tables", function() {
+		$( ".wb-tables", context ).off("wb-init.wb-tables").on("wb-init.wb-tables", function() {
 			var id = $(this).parents(".repeat").attr("id");
 			if(typeof id !== 'undefined') {
 				//console.log("bindEvents:wb-tables (initing) " + id);
-				setTimeout(function() {
-					sgRef.bindEvents([$("#"+id)], "WETdataTablesController");
+				setTimeout(function (rebindInitiator) {
+					if (rebindInitiator != "WETdataTablesController") {
+						sgRef.bindEvents([$("#"+id)], "WETdataTablesController");
+					}
 				},0);
+			}
+		});
+
+		$('.datatables.wb-tables:not(.wb-tables-inited)', context).each(function () {
+			if (rebindInitiator != "WETdataTablesController") {
+				$(this).trigger("wb-init.wb-tables");
 			}
 		});
 
@@ -40,8 +48,9 @@ var WETdataTablesController = {
 					el.indeterminate = false;
 				}
 			}
-			
-			sgRef.bindEvents([id], "WETdataTablesController");
+			if (rebindInitiator != "WETdataTablesController") {
+				sgRef.bindEvents([id], "WETdataTablesController");
+			}
 		});
 
 		$('[name=select_all2]', '.wb-tables thead tr th').first().off('click').on('click', function(){

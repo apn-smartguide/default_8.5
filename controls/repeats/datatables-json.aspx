@@ -21,6 +21,14 @@ string selectStyle = repeat.getMetaData("select-style");
 
 string primaryKeyFieldName = repeat.getMetaData("id");
 bool isSelectable = repeat.isSelectable();
+//Special case where the is a proxy to define access to the whole column via conditions.
+ISmartletField selectColumn = FindFieldByName(repeat.getName() + "_select_column");
+string selectColumnName = "";
+if(selectColumn != null) {
+	selectColumnName = selectColumn.getName();
+	selectColumn.calculateAvailability();
+	isSelectable = selectColumn.isAvailable();
+}
 string selectionType = repeat.getSelectionType();
 string draw = "1";
 if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
@@ -68,7 +76,9 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 				if(selectControl != null) { 
 					selectControl.calculateAvailability();
 					if (selectControl.isAvailable()) {
-						inputs = inputs + "<input type='"+selectionType+"' name='d_s"+repeatId+"["+id+"]' id='d_s"+repeatId+"["+id+"]' class='"+selectClass+"' style='"+selectStyle+"' value='true' "+check+">";
+						inputs = inputs + "<input type='"+selectionType+"' name='d_s"+repeatId+"["+id+"]' id='d_s"+repeatId+"["+id+"]' class='"+selectControl.getCSSClass()+"' style='"+selectStyle+"' value='true' "+check+">";
+					} else {
+						inputs += "<div></div>";
 					}
 				} else {
 					//data-group='d_"+repeatId'
@@ -81,6 +91,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 			}
 			
 			ISmartletField[] fields = grp.getFields();
+			string results = "";
 			for(int j=0;j<fields.Length;j++) {
 				string fieldid = fields[j].getId();
 				string label = fields[j].getLabel();
@@ -179,14 +190,17 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals("")) {
 						value = "<div><a target='_blank' href='upload/do.aspx/" + upload.getFileName() + "?id=d_" + fieldid+"["+id+"]&interviewID=" + sg5.Smartlet.getCode() + "'>" + upload.getFileName() + "</a></div>";
 					}
 				} else {
-				    value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
+					value = "<span id='d_"+fieldid+"["+id+"]' class='form-group " + fields[j].getCSSClass() + "' style='"+ fields[j].getCSSStyle() +"'>" + fields[j].getString() + "</span>";
 				}
 				// escape sensitive chars
 				value = HttpUtility.JavaScriptStringEncode(value);
 			
-				if (j>0 && addtoresults) Response.Write(",");
-				if (addtoresults) Response.Write("\"" + fields[j].getName() + "\":\"" + value + "\"");
-			} %>
+				//if (j>0 && addtoresults) Response.Write(",");
+				if (addtoresults) results += "\"" + fields[j].getName() + "\":\"" + value + "\",";
+			} 
+			results = results.Substring(0, results.Length-1);
+			Response.Write(results);
+			%>
 		}
 <% } %>
 	]
