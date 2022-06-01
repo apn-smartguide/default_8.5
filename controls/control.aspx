@@ -1,20 +1,11 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <%
-	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
-	bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
+	string customControl = GetCustomControlPath(control.Current);
 	if((IsPdf && IsHidePdf(control.Current)) || (!IsPdf && IsPdfOnly(control.Current))) {
-	} else if(IsProxy(control.Current) && !renderProxy) {
-	} else if (customControl != null && customControl.Equals("file")) {
-		if(!control.Current.getValue().Equals("")) {
-			//Use the controls Value if you need to dynamically switch the file loaded based on conditions
-			Execute(control.Current.getValue());
-		} else if(!control.Current.getLabel().Equals("")){
-			Execute(control.Current.getLabel());
-		}
-	} else if (customControl != null && !customControl.Equals("")) {
-		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
-		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
+	} else if(IsProxy(control.Current) && !RenderProxy) {
+	} else if (!customControl.Equals("")) {
+		Execute(customControl);
 	} else {
 	%>
 	<apn:ChooseControl runat="server">

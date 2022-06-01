@@ -32,7 +32,7 @@
 				<apn:forEach runat="server" id="col">
 					<apn:forEach runat="server" id="field">
 						<apn:ChooseControl runat="server">
-							<% Context.Items["btn-wizard"] = true; // render btn-wizard if you see any, but don't render proxies in here. %>
+							<% RenderWizardBtn = true; // render btn-wizard if you see any, but don't render proxies in here. %>
 							<apn:WhenControl type="TRIGGER" runat="server">
 							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !IsProxy(field.Current)) { Execute("/controls/button.aspx");} %>
 							</apn:WhenControl>
@@ -48,7 +48,7 @@
 							<apn:Otherwise runat="server">
 							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !IsProxy(field.Current)) { Execute("/controls/custom/buttons.aspx");} %>
 							</apn:Otherwise>
-							<% Context.Items["btn-wizard"] = false; %>
+							<% RenderWizardBtn = false; %>
 						</apn:ChooseControl>
 					</apn:forEach>
 				</apn:forEach>

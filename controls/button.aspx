@@ -1,7 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-	<% Context.Items["render-proxy"] = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false; %>
-	<% Context.Items["btn-wizard"] = (Context.Items["btn-wizard"] != null) ? (bool)Context.Items["btn-wizard"] : false; %>
 	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? "disabled" : ""; %>
 	<% Context.Items["aria-label"] = ""; %>
 	<% Context.Items["label"] = control.Current.getLabel(); %>
@@ -22,8 +20,8 @@
 		}
 	%>
 	<% if (
-		((IsProxy(control.Current) && !(bool)Context.Items["render-proxy"]) || 
-		(control.Current.getCSSClass().Contains("btn-wizard") && !(bool)Context.Items["btn-wizard"])) && 
+		((IsProxy(control.Current) && !RenderProxy) || 
+		(IsWizardBtn(control.Current) && !RenderWizardBtn)) && 
 		IsAvailable(control.Current)
 	) { %>
 	<% } else if (!IsAvailable(control.Current) || IsPdf || IsSummary) { %>

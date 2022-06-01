@@ -62,7 +62,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 				</apn:control>
 			</div>
 		<% } %>
-		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { Context.Items["render-proxy"] = true; Execute("/controls/control.aspx"); Context.Items["render-proxy"] = false; } %></apn:forEach></apn:forEach></apn:forEach>
+		<apn:forEach runat="server"><apn:forEach runat="server"><apn:forEach runat="server" id="headingControl"><% if (headingControl.Current.getCSSClass().Contains("panel-heading-button") || headingControl.Current.getCSSClass().Contains("panel-heading-control")) { RenderProxy = true; Execute("/controls/control.aspx"); RenderProxy = false; } %></apn:forEach></apn:forEach></apn:forEach>
 		<h5 class='<%=Class("group-title")%>' style="margin: 0.5rem 0"><% Execute("/controls/custom/control-label.aspx"); %></h5>
 	</div>
 	<% } %>

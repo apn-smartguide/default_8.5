@@ -2,8 +2,7 @@
 <apn:control runat="server" id="control">
 <% 
 Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : "";
-bool renderProxy = (Context.Items["render-proxy"] != null) ? (bool)Context.Items["render-proxy"] : false;
-if (!IsAvailable(control.Current) || (IsProxy(control.Current) && !renderProxy)) {
+if (!IsAvailable(control.Current) || (IsProxy(control.Current) && !RenderProxy)) {
 	Execute("/controls/hidden.aspx");
 } else if (control.Current.getCSSClass().Contains("multiple") && !IsSummary) {
 %>
