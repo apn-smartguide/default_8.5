@@ -9,7 +9,7 @@
 			string previousEventTargets = "";
 			SessionField previousBtn = GetProxyButton("previous", ref previousEventTargets);
 			if(previousBtn != null && !previousBtn.isAvailable()) { %>
-			<% } else if(previousBtn != null && previousBtn.isAvailable()) { %>
+			<% } else if(previousBtn != null && previousBtn.isAvailable()) { %>
 				<button type='button' id='<%=previousBtn.getHtmlName()%>' name='<%=previousBtn.getHtmlName()%>' class='sg <%=previousBtn.getCSSClass()%>' style='<%=previousBtn.getCSSStyle()%>' data-eventtarget='[<%=previousEventTargets%>]' <% if (!GetTooltip(previousBtn).Equals("")){ %>title='<%=GetTooltip(previousBtn)%>' aria-label='<%=GetTooltip(previousBtn)%>'<% } %>><%=previousBtn.getLabel()%></button>
 			<% } else { %>
 				<apn:control type="previous" runat="server" id="previous"><button type='submit' id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg previous btn <% if(LayoutEngine == "BS4") { Response.Output.Write("btn-secondary mr-auto"); } else { Response.Output.Write("btn-default pull-left"); }%>' <% if (!GetTooltip(previous.Current).Equals("")){ %>title='<%=GetTooltip(previous.Current)%>' aria-label='<%=GetTooltip(previous.Current)%>'<% } %>><%=GetAttribute(previous.Current, "label")%></button></apn:control>
@@ -34,19 +34,19 @@
 						<apn:ChooseControl runat="server">
 							<% WizardRender = true; // render btn-wizard if you see any, but don't render proxies in here. %>
 							<apn:WhenControl type="TRIGGER" runat="server">
-							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !IsProxy(field.Current)) { Execute("/controls/button.aspx");} %>
+							<% if (IsWizardButton(field.Current) && !IsProxy(field.Current)) { Execute("/controls/button.aspx");} %>
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
 								<apn:forEach runat="server" id="groupRow">
 									<apn:forEach runat="server" id="groupCol">
 										<apn:forEach runat="server" id="groupField">
-											<% if (groupField.Current.getCSSClass().Contains("btn-wizard") && !IsProxy(groupField.Current)) { Execute("/controls/button.aspx");} %>
+											<% if (IsWizardButton(groupField.Current) && !IsProxy(groupField.Current)) { Execute("/controls/control.aspx");} %>
 										</apn:forEach>
 									</apn:forEach>
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:Otherwise runat="server">
-							<% if (field.Current.getCSSClass().Contains("btn-wizard") && !IsProxy(field.Current)) { Execute("/controls/custom/buttons.aspx");} %>
+							<% if (IsWizardButton(field.Current) && !IsProxy(field.Current)) { Execute("/controls/custom/buttons.aspx");} %>
 							</apn:Otherwise>
 							<% WizardRender = false; %>
 						</apn:ChooseControl>
