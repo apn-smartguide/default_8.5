@@ -14,7 +14,7 @@ if (!IsAvailable(control.Current)) {
 					<apn:whenControl runat="server" type="COL">
 						<apn:forEach runat="server" id="field"><%-- Each field --%>
 							<apn:chooseControl runat="server">
-								<% if (!IsProxy(control.Current) || ((IsProxy(control.Current) && RenderProxy)) || ((IsWizardBtn(control.Current) && RenderWizardBtn))) { %>
+								<% if (!IsProxy(control.Current) || ((IsProxy(control.Current) && ProxyRender)) || ((IsWizardBtn(control.Current) && WizardRender))) { %>
 								<apn:whenControl runat="server" type="GROUP"><% Execute("/controls/custom/btn-group.aspx"); %></apn:whenControl>
 								<apn:whenControl runat="server" type="TRIGGER"><% Execute("/controls/button.aspx"); %></apn:whenControl>
 								<% } %>

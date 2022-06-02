@@ -20,8 +20,8 @@
 		}
 	%>
 	<% if (
-		((IsProxy(control.Current) && !RenderProxy) || 
-		(IsWizardBtn(control.Current) && !RenderWizardBtn)) && 
+		((IsProxy(control.Current) && !ProxyRender) || 
+		(IsWizardBtn(control.Current) && !WizardRender)) && 
 		IsAvailable(control.Current)
 	) { %>
 	<% } else if (!IsAvailable(control.Current) || IsPdf || IsSummary) { %>

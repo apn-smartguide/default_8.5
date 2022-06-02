@@ -39,7 +39,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<apn:forEach runat="server">
 			<apn:forEach runat="server">
 				<apn:forEach runat="server" id="headingControl">
-					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { RenderProxy = true; Execute("/controls/control.aspx"); RenderProxy = false; } %>
+					<% if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) { ProxyRender = true; Execute("/controls/control.aspx"); ProxyRender = false; } %>
 				</apn:forEach>
 			</apn:forEach>
 		</apn:forEach>

@@ -1,10 +1,4 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
-<%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
-<%@ Import Namespace="com.alphinat.sg5.widget.group" %>
-<%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
-<%@ Import Namespace="Newtonsoft.Json" %>
-<%@ Import Namespace="Newtonsoft.Json.Linq" %>
-<%@ Import Namespace="System.Text" %>
 <apn:control runat="server" id="control">
 <%
 	Context.Items["hiddenName"] = "";
@@ -25,7 +19,7 @@
 	<% if (!HideHeading) { %>
 	<div class='<%=Class("group-header")%>'>
 		<% if (Collapsible) { %>
-			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='<%=Class("left")%>' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (control.Current.getCSSClass().Contains("open")) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
+			<a data-toggle='collapse' href='#div_<apn:name runat="server"/>_body' class='<%=Class("left")%>' style='margin-right:10px;' title='<apn:localize runat="server" key="theme.text.accordion-btn"/> - <%=control.Current.getLabel()%>'><span class='<% if (IsOpen) { %><apn:localize runat="server" key="theme.text.accordion-close"/><% } else { %><apn:localize runat="server" key="theme.text.accordion-open"/><% } %>'></span></a>
 		<% } %>
 		<% if (control.Current.getLabel() != "") { %>
 			<h5 class='<%=Class("group-title")%>' style='margin: 0px; <% if(LayoutEngine != "BS4") {Response.Output.Write("padding-top: 0.5rem;");}%>'><% Execute("/controls/custom/control-label.aspx"); %></h5>
@@ -46,19 +40,19 @@
 			<apn:ChooseControl runat="server">
 				<apn:WhenControl type="TRIGGER" runat="server">
 				<% 
-				if (headingControl.Current.getCSSClass().Contains("panel-heading-button")) {
-					RenderProxy = true;
+				if (IsHeadingControl(headingControl.Current)) {
+					ProxyRender = true;
 					Execute("/controls/button.aspx");
-					RenderProxy = false;
+					ProxyRender = false;
 				} 
 				%>
 				</apn:WhenControl>
 				<apn:Otherwise runat="server">
 				<% 
-				if(headingControl.Current.getCSSClass().Contains("panel-heading-control")) { 
-					RenderProxy = true;
+				if(IsHeadingControl(headingControl.Current)) {
+					ProxyRender = true;
 					Execute("/controls/control.aspx");
-					RenderProxy = false;
+					ProxyRender = false;
 				}
 				%>
 				</apn:Otherwise>
@@ -68,8 +62,8 @@
 	</div>
 	<% } %>
 	<% if (Collapsible) { %>
-		<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (RepeatCSSClass.Contains("open")) { %>in<% }%>'>
-		<% } %>
+		<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (IsOpen) { %>in<% }%>'>
+	<% } %>
 	<div class='<%=Class("group-body")%>'>
 		<apn:control runat="server" type="default-instance" id="filters">
 			<apn:forEach runat="server" id="thFilterRow">
@@ -77,9 +71,9 @@
 					<apn:forEach runat="server" id="thFilterField">
 						<%
 						if(thFilterField.Current.getCSSClass().Contains("filters")) {
-							RenderProxy = true;
+							ProxyRender = true;
 							Execute("/controls/control.aspx");
-							RenderProxy = false;
+							ProxyRender = false;
 						}
 						%>
 					</apn:forEach>
@@ -108,21 +102,21 @@
 								<apn:forEach runat="server" id="thColField">
 									<apn:forEach runat="server" id="thRowField">
 										<apn:WhenControl type="GROUP" runat="server">
-											<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label") && !thRowField.Current.getAttribute("style").Contains("visibility:hidden") && IsAvailable(thRowField.Current) && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)) { %>
+											<% if(!HideColumnLabel(thRowField.Current) && IsVisible(thRowField.Current) && IsAvailable(thRowField.Current) && !HideFromListView(thRowField.Current) && !IsHeadingControl(thField.Current) && !IsProxy(thField.Current)) { %>
 												<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' class='<%=GetCleanCSSClass(thRowField.Current).Replace("btn-toolbar","")%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thRowField.Current)%></th>
-											<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thRowField.Current)){ %>
+											<% } else if (!IsHeadingControl(thRowField.Current) && !IsProxy(thRowField.Current)){ %>
 												<td <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' data-sortable="false"></td>
 											<% } %>
 										</apn:WhenControl>
-										<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(thRowField.Current) && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thRowField.Current)) { %><td data-code='<%=thRowField.Current.getCode()%>'><% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) GetLabel(thRowField.Current); %></td><% } %></apn:WhenControl>
+										<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(thRowField.Current) && !HideFromListView(thRowField.Current) && !IsHeadingControl(thRowField.Current) && !IsProxy(thRowField.Current)) { %><td data-code='<%=thRowField.Current.getCode()%>'><% if(!HideColumnLabel(thRowField.Current)) GetLabel(thRowField.Current); %></td><% } %></apn:WhenControl>
 										<apn:Otherwise runat="server">
-											<% if(!thRowField.Current.getAttribute("style").Contains("visibility:hidden") && IsAvailable(thRowField.Current) && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thRowField.Current)) { %>
-												<% if(!thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
+											<% if(IsVisible(thRowField.Current) && IsAvailable(thRowField.Current) && !HideFromListView(thRowField.Current) && !IsHeadingControl(thRowField.Current) && !IsProxy(thRowField.Current)) { %>
+												<% if(!HideColumnLabel(thRowField.Current)) { %>
 													<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thRowField.Current.getCode()%>' class='<%=GetCleanCSSClass(thRowField.Current).Replace("btn-toolbar","")%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thRowField.Current)%></th>
-												<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thRowField.Current)){ %>
+												<% } else if (!IsHeadingControl(thRowField.Current) && !IsProxy(thRowField.Current)){ %>
 													<td data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 												<% } %>
-											<% } else if (!thRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thRowField.Current)){ %>
+											<% } else if (!IsHeadingControl(thRowField.Current) && !IsProxy(thRowField.Current)){ %>
 												<td class="hide" data-code='<%=thRowField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 											<% } %>
 										</apn:Otherwise>
@@ -130,22 +124,22 @@
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
-								<% if(!thField.Current.getCSSClass().Contains("hide-column-label") && !thField.Current.getAttribute("style").Contains("visibility:hidden") && IsAvailable(thField.Current) && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)) { %>
+								<% if(!HideColumnLabel(thField.Current) && IsVisible(thField.Current) && IsAvailable(thField.Current) && !HideFromListView(thField.Current) && !IsHeadingControl(thField.Current) && !IsProxy(thField.Current)) { %>
 									<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' class='<%=GetCleanCSSClass(thField.Current).Replace("btn-toolbar","")%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thField.Current)%></th>
-								<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)){ %>
+								<% } else if (!IsHeadingControl(thField.Current) && !IsProxy(thField.Current)){ %>
 									<td <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' data-sortable="false"></td>
 								<% } %>
 							</apn:WhenControl>
-							<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(thField.Current) && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)) { %><td data-code='<%=thField.Current.getCode()%>'><%= GetLabel(thField.Current) %></td><% } %></apn:WhenControl>
+							<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(thField.Current) && !HideFromListView(thField.Current) && !IsHeadingControl(thField.Current) && !IsProxy(thField.Current)) { %><td data-code='<%=thField.Current.getCode()%>'><%= GetLabel(thField.Current) %></td><% } %></apn:WhenControl>
 							<apn:WhenControl type="HIDDEN" runat="server"><td class="hide" data-code='<%=thField.Current.getCode()%>'></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
-								<% if(!thField.Current.getAttribute("style").Contains("visibility:hidden") && IsAvailable(thField.Current) && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)) { %>
-									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
+								<% if(IsVisible(thField.Current) && IsAvailable(thField.Current) && !HideFromListView(thField.Current) && !IsHeadingControl(thField.Current) && !IsProxy(thField.Current)) { %>
+									<% if(!HideColumnLabel(thField.Current)) { %>
 										<th <apn:metadata runat="server" match="data-priority"/> data-code='<%=thField.Current.getCode()%>' class='<%=GetCleanCSSClass(thField.Current).Replace("btn-toolbar","")%>' style='<apn:cssStyle runat="server" />'><%=GetLabel(thField.Current)%></th>
-									<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)){ %>
+									<% } else if (!IsHeadingControl(thField.Current) && !IsProxy(thField.Current)){ %>
 										<td data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 									<% } %>
-								<% } else if (!thField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(thField.Current)){ %>
+								<% } else if (!IsHeadingControl(thField.Current) && !IsProxy(thField.Current)){ %>
 									<td class="hide" data-code='<%=thField.Current.getCode()%>' data-priority='1' data-sortable="false"></td>
 								<% } %>
 							</apn:Otherwise>
@@ -166,6 +160,7 @@
 						<% if (IsSelectableRow(CurrentRepeat)) { %>
 							<td>
 								<apn:control runat="server" type="select_instance" id="sel">
+								<div class='<%=control.Current.getAttribute("selectiontype")%>-inline <% if(SelectCSSClass.Contains("large")) {%>large<% } %>'>
 									<input type="hidden" name='<apn:name runat="server"/>' value="" />
 									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName(CurrentRepeat.getName() + "_select"); %>
 									<% if(selectControl != null) { %>
@@ -177,6 +172,7 @@
 									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input <%=SelectCSSClass%>' style='<%=SelectCSSStyle%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
 									<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=SelectLabel%>'><span class='field-name <% if(SelectCSSClass.Contains("hide-label")) {%>sr-only<% } %>'><%=SelectLabel%></span></label>
 									<% } %>
+								</div>
 								</apn:control>
 							</td>
 						<% } %>
@@ -188,14 +184,14 @@
 										<apn:forEach runat="server" id="trRowCol">
 											<apn:forEach runat="server" id="trRowField">
 												<apn:ChooseControl runat="server">
-													<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(IsAvailable(trField.Current) && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
-													<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trRowField.Current) && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trRowField.Current)) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
+													<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
+													<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trRowField.Current) && !HideFromListView(trRowField.Current) && !IsHeadingControl(trRowField.Current) && !IsProxy(trRowField.Current)) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 													<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 													<apn:Otherwise runat="server">
-														<% if(IsAvailable(trRowField.Current) && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trRowField.Current)) { %>
+														<% if(IsAvailable(trRowField.Current) && !HideFromListView(trRowField.Current) && !IsHeadingControl(trRowField.Current) && !IsProxy(trRowField.Current)) { %>
 															<% if(trRowField.Current.getCSSClass().Contains("datatable-editable")) { %>
 																<td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td>
-															<% } else if(!thRowField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trRowField.Current)) { %>
+															<% } else if(!IsHeadingControl(thRowField.Current) && !IsProxy(trRowField.Current)) { %>
 																<td id='<apn:name runat="server"/>' style='<apn:cssStyle runat="server" />'>
 																<apn:ifcontrolattribute runat="server" attr="prefix"><apn:controlattribute runat="server" attr="prefix"/></apn:ifcontrolattribute>
 																<apn:value runat="server"/>
@@ -212,14 +208,14 @@
 											</apn:forEach>
 										</apn:forEach>
 									</apn:WhenControl>
-									<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(IsAvailable(trField.Current) && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
-									<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trField.Current) && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trField.Current)) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
+									<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
+									<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
-										<% if(IsAvailable(trField.Current) && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trField.Current)) { %>
+										<% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { %>
 											<% if(trField.Current.getCSSClass().Contains("datatable-editable")) { %>
 												<td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td>
-											<% } else if(!trField.Current.getCSSClass().Contains("panel-heading-") && !IsProxy(trField.Current)) { %>
+											<% } else if(!IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { %>
 												<%-- check type and format if applicable --%>
 												<%
 													string type = trField.Current.getMetaDataValue("type");

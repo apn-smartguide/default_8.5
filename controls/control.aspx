@@ -3,7 +3,7 @@
 <%
 	string customControl = GetCustomControlPath(control.Current);
 	if((IsPdf && IsHidePdf(control.Current)) || (!IsPdf && IsPdfOnly(control.Current))) {
-	} else if(IsProxy(control.Current) && !RenderProxy) {
+	} else if(IsProxy(control.Current) && !ProxyRender) {
 	} else if (!customControl.Equals("")) {
 		Execute(customControl);
 	} else {

@@ -19,18 +19,18 @@
 								<apn:WhenControl type="TRIGGER" runat="server">
 									<% 
 									if(headingControl.Current.getCSSClass().Contains("panel-heading-button")) {
-										RenderProxy = true;  
+										ProxyRender = true;  
 										Execute("/controls/button.aspx");
-										RenderProxy = false; 
+										ProxyRender = false; 
 									}
 									%>
 								</apn:WhenControl>
 								<apn:Otherwise runat="server">
 									<% 
 									if(headingControl.Current.getCSSClass().Contains("panel-heading-control")) { 
-										RenderProxy = true;
+										ProxyRender = true;
 										Execute("/controls/control.aspx");
-										RenderProxy = false;
+										ProxyRender = false;
 									}
 									%>
 								</apn:Otherwise>
