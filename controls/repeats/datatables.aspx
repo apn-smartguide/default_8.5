@@ -155,27 +155,19 @@
 				<apn:forEach runat="server" id="trGroup">
 				<% Context.Items["optionIndex"] = trGroup.getCount(); %>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
-				<apn:forEach runat="server" id="trRow">
-					<% if (control.Current.getCSSClass().Contains("block-render")) { %><tr><% } %>
-						<% if (IsSelectableRow(CurrentRepeat)) { %>
-							<td>
-								<apn:control runat="server" type="select_instance" id="sel">
-								<div class='<%=control.Current.getAttribute("selectiontype")%>-inline <% if(SelectCSSClass.Contains("large")) {%>large<% } %>'>
-									<input type="hidden" name='<apn:name runat="server"/>' value="" />
-									<% ISmartletField selectControl = sg.getSmartlet().getSessionSmartlet().getCurrentSessionPage().findFieldByName(CurrentRepeat.getName() + "_select"); %>
-									<% if(selectControl != null) { %>
-										<% if (selectControl.isAvailable()) { %>
-										<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input <%=SelectCSSClass%>' style='<%=SelectCSSStyle%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
-										<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=SelectLabel%>'><span class='field-name <% if(SelectCSSClass.Contains("hide-label")) {%>sr-only<% } %>'><%=SelectLabel%></span></label>
-										<% } %>
-									<% } else { %>
-									<input type='<%=control.Current.getAttribute("selectiontype")%>' name='<apn:name runat="server"/>' id='<apn:name runat="server"/>' class='form-check-input <%=SelectCSSClass%>' style='<%=SelectCSSStyle%>' data-group='<%=control.Current.getName()%>' value="true" <%= "true".Equals(sel.Current.getValue()) ? "checked" : "" %> />
-									<label class='form-check-label' for='<apn:name runat="server"/>' data-toggle='tooltip' data-html='true' title='<%=SelectLabel%>'><span class='field-name <% if(SelectCSSClass.Contains("hide-label")) {%>sr-only<% } %>'><%=SelectLabel%></span></label>
-									<% } %>
-								</div>
-								</apn:control>
-							</td>
-						<% } %>
+				<% if (IsSelectableRow(CurrentRepeat)) { %>
+				<td>
+					<apn:control runat="server" type="select_instance" id="sel">
+						<%
+							int rowId = trGroup.getCount() - 1;
+							ISmartletField selectRow = FindFieldByNameUnderRepeat(sel.Current.getCode(), rowId);
+							string check = "true".Equals(sel.Current.getValue()) ? "checked" : "";
+							Response.Output.Write(RenderSelectionInput(CurrentRepeat, selectRow,rowId,check));
+						%>
+					</apn:control>
+				</td>
+				<% } %>
+					<apn:forEach runat="server" id="trRow">
 						<apn:forEach runat="server" id="trCol">
 							<apn:forEach runat="server" id="trField"> <%-- might be a row or a fied --%>
 								<apn:ChooseControl runat="server">
@@ -184,7 +176,7 @@
 										<apn:forEach runat="server" id="trRowCol">
 											<apn:forEach runat="server" id="trRowField">
 												<apn:ChooseControl runat="server">
-													<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
+													<apn:WhenControl type="GROUP" runat="server"><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { %><td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td><% } %></apn:WhenControl>
 													<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trRowField.Current) && !HideFromListView(trRowField.Current) && !IsHeadingControl(trRowField.Current) && !IsProxy(trRowField.Current)) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 													<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 													<apn:Otherwise runat="server">
@@ -208,7 +200,7 @@
 											</apn:forEach>
 										</apn:forEach>
 									</apn:WhenControl>
-									<apn:WhenControl type="GROUP" runat="server"><td style='<apn:cssStyle runat="server" />'><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
+									<apn:WhenControl type="GROUP" runat="server"><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { %><td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trField.Current) && !HideFromListView(trField.Current) && !IsHeadingControl(trField.Current) && !IsProxy(trField.Current)) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
@@ -238,8 +230,7 @@
 								</apn:ChooseControl>
 							</apn:forEach>
 						</apn:forEach>
-					<% if (RepeatCSSClass.Contains("block-render")) { %></tr><% } %>
-				</apn:forEach>
+					</apn:forEach>
 				<% if (!RepeatCSSClass.Contains("block-render") || RepeatCSSClass.Contains("table-render") || RepeatCSSClass.Contains("table-view")) { %></tr><% } %>
 				</apn:forEach>
 				<% Context.Items["optionIndex"] = 0; %>
