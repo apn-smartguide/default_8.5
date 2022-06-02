@@ -3,10 +3,14 @@
 <%
 	string customControl = GetCustomControlPath(control.Current);
 	if((IsPdf && IsHidePdf(control.Current)) || (!IsPdf && IsPdfOnly(control.Current))) {
+		//No render
 	} else if(IsProxy(control.Current) && !ProxyRender) {
+		//No render
 	} else if (!customControl.Equals("")) {
+		//Custom Render
 		Execute(customControl);
 	} else {
+		//Regular render
 	%>
 	<apn:ChooseControl runat="server">
 		<apn:WhenControl runat="server" type="SUMMARY-SECTION"><% Execute("/controls/summary/summary.aspx"); %></apn:WhenControl>
