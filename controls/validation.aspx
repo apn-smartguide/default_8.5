@@ -2,7 +2,7 @@
 <%@ Import Namespace="System.Text.RegularExpressions" %>
 <apn:control runat="server" id="control">
 <% 
-Context.Items["errorIndex"] = 0;
+ErrorIndex = 0;
 Context.Items["alert"] = false;
 Context.Items["underCrudRepeat"] = false;
 Context.Items["counter"] = 0;
@@ -29,7 +29,6 @@ if (!IsPdf || !IsSummary) {
 	%>
 	</div>
 	<% }
-	ErrorIndex = 0;
 	ISmartletField f = null;
 	ISmartletField[] fields = CurrentPage.findAllFields();
 	for(int i = 0; i < fields.Length; i++) {
