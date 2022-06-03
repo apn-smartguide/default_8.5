@@ -20,7 +20,7 @@
 		}
 	%>
 	<% if (
-		((Helper.IsProxy(control) && !ProxyRender) || 
+		((Helpers.IsProxy(control) && !ProxyRender) || 
 		(IsWizardButton(control.Current) && !WizardRender)) && 
 		IsAvailable(control.Current)
 	) { %>
