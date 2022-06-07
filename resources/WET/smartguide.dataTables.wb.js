@@ -53,17 +53,17 @@ var WETdataTablesController = {
 			}
 		});
 
-		$('[name=select_all2]', '.wb-tables thead tr th').first().off('click').on('click', function(){
+		$('[name=select_all]', '.wb-tables thead tr th').first().off('click').on('click', function(){
 			var dataTable = $(this).closest('table').DataTable();
+			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
 			var rows = dataTable.rows({ 'page': 'current' }).nodes();
 			// Check/uncheck checkboxes for all rows in the table
 			$('input[type="checkbox"]', rows).prop('checked', this.checked);
 			// check if we are server side, in which case we must post
 			if (dataTable.page.info().serverSide) {
-				var tableId = $(this).closest('.dataTables_wrapper').parent().attr('id');
 				// ajax call to selection aspx file
 				var originalAction = $("form").attr('action');
-				$("form").attr('action', basePath.toString() + "/controls/repeats/datatables-selection.aspx");
+				$("form").attr('action', dataTablesSelections);
 				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: tableId }});
 				$("form").attr('action', originalAction);
 			}
@@ -71,9 +71,10 @@ var WETdataTablesController = {
 
 		//TODO: The following is broken, enabling this will reset the datatable on any click of checkboxes
 		// Handle click on checkbox to set state of "Select all" control
-		$('input[type="checkbox2"]', '.wb-tables tbody').off('change').on('change', function(){
+		$('input[type="checkbox"]', '.wb-tables tbody').off('change').on('change', function(){
 			var dataTable = $(this).closest('table').DataTable();
-			
+			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
+
 			// If checkbox is not checked
 			if(!this.checked){
 				var el = $('[name=select_all]', $(this).closest('table')).get(0);
@@ -98,18 +99,18 @@ var WETdataTablesController = {
 			}
 			// check if we are server side, in which case we must post
 			if (dataTable.page.info().serverSide) {
-				var tableId = $(this).closest('.dataTables_wrapper').parent().attr('id');
 				// ajax call to selection aspx file
 				var originalAction = $("form").attr('action');
-				$("form").attr('action', basePath.toString() + "/controls/repeats/datatables-selection.aspx");
+				$("form").attr('action', dataTablesSelections);
 				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: tableId }});
 				$("form").attr('action', originalAction);
 			}
 		});
 		
 		// support for selection radios for server side repeats
-		$('[type=radio2][name^=d_s]').off('click').on('click', function() {
+		$('[type=radio][name^=d_s]').off('click').on('click', function() {
 			var dataTable = $(this).closest('table').DataTable();
+			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
 
 			// unselect all, then just re-selects our instance (e.g. d_s1590340615680[5])
 			var id = $(this).attr('id');
@@ -126,8 +127,8 @@ var WETdataTablesController = {
 			// check if we are server side, in which case we must post
 			if (dataTable.page.info().serverSide) {
 				var originalAction = $("form").attr('action');
-				$("form").attr('action', basePath.toString() + "/controls/repeats/datatables-selection.aspx");
-				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: $(this).attr('id') }});
+				$("form").attr('action', dataTablesSelections);
+				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: tableId }});
 				$("form").attr('action', originalAction);
 			}
 		});

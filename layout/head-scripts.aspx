@@ -12,6 +12,7 @@
 	var basePath = '<%= BasePath %>';
 	var currentLocale = '<%= CurrentLocale %>';
 	var supportedLocales = [];
+	var dataTablesSelections = '<%= ResolvePath("/controls/repeats/datatables-selections.aspx") %>';
 	var smartletName = '<%= SmartletCode %>';
 	var workspace = '<%= Workspace %>';
 	<apn:ifsmartletmultilingual runat="server"><apn:forEach runat="server" id="locale" items="languages">supportedLocales.push('<%=locale.Current.getValue()%>');</apn:forEach></apn:ifsmartletmultilingual>
