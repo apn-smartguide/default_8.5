@@ -11,7 +11,7 @@
 	Context.Items["repeat-level"] = currentLevel;
 	Context.Items["labelIdPrefix"] = "lbl_" + control.Current.getCode();
 
-	if (!IsAvailable(control.Current)) {
+	if (!IsAvailable(control)) {
 		Execute("/controls/hidden.aspx");
 	} else if (control.Current.getCSSClass().Contains("uploads-render") || control.Current.getCSSClass().Contains("uploads-view")) {
 		Execute("/controls/repeats/uploads.aspx");

@@ -1,7 +1,7 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <%
-if (!IsAvailable(control.Current)) {
+if (!IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
 } else {
 	if (!BareRender){

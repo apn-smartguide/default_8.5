@@ -3,9 +3,9 @@
 <%
 Context.Items["no-col"] = true;
 Context.Items["no-col-layout"] = "";
-if (!IsAvailable(control.Current)) {
+if (!IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
-} else if(IsPdf && IsHidePdf(control.Current)) {
+} else if(IsPdf && control.IsHidePdf()) {
 } else if(IsSummary) {
 	Execute("/controls/summary/controls.aspx");
 } else {

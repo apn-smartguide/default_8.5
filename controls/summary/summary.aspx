@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 	<% 
 	IsSummary = true;
-	if (!IsAvailable(control.Current)) {
+	if (!IsAvailable(control)) {
 		Execute("/controls/hidden.aspx");
 	} else {
 	%>

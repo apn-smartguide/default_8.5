@@ -3,7 +3,7 @@
 	<%
 		if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";}
 	%>
-	<% if (!IsAvailable(control.Current)) { %>
+	<% if (!IsAvailable(control)) { %>
 	<div id='div_<apn:name runat="server"/>' style="display:none;" <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else { %>
 	<div id='div_<apn:name runat="server"/>' class='<%=Context.Items["no-col-layout"]%> <%=GetCleanCSSClass(control.Current)%> form-group' style='<apn:controlattribute runat="server" attr="style"/><apn:cssstyle runat="server"/>' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' <% } %> <apn:metadata runat="server" /> >

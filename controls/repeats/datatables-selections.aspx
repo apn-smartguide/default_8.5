@@ -4,7 +4,7 @@
 <apn:api5 id="sg5" runat="server" />
 <script runat="server">
 	string tableId = HttpUtility.JavaScriptStringEncode(Request["tableId"]);
-	SetDatatablesSelections(tableId);
+	SetDatatablesSelections(this, tableId);
 
 	protected override void OnPreRender(EventArgs e) {
 		smartlet.SmartletID = (string)HttpUtility.JavaScriptStringEncode(Request["appID"]);

@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 <% 
 Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";
-if(!IsAvailable(control.Current)) {
+if(!IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
 } else {
 if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {

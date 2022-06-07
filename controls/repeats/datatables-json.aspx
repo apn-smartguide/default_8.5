@@ -1,9 +1,4 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
-<%@ Import Namespace="com.alphinat.sg5.widget.repeat" %>
-<%@ Import Namespace="com.alphinat.sg5.widget.upload" %>
-<%@ Import Namespace="com.alphinat.sg5.widget.group" %>
-<%@ Import Namespace="com.alphinat.sgs.smartlet.session" %>
-<%@ Import Namespace="System.Text" %>
 <apn:SmartGuide ID="smartlet" smartletID="" dispatchToTemplates="false" runat="server" ProcessingEvent="Render" visible="true" />
 <apn:api5 id="sg5" runat="server" />
 <%-- https://datatables.net/manual/index --%>
@@ -13,15 +8,16 @@
 //Then you need to add a condition on the service call that populates each table to verifiy that it's actually our table that being processed.
 //i.e. requestParameter("tableName") == our tableName
 string tableName = HttpUtility.JavaScriptStringEncode(Request["tableName"]);
+Logger.debug("datatables-json:" + tableName);
 string draw = "1";
 if(Request["sEcho"] != null && !Request["sEcho"].Equals(""))
 {
 	draw = HttpUtility.JavaScriptStringEncode(Request["sEcho"]);
 }
+Response.Output.Write(Helpers.GetDatatablesJSONResult(this, tableName, draw));
 %>
-<%=GetDatatablesJSONResult(tableName, draw)%>
 <script runat="server">
-protected override void OnPreRender(EventArgs e) {
-	smartlet.SmartletID = (string)HttpUtility.JavaScriptStringEncode(Request["appID"]);
-}
+	protected override void OnPreRender(EventArgs e) {
+		smartlet.SmartletID = (string)HttpUtility.JavaScriptStringEncode(Request["appID"]);
+	}
 </script>

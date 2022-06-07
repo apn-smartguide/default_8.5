@@ -2,9 +2,9 @@
 <apn:control runat="server" id="control">
 <%
 	string customControl = GetCustomControlPath(control.Current);
-	if((IsPdf && IsHidePdf(control.Current)) || (!IsPdf && IsPdfOnly(control.Current))) {
+	if((IsPdf && control.IsHidePdf()) || (!IsPdf && control.IsPdfOnly())) {
 		//No render
-	} else if(IsProxy(control.Current) && !ProxyRender) {
+	} else if(control.IsProxy() && !ProxyRender) {
 		//No render
 	} else if (!customControl.Equals("")) {
 		//Custom Render

@@ -1,6 +1,6 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
-	<% if (!IsAvailable(control.Current)) { %>
+	<% if (!IsAvailable(control)) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else { %>
 	<div id='div_<apn:name runat="server"/>' class='group knowledge' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>

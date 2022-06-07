@@ -1,9 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <% 
-if (!IsAvailable(control.Current)) {
+if (!IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
-} else if(IsPdf && IsHidePdf(control.Current)) {
+} else if(IsPdf && control.IsHidePdf()) {
 } else { 
 %>
 <apn:forEach runat="server" id="row"><%-- Each row --%>
@@ -14,7 +14,7 @@ if (!IsAvailable(control.Current)) {
 					<apn:whenControl runat="server" type="COL">
 						<apn:forEach runat="server" id="field"><%-- Each field --%>
 							<apn:chooseControl runat="server">
-								<% if (!IsProxy(control.Current) || ((IsProxy(control.Current) && ProxyRender)) || ((IsWizardButton(control.Current) && WizardRender))) { %>
+								<% if (!control.IsProxy() || ((control.IsProxy() && ProxyRender)) || ((IsWizardButton(control.Current) && WizardRender))) { %>
 								<apn:whenControl runat="server" type="GROUP"><% Execute("/controls/custom/btn-group.aspx"); %></apn:whenControl>
 								<apn:whenControl runat="server" type="TRIGGER"><% Execute("/controls/button.aspx"); %></apn:whenControl>
 								<% } %>

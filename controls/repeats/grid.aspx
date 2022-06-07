@@ -94,7 +94,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 											<apn:WhenControl type="TRIGGER" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
 											<apn:WhenControl type="HIDDEN" runat="server"><td class="hide" data-priority='1' data-sortable="false"></td></apn:WhenControl>
 											<apn:Otherwise runat="server">
-												<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(thRowField.Current)) { %>
+												<% if(!thRowField.Current.getAttribute("style").Equals("visibility:hidden;") && !thRowField.Current.getAttribute("visible").Equals("false") && !thRowField.Current.getCSSClass().Contains("hide-from-list-view") && !thRowField.IsProxy()) { %>
 													<% if (thRowField.Current.getType()==1000 && !thRowField.Current.getCSSClass().Contains("hide-column-label")) { %>
 													<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thRowField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% Execute("/controls/controls.aspx"); %></th>
 													<% } else { %>
@@ -120,7 +120,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:whencontrol type="GROUP" runat="server">
-								<% if(!thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(thField.Current)) { %>
+								<% if(!thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.IsProxy()) { %>
 									<% if(!thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 										<th <apn:metadata runat="server" match="data-priority"/> class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><%=GetAttribute(thField.Current, "label")%></th>
 									<% } else { %>
@@ -131,7 +131,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 							<apn:WhenControl type="TRIGGER" runat="server"><td data-priority='1' data-sortable="false"></td></apn:WhenControl>
 							<apn:WhenControl type="HIDDEN" runat="server"><td class="hide" data-priority='1' data-sortable="false"></td></apn:WhenControl>
 							<apn:Otherwise runat="server">
-								<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(thField.Current)) { %>
+								<% if(!thField.Current.getAttribute("style").Equals("visibility:hidden;") && !thField.Current.getAttribute("visible").Equals("false") && !thField.Current.getCSSClass().Contains("hide-from-list-view") && !thField.IsProxy()) { %>
 									<% if (thField.Current.getType()==1000 && !thField.Current.getCSSClass().Contains("hide-column-label")) { %>
 									<th <apn:metadata runat="server" match="data-priority"/> data-orderable='<%=Convert.ToString(!thField.Current.getCSSClass().Contains("hide-sort")).ToLower()%>'><% Execute("/controls/controls.aspx"); %></th>
 									<% } else { %>
@@ -184,11 +184,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 									<apn:forEach runat="server" id="trRowCol">
 										<apn:forEach runat="server" id="trRowField">
 											<apn:ChooseControl runat="server">
-												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(trRowField.Current)) { Execute("/controls/controls.aspx"); } %></td></apn:WhenControl>
-												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(trRowField.Current)) { Execute("/controls/button.aspx"); } %></td></apn:WhenControl>
+												<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.IsProxy()) { Execute("/controls/controls.aspx"); } %></td></apn:WhenControl>
+												<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.IsProxy()) { Execute("/controls/button.aspx"); } %></td></apn:WhenControl>
 												<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 												<apn:Otherwise runat="server">
-												<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(trRowField.Current)) { %>
+												<% if(!trRowField.Current.getAttribute("visible").Equals("false") && !trRowField.Current.getCSSClass().Contains("hide-from-list-view") && !trRowField.IsProxy()) { %>
 													<% if(trRowField.Current.getCSSClass().Contains("datatable-editable") && (!IsSummary && !IsPdf)) { %>
 														<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td>
 													<% } else if(trRowField.Current.getType() == 1014 /*date*/ ) { %>
@@ -204,11 +204,11 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 										</apn:forEach>
 									</apn:forEach>
 								</apn:WhenControl>
-								<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(trField.Current)) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
-								<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(trField.Current)) { Execute("/controls/button.aspx"); }  %></td></apn:WhenControl>
+								<apn:WhenControl type="GROUP" runat="server"><td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.IsProxy()) { Execute("/controls/control.aspx"); } %></td></apn:WhenControl>
+								<apn:WhenControl type="TRIGGER" runat="server"><td><% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.IsProxy()) { Execute("/controls/button.aspx"); }  %></td></apn:WhenControl>
 								<apn:WhenControl type="HIDDEN" runat="server"><td class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 								<apn:Otherwise runat="server">
-								<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !IsProxy(trField.Current)) { %>
+								<% if(!trField.Current.getAttribute("visible").Equals("false") && !trField.Current.getCSSClass().Contains("hide-from-list-view") && !trField.IsProxy()) { %>
 									<% if(trField.Current.getCSSClass().Contains("datatable-editable") && (!IsSummary && !IsPdf)) { %>
 										<td class='<apn:cssClass runat="server" />' style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td>
 									<% } else if(trField.Current.getType() == 1014 /*date*/) { %>

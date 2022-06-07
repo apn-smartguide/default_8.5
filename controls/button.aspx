@@ -1,4 +1,5 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
+<%@ Import Namespace="SG.Theme.Core" %>
 <apn:control runat="server" id="control">
 	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? "disabled" : ""; %>
 	<% Context.Items["aria-label"] = ""; %>
@@ -20,11 +21,11 @@
 		}
 	%>
 	<% if (
-		((Helpers.IsProxy(control) && !ProxyRender) || 
+		((control.IsProxy() && !ProxyRender) || 
 		(IsWizardButton(control.Current) && !WizardRender)) && 
-		IsAvailable(control.Current)
+		IsAvailable(control)
 	) { %>
-	<% } else if (!IsAvailable(control.Current) || IsPdf || IsSummary) { %>
+	<% } else if (!IsAvailable(control) || IsPdf || IsSummary) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else if (control.Current.getAttribute("class").Equals("view-xml-button") || control.Current.getAttribute("class").Equals("pdf-button")) { %>
 		<span class="ml-1 mr-1" id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>

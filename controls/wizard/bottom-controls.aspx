@@ -30,23 +30,23 @@
 			<% } %>
 			<apn:forEach runat="server" id="row">
 				<apn:forEach runat="server" id="col">
-					<apn:forEach runat="server" id="field">
+					<apn:forEach runat="server" id="sgfield">
 						<apn:ChooseControl runat="server">
 							<% WizardRender = true; // render btn-wizard if you see any, but don't render proxies in here. %>
 							<apn:WhenControl type="TRIGGER" runat="server">
-							<% if (IsWizardButton(field.Current) && !IsProxy(field.Current)) { Execute("/controls/button.aspx");} %>
+							<% if (IsWizardButton(sgfield.Current) && !sgfield.IsProxy()) { Execute("/controls/button.aspx");} %>
 							</apn:WhenControl>
 							<apn:WhenControl type="GROUP" runat="server">
 								<apn:forEach runat="server" id="groupRow">
 									<apn:forEach runat="server" id="groupCol">
 										<apn:forEach runat="server" id="groupField">
-											<% if (IsWizardButton(groupField.Current) && !IsProxy(groupField.Current)) { Execute("/controls/control.aspx");} %>
+											<% if (IsWizardButton(groupField.Current) && !groupField.IsProxy()) { Execute("/controls/control.aspx");} %>
 										</apn:forEach>
 									</apn:forEach>
 								</apn:forEach>
 							</apn:WhenControl>
 							<apn:Otherwise runat="server">
-							<% if (IsWizardButton(field.Current) && !IsProxy(field.Current)) { Execute("/controls/custom/buttons.aspx");} %>
+							<% if (IsWizardButton(sgfield.Current) && !sgfield.IsProxy()) { Execute("/controls/custom/buttons.aspx");} %>
 							</apn:Otherwise>
 							<% WizardRender = false; %>
 						</apn:ChooseControl>

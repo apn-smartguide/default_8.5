@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 	<% string cssClass = control.Current.getCSSClass(); %>
 	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " disabled='disabled'" : ""; %>
-	<% if (!IsAvailable(control.Current)) { %>
+	<% if (!IsAvailable(control)) { %>
 	<div id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></div>
 	<% } else { %>
 	<div id='div_<apn:name runat="server"/>' class='form-group' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>

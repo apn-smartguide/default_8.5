@@ -7,7 +7,7 @@ Context.Items["html5type"] = "text";
 if (control.Current.getAttribute("html5type").Length > 0) { Context.Items["html5type"] = control.Current.getAttribute("html5type"); }
 if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) { Context.Items["no-col-layout"] = (string)Context.Items["no-col-layout"] + " "; } else { Context.Items["no-col-layout"] = "";}
 Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";
-if (!IsAvailable(control.Current)) {
+if (!IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
 } else {
 %>

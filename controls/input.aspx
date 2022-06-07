@@ -13,7 +13,7 @@ if(Context.Items["no-col"] != null && (bool)Context.Items["no-col"] == true ) {
 	Context.Items["no-col-layout"] = "";
 }
 
-if(control.Current.getAttribute("style").Contains("visibility:hidden;") || !IsAvailable(control.Current)) {
+if(control.Current.getAttribute("style").Contains("visibility:hidden;") || !IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
 } else {
 	Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? " readonly='readonly'" : "";

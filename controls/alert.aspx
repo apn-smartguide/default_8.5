@@ -2,7 +2,7 @@
 <apn:control runat="server" id="control">
 	<% 
 	Context.Items["label"] = GetLabel(control.Current);
-	if (!IsAvailable(control.Current) || (IsPdf && IsHidePdf(control.Current)) || (IsSummary && IsHideSummary(control.Current))) {
+	if (!IsAvailable(control) || (IsPdf && control.IsHidePdf()) || (IsSummary && control.IsHideSummary())) {
 	%>
 	<section id='div_<apn:name runat="server"/>' style='display:none;' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>></section>
 	<% } else { %>

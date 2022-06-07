@@ -1,12 +1,13 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>	
 	<apn:control runat="server" id="control">	
 	<%
+	//todo:refactor
 	string customControl = control.Current.getNonLocalizedMetaDataValue("Controls");
-	if((IsPdf && IsHidePdf(control.Current)) || (!IsPdf && IsPdfOnly(control.Current))) {
+	if((IsPdf && control.IsHidePdf()) || (!IsPdf && control.IsPdfOnly())) {
 	} else if (!customControl.Equals("")) {
 		string controlsPath = GetCustomControlPathForCurrentControl(customControl);
 		if(!controlsPath.Equals("")) Server.Execute(controlsPath);
-	} else if(IsProxy(control.Current)) {
+	} else if(control.IsProxy()) {
 	} else {
 	%>
 	<apn:choosecontrol runat="server">

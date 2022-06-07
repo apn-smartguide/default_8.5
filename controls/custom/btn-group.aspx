@@ -1,9 +1,9 @@
 <%@ Page Language="C#" autoeventwireup="true" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
 <% 
-if (!IsAvailable(control.Current)) {
+if (!IsAvailable(control)) {
 	Execute("/controls/hidden.aspx");
-} else if(IsPdf && IsHidePdf(control.Current)) {
+} else if(IsPdf && control.IsHidePdf()) {
 } else {
 	Context.Items["btn-group"] = true;
 	string textAlignmentCSSClasses = GetTextAlignmentCSSClasses(control.Current.getCSSClass());
