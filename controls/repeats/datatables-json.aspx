@@ -14,7 +14,7 @@ if(Request["sEcho"] != null && !Request["sEcho"].Equals(""))
 {
 	draw = HttpUtility.JavaScriptStringEncode(Request["sEcho"]);
 }
-Response.Output.Write(Helpers.GetDatatablesJSONResult(this, tableName, draw));
+Response.Output.Write(Repeat.GetDatatablesJSONResult(this, tableName, draw));
 %>
 <script runat="server">
 	protected override void OnPreRender(EventArgs e) {

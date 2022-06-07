@@ -162,7 +162,7 @@
 							int rowId = trGroup.getCount() - 1;
 							ISmartletField selectRow = FindFieldByNameUnderRepeat(sel.Current.getCode(), rowId);
 							string check = "true".Equals(sel.Current.getValue()) ? "checked" : "";
-							Response.Output.Write(Helpers.RenderSelectionInput((ISmartletRepeat)repeat.Field, selectRow, rowId, check));
+							Response.Output.Write(Repeat.RenderSelectionInput((ISmartletRepeat)repeat.Field, selectRow, rowId, check));
 						%>
 					</apn:control>
 				</td>

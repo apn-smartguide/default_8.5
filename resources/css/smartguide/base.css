@@ -472,6 +472,8 @@ table.uploads-render tr td {
 .btn {
 	min-width: 44px;
 	min-height: 20px !important;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
 .btn.pull-right {
