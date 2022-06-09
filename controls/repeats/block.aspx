@@ -2,7 +2,7 @@
 <% 
 	Context.Items["hiddenName"] = "";
 	Context.Items["isOnlyStatic"] = true ;
-	Context.Items["optionIndex"] = 0;
+	Context.Items["repeatIndex"] = 0;
 %>
 <apn:control runat="server" id="control">
 <%
@@ -99,7 +99,7 @@
 				<div id='div_<apn:name runat="server"/>_body' class='<%=Class("group-collapse")%> <% if (control.Current.getCSSClass().Contains("open")) { %>in<% }%>'>
 				<% } %>
 				<apn:forEach id="status" runat="server">
-					<% Context.Items["optionIndex"] = status.getCount(); %>
+					<% Context.Items["repeatIndex"] = status.getCount(); %>
 					<div class='<% if ((bool)Context.Items["plain-group"] || (bool)Context.Items["panel-borderless"]) { %> panel-borderless <% } else { Class("group-body"); } %> repeatinstance' id='div_<apn:name runat="server" />_<%= status.getCount()%>'>
 						<% if (!(bool)Context.Items["hideDeleteButton"] || (bool)Context.Items["showMoveUpDownButton"] || (bool)Context.Items["isSelectable"]) { %>
 						<div class='row block-controls'>
@@ -132,7 +132,7 @@
 					</div>
 				</apn:forEach>
 				</table>
-				<% Context.Items["optionIndex"] = ""; %>
+				<% Context.Items["repeatIndex"] = ""; %>
 				<% if (control.Current.getCSSClass().Contains("collapsible")) { %>
 				</div>
 				<% } %>

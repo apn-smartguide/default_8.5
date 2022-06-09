@@ -87,7 +87,7 @@
 				</td>
 				<% } %>
 				<% BareRender = true; %>
-				<% Context.Items["optionIndex"] = status.getCount(); %>
+				<% Context.Items["repeatIndex"] = status.getCount(); %>
 				<% Execute("/controls/repeats/table-col.aspx"); %>
 				<% BareRender = false; %>	
 				<% if (!IsPdf && !IsSummary) { %>
@@ -100,7 +100,7 @@
 			</tr>
 			<% Context.Items.Remove("aria-labelledby"); %>
 		</apn:forEach>
-		<% Context.Items["optionIndex"] = ""; %>
+		<% Context.Items["repeatIndex"] = ""; %>
 	</tbody>
 	</table>
 </div>

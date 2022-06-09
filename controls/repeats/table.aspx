@@ -165,7 +165,7 @@
 				<%-- if you have a custom editable checkbox/radio and are client-side paged, add a onChange Ajax action to update server view of state --%>
 				<tbody>
 					<apn:forEach id="status" runat="server">
-						<% Context.Items["optionIndex"] = status.getCount(); %>
+						<% Context.Items["repeatIndex"] = status.getCount(); %>
 						<tr id='tr_<apn:name runat="server"/>_<%= status.getCount()%>'>
 							<% if ((bool)Context.Items["isSelectable"]) { %>
 							<td>
@@ -188,7 +188,7 @@
 						</tr>
 						<% Context.Items.Remove("aria-labelledby"); %>
 					</apn:forEach>
-					<% Context.Items["optionIndex"] = ""; %>
+					<% Context.Items["repeatIndex"] = ""; %>
 				</tbody>
 				<%
 				string tableFooterGroupName = control.Current.getCode() + "_footer";

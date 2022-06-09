@@ -51,7 +51,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		<table class='<%=control.Current.getCSSClass()%>'>
 			<tbody>
 			<apn:forEach runat="server" id="status">
-				<% Context.Items["optionIndex"] = status.getCount(); %>
+				<% Context.Items["repeatIndex"] = status.getCount(); %>
 				<tr>
 					<td>
 						<table>
@@ -132,7 +132,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 					</td>
 				</tr>
 			</apn:forEach>
-			<% Context.Items["optionIndex"] = 0; %>
+			<% Context.Items["repeatIndex"] = 0; %>
 			</tbody>
 		</table>
 	</div>

@@ -4,8 +4,10 @@
 	<script runat="server">
 		//We must declare the variable here, so it remains visible troughout the processing of the control.
 		SG.Theme.Core.Button button;
+		int repeatIndex = 0;
 	</script>
 	<% button = new SG.Theme.Core.Button(this, control); %>
+	<% repeatIndex = (Context.Items["repeatIndex"] != null && !Context.Items["repeatIndex"].Equals("")) ? (int)Context.Items["repeatIndex"] : 0; %>
 	<% Context.Items["readonly"] = (control.Current.getAttribute("readonly").Equals("readonly")) ? "disabled" : ""; %>
 	<% Context.Items["aria-label"] = ""; %>
 	<% Context.Items["label"] = control.Current.getLabel(); %>
@@ -50,16 +52,16 @@
 			<% } %>
 		</span>
 	<% } else if ((Context.Items["btn-group"] != null && Convert.ToBoolean(Context.Items["btn-group"])) || (Context.Items["btn-toolbar"] != null && Convert.ToBoolean(Context.Items["btn-toolbar"]))) { %>
-		<%= button.Render() %>
+		<%= button.Render(repeatIndex) %>
 		<%-- <button type="button" id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg <apn:cssclass runat="server"/> <%=Context.Items["readonly"]%>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(control.Current).Equals("")){ %> data-toggle='tooltip' data-html='true' <%=Context.Items["tooltip-attribute"]%> <% } %> <% if (control.Current.getCSSClass().IndexOf("disable-event-targets") == -1) { %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> <% } %> <apn:metadata runat="server" /> <%=Context.Items["aria-label"]%>><%= Context.Items["label"] %></button> --%>
 	<% } else if (Context.Items["no-col"] != null && Convert.ToBoolean(Context.Items["no-col"])) { %>
 		<span class="ml-1 mr-1" id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
-			<%= button.Render() %>
+			<%= button.Render(repeatIndex) %>
 			<%-- <button type="button" id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg <apn:cssclass runat="server" /> <%=Context.Items["readonly"]%>' style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(control.Current).Equals("")){ %> data-toggle='tooltip' data-html='true' <%=Context.Items["tooltip-attribute"]%> <% } %> <% if (control.Current.getCSSClass().IndexOf("disable-event-targets") == -1) { %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> <% } %> <apn:metadata runat="server" /> <%=Context.Items["aria-label"]%>><%= Context.Items["label"] %></button> --%>
 		</span>	
 	<% } else { %>
 		<span class="ml-1 mr-1" id='div_<apn:name runat="server" />' <% if(!control.Current.getAttribute("eventsource").Equals("")) { %>aria-live='polite' <% } %>>
-			<%= button.Render() %>
+			<%= button.Render(repeatIndex) %>
 			<%-- <button type="button" id='<apn:name runat="server"/>' name='<apn:name runat="server"/>' class='sg <apn:cssclass runat="server" /> <%=Context.Items["readonly"]%>' <%=Context.Items["readonly"]%> style='<apn:controlattribute runat="server" attr="style"/> <apn:cssstyle runat="server"/>' <% if (!GetTooltip(control.Current).Equals("")){ %> data-toggle='tooltip' data-html='true' <%=Context.Items["tooltip-attribute"]%> <% } %> <% if (control.Current.getCSSClass().IndexOf("disable-event-targets") == -1) { %> <% if(!control.Current.getAttribute("eventtarget").Equals("")) { %>data-eventtarget='[<%=control.Current.getAttribute("eventtarget")%>]' aria-controls='<%=control.Current.getAttribute("eventtarget").Replace("\"","")%>' <% } %> <% } %> <apn:metadata runat="server" /> <%=Context.Items["aria-label"]%>><%= Context.Items["label"] %></button> --%>
 		</span>
 	<% } %>

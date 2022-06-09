@@ -211,14 +211,14 @@
 			<% if(repeat.IsClienSide()) { %>
 			<tbody>
 				<apn:forEach runat="server" id="trGroup">
-				<% Context.Items["optionIndex"] = trGroup.getCount(); %>
+				<% Context.Items["repeatIndex"] = trGroup.getCount(); %>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
 				<% if (repeat.IsSelectableRow()) { %>
 				<td>
 					<apn:control runat="server" type="select_instance" id="sel">
 						<%
-							int rowId = trGroup.getCount() - 1;
-							ISmartletField selectRow = FindFieldByNameUnderRepeat(sel.Current.getCode(), rowId);
+							int rowId = trGroup.getCount();
+							ISmartletField selectRow = FindFieldByNameUnderRepeat(sel.Current.getCode(), rowId - 1);
 							string check = "true".Equals(sel.Current.getValue()) ? "checked" : "";
 							Response.Output.Write(Repeat.RenderSelectionInput((ISmartletRepeat)repeat.Field, selectRow, rowId, check));
 						%>
@@ -235,7 +235,9 @@
 											<apn:forEach runat="server" id="trRowField">
 												<apn:ChooseControl runat="server">
 													<apn:WhenControl type="GROUP" runat="server"><% if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %><td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td><% } %></apn:WhenControl>
-													<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trRowField) && !trRowField.HideFromListView() && !trRowField.IsHeadingControl() && !trRowField.IsProxy()) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
+													<apn:WhenControl type="TRIGGER" runat="server"><% 
+													System.Diagnostics.Debugger.Break();
+													if(IsAvailable(trRowField) && !trRowField.HideFromListView() && !trRowField.IsHeadingControl() && !trRowField.IsProxy()) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 													<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 													<apn:Otherwise runat="server">
 														<% if(IsAvailable(trRowField) && !trRowField.HideFromListView() && !trRowField.IsHeadingControl() && !trRowField.IsProxy()) { %>
@@ -250,7 +252,7 @@
 															<% } else { %>
 																<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 															<% } %>
-														<% } else { %>
+														<% } else if (!trRowField.IsHeadingControl() && !trRowField.IsProxy()){ %>
 															<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trRowField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 														<% } %>
 													</apn:Otherwise>
@@ -259,7 +261,9 @@
 										</apn:forEach>
 									</apn:WhenControl>
 									<apn:WhenControl type="GROUP" runat="server"><% if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %><td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td><% } %></apn:WhenControl>
-									<apn:WhenControl type="TRIGGER" runat="server"><% if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
+									<apn:WhenControl type="TRIGGER" runat="server"><% 
+									System.Diagnostics.Debugger.Break();
+									if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
 										<% if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %>
@@ -281,7 +285,7 @@
 											<% } else { %>
 												<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 											<% } %>
-										<% } else { %>
+										<% } else if (!trField.IsHeadingControl() && !trField.IsProxy()){ %>
 											<td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server" /><% } %></td>
 										<% } %>
 									</apn:Otherwise>
@@ -291,7 +295,7 @@
 					</apn:forEach>
 				<% if (!repeat.CSSClass.Contains("block-render") || repeat.CSSClass.Contains("table-render") || repeat.CSSClass.Contains("table-view")) { %></tr><% } %>
 				</apn:forEach>
-				<% Context.Items["optionIndex"] = 0; %>
+				<% Context.Items["repeatIndex"] = 0; %>
 			</tbody>
 			<% } %>
 		</table>

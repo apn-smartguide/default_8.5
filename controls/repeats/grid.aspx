@@ -164,7 +164,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 		</thead>
 		<tbody>
 		<apn:forEach id="status" runat="server">
-			<% Context.Items["optionIndex"] = status.getCount(); %>
+			<% Context.Items["repeatIndex"] = status.getCount(); %>
 			<% Context.Items["isEditOrDelete"] = "true".Equals(status.Current.getAttribute("edit-instance")) || "true".Equals(status.Current.getAttribute("new-instance")); %>
 			<tr role='row' id='tr_<apn:name runat="server"/>_<%= status.getCount()%>' class='<%=((bool)Context.Items["isEditOrDelete"]? "active" : "")%>'>
 				<% if ((bool)Context.Items["isSelectable"]) { %>
@@ -245,7 +245,7 @@ Context.Items["btnAddType"] = "prepare_add_instance";
 				<% } %>
 			</tr>
 		</apn:forEach>
-		<% Context.Items["optionIndex"] = 0; %>
+		<% Context.Items["repeatIndex"] = 0; %>
 		</tbody>
 	</table>
 	</div>

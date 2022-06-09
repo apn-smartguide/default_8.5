@@ -33,7 +33,7 @@ if (!IsAvailable(control)) {
 										<% 
 											Context.Items["id"] = control6.Current.getAttribute("id");
 											if(SmartguideMajorVersion < 10) {
-													Context.Items["id"] += "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"];
+													Context.Items["id"] += "_" + Context.Items["repeatIndex"] + "_" + Context.Items["index"];
 											}
 											Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 											if (!control6.Current.getLabel().Equals("")) { Context.Items["label"] = control6.Current.getLabel(); }
@@ -53,7 +53,7 @@ if (!IsAvailable(control)) {
 									<% 
 										Context.Items["id"] = control5.Current.getAttribute("id");
 										if(SmartguideMajorVersion < 10) {
-												Context.Items["id"] += "_" + Context.Items["optionIndex"] + "_" + Context.Items["index"];
+												Context.Items["id"] += "_" + Context.Items["repeatIndex"] + "_" + Context.Items["index"];
 										}
 										Context.Items["aria-labelledby"] = "lbl_" + Context.Items["id"];
 										if (!control5.Current.getLabel().Equals("")) { Context.Items["label"] = control5.Current.getLabel(); }
