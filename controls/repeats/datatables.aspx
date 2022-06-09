@@ -1,12 +1,70 @@
 <%@ Page Language="C#" autoeventwireup="false" Inherits="SG.Theme.Core.WebPage" Trace="false"%>
 <apn:control runat="server" id="control">
+<script runat="server">
+	//We must declare the variable here, so it remains visible troughout the processing of the control.
+	SG.Theme.Core.Repeat repeat = null;
+
+	// Obtain the configure RenderMode from data-attribute: Datatable -> RenderMode [Server Side|Client Side]
+	// Note; for server-side paging, you must configure the service that provides the data with the following:
+	// Input [filter] this is a fulltext filtering on all columns displayed that are not flag nonsearcheable
+	// Input [limit] this is the maximum items per page to return.
+	// Example beanshell for this input, adjust [datatable] to whatever your datatable is names ex.: "employees_list"
+	// ${
+	// limit = requestParameter("iDisplayLength");
+	// if (limit == null || limit.equals("")) {
+	//     // fallback on meta if specified
+	//     limit = field([datatable]).meta("data-page-length");
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // otherwise the field specified value if defined
+	//     limit = field([datatable]).getLimit();
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // use default of 10
+	//     limit = 10;
+	// }
+	//return limit;}$
+	//
+	// Input [page] this is the page to load.
+	// Example beanshell for this input, adjust [datatable] to whatever your datatable is names ex.: "employees_list"
+	// ${
+	// limit = requestParameter("iDisplayLength");
+	// if (limit == null || limit.equals("")) {
+	//     // fallback on meta if specified
+	//     limit = field([datatable]).meta("data-page-length");
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // otherwise the field specified value if defined
+	//     limit = field([datatable]).getLimit();
+	// }
+	// if (limit == null || limit.equals("")) {
+	//     // use default of 10
+	//     limit = 10;
+	// }
+
+	// start = requestParameter("iDisplayStart");
+	// if (start == null || start.equals("")) {
+	//     // fallback on current page number
+	// 	// which we must multiply by the limit since SG considers a page number instead of item index
+	//     start = NUM(field([datatable]).getCurrentPage()) * NUM(limit);
+	// }
+	// if (start == null || start.equals("")) {
+	//     // default to page 1, so "0" as the starting index
+	//     start = 0;
+	// }
+
+	// page = NUM(start)/NUM(limit) + 1;
+	// return page;}$
+	//
+	// Output [total] this is the total entries matching the filter (all if no filter).
+	// Actual names of the Inputs may vary depending on you service implementation.
+</script>
 <% 
-	repeat = new SG.Theme.Core.Repeat(this, control);;
-	Context.Items["hiddenName"] = "";
+	repeat = new SG.Theme.Core.Repeat(this, control);
 	Logger.debug("Repeat:" + repeat.Name);
-
 	repeat.HasPaging = "true".Equals(control.Current.getAttribute("hasPagination")) && !repeat.HideSearch;
-
+	
+	Context.Items["hiddenName"] = "";
 	if (!IsAvailable(control)) {
 		Execute("/controls/hidden.aspx");
 	} else {
@@ -245,62 +303,3 @@
 <% } %>
 <% repeat = null; %>
 </apn:control>
-<script runat="server">
-	//We must declare the repeat variable here, so it remains visible troughout the processing of the control.
-	SG.Theme.Core.Repeat repeat = null;
-
-	// Obtain the configure RenderMode from data-attribute: Datatable -> RenderMode [Server Side|Client Side]
-	// Note; for server-side paging, you must configure the service that provides the data with the following:
-	// Input [filter] this is a fulltext filtering on all columns displayed that are not flag nonsearcheable
-	// Input [limit] this is the maximum items per page to return.
-	// Example beanshell for this input, adjust [datatable] to whatever your datatable is names ex.: "employees_list"
-	// ${
-	// limit = requestParameter("iDisplayLength");
-	// if (limit == null || limit.equals("")) {
-	//     // fallback on meta if specified
-	//     limit = field([datatable]).meta("data-page-length");
-	// }
-	// if (limit == null || limit.equals("")) {
-	//     // otherwise the field specified value if defined
-	//     limit = field([datatable]).getLimit();
-	// }
-	// if (limit == null || limit.equals("")) {
-	//     // use default of 10
-	//     limit = 10;
-	// }
-	//return limit;}$
-	//
-	// Input [page] this is the page to load.
-	// Example beanshell for this input, adjust [datatable] to whatever your datatable is names ex.: "employees_list"
-	// ${
-	// limit = requestParameter("iDisplayLength");
-	// if (limit == null || limit.equals("")) {
-	//     // fallback on meta if specified
-	//     limit = field([datatable]).meta("data-page-length");
-	// }
-	// if (limit == null || limit.equals("")) {
-	//     // otherwise the field specified value if defined
-	//     limit = field([datatable]).getLimit();
-	// }
-	// if (limit == null || limit.equals("")) {
-	//     // use default of 10
-	//     limit = 10;
-	// }
-
-	// start = requestParameter("iDisplayStart");
-	// if (start == null || start.equals("")) {
-	//     // fallback on current page number
-	// 	// which we must multiply by the limit since SG considers a page number instead of item index
-	//     start = NUM(field([datatable]).getCurrentPage()) * NUM(limit);
-	// }
-	// if (start == null || start.equals("")) {
-	//     // default to page 1, so "0" as the starting index
-	//     start = 0;
-	// }
-
-	// page = NUM(start)/NUM(limit) + 1;
-	// return page;}$
-	//
-	// Output [total] this is the total entries matching the filter (all if no filter).
-	// Actual names of the Inputs may vary depending on you service implementation.
-</script>
