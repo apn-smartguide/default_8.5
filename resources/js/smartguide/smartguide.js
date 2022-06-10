@@ -196,7 +196,7 @@ $("form[id^='smartguide_']").each(function () {
 					if ($(this).attr('type') === 'date' && typeof smartletfields[id].events.onblur === 'undefined') {
 						$(this).off('blur', r.bindThisAllowSelfRefresh).on('blur', r.bindThisAllowSelfRefresh);
 					}
-					if (($(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio') && typeof smartletfields[id].events.onchange === 'undefined') {
+					if (($(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio') && (typeof smartletfields[id].events.onchange === 'undefined' && typeof smartletfields[id].events.onclick === 'undefined')) {
 						$(this).off('change', r.bindThisAllowSelfRefresh).on('change', r.bindThisAllowSelfRefresh);
 					}
 					if ($(this).attr('type') === 'image' && typeof smartletfields[id].events.onclick === 'undefined') {
@@ -501,6 +501,14 @@ $("form[id^='smartguide_']").each(function () {
 			var jqEvent = event.toLowerCase();
 			if (jqEvent.indexOf("on") == 0) {
 				jqEvent = jqEvent.substring(2);
+			}
+
+			indexPos = $field.attr("id").indexOf("[");
+			indexKey = $field.attr("id").substring(indexPos);
+
+			if(fieldHtmlName.indexOf("[") <= 0 && indexKey.length > 0) {
+				fieldHtmlName += indexKey;
+				fieldHtmlName = CSS.escape(fieldHtmlName);
 			}
 
 			// check if we need to bind the div_ of a repeat or group field

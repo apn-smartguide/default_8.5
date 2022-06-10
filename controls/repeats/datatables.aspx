@@ -211,16 +211,15 @@
 			<% if(repeat.IsClienSide()) { %>
 			<tbody>
 				<apn:forEach runat="server" id="trGroup">
-				<% Context.Items["repeatIndex"] = trGroup.getCount(); %>
+				<% Context.Items["repeatIndex"] = trGroup.Index; %>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
 				<% if (repeat.IsSelectableRow()) { %>
 				<td>
 					<apn:control runat="server" type="select_instance" id="sel">
 						<%
-							int rowId = trGroup.getCount();
-							ISmartletField selectRow = FindFieldByNameUnderRepeat(sel.Current.getCode(), rowId - 1);
+							int rowId = trGroup.Index;
 							string check = "true".Equals(sel.Current.getValue()) ? "checked" : "";
-							Response.Output.Write(Repeat.RenderSelectionInput((ISmartletRepeat)repeat.Field, selectRow, rowId, check));
+							Response.Output.Write(Repeat.RenderSelectionInput((ISmartletRepeat)repeat.Field, rowId, check));
 						%>
 					</apn:control>
 				</td>

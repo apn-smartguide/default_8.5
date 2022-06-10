@@ -287,6 +287,67 @@ var utilsController = {
 	}
 }
 
+$.fn.preBind = function (type, data, fn) {
+	this.on(type, data, fn);
+
+	var currentBindings = jQuery._data(this, "events")[type];
+	var currentBindingsLastIndex = currentBindings.length - 1;
+
+	var newBindings = [];
+
+	newBindings.push(currentBindings[currentBindingsLastIndex]);
+
+	$.each(currentBindings, function (index) {
+		if (index < currentBindingsLastIndex)
+			newBindings.push(this);
+	});
+
+	jQuery._data(this, "events")[type] = newBindings;
+
+	return this;
+};
+
+// Same as .on() but moves the binding to the front of the queue.
+$.fn.priorityOn = function (type, fn) {
+	this.each(function () {
+		var $this = $(this);
+		var types = type.split(" ");
+		for (var t in types) {
+			$this.on(types[t], fn);
+			var currentBindings = $._data(this, 'events')[types[t]];
+			if ($.isArray(currentBindings)) {
+				currentBindings.unshift(currentBindings.pop());
+			}
+		}
+	});
+	return this;
+};
+
+// Same as .on() but moves the binding to the front of the queue.
+$.fn.callbackOn = function (type, fn) {
+	this.each(function () {
+		var $this = $(this);
+		var types = type.split(" ");
+		for (var t in types) {
+			var eventsArray = [];
+			$._data(this, 'events')[types[t]].forEach(function (obj) {
+				var handler = obj.handler;
+				if(typeof handler != undefined) eventsArray.push(handler);
+			},this);
+
+			$this.off(types[t]);
+			$this.on(types[t], function(e){
+				fn.call(this, function(e){
+					for(var i =0; i < eventsArray.length; i++) {
+						eventsArray[i].call($this, e);
+					}
+				},e);
+			});
+		}
+	});
+	return this;
+};
+
 // Polyfill for Object.assign from https://developer.mozilla.org/
 if (typeof Object.assign !== 'function') {
 	// Must be writable: true, enumerable: false, configurable: true

@@ -75,8 +75,14 @@ var WETdataTablesController = {
 			var dataTable = $(this).closest('table').DataTable();
 			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
 
+			var hiddenName = $(this).attr('id');
+			//var inputName = hiddenName.substring(0, hiddenName.indexOf("[")).replace("d_s", "d_");
+
+			
+			
 			// If checkbox is not checked
 			if(!this.checked){
+				$('[type=hidden][name=' + CSS.escape(hiddenName) + ']').val(false);
 				var el = $('[name=select_all]', $(this).closest('table')).get(0);
 				// If "Select all" control is checked and has 'indeterminate' property
 				if(el && el.checked && ('indeterminate' in el)){
@@ -85,6 +91,7 @@ var WETdataTablesController = {
 					el.indeterminate = true;
 				}
 			} else {
+				$('[type=hidden][name=' + CSS.escape(hiddenName) + ']').val(true);
 				// must verify if all element on page have been checked
 				var dataTable = $(this).closest('table').DataTable();
 				var rows = dataTable.rows({ 'page': 'current' }).nodes();
@@ -107,30 +114,44 @@ var WETdataTablesController = {
 			}
 		});
 		
+		
 		// support for selection radios for server side repeats
-		$('[type=radio][name^=d_s]').off('click').on('click', function() {
+		$('[type=radio]', $('.wb-tables tbody', context)).off('click', RadioSelections).callbackOn('click', RadioSelections);
+
+		function RadioSelections(completeCallback, event) {
+			var $this = $(this);
 			var dataTable = $(this).closest('table').DataTable();
 			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
 
 			// unselect all, then just re-selects our instance (e.g. d_s1590340615680[5])
 			var id = $(this).attr('id');
-			id = id.substring(0, id.indexOf("["));
+			var hiddenName = id.substring(0, id.indexOf("["));
+			var inputName = id.substring(0, id.indexOf("[")).replace("d_s", "d_");
 			if (dataTable.page.info().serverSide) {
-				$('[type=radio][name^='+id+']').prop('checked', false);
+				$('[type=radio][name^=' + inputName + ']').prop('checked', false);
 			} else {
 				// client side must fetch all radios
 				var rows = dataTable.rows({ 'page': 'all' }).nodes();
-				$('[type=radio][name^='+id+']', rows).prop('checked', false);
+				$('[type=radio][name^=' + inputName + ']', rows).prop('checked', false);
 			}
+			$('[type=hidden][name^=' + hiddenName + ']').val(false);
+			$('[type=hidden][name=' + CSS.escape(id) + ']').val(true);
 			$(this).prop('checked', true);
-			
+			$(this).prop('disabled', true);
+
 			// check if we are server side, in which case we must post
-			if (dataTable.page.info().serverSide) {
-				var originalAction = $("form").attr('action');
-				$("form").attr('action', dataTablesSelections);
-				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: tableId }});
-				$("form").attr('action', originalAction);
-			}
-		});
+			//if (dataTable.page.info().serverSide) {
+			//var originalAction = $("form").attr('action');
+			//$("form").attr('action', dataTablesSelections);
+
+			$("form").ajaxSubmit({
+				url: dataTablesSelections, data: { appID: smartletName, tableId: tableId }, success: function () {
+				//$("form").attr('action', originalAction);
+				$this.prop('disabled', false);
+				if (completeCallback) completeCallback(event);
+			}});
+
+			//}
+		}
 	}
 }
