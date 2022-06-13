@@ -309,21 +309,32 @@ $.fn.callbackOn = function (type, fn) {
 	this.each(function () {
 		var $this = $(this);
 		var types = type.split(" ");
-		for (var t in types) {
-			var eventsArray = [];
-			$._data(this, 'events')[types[t]].forEach(function (obj) {
-				var handler = obj.handler;
-				if(typeof handler != undefined) eventsArray.push(handler);
-			},this);
+		if(typeof $._data(this, 'events') !== 'undefined') {
+			for (var t in types) {
+				var eventsArray = [];
+				var handlers = $._data(this, 'events')[types[t]];
+				if(typeof handlers !== 'undefined' && handlers.length > 0) {
+					handlers.forEach(function (obj) {
+						var handler = obj.handler;
+						if(typeof handler != undefined) eventsArray.push(handler);
+					},this);
+				}
 
-			$this.off(types[t]);
-			$this.on(types[t], function(e){
-				fn.call(this, function(e){
-					for(var i =0; i < eventsArray.length; i++) {
-						eventsArray[i].call($this, e);
-					}
-				},e);
-			});
+				if (typeof handlers !== 'undefined' && handlers.length > 0) {
+					$this.off(types[t]);
+					$this.on(types[t], function(e){
+						fn.call(this, function(e){
+							for(var i =0; i < eventsArray.length; i++) {
+								eventsArray[i].call($this, e);
+							}
+						},e);
+					});
+				} else {
+					$this.on(types[t], fn.call(this));
+				}
+			}
+		} else {
+			$this.on(type, fn.call(this));
 		}
 	});
 	return this;

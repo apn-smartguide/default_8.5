@@ -69,15 +69,21 @@ var WETdataTablesController = {
 			}
 		});
 
-		// Handle click on checkbox to set state of "Select all" control
-		$('input[type="checkbox"]', '.wb-tables tbody').off('change').on('change', function(){
-			var dataTable = $(this).closest('table').DataTable();
-			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
-			var hiddenName = $(this).attr('id');
+		$('[type=checkbox]', $('.wb-tables tbody', context)).off('change', CheckboxSelections).on('change', CheckboxSelections);
+
+		function CheckboxSelections(completeCallback, event) {
+			var $this = $(this);
+			var dataTable = $this.closest('table').DataTable();
+			var tableId = $this.closest('.dataTables_wrapper').parents(".repeat").attr('id');
 			
+			//var selectId = CSS.escape($(this).attr('id')); // e.g. d_s1590340615680[5] -  numeric part might be different from repeatId, if using a Proxy
+			//var selectName = CSS.escape($(this).attr('name')); //e.g. d_1590340615680 numeric part might be different from repeatId, if using a Proxy
+			//var repeatId = CSS.escape($this.data('repeat-id')); //e.g. 1590340615680 - does not contains d_
+			var intanceId = CSS.escape($this.data('instance-id')); // e.g. d_s1590340615680[5] - numric part is = to repeatId
+
 			// If checkbox is not checked
 			if(!this.checked){
-				$('[type=hidden][name=' + CSS.escape(hiddenName) + ']').val(false);
+				$('[type=hidden][name=' + intanceId + ']').val(false);
 				var el = $('[name=select_all]', $(this).closest('table')).get(0);
 				// If "Select all" control is checked and has 'indeterminate' property
 				if(el && el.checked && ('indeterminate' in el)){
@@ -86,9 +92,8 @@ var WETdataTablesController = {
 					el.indeterminate = true;
 				}
 			} else {
-				$('[type=hidden][name=' + CSS.escape(hiddenName) + ']').val(true);
+				$('[type=hidden][name=' + intanceId + ']').val(true);
 				// must verify if all element on page have been checked
-				var dataTable = $(this).closest('table').DataTable();
 				var rows = dataTable.rows({ 'page': 'current' }).nodes();
 				var totalRows = rows.length;
 				// how many checked
@@ -99,46 +104,37 @@ var WETdataTablesController = {
 					el.indeterminate = false;
 				}
 			}
-			// check if we are server side, in which case we must post
-			if (dataTable.page.info().serverSide) {
-				// ajax call to selection aspx file
-				var originalAction = $("form").attr('action');
-				$("form").attr('action', dataTablesSelections);
-				$("form").ajaxSubmit({data:{ appID: smartletName, tableId: tableId }});
-				$("form").attr('action', originalAction);
-			}
-		});
+
+			$this.prop('disabled', true);
+			$("form").ajaxSubmit({
+				url: dataTablesSelections, data: { appID: smartletName, tableId: tableId }, success: function () {
+					$this.prop('disabled', false);
+					//if (typeof completeCallback !== 'undefined') completeCallback(event);
+				}
+			});
+		}
 		
 		// support for selection radios for server side repeats
 		$('[type=radio]', $('.wb-tables tbody', context)).off('click', RadioSelections).callbackOn('click', RadioSelections);
 
 		function RadioSelections(completeCallback, event) {
 			var $this = $(this);
-			//var dataTable = $(this).closest('table').DataTable();
-			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
+			var tableId = $this.closest('.dataTables_wrapper').parents(".repeat").attr('id');
 
 			//var selectId = CSS.escape($(this).attr('id')); // e.g. d_s1590340615680[5] -  numeric part might be different from repeatId, if using a Proxy
 			//var selectName = CSS.escape($(this).attr('name')); //e.g. d_1590340615680 numeric part might be different from repeatId, if using a Proxy
-			var repeatId = CSS.escape($(this).data('repeat-id')); //e.g. 1590340615680 - does not contains d_
-			var intanceId = CSS.escape($(this).data('instance-id')); // e.g. d_s1590340615680[5] - numric part is = to repeatId
-
-			//if (dataTable.page.info().serverSide) {
-				//$('[type=radio][name^=d_' + selectName + ']').prop('checked', false);
-			//} else {
-				// client side must fetch all radios
-				//var rows = dataTable.rows({ 'page': 'all' }).nodes();
-				//$('[type=radio][name^=d_' + selectName + ']', rows).prop('checked', false);
-			//}
+			var repeatId = CSS.escape($this.data('repeat-id')); //e.g. 1590340615680 - does not contains d_
+			var intanceId = CSS.escape($this.data('instance-id')); // e.g. d_s1590340615680[5] - numric part is = to repeatId
 
 			$('[type=hidden][name^=d_s' + repeatId + ']').val(false);
 			$('[type=hidden][name=' + intanceId + ']').val(true);
-			$(this).prop('checked', true);
-			$(this).prop('disabled', true);
+			$this.prop('checked', true);
+			$this.prop('disabled', true);
 
 			$("form").ajaxSubmit({
 				url: dataTablesSelections, data: { appID: smartletName, tableId: tableId }, success: function () {
 				$this.prop('disabled', false);
-				if (completeCallback) completeCallback(event);
+				if (typeof completeCallback !== 'undefined') completeCallback(event);
 			}});
 		}
 	}
