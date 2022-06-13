@@ -1,6 +1,6 @@
 var tinymceController = {
 	toolbarNone: false,
-	toolbarBasic: 'undo redo | bold italic underline | charmap',
+	toolbarBasic: 'tinyAttribution| undo redo | bold italic underline | charmap',
 	toolbarFull: 'tinyAttribution | undo redo | styleselect | table | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | charmap',
 	config: {
 		selector: "TEXTAREA.tinymce",
@@ -44,7 +44,7 @@ var tinymceController = {
 			'searchreplace fullscreen',
 			'paste help wordcount'
 		  ],
-		toolbar: 'undo redo | bold italic underline | charmap',
+		toolbar: 'tinyAttribution | undo redo | bold italic underline | charmap',
 		  setup: function (editor) {
 			editor.on('change', function () {
 				editor.save();
