@@ -69,16 +69,11 @@ var WETdataTablesController = {
 			}
 		});
 
-		//TODO: The following is broken, enabling this will reset the datatable on any click of checkboxes
 		// Handle click on checkbox to set state of "Select all" control
 		$('input[type="checkbox"]', '.wb-tables tbody').off('change').on('change', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
-
 			var hiddenName = $(this).attr('id');
-			//var inputName = hiddenName.substring(0, hiddenName.indexOf("[")).replace("d_s", "d_");
-
-			
 			
 			// If checkbox is not checked
 			if(!this.checked){
@@ -114,7 +109,6 @@ var WETdataTablesController = {
 			}
 		});
 		
-		
 		// support for selection radios for server side repeats
 		$('[type=radio]', $('.wb-tables tbody', context)).off('click', RadioSelections).callbackOn('click', RadioSelections);
 
@@ -139,19 +133,11 @@ var WETdataTablesController = {
 			$(this).prop('checked', true);
 			$(this).prop('disabled', true);
 
-			// check if we are server side, in which case we must post
-			//if (dataTable.page.info().serverSide) {
-			//var originalAction = $("form").attr('action');
-			//$("form").attr('action', dataTablesSelections);
-
 			$("form").ajaxSubmit({
 				url: dataTablesSelections, data: { appID: smartletName, tableId: tableId }, success: function () {
-				//$("form").attr('action', originalAction);
 				$this.prop('disabled', false);
 				if (completeCallback) completeCallback(event);
 			}});
-
-			//}
 		}
 	}
 }
