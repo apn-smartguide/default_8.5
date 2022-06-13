@@ -211,7 +211,7 @@
 			<% if(repeat.IsClienSide()) { %>
 			<tbody>
 				<apn:forEach runat="server" id="trGroup">
-				<% Context.Items["repeatIndex"] = trGroup.Index; %>
+				<% Context.Items["repeatIndex"] = trGroup.Index + 1; %>
 				<% if (!control.Current.getCSSClass().Contains("block-render") || control.Current.getCSSClass().Contains("table-render") || control.Current.getCSSClass().Contains("table-view")) { %><tr><% } %>
 				<% if (repeat.IsSelectableRow()) { %>
 				<td>

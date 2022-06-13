@@ -114,22 +114,24 @@ var WETdataTablesController = {
 
 		function RadioSelections(completeCallback, event) {
 			var $this = $(this);
-			var dataTable = $(this).closest('table').DataTable();
+			//var dataTable = $(this).closest('table').DataTable();
 			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
 
-			// unselect all, then just re-selects our instance (e.g. d_s1590340615680[5])
-			var id = $(this).attr('id');
-			var hiddenName = id.substring(0, id.indexOf("["));
-			var inputName = id.substring(0, id.indexOf("[")).replace("d_s", "d_");
-			if (dataTable.page.info().serverSide) {
-				$('[type=radio][name^=' + inputName + ']').prop('checked', false);
-			} else {
+			//var selectId = CSS.escape($(this).attr('id')); // e.g. d_s1590340615680[5] -  numeric part might be different from repeatId, if using a Proxy
+			//var selectName = CSS.escape($(this).attr('name')); //e.g. d_1590340615680 numeric part might be different from repeatId, if using a Proxy
+			var repeatId = CSS.escape($(this).data('repeat-id')); //e.g. 1590340615680 - does not contains d_
+			var intanceId = CSS.escape($(this).data('instance-id')); // e.g. d_s1590340615680[5] - numric part is = to repeatId
+
+			//if (dataTable.page.info().serverSide) {
+				//$('[type=radio][name^=d_' + selectName + ']').prop('checked', false);
+			//} else {
 				// client side must fetch all radios
-				var rows = dataTable.rows({ 'page': 'all' }).nodes();
-				$('[type=radio][name^=' + inputName + ']', rows).prop('checked', false);
-			}
-			$('[type=hidden][name^=' + hiddenName + ']').val(false);
-			$('[type=hidden][name=' + CSS.escape(id) + ']').val(true);
+				//var rows = dataTable.rows({ 'page': 'all' }).nodes();
+				//$('[type=radio][name^=d_' + selectName + ']', rows).prop('checked', false);
+			//}
+
+			$('[type=hidden][name^=d_s' + repeatId + ']').val(false);
+			$('[type=hidden][name=' + intanceId + ']').val(true);
 			$(this).prop('checked', true);
 			$(this).prop('disabled', true);
 

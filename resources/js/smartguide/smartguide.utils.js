@@ -287,27 +287,8 @@ var utilsController = {
 	}
 }
 
-$.fn.preBind = function (type, data, fn) {
-	this.on(type, data, fn);
-
-	var currentBindings = jQuery._data(this, "events")[type];
-	var currentBindingsLastIndex = currentBindings.length - 1;
-
-	var newBindings = [];
-
-	newBindings.push(currentBindings[currentBindingsLastIndex]);
-
-	$.each(currentBindings, function (index) {
-		if (index < currentBindingsLastIndex)
-			newBindings.push(this);
-	});
-
-	jQuery._data(this, "events")[type] = newBindings;
-
-	return this;
-};
-
 // Same as .on() but moves the binding to the front of the queue.
+// Note, this does not garranty first call will complete before next, all call are still sent async.
 $.fn.priorityOn = function (type, fn) {
 	this.each(function () {
 		var $this = $(this);
@@ -323,7 +304,7 @@ $.fn.priorityOn = function (type, fn) {
 	return this;
 };
 
-// Same as .on() but moves the binding to the front of the queue.
+// Will remove the events from the object, place them in an array to be called on the callback of the event passed in argument.
 $.fn.callbackOn = function (type, fn) {
 	this.each(function () {
 		var $this = $(this);
