@@ -261,7 +261,7 @@
 									</apn:WhenControl>
 									<apn:WhenControl type="GROUP" runat="server"><% if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %><td style='<apn:cssStyle runat="server" />'><% Execute("/controls/control.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="TRIGGER" runat="server"><% 
-									System.Diagnostics.Debugger.Break();
+									//System.Diagnostics.Debugger.Break();
 									if(IsAvailable(trField) && !trField.HideFromListView() && !trField.IsHeadingControl() && !trField.IsProxy()) { %><td><% Execute("/controls/button.aspx"); %></td><% } %></apn:WhenControl>
 									<apn:WhenControl type="HIDDEN" runat="server"><td id='<apn:name runat="server"/>' class="hide"><% if(GetMetaDataValue(trField.Current, "unsafe").Equals("true")) { %><apn:value runat="server"/><% } %></td></apn:WhenControl>
 									<apn:Otherwise runat="server">
