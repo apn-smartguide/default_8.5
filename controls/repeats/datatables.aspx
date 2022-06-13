@@ -217,7 +217,7 @@
 				<td>
 					<apn:control runat="server" type="select_instance" id="sel">
 						<%
-							int rowId = trGroup.Index;
+							int rowId = trGroup.Index + 1;
 							string check = "true".Equals(sel.Current.getValue()) ? "checked" : "";
 							Response.Output.Write(Repeat.RenderSelectionInput((ISmartletRepeat)repeat.Field, rowId, check));
 						%>
