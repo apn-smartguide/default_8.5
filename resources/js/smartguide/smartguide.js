@@ -504,7 +504,8 @@ $("form[id^='smartguide_']").each(function () {
 			}
 
 			indexPos = $field.attr("id").indexOf("[");
-			indexKey = $field.attr("id").substring(indexPos);
+			indexKey = "";
+			if(indexPos > 0) indexKey = $field.attr("id").substring(indexPos);
 
 			if(fieldHtmlName.indexOf("[") <= 0 && indexKey.length > 0) {
 				fieldHtmlName += indexKey;
