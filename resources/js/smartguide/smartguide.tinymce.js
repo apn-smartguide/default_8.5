@@ -1,6 +1,7 @@
 var tinymceController = {
 	toolbarNone: false,
-	toolbarBasic: 'tinyAttribution| undo redo | bold italic underline | charmap',
+	toolbarBasic: 'undo redo | bold italic underline | charmap',
+	toolbarBasicAttribution: 'tinyAttribution | undo redo | bold italic underline | charmap',
 	toolbarFull: 'tinyAttribution | undo redo | styleselect | table | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | charmap',
 	config: {
 		selector: "TEXTAREA.tinymce",
