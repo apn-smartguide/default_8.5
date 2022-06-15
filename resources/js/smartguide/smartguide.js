@@ -498,6 +498,9 @@ $("form[id^='smartguide_']").each(function () {
 		},
 		_bindModalFieldEvent: function ($field, contextField, fieldType, fieldHtmlName, event, isServer, clientEvent, isAjax) {
 			var r = SMARTGUIDES[smartletCode];
+
+			if(typeof fieldHtmlName == 'undefined') return;
+			
 			var jqEvent = event.toLowerCase();
 			if (jqEvent.indexOf("on") == 0) {
 				jqEvent = jqEvent.substring(2);
