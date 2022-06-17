@@ -48,9 +48,9 @@ var WETdataTablesController = {
 					el.indeterminate = false;
 				}
 			}
-			if (rebindInitiator != "WETdataTablesController") {
-				sgRef.bindEvents([id], "WETdataTablesController");
-			}
+			//if (rebindInitiator != "WETdataTablesController") {
+				sgRef.bindEvents([$("#" + id)], "WETdataTablesController");
+			//}
 		});
 
 		$('[name=select_all]', '.wb-tables thead tr th').first().off('click').on('click', function(){
