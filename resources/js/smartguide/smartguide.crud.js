@@ -1,15 +1,10 @@
 var crudController = {
-	init: function (sgRef) {
-
-	},
+	init: function (sgRef) { },
 	bindEvents: function (sgRef, context) {
 		var r = sgRef;
 		var $form = sgRef.fm;
 
-		// Note: bootstrap modal should be refactored to
-		// https://wet-boew.github.io/v4.0-ci/demos/overlay/overlay-en.html
-
-		$('.repeat_prepare_add_btn', $form).off('click').on('click', function () {
+		$('.repeat_prepare_add_btn', $(context)).off('click').on('click', function () {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -26,7 +21,6 @@ var crudController = {
 					$('.alert', modal).html('').hide();
 					modal.data('data', $('input,textarea,select', modal).serialize());
 					modal.modal({ backdrop: 'static', keyboard: false });
-					//$('[data-toggle="tooltip"]', modal).tooltip();
 					modal.on('hide.bs.modal', function (e) {
 						var cancelBtn = $('button.btn.repeat_cancel_add_btn', this);
 						var newinput = '<input type="hidden" name="' + cancelBtn[0].id + '" id="' + cancelBtn[0].id + '" value="' + cancelBtn[0].id + '" />';
@@ -43,7 +37,7 @@ var crudController = {
 			);
 		});
 		// repeat save added instance
-		$('.repeat_save_add_btn', $form).off('click').on('click', function (e) {
+		$('.repeat_save_add_btn', $(context)).off('click').on('click', function (e) {
 			//onAddInstance
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
@@ -86,7 +80,7 @@ var crudController = {
 			);
 		});
 		//cancel add
-		$('.repeat_cancel_add_btn', $form).off('click').on('click', function () {
+		$('.repeat_cancel_add_btn', $(context)).off('click').on('click', function () {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -112,7 +106,7 @@ var crudController = {
 			);
 		});
 		//repeat prepare edit instance
-		$('.repeat_prepare_edit_btn', $form).off('click').on('click', function () {
+		$('.repeat_prepare_edit_btn', $(context)).off('click').on('click', function () {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -150,7 +144,7 @@ var crudController = {
 			);
 		});
 		//Cancel edit repeat
-		$('.repeat_cancel_edit_btn', $form).off('click').on('click', function () {
+		$('.repeat_cancel_edit_btn', $(context)).off('click').on('click', function () {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var level = $this.attr('data-level');
@@ -176,7 +170,7 @@ var crudController = {
 			);
 		});
 		//Save edit instance
-		$('.repeat_save_edit_btn', $form).off('click').on('click', function (e) {
+		$('.repeat_save_edit_btn', $(context)).off('click').on('click', function (e) {
 			//onUpdateInstance
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
@@ -225,7 +219,7 @@ var crudController = {
 		});
 
 		//Delete instance
-		$('.repeat_del_btn').off('click').on('click', function (e) {
+		$('.repeat_del_btn', $(context)).off('click').on('click', function (e) {
 			if (!confirm(crudModalsTranslations.deleteRow)) return false;
 			$('#loader').fadeIn("fast");
 			//onDeleteInstance
@@ -252,7 +246,7 @@ var crudController = {
 		});
 
 		/**** Non CRUD table/group mode ****/
-		$('.repeat_table_add_btn, .repeat_block_add_btn').off('click').on('click', function (e) {
+		$('.repeat_table_add_btn, .repeat_block_add_btn', context).off('click').on('click', function (e) {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
@@ -270,9 +264,10 @@ var crudController = {
 			function(){
 				$("#loader").fadeOut("fast");
 			});
+			
 		});
 
-		$('.repeat_table_insert_btn, .repeat_block_insert_btn').off('click').on('click', function(e) {
+		$('.repeat_table_insert_btn, .repeat_block_insert_btn', context).off('click').on('click', function(e) {
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
 			var $repeat = $this.closest('div.repeat');
@@ -305,7 +300,7 @@ var crudController = {
 		});
 
 		//delete
-		$('.repeat_table_del_btn, .repeat_block_del_btn').off('click').on('click', function (e) {
+		$('.repeat_table_del_btn, .repeat_block_del_btn', $(context)).off('click').on('click', function (e) {
 			//onDeleteInstance
 			if (!confirm(crudModalsTranslations.deleteRow))  return false;
 			$('#loader').fadeIn("fast");
@@ -341,7 +336,7 @@ var crudController = {
 		});
 
 		//Move up
-		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn').off('click').on('click', function (e) {
+		$('.repeat_table_moveup_btn, .repeat_block_moveup_btn, .repeat_moveup_btn', $(context)).off('click').on('click', function (e) {
 			//onMoveUpInstance
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
@@ -371,7 +366,7 @@ var crudController = {
 		});
 
 		//Move down
-		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn').off('click').on('click', function (e) {
+		$('.repeat_table_movedown_btn, .repeat_block_movedown_btn, .repeat_movedown_btn', $(context)).off('click').on('click', function (e) {
 			//onMoveDownInstance
 			$('#loader').fadeIn("fast");
 			var $this = $(this);
@@ -401,7 +396,7 @@ var crudController = {
 		});
 
 		//hide-from-list-view
-		$('.hide-from-list-view', r.fm).each(function(){
+		$('.hide-from-list-view', $(context)).each(function(){
 			//ignore element under '.crud-modal'
 			if ($(this).closest('.modal-body').length > 0) return;
 			if ($(this).closest('td').length > 0) $(this).closest('td').remove();

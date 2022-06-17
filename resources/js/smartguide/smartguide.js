@@ -253,14 +253,14 @@ $("form[id^='smartguide_']").each(function () {
 
 						if (field.isUnderRepeat) {
 							for (var j = 0; j < ajaxUpdates.length; j++) {
-								if ($(ajaxUpdates[j]).is($field[0]) || $.contains(ajaxUpdates[j][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
+								if ($(ajaxUpdates[j]).is($field[0]) || $.contains($(ajaxUpdates[j])[0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
 									updated = true;
 									break;
 								}
 							}
 						} else {
 							for (var i = 0; i < ajaxUpdates.length; i++) {
-								if ($(ajaxUpdates[i]).is($field[0]) || $.contains(ajaxUpdates[i][0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
+								if ($(ajaxUpdates[i]).is($field[0]) || $.contains($(ajaxUpdates[i])[0], $field[0]) || $.inArray(field.repeatId, updatedRepeatIds) > -1) {
 									updated = true;
 									break;
 								}

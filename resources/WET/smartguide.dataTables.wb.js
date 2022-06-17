@@ -3,7 +3,7 @@ var WETdataTablesController = {
 	
 	bindEvents: function (sgRef, context, rebindInitiator) {
 
-		$( ".wb-tables", context ).off("wb-init.wb-tables").on("wb-init.wb-tables", function() {
+		$(".wb-tables", $(context) ).off("wb-init.wb-tables").on("wb-init.wb-tables", function() {
 			var id = $(this).parents(".repeat").attr("id");
 			if(typeof id !== 'undefined') {
 				//console.log("bindEvents:wb-tables (initing) " + id);
@@ -15,19 +15,19 @@ var WETdataTablesController = {
 			}
 		});
 
-		$('.datatables.wb-tables:not(.wb-tables-inited)', context).each(function () {
+		$('.datatables.wb-tables:not(.wb-tables-inited)', $(context)).each(function () {
 			if (rebindInitiator != "WETdataTablesController") {
 				$(this).trigger("wb-init.wb-tables");
 			}
 		});
 
-		$('input[type=date]', context).not("wb-date-inited").each( function () {
+		$('input[type=date]', $(context)).not("wb-date-inited").each( function () {
 			//console.log("bindEvents:wb-date (re-initing) " + this.id);
 			$(this).trigger("wb-init.wb-date");
 		});
 
 		// rebind on wet datatable event
-		$(".wb-tables", context).off("wb-updated.wb-tables").on("wb-updated.wb-tables", function (event) {
+		$(".wb-tables", $(context)).off("wb-updated.wb-tables").on("wb-updated.wb-tables", function (event) {
 			// handle status of select all checkbox if available
 			var id = $(this).parents(".repeat").attr("id");
 			var el = $('[name=select_all]', $(this).closest('table')).get(0);
@@ -53,7 +53,7 @@ var WETdataTablesController = {
 			//}
 		});
 
-		$('[name=select_all]', '.wb-tables thead tr th').first().off('click').on('click', function(){
+		$('[name=select_all]', $('.wb-tables thead tr th', $(context))).first().off('click').on('click', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
 			var rows = dataTable.rows({ 'page': 'current' }).nodes();
@@ -69,7 +69,7 @@ var WETdataTablesController = {
 			}
 		});
 
-		$('[type=checkbox]', $('.wb-tables tbody', context)).off('change', CheckboxSelections).on('change', CheckboxSelections);
+		$('[type=checkbox]', $('.wb-tables tbody')).off('change', CheckboxSelections).on('change', CheckboxSelections);
 
 		function CheckboxSelections(completeCallback, event) {
 			var $this = $(this);
@@ -115,7 +115,7 @@ var WETdataTablesController = {
 		}
 		
 		// support for selection radios for server side repeats
-		$('[type=radio]', $('.wb-tables tbody', context)).off('click', RadioSelections).callbackOn('click', RadioSelections);
+		$('[type=radio]', $('.wb-tables tbody')).off('click', RadioSelections).callbackOn('click', RadioSelections);
 
 		function RadioSelections(completeCallback, event) {
 			var $this = $(this);
