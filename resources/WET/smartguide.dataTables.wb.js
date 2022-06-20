@@ -3,7 +3,7 @@ var WETdataTablesController = {
 	
 	bindEvents: function (sgRef, context, rebindInitiator) {
 
-		$(".wb-tables", $(context) ).off("wb-init.wb-tables").on("wb-init.wb-tables", function() {
+		$(".wb-tables").off("wb-init.wb-tables").on("wb-init.wb-tables", function() {
 			var id = $(this).parents(".repeat").attr("id");
 			if(typeof id !== 'undefined') {
 				//console.log("bindEvents:wb-tables (initing) " + id);
@@ -15,7 +15,7 @@ var WETdataTablesController = {
 			}
 		});
 
-		$('.datatables.wb-tables:not(.wb-tables-inited)', $(context)).each(function () {
+		$('.datatables.wb-tables:not(.wb-tables-inited)').each(function () {
 			if (rebindInitiator != "WETdataTablesController") {
 				$(this).trigger("wb-init.wb-tables");
 			}
@@ -27,7 +27,7 @@ var WETdataTablesController = {
 		});
 
 		// rebind on wet datatable event
-		$(".wb-tables", $(context)).off("wb-updated.wb-tables").on("wb-updated.wb-tables", function (event) {
+		$(".wb-tables").off("wb-updated.wb-tables").on("wb-updated.wb-tables", function (event) {
 			// handle status of select all checkbox if available
 			var id = $(this).parents(".repeat").attr("id");
 			var el = $('[name=select_all]', $(this).closest('table')).get(0);
@@ -69,8 +69,8 @@ var WETdataTablesController = {
 			}
 		});
 
-		$('[type=checkbox]', $('.wb-tables tbody')).off('change', CheckboxSelections).on('change', CheckboxSelections);
-
+		$('[type=checkbox]', $('.wb-tables tbody')).off('change', CheckboxSelections).callbackOn('change', CheckboxSelections);
+		
 		function CheckboxSelections(completeCallback, event) {
 			var $this = $(this);
 			var dataTable = $this.closest('table').DataTable();
@@ -105,11 +105,11 @@ var WETdataTablesController = {
 				}
 			}
 
-			$this.prop('disabled', true);
+			$("[name='" + $this.attr("name") + "']").prop('disabled', true);
 			$("form").ajaxSubmit({
 				url: dataTablesSelections, data: { appID: smartletName, tableId: tableId }, success: function () {
-					$this.prop('disabled', false);
-					//if (typeof completeCallback !== 'undefined') completeCallback(event);
+					if (typeof completeCallback !== 'undefined' && completeCallback != null) completeCallback(event);
+					$("[name='" + $this.attr("name") + "']").prop('disabled', false);
 				}
 			});
 		}
@@ -133,9 +133,10 @@ var WETdataTablesController = {
 
 			$("form").ajaxSubmit({
 				url: dataTablesSelections, data: { appID: smartletName, tableId: tableId }, success: function () {
-				$this.prop('disabled', false);
-				if (typeof completeCallback !== 'undefined') completeCallback(event);
-			}});
+					if (typeof completeCallback !== 'undefined' && completeCallback != null) completeCallback(event);
+					$this.prop('disabled', false);
+				}
+			});
 		}
 	}
 }

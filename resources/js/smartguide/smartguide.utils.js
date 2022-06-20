@@ -308,36 +308,43 @@ $.fn.priorityOn = function (type, fn) {
 $.fn.callbackOn = function (type, fn) {
 	this.each(function () {
 		var $this = $(this);
-		var types = type.split(" ");
-		if(typeof $._data(this, 'events') !== 'undefined') {
-			for (var t in types) {
-				var eventsArray = [];
-				var handlers = $._data(this, 'events')[types[t]];
-				if(typeof handlers !== 'undefined' && handlers.length > 0) {
-					handlers.forEach(function (obj) {
-						var handler = obj.handler;
-						if(typeof handler != undefined) eventsArray.push(handler);
-					},this);
-				}
+		$this.off(type, callbackHandler);
+		$this.off(type, simpleHandler);
 
-				if (typeof handlers !== 'undefined' && handlers.length > 0) {
-					$this.off(types[t]);
-					$this.on(types[t], function(e){
-						fn.call(this, function(e){
-							for(var i =0; i < eventsArray.length; i++) {
-								eventsArray[i].call($this, e);
-							}
-						},e);
-					});
-				} else {
-					$this.on(types[t], fn.call(this));
-				}
+		if(typeof $._data(this, 'events') !== 'undefined') {
+			var eventsArray = [];
+			var handlers = $._data(this, 'events')[type];
+			if(typeof handlers !== 'undefined' && handlers.length > 0) {
+				handlers.forEach(function (obj) {
+					var handler = obj.handler;
+					if (typeof handler != undefined && handler.name != "callbackHandler") eventsArray.push(handler);
+				},this);
+			}
+
+			if (typeof handlers !== 'undefined' && handlers.length > 0) {
+				$this.off(type);
+				$this.on(type, {"fn":fn, "callbacks": eventsArray, "obj":$this}, callbackHandler);
+			} else {
+				$this.on(type, {"fn":fn}, simpleHandler);
 			}
 		} else {
-			$this.on(type, fn.call(this));
+			$this.on(type, { "fn": fn }, simpleHandler);
 		}
 	});
 	return this;
+
+	function simpleHandler(e) {
+		e.data.fn.call(this)
+	}
+	function callbackHandler(e) {
+		var callbacks = e.data.callbacks;
+		var obj = e.data.obj;
+		e.data.fn.call(this, function (e) {
+			for (var i = 0; i < callbacks.length; i++) {
+				callbacks[i].call(obj, e);
+			}
+		}, e);
+	}
 };
 
 // Polyfill for Object.assign from https://developer.mozilla.org/

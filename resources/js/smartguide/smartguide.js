@@ -180,7 +180,9 @@ $("form[id^='smartguide_']").each(function () {
 
 			// basic bindings for field with dependencies to other fields (and no actions defined)
 			$('select:has(option[data-eventtarget]),input[type=image][data-eventtarget],input[type=checkbox][data-eventtarget],input[type=radio][data-eventtarget],input[type=date][data-eventtarget],input[type=text][data-eventtarget],input[type=password][data-eventtarget],textarea[data-eventtarget]').each(function () { // check if we already have events attached
-				var id = CSS.escape($(this).attr('name'));
+				var id = $(this).attr('name');
+				if (id.indexOf("[")> 0) id = id.substring(0,id.indexOf("["));
+
 				if (typeof smartletfields[id] !== 'undefined') {
 					if ($(this).is('textarea') || $(this).attr('type') === 'text' || $(this).attr('type') === 'password') {
 						if (typeof smartletfields[id].events.onkeyup === 'undefined') {
@@ -951,6 +953,8 @@ $("form[id^='smartguide_']").each(function () {
 						var sourceSGLIBDiv = $('#sglib');
 						var targetSGLIBDiv = $('#sglib', response);
 						$(sourceSGLIBDiv).after(targetSGLIBDiv).remove();
+
+						if(updated && updated.length == 0) updated = undefined;
 
 						r.bindEvents(updated);
 
