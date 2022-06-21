@@ -45,7 +45,6 @@
 <% if(Options.Contains("TTS")) { %>
 <script src='<%= CacheBreak("/resources/js/RecordRTC.js") %>'></script>
 <% } %>
-<script src='<%= CacheBreak("/resources/js/select2.full.min.js") %>'></script>
 <% if(!Options.Contains("WET") || !Options.Contains("CDTS")) { %>
 <script src='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.js") %>'></script>
 <%--<script src='<%= CacheBreak("/resources/plugins/dataTables/DataTables-1.11.3/js/jquery.datatables.js") %>'></script>--%>
@@ -54,6 +53,7 @@
 <% if(Options.Contains("ARCGIS")) { %>
 <script src="https://js.arcgis.com/4.20/"></script>
 <% } %>
+<script src='<%= CacheBreak("/resources/plugins/select2/js/select2.full.min.js") %>'></script>
 
 <!-- SmartGuide JS -->
 <script src='<%= CacheBreak("/resources/js/smartguide/smartguide.js") %>'></script>

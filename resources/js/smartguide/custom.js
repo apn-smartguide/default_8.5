@@ -35,6 +35,14 @@ var customJS = {
 			crudController.bindEvents(sgRef, context[i]);
 		}
 
+		$('.select2').select2(
+			{
+				tags: "true",
+				placeholder: "Select an option",
+				allowClear: true
+			}
+		);
+
 		$('select.select2.countries').select2({
 			minimumInputLength: 3,
 			ajax: {

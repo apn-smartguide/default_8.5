@@ -52,8 +52,13 @@ var utilsController = {
 			}
 		});
 
+		//basic select2, convert a regular dropdown into a combobox.
+		//form more advanced implementation, create your own selector and implement in custom.js
+		$('select.select2, select.autocomplete').select2();
+
 		// Devbridge autocomplete dropdowns
 		// https://github.com/devbridge/jQuery-Autocomplete
+		// Deprecated, should refactor to use a select.select2 instead.
 		$('input.autocomplete', context).each(function () {
 			var datalist = [];
 			$('option', $(this).next()).each(function () {

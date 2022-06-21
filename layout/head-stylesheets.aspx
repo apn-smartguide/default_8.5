@@ -25,7 +25,8 @@
 <link href='<%= CacheBreak("/resources/fonts/fontawesome-free-5.15.3-web/css/all.min.css") %>' rel="stylesheet">
 
 <!-- Additional -->
-<link href='<%= CacheBreak("/resources/css/select2.min.css") %>' rel="stylesheet">
+<link href='<%= CacheBreak("/resources/plugins/select2/css/select2.min.css") %>' rel="stylesheet">
+<link href='<%= CacheBreak("/resources/plugins/select2/css/select2-bootstrap4.min.css") %>' rel="stylesheet">
 <% if(!Options.Contains("WET") || !Options.Contains("CDTS")) { %>
 <link href='<%= CacheBreak("/resources/plugins/dataTables/datatables.min.css") %>' rel="stylesheet">
 <%--<link href='<%= CacheBreak("/resources/plugins/dataTables/Responsive-2.2.9/css/responsive.datatables.min.css") %>' rel="stylesheet">--%>
