@@ -11,6 +11,15 @@ body.pdf .panel {
 	page-break-inside: avoid;
 }
 
+body.pdf > .panel-heading {
+	display:grid !important;
+	min-height: 30px;
+}
+
+body.pdf > .panel-title {
+	display: inline !important;
+}
+
 .recap .panel-heading .panel-title {
 	font-weight: bold;
 }

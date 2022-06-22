@@ -1,5 +1,7 @@
 var tinymceController = {
 	toolbarNone: false,
+	toolbarNoTools: 'undo redo',
+	toolbarNoToolsAttribution: 'tinyAttribution | undo redo',
 	toolbarBasic: 'undo redo | bold italic underline | charmap',
 	toolbarBasicAttribution: 'tinyAttribution | undo redo | bold italic underline | charmap',
 	toolbarFull: 'tinyAttribution | undo redo | styleselect | table | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | charmap',
