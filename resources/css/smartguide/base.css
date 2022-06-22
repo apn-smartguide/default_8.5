@@ -512,6 +512,10 @@ table.uploads-render tr td {
 	background-color: #5cb85c;
 }
 
+.btn-toolbar {
+	margin-bottom: 15px;
+}
+
 .btn-toolbar.text-center {
 	display: flex;
 	justify-content: center;
