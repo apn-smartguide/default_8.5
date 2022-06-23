@@ -53,6 +53,10 @@ var WETdataTablesController = {
 			//}
 		});
 
+		$(".wb-tables").off('preXhr.dt', dataTablesController.preDTAjaxCall).on('preXhr.dt', dataTablesController.preDTAjaxCall);
+		$(".wb-tables").off('xhr.dt', dataTablesController.postDTAjaxCall).on('xhr.dt', dataTablesController.postDTAjaxCall);
+
+
 		$('[name=select_all]', $('.wb-tables thead tr th', $(context))).first().off('click').on('click', function(){
 			var dataTable = $(this).closest('table').DataTable();
 			var tableId = $(this).closest('.dataTables_wrapper').parents(".repeat").attr('id');
