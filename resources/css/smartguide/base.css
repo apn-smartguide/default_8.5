@@ -583,6 +583,7 @@ input[type="password"], input[type="text"], input[type="number"], input[type="da
 .radio-inline,
 .checkbox-inline {
 	display: inline-block;
+	padding-left: 0px !important;
 }
 
 .radio-inline > ul,
@@ -680,7 +681,9 @@ width: 1px; }
 	height: 24px;
 	left: 0;
 	top: 2px;
-	width: 24px; }
+	width: 24px;
+	min-width: 24px;
+ }
 .large input[type="radio"] + label:hover::before,
 .large input[type="checkbox"] + label:hover::before {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#e6e5e5), color-stop(50%, white));
