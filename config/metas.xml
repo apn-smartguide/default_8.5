@@ -11,10 +11,10 @@
 			<value description="Canadian Postal Code" id="T2" name="A9A 9A9" value="A9A 9A9"/>
 			<value description="Standard North American Phone" id="T3" name="(999) 999-9999" value="(999) 999-9999"/>
 			<value description="Standard North American Phone w/ext" id="T4" name="(999) 999-9999 ext 999999" value="(999) 999-9999 ext 999999"/>
-			<value description="Canadian format telephone" id="T5" name="Telephone" value="999-999-9999"/>
+			<value description="Canadian format telephone" id="T5" name="999-999-9999" value="999-999-9999"/>
 			<value description="numbers (3 max)" id="T6" name="999" value="999"/>
 			<value description="numbers (4 max)" id="T7" name="9999" value="9999"/>
-			<value description="numbers (5 max)" id="T8" name="999999" value="99999"/>
+			<value description="numbers (5 max)" id="T8" name="99999" value="99999"/>
 			<value description="numbers (6 max)" id="T9" name="999999" value="999999"/>
 			<value description="numbers (7 max)" id="T10" name="9999999" value="9999999"/>
 			<value description="numbers (15 max)" id="T11" name="999999999999999" value="999999999999999"/>
@@ -91,6 +91,10 @@
 		</attribute>
 		<attribute description="For security purposes, hidden field are not rendered on the client, marking it unsafe, allows rendering the value to the client" id="T70" name="unsafe">
 			<value description="Render hidden field value to client browser" id="T1" name="true" value="true"/>
+		</attribute>
+		<attribute description="Select an HTML Role attribute to apply" id="T75" name="role">
+			<value description="" id="T1" name="presentation" value="presentation"/>
+			<value description="" id="T2" name="tablist" value="tablist"/>
 		</attribute>
 	</section>
 	<section description="Special Components" id="T2000" name="Components">
