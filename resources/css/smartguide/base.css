@@ -521,6 +521,13 @@ table.uploads-render tr td {
 	justify-content: flex-start;
 }
 
+.btn-toolbar button {
+	margin-left: 5px;
+}
+.btn-toolbar button:first-child {
+	margin-left: 0px;
+}
+
 .field-icon {
 	position: relative;
 	float: right;
