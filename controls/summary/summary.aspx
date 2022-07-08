@@ -14,8 +14,8 @@
 						<apn:label runat="server" />
 					</h2>
 					<%-- if (!IsPdf && !pageControl.Current.getCSSClass().Contains("hide-modify-btn")) { --%>
-					<div class='<%=Class("right")%> summaryBtn'>
-						<apn:control runat="server" type="modify" id="button"><input type='submit' class='btn btn-xs <%=Class("btn-secondary")%>' name='<apn:name runat="server"/>' value='<%=GetAttribute(button.Current, "label")%>' /></apn:control>
+					<div class='<% =Class("group-header-right")  %> summaryBtn'>
+						<apn:control runat="server" type="modify" id="button"><input type='submit' class='btn btn-sm <%=Class("btn-secondary")%>' name='<apn:name runat="server"/>' value='<%=GetAttribute(button.Current, "label")%>' /></apn:control>
 					</div>
 					<%-- } --%>
 				</div>
