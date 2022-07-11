@@ -57,7 +57,7 @@ public class KeepAlive : IRequiresSessionState, IHttpHandler
 			}
 
 			string SPRestAPI = GetAppSetting("SmartProfileRestApi");
-			if (smartProfileAuthCookie != null && SPRestAPI != null && !smartProfileAuthCookie.Value.Equals("")) {
+			if (smartProfileAuthCookie != null && SPRestAPI != null && SPRestAPI.Length > 0 && !smartProfileAuthCookie.Value.Equals("")) {
 				string apiUrl = GetAppSetting("SmartProfileRestApi")+"/spv3/utils/keepalive";
 				WebClient client = new WebClient();
 				client.Headers["SPAccessToken"] = GetAppSetting("SP.Smartlets.WS.AccessKey");
