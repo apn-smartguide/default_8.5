@@ -18,7 +18,11 @@ if (!IsAvailable(control)) {
 	<%-- for min or max attribute set via data attribute; Ex.: HTML -> Min -> setting --%>
 	<%-- For the setting place a hidden field named like the date-input + "-max" or "-min", note format is yyyy-mm-dd --%>
 	<% 
-		Context.Items["data-value"] = GetHTMLDate(control.Current);
+		if(Context.Items["html5type"].Equals("date")) {
+			Context.Items["data-value"] = GetHTMLDate(control.Current);
+		} else {
+			Context.Items["data-value"] = control.Current.getValue();
+		}
 	%>
 	<% if(ShowErrorsAbove) { %><apn:ifnotcontrolvalid runat="server"><strong id='<apn:name runat="server"/>-error' class='error'><span class='<%=Class("label-danger")%>'><% if (ShowEnumerationErrors){%><span class="prefix"><%=Smartlet.getLocalizedResource("theme.text.error-prefix").Replace("{1}", ErrorIndex.ToString()) %></span><%}%><%= control.Current.getAlert() %></span></strong></apn:ifnotcontrolvalid><% } %>
 	<% if (IsPdf || IsSummary) { %>
