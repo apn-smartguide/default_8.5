@@ -19,6 +19,10 @@
 			<value description="numbers (7 max)" id="T10" name="9999999" value="9999999"/>
 			<value description="numbers (15 max)" id="T11" name="999999999999999" value="999999999999999"/>
 		</attribute>
+		<attribute description="Configure data-mask unmasking behaviour" id="T21" name="data-mask-unmask">
+			<value description="Remove mask from the data before sending to server (default)" id="T1" name="true (default)" value="true"/>
+			<value description="Disable automatic unmaskink, i.e. mask will be sent to server with data." id="T2" name="false" value="false"/>
+		</attribute>
 		<attribute description="Modal size: small, normal, large, xtra large" id="T30" name="modal-size">
 			<value description="Small modal" id="T1" name="modal-sm" value="modal-sm"/>
 			<value description="Medium modal (requires no class be specified)" id="T2" name="modal-md" value=""/>

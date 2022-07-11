@@ -88,7 +88,14 @@ var utilsController = {
 				if (typeof dataMaskRaw !== 'undefined') {
 					$this.inputmask(JSON.parse(dataMaskRaw));
 				} else {
-					var options = { autoGroup: true, jitMasking: true, autoUnmask: true, removeMaskOnSubmit: true };
+					var unmask = $this.attr('data-mask-unmask');
+					if(typeof unmask === 'undefined' || unmask == "") {
+						unmask = true;
+					}
+
+					unmask = (unmask === 'true');
+
+					var options = { autoGroup: true, jitMasking: true, autoUnmask: unmask, removeMaskOnSubmit: unmask };
 					var dataMask = $this.attr('data-mask');
 					if (typeof dataMask !== 'undefined') {
 						$.extend(options, JSON.parse('{"mask":"' + dataMask + '"}'));
